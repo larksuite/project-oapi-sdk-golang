@@ -54,7 +54,7 @@ func listProjectWorkItemType(client *sdk.Client) {
 
 // 创建工作项类型
 func createWorkItem(client *sdk.Client) {
-	resp, err := client.WorkItem.CreateWorkItem(context.Background(), workitem.workitem.NewCreateWorkItemReqBuilder().
+	resp, err := client.WorkItem.CreateWorkItem(context.Background(), workitem.NewCreateWorkItemReqBuilder().
 		AccessUser("user_key").
 		ProjectKey("project_key").
 		WorkItemTypeKey("work_item_type_key").

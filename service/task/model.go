@@ -27,5 +27,5 @@ type SubDetail struct {
 
 	NodeID string `json:"node_id"`
 
-	SubTask *workitem.workitem `json:"sub_task"`
+	SubTask *workitem.SubTask `json:"sub_task"`
 }

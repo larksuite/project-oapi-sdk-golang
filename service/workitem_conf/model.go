@@ -73,7 +73,7 @@ type TemplateDetail struct {
 
 	StateFlowConfs []*StateFlowConfInfo `json:"state_flow_confs"`
 
-	Connections []*workitem.workitem `json:"connections"`
+	Connections []*workitem.Connection `json:"connections"`
 
 	TemplateID int64 `json:"template_id"`
 

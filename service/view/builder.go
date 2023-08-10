@@ -147,7 +147,7 @@ type QueryWorkItemDetailsByViewIDReqBody struct {
 
 	PageNum int64 `json:"page_num"`
 
-	Expand *workitem.workitem `json:"expand"`
+	Expand *workitem.Expand `json:"expand"`
 }
 
 type QueryWorkItemDetailsByViewIDResp struct {

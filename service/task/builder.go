@@ -383,7 +383,7 @@ type TaskDetailReq struct {
 type TaskDetailResp struct {
 	*core.ApiResp `json:"-"`
 	core.CodeError
-	Data []*workitem.workitem `json:"data"`
+	Data []*workitem.NodeTask `json:"data"`
 }
 
 type TaskDetailReqBuilder struct {

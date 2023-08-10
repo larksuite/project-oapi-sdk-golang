@@ -249,7 +249,7 @@ type ListProjectWorkItemTypeReq struct {
 type ListProjectWorkItemTypeResp struct {
 	*core.ApiResp `json:"-"`
 	core.CodeError
-	Data []*workitem.workitem `json:"data"`
+	Data []*workitem.WorkItemKeyType `json:"data"`
 }
 
 type ListProjectWorkItemTypeReqBuilder struct {

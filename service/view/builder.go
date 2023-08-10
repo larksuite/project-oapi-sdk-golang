@@ -17,14 +17,13 @@
 package view
 
 import (
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 	"fmt"
 	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
-
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem/v2"
 )
 
 type CreateFixViewReq struct {
@@ -148,7 +147,7 @@ type QueryWorkItemDetailsByViewIDReqBody struct {
 
 	PageNum int64 `json:"page_num"`
 
-	Expand *workitem.Expand `json:"expand"`
+	Expand *workitem.workitem `json:"expand"`
 }
 
 type QueryWorkItemDetailsByViewIDResp struct {

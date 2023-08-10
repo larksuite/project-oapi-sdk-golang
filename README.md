@@ -244,7 +244,7 @@ import (
 
 	sdk "code.byted.org/bits/project-oapi-sdk-golang"
 	sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/project/v2"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
 	"net/http"
 )
 
@@ -290,7 +290,7 @@ import (
 
     sdk "code.byted.org/bits/project-oapi-sdk-golang"
     sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
-    "code.byted.org/bits/project-oapi-sdk-golang/service/project/v2"
+    "code.byted.org/bits/project-oapi-sdk-golang/service/project"
 )
 
 func main() {

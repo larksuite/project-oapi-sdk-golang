@@ -17,7 +17,7 @@
 package workitem_conf
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem/v2"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 )
 
 type ConfirmForm struct {
@@ -73,7 +73,7 @@ type TemplateDetail struct {
 
 	StateFlowConfs []*StateFlowConfInfo `json:"state_flow_confs"`
 
-	Connections []*workitem.Connection `json:"connections"`
+	Connections []*workitem.workitem `json:"connections"`
 
 	TemplateID int64 `json:"template_id"`
 

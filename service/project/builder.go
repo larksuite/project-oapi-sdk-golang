@@ -17,12 +17,11 @@
 package project
 
 import (
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 	"fmt"
 	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
-
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem/v2"
 )
 
 type GetProjectDetailReq struct {
@@ -250,7 +249,7 @@ type ListProjectWorkItemTypeReq struct {
 type ListProjectWorkItemTypeResp struct {
 	*core.ApiResp `json:"-"`
 	core.CodeError
-	Data []*workitem.WorkItemKeyType `json:"data"`
+	Data []*workitem.workitem `json:"data"`
 }
 
 type ListProjectWorkItemTypeReqBuilder struct {

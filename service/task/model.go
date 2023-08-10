@@ -17,7 +17,7 @@
 package task
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem/v2"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 )
 
 type SubDetail struct {
@@ -27,5 +27,5 @@ type SubDetail struct {
 
 	NodeID string `json:"node_id"`
 
-	SubTask *workitem.SubTask `json:"sub_task"`
+	SubTask *workitem.workitem `json:"sub_task"`
 }

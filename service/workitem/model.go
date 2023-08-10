@@ -18,8 +18,8 @@ package workitem
 
 import (
 	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field/v2"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/user/v2"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
 )
 
 type Checker struct {

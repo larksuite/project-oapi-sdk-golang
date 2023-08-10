@@ -17,18 +17,15 @@
 package task
 
 import (
+	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 	"fmt"
 	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
-
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field/v2"
-
-	"code.byted.org/bits/project-oapi-sdk-golang/service/user/v2"
-
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem/v2"
 )
 
 type CreateSubTaskReq struct {
@@ -386,7 +383,7 @@ type TaskDetailReq struct {
 type TaskDetailResp struct {
 	*core.ApiResp `json:"-"`
 	core.CodeError
-	Data []*workitem.NodeTask `json:"data"`
+	Data []*workitem.workitem `json:"data"`
 }
 
 type TaskDetailReqBuilder struct {

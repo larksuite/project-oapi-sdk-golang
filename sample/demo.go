@@ -17,15 +17,15 @@
 package sample
 
 import (
+	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
+	sub_task "code.byted.org/bits/project-oapi-sdk-golang/service/task"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 	"context"
 	"fmt"
 
 	sdk "code.byted.org/bits/project-oapi-sdk-golang"
 	sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field/v2"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/project/v2"
-	sub_task "code.byted.org/bits/project-oapi-sdk-golang/service/task/v2"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem/v2"
 )
 
 // 获取空间下工作项类型
@@ -54,7 +54,7 @@ func listProjectWorkItemType(client *sdk.Client) {
 
 // 创建工作项类型
 func createWorkItem(client *sdk.Client) {
-	resp, err := client.WorkItem.CreateWorkItem(context.Background(), workitem.NewCreateWorkItemReqBuilder().
+	resp, err := client.WorkItem.CreateWorkItem(context.Background(), workitem.workitem.NewCreateWorkItemReqBuilder().
 		AccessUser("user_key").
 		ProjectKey("project_key").
 		WorkItemTypeKey("work_item_type_key").

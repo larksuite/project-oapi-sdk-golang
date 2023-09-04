@@ -13,6 +13,7 @@
 package core
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -41,7 +42,7 @@ func (resp ApiResp) JSONUnmarshalBody(val interface{}, config *Config) error {
 	if !strings.Contains(resp.Header.Get(contentTypeHeader), contentTypeJson) {
 		return fmt.Errorf("response content-type not json, response: %v", resp)
 	}
-	return config.Serializable.Deserialize(resp.RawBody, val)
+	return json.Unmarshal(resp.RawBody, val)
 }
 
 func (resp ApiResp) RequestId() string {

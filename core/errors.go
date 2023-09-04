@@ -35,11 +35,3 @@ type ServerTimeoutError struct {
 func (err *ServerTimeoutError) Error() string {
 	return err.msg
 }
-
-type DialFailedError struct {
-	msg string
-}
-
-func (err *DialFailedError) Error() string {
-	return err.msg
-}

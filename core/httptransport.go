@@ -14,9 +14,7 @@ package core
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"net"
 	"net/http"
 	"net/url"
 )
@@ -33,12 +31,6 @@ func NewHttpClient(config *Config) {
 	}
 }
 
-func NewSerialization(config *Config) {
-	if config.Serializable == nil {
-		config.Serializable = &DefaultSerialization{}
-	}
-}
-
 func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*ApiResp, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
@@ -48,10 +40,6 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 		if er, ok := err.(*url.Error); ok {
 			if er.Timeout() {
 				return nil, &ClientTimeoutError{msg: er.Error()}
-			}
-
-			if e, ok := er.Err.(*net.OpError); ok && e.Op == "dial" {
-				return nil, &DialFailedError{msg: er.Error()}
 			}
 		}
 		return nil, err
@@ -83,80 +71,24 @@ func Request(ctx context.Context, req *ApiReq, config *Config, options ...Reques
 	for _, optionFunc := range options {
 		optionFunc(option)
 	}
-	if option.Header == nil {
-		option.Header = req.Header
-	} else if req.Header != nil {
-		for key, valueList := range req.Header {
-			for _, value := range valueList {
-				option.Header.Add(key, value)
-			}
-		}
-	}
-	//if !req.SkipAuth && (config.AccessTokenType == AccessTokenTypePlugin || config.AccessTokenType == AccessTokenTypeVirtualPlugin) && (option.Header == nil || len(option.Header.Get(HttpHeaderUserKey)) == 0) {
-	//	codeError := CodeError{
-	//		ErrCode: 20039,
-	//		ErrMsg:  "Plugin Token Must Have User Key, But X-USER-KEY Is Not Set In Request Header",
-	//	}
-	//	head := make(http.Header, 0)
-	//	head.Add("Content-Type", "application/json; charset=utf-8")
-	//	rawBody, _ := json.Marshal(codeError)
-	//	resp := &ApiResp{
-	//		RawBody: rawBody,
-	//		Header:  head,
-	//	}
-	//	return resp, nil
-	//}
-	return doRequest(ctx, req, config, option)
 
-}
-
-func doRequest(ctx context.Context, httpReq *ApiReq, config *Config, option *RequestOption) (*ApiResp, error) {
-	var rawResp *ApiResp
-	var errResult error
-	for i := 0; i < 2; i++ {
-		req, err := reqTranslator.translate(ctx, httpReq, config, option)
-		if err != nil {
-			return nil, err
-		}
-
-		if config.LogReqAtDebug {
-			config.Logger.Debug(ctx, fmt.Sprintf("req:%v", req))
-		} else {
-			config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", httpReq.HttpMethod, httpReq.ApiPath))
-		}
-		rawResp, err = doSend(ctx, req, config.HttpClient, config.Logger)
-		if config.LogReqAtDebug {
-			config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
-		}
-		_, isDialError := err.(*DialFailedError)
-		if err != nil && !isDialError {
-			return nil, err
-		}
-		errResult = err
-		if isDialError {
-			continue
-		}
-
-		if httpReq.SkipAuth {
-			break
-		}
-		codeError := &CodeError{}
-		err = json.Unmarshal(rawResp.RawBody, codeError)
-		if err != nil {
-			return nil, err
-		}
-
-		if !config.EnableTokenCache {
-			break
-		}
-		code := codeError.ErrCode
-		if code != errCodeTokenInvalid {
-			break
-		}
+	httpReq, err := reqTranslator.translate(ctx, req, config, option)
+	if err != nil {
+		return nil, err
 	}
 
-	if errResult != nil {
-		return nil, errResult
+	if config.LogReqAtDebug {
+		config.Logger.Debug(ctx, fmt.Sprintf("req:%v", httpReq))
+	} else {
+		config.Logger.Debug(ctx, fmt.Sprintf("req:%s,%s", req.HttpMethod, req.ApiPath))
+	}
+	rawResp, err := doSend(ctx, httpReq, config.HttpClient, config.Logger)
+	if err != nil {
+		return nil, err
+	}
+	if config.LogReqAtDebug {
+		config.Logger.Debug(ctx, fmt.Sprintf("resp:%v", rawResp))
 	}
 	return rawResp, nil
+
 }

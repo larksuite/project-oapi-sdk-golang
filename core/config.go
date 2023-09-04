@@ -34,5 +34,4 @@ type Config struct {
 	LogReqAtDebug    bool
 	AccessTokenType  AccessTokenType
 	Header           http.Header
-	Serializable     Serializable
 }

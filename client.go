@@ -102,12 +102,6 @@ func WithHttpClient(httpClient core.HttpClient) ClientOptionFunc {
 	}
 }
 
-func WithSerialization(serializable core.Serializable) ClientOptionFunc {
-	return func(config *core.Config) {
-		config.Serializable = serializable
-	}
-}
-
 func WithReqTimeout(reqTimeout time.Duration) ClientOptionFunc {
 	return func(config *core.Config) {
 		config.ReqTimeout = reqTimeout
@@ -139,9 +133,6 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 
 	// 构建缓存
 	core.NewCache(config)
-
-	// 创建序列化器
-	core.NewSerialization(config)
 
 	// 创建httpclient
 	core.NewHttpClient(config)

@@ -50,6 +50,3 @@ const (
 	virtualPluginAccessTokenKeyPrefix = "virtual_plugin_access_token"
 )
 const expiryDelta = 3 * time.Minute
-const (
-	errCodeTokenInvalid = 10022
-)

@@ -65,7 +65,7 @@ func (translator *ReqTranslator) translate(ctx context.Context, req *ApiReq, con
 		newPath = fmt.Sprintf("%s?%s", newPath, queryPath)
 	}
 
-	req1, err := translator.newHTTPRequest(ctx, req.HttpMethod, newPath, contentType, rawBody, skipAuth, option, config)
+	req1, err := translator.newHTTPRequest(ctx, req, newPath, contentType, rawBody, skipAuth, option, config)
 	if err != nil {
 		return nil, err
 	}
@@ -77,11 +77,16 @@ func authorizationToHeader(req *http.Request, token string) {
 }
 
 func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
-	httpMethod, url, contentType string, body []byte,
+	req *ApiReq, url, contentType string, body []byte,
 	skipAuth bool, option *RequestOption, config *Config) (*http.Request, error) {
-	httpRequest, err := http.NewRequestWithContext(ctx, httpMethod, url, bytes.NewBuffer(body))
+	httpRequest, err := http.NewRequestWithContext(ctx, req.HttpMethod, url, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
+	}
+	for k, vs := range req.Header {
+		for _, v := range vs {
+			httpRequest.Header.Add(k, v)
+		}
 	}
 	for k, vs := range option.Header {
 		for _, v := range vs {

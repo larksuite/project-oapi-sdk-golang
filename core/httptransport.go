@@ -67,7 +67,9 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 }
 
 func Request(ctx context.Context, req *ApiReq, config *Config, options ...RequestOptionFunc) (*ApiResp, error) {
-	option := &RequestOption{}
+	option := &RequestOption{
+		Header: make(http.Header),
+	}
 	for _, optionFunc := range options {
 		optionFunc(option)
 	}

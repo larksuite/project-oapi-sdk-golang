@@ -72,21 +72,12 @@ func (translator *ReqTranslator) translate(ctx context.Context, req *ApiReq, con
 	return req1, nil
 }
 
-func authorizationToHeader(req *http.Request, token string) {
-	req.Header.Set("X-PLUGIN-TOKEN", token)
-}
-
 func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	req *ApiReq, url, contentType string, body []byte,
 	skipAuth bool, option *RequestOption, config *Config) (*http.Request, error) {
 	httpRequest, err := http.NewRequestWithContext(ctx, req.HttpMethod, url, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
-	}
-	for k, vs := range req.Header {
-		for _, v := range vs {
-			httpRequest.Header.Add(k, v)
-		}
 	}
 	for k, vs := range option.Header {
 		for _, v := range vs {
@@ -103,32 +94,13 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 		httpRequest.Header.Set(contentTypeHeader, contentType)
 	}
 	if !skipAuth {
-		switch config.AccessTokenType {
-		case AccessTokenTypePlugin:
-			accessToken := option.PluginAccessToken
-			if config.EnableTokenCache && accessToken == "" {
-				accessToken, err = tokenManager.getPluginAccessToken(ctx, config)
-				if err != nil {
-					return nil, err
-				}
+		httpHeaderAccessToken := httpRequest.Header.Get(HttpHeaderAccessToken)
+		if config.EnableTokenCache && len(httpHeaderAccessToken) == 0 {
+			accessToken, err := tokenManager.getAccessToken(ctx, config)
+			if err != nil {
+				return nil, err
 			}
-			authorizationToHeader(httpRequest, accessToken)
-
-		case AccessTokenTypeVirtualPlugin:
-			accessToken := option.VirtualPluginAccessToken
-			if config.EnableTokenCache && accessToken == "" {
-				accessToken, err = tokenManager.getVirtualPluginAccessToken(ctx, config)
-				if err != nil {
-					return nil, err
-				}
-			}
-			authorizationToHeader(httpRequest, accessToken)
-
-		case AccessTokenTypeUserPlugin:
-			authorizationToHeader(httpRequest, option.UserPluginAccessToken)
-		}
-		if err != nil {
-			return nil, err
+			httpRequest.Header.Set(HttpHeaderAccessToken, accessToken)
 		}
 	}
 	return httpRequest, nil

@@ -30,30 +30,14 @@ type TokenManager struct {
 	cache Cache
 }
 
-func (m *TokenManager) getPluginAccessToken(ctx context.Context, config *Config) (string, error) {
-	token, err := m.get(ctx, pluginAccessTokenKey(config.AppId))
+func (m *TokenManager) getAccessToken(ctx context.Context, config *Config) (string, error) {
+	token, err := m.get(ctx, accessTokenKey(config.AppId))
 	if err != nil {
 		return "", err
 	}
 
 	if token == "" {
-		token, err = m.getPluginAccessTokenThenCache(ctx, config)
-		if err != nil {
-			return "", err
-		}
-		return token, nil
-	}
-	return token, nil
-}
-
-func (m *TokenManager) getVirtualPluginAccessToken(ctx context.Context, config *Config) (string, error) {
-	token, err := m.get(ctx, virtualPluginAccessTokenKey(config.AppId))
-	if err != nil {
-		return "", err
-	}
-
-	if token == "" {
-		token, err = m.getVitualPluginAccessTokenThenCache(ctx, config)
+		token, err = m.getAccessTokenThenCache(ctx, config, int(config.AccessTokenType))
 		if err != nil {
 			return "", err
 		}
@@ -102,21 +86,18 @@ type MarketplaceTenantAccessTokenReq struct {
 	TenantKey      string `json:"tenant_key"`
 }
 
-func pluginAccessTokenKey(appID string) string {
-	return fmt.Sprintf("%s-%s", pluginAccessTokenKeyPrefix, appID)
+func accessTokenKey(appID string) string {
+	return fmt.Sprintf("%s-%s", accessTokenKeyPrefix, appID)
 }
 
-func virtualPluginAccessTokenKey(appID string) string {
-	return fmt.Sprintf("%s-%s", virtualPluginAccessTokenKeyPrefix, appID)
-}
-func (m *TokenManager) getPluginAccessTokenThenCache(ctx context.Context, config *Config) (string, error) {
+func (m *TokenManager) getAccessTokenThenCache(ctx context.Context, config *Config, tokenType int) (string, error) {
 	rawResp, err := Request(ctx, &ApiReq{
 		HttpMethod: http.MethodPost,
 		ApiPath:    PluginAccessTokenInternalUrlPath,
 		Body: &GetAccessTokenReq{
 			PluginId:     config.AppId,
 			PluginSecret: config.AppSecret,
-			Type:         0,
+			Type:         tokenType,
 		},
 		SkipAuth: true,
 	}, config)
@@ -130,45 +111,13 @@ func (m *TokenManager) getPluginAccessTokenThenCache(ctx context.Context, config
 		return "", err
 	}
 	if resp.Error.Code != 0 {
-		config.Logger.Warn(ctx, fmt.Sprintf("get pluginAccessToken err:%v", Prettify(resp)))
+		config.Logger.Warn(ctx, fmt.Sprintf("get accessToken err:%v", Prettify(resp)))
 		return "", resp.Error
 	}
 	expire := time.Duration(resp.Data.ExpireTime)*time.Second - expiryDelta
-	err = m.set(ctx, pluginAccessTokenKey(config.AppId), resp.Data.Token, expire)
+	err = m.set(ctx, accessTokenKey(config.AppId), resp.Data.Token, expire)
 	if err != nil {
-		config.Logger.Warn(ctx, fmt.Sprintf("pluginAccessToken save cache, err:%v", err))
-	}
-	return resp.Data.Token, err
-}
-
-func (m *TokenManager) getVitualPluginAccessTokenThenCache(ctx context.Context, config *Config) (string, error) {
-	rawResp, err := Request(ctx, &ApiReq{
-		HttpMethod: http.MethodPost,
-		ApiPath:    PluginAccessTokenInternalUrlPath,
-		Body: &GetAccessTokenReq{
-			PluginId:     config.AppId,
-			PluginSecret: config.AppSecret,
-			Type:         1,
-		},
-		SkipAuth: true,
-	}, config)
-
-	if err != nil {
-		return "", err
-	}
-	resp := &GetAccessTokenResp{}
-	err = json.Unmarshal(rawResp.RawBody, resp)
-	if err != nil {
-		return "", err
-	}
-	if resp.Error.Code != 0 {
-		config.Logger.Warn(ctx, fmt.Sprintf("get vitualPluginAccessToken cache, err:%v", Prettify(resp)))
-		return "", resp.Error
-	}
-	expire := time.Duration(resp.Data.ExpireTime)*time.Second - expiryDelta
-	err = m.cache.Set(ctx, virtualPluginAccessTokenKey(config.AppId), resp.Data.Token, expire)
-	if err != nil {
-		config.Logger.Warn(ctx, fmt.Sprintf("vitualPluginAccessToken save cache, err:%v", err))
+		config.Logger.Warn(ctx, fmt.Sprintf("accessToken save cache, err:%v", err))
 	}
 	return resp.Data.Token, err
 }

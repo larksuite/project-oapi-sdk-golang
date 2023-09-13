@@ -13,7 +13,6 @@
 package core
 
 import (
-	"net/http"
 	"net/url"
 )
 
@@ -23,7 +22,6 @@ type ApiReq struct {
 	Body        interface{}
 	QueryParams QueryParams
 	PathParams  PathParams
-	Header      http.Header
 	SkipAuth    bool
 }
 

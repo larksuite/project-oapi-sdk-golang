@@ -25,6 +25,8 @@ const userAgentHeader = "User-Agent"
 
 const (
 	HttpHeaderUserKey      = "X-USER-KEY"
+	HttpHeaderAccessToken  = "X-PLUGIN-TOKEN"
+	HttpHeaderIdemUUID     = "X-IDEM-UUID"
 	HttpHeaderKeyRequestId = "X-Request-Id"
 	httpHeaderRequestId    = "Request-Id"
 	HttpHeaderKeyLogId     = "X-Tt-Logid"
@@ -37,16 +39,14 @@ const (
 	PluginAccessTokenInternalUrlPath string = "/open_api/authen/plugin_token"
 )
 
-type AccessTokenType string
+type AccessTokenType int
 
 const (
-	AccessTokenTypePlugin        AccessTokenType = "plugin_access_token"
-	AccessTokenTypeVirtualPlugin AccessTokenType = "virtual_plugin_access_token"
-	AccessTokenTypeUserPlugin    AccessTokenType = "user_plugin_access_token"
+	AccessTokenTypePlugin        AccessTokenType = 0
+	AccessTokenTypeVirtualPlugin AccessTokenType = 1
 )
 
 const (
-	pluginAccessTokenKeyPrefix        = "plugin_access_token"
-	virtualPluginAccessTokenKeyPrefix = "virtual_plugin_access_token"
+	accessTokenKeyPrefix = "access_token"
 )
 const expiryDelta = 3 * time.Minute

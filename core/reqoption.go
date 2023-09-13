@@ -19,34 +19,35 @@ package core
 import "net/http"
 
 type RequestOption struct {
-	PluginAccessToken        string
-	VirtualPluginAccessToken string
-	UserPluginAccessToken    string
-	Header                   http.Header
+	Header http.Header
 }
 
 type RequestOptionFunc func(option *RequestOption)
 
 func WithHeaders(header http.Header) RequestOptionFunc {
 	return func(option *RequestOption) {
-		option.Header = header
+		for k, valueList := range header {
+			for _, value := range valueList {
+				option.Header.Add(k, value)
+			}
+		}
 	}
 }
 
-func WithPluginAccessToken(pluginAccessToken string) RequestOptionFunc {
+func WithAccessToken(pluginAccessToken string) RequestOptionFunc {
 	return func(option *RequestOption) {
-		option.PluginAccessToken = pluginAccessToken
+		option.Header.Set(HttpHeaderAccessToken, pluginAccessToken)
 	}
 }
 
-func WithVirtualPluginAccessToken(virtualPluginAccessToken string) RequestOptionFunc {
+func WithUserKey(userKey string) RequestOptionFunc {
 	return func(option *RequestOption) {
-		option.VirtualPluginAccessToken = virtualPluginAccessToken
+		option.Header.Set(HttpHeaderUserKey, userKey)
 	}
 }
 
-func WithUserPluginAccessToken(userPluginAccessToken string) RequestOptionFunc {
+func WithIdemUUID(uuid string) RequestOptionFunc {
 	return func(option *RequestOption) {
-		option.UserPluginAccessToken = userPluginAccessToken
+		option.Header.Set(HttpHeaderIdemUUID, uuid)
 	}
 }

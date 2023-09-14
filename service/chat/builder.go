@@ -18,7 +18,6 @@ package chat
 
 import (
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
@@ -40,6 +39,7 @@ type BotJoinChatResp struct {
 
 type BotJoinChatReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *BotJoinChatReqBody
 }
 
 func NewBotJoinChatReqBuilder() *BotJoinChatReqBuilder {
@@ -47,21 +47,8 @@ func NewBotJoinChatReqBuilder() *BotJoinChatReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &BotJoinChatReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *BotJoinChatReqBuilder) AccessUser(userKey string) *BotJoinChatReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *BotJoinChatReqBuilder) UUID(uuid string) *BotJoinChatReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &BotJoinChatReqBody{}
 	return builder
 }
 func (builder *BotJoinChatReqBuilder) ProjectKey(projectKey string) *BotJoinChatReqBuilder {
@@ -73,15 +60,16 @@ func (builder *BotJoinChatReqBuilder) WorkItemID(workItemID int64) *BotJoinChatR
 	return builder
 }
 func (builder *BotJoinChatReqBuilder) WorkItemTypeKey(workItemTypeKey string) *BotJoinChatReqBuilder {
-	builder.apiReq.Body.(*BotJoinChatReqBody).WorkItemTypeKey = workItemTypeKey
+	builder.body.WorkItemTypeKey = workItemTypeKey
 	return builder
 }
 func (builder *BotJoinChatReqBuilder) AppIDs(appIDs []string) *BotJoinChatReqBuilder {
-	builder.apiReq.Body.(*BotJoinChatReqBody).AppIDs = appIDs
+	builder.body.AppIDs = appIDs
 	return builder
 }
 func (builder *BotJoinChatReqBuilder) Build() *BotJoinChatReq {
 	req := &BotJoinChatReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

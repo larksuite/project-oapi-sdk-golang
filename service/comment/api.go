@@ -41,7 +41,7 @@ type CommentService struct {
 }
 
 /*
- *
+ *   添加评论
  */
 func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentReq, options ...core.RequestOptionFunc) (*CreateCommentResp, error) {
 	// 发起请求
@@ -64,7 +64,7 @@ func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentRe
 }
 
 /*
- *
+ *   删除评论
  */
 func (a *CommentService) DeleteComment(ctx context.Context, req *DeleteCommentReq, options ...core.RequestOptionFunc) (*DeleteCommentResp, error) {
 	// 发起请求
@@ -87,7 +87,7 @@ func (a *CommentService) DeleteComment(ctx context.Context, req *DeleteCommentRe
 }
 
 /*
- *
+ *   查询评论
  */
 func (a *CommentService) QueryComments(ctx context.Context, req *QueryCommentsReq, options ...core.RequestOptionFunc) (*QueryCommentsResp, error) {
 	// 发起请求
@@ -110,7 +110,7 @@ func (a *CommentService) QueryComments(ctx context.Context, req *QueryCommentsRe
 }
 
 /*
- *
+ *   更新评论
  */
 func (a *CommentService) UpdateComment(ctx context.Context, req *UpdateCommentReq, options ...core.RequestOptionFunc) (*UpdateCommentResp, error) {
 	// 发起请求

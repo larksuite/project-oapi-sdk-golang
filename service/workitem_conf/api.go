@@ -43,7 +43,7 @@ type WorkItemConfService struct {
 }
 
 /*
- *
+ *   新增流程类型配置
  */
 func (a *WorkItemConfService) CreateTemplateDetail(ctx context.Context, req *CreateTemplateDetailReq, options ...core.RequestOptionFunc) (*CreateTemplateDetailResp, error) {
 	// 发起请求
@@ -66,7 +66,7 @@ func (a *WorkItemConfService) CreateTemplateDetail(ctx context.Context, req *Cre
 }
 
 /*
- *
+ *   删除流程类型配置
  */
 func (a *WorkItemConfService) DeleteTemplateDetail(ctx context.Context, req *DeleteTemplateDetailReq, options ...core.RequestOptionFunc) (*DeleteTemplateDetailResp, error) {
 	// 发起请求
@@ -89,7 +89,7 @@ func (a *WorkItemConfService) DeleteTemplateDetail(ctx context.Context, req *Del
 }
 
 /*
- *
+ *   获取流程类型配置详情
  */
 func (a *WorkItemConfService) QueryTemplateDetail(ctx context.Context, req *QueryTemplateDetailReq, options ...core.RequestOptionFunc) (*QueryTemplateDetailResp, error) {
 	// 发起请求
@@ -112,7 +112,7 @@ func (a *WorkItemConfService) QueryTemplateDetail(ctx context.Context, req *Quer
 }
 
 /*
- *
+ *   获取工作项下的流程类型
  */
 func (a *WorkItemConfService) QueryWorkItemTemplates(ctx context.Context, req *QueryWorkItemTemplatesReq, options ...core.RequestOptionFunc) (*QueryWorkItemTemplatesResp, error) {
 	// 发起请求
@@ -135,7 +135,7 @@ func (a *WorkItemConfService) QueryWorkItemTemplates(ctx context.Context, req *Q
 }
 
 /*
- *
+ *   更新流程类型配置
  */
 func (a *WorkItemConfService) UpdateTemplateDetail(ctx context.Context, req *UpdateTemplateDetailReq, options ...core.RequestOptionFunc) (*UpdateTemplateDetailResp, error) {
 	// 发起请求

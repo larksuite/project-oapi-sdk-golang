@@ -46,6 +46,8 @@ type CompInfo struct {
 	SearchHit []string `json:"SearchHit"`
 
 	ViewScopeKey string `json:"ViewScopeKey"`
+
+	ProjectKeys []string `json:"ProjectKeys"`
 }
 
 type Connection struct {

@@ -41,7 +41,7 @@ type ProjectRelationService struct {
 }
 
 /*
- *
+ *   通过空间关联绑定关联工作项
  */
 func (a *ProjectRelationService) CreateProjectRelationInstances(ctx context.Context, req *CreateProjectRelationInstancesReq, options ...core.RequestOptionFunc) (*CreateProjectRelationInstancesResp, error) {
 	// 发起请求
@@ -64,7 +64,7 @@ func (a *ProjectRelationService) CreateProjectRelationInstances(ctx context.Cont
 }
 
 /*
- *
+ *   通过空间关联解绑关联工作项
  */
 func (a *ProjectRelationService) DeleteProjectRelationInstance(ctx context.Context, req *DeleteProjectRelationInstanceReq, options ...core.RequestOptionFunc) (*DeleteProjectRelationInstanceResp, error) {
 	// 发起请求
@@ -87,7 +87,7 @@ func (a *ProjectRelationService) DeleteProjectRelationInstance(ctx context.Conte
 }
 
 /*
- *
+ *   获取空间关联规则列表
  */
 func (a *ProjectRelationService) QueryProjectRelation(ctx context.Context, req *QueryProjectRelationReq, options ...core.RequestOptionFunc) (*QueryProjectRelationResp, error) {
 	// 发起请求
@@ -110,7 +110,7 @@ func (a *ProjectRelationService) QueryProjectRelation(ctx context.Context, req *
 }
 
 /*
- *
+ *   获取空间关联下的关联工作项列表
  */
 func (a *ProjectRelationService) QueryProjectRelationInstance(ctx context.Context, req *QueryProjectRelationInstanceReq, options ...core.RequestOptionFunc) (*QueryProjectRelationInstanceResp, error) {
 	// 发起请求

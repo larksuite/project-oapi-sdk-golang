@@ -18,7 +18,6 @@ package field
 
 import (
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
@@ -64,6 +63,7 @@ type CreateFieldResp struct {
 
 type CreateFieldReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CreateFieldReqBody
 }
 
 func NewCreateFieldReqBuilder() *CreateFieldReqBuilder {
@@ -71,21 +71,8 @@ func NewCreateFieldReqBuilder() *CreateFieldReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CreateFieldReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CreateFieldReqBuilder) AccessUser(userKey string) *CreateFieldReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CreateFieldReqBuilder) UUID(uuid string) *CreateFieldReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CreateFieldReqBody{}
 	return builder
 }
 func (builder *CreateFieldReqBuilder) ProjectKey(projectKey string) *CreateFieldReqBuilder {
@@ -97,64 +84,65 @@ func (builder *CreateFieldReqBuilder) WorkItemTypeKey(workItemTypeKey string) *C
 	return builder
 }
 func (builder *CreateFieldReqBuilder) FieldName(fieldName string) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).FieldName = fieldName
+	builder.body.FieldName = fieldName
 	return builder
 }
 func (builder *CreateFieldReqBuilder) FieldTypeKey(fieldTypeKey string) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).FieldTypeKey = fieldTypeKey
+	builder.body.FieldTypeKey = fieldTypeKey
 	return builder
 }
 func (builder *CreateFieldReqBuilder) ValueType(valueType int64) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).ValueType = valueType
+	builder.body.ValueType = valueType
 	return builder
 }
 func (builder *CreateFieldReqBuilder) ReferenceWorkItemTypeKey(referenceWorkItemTypeKey string) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).ReferenceWorkItemTypeKey = referenceWorkItemTypeKey
+	builder.body.ReferenceWorkItemTypeKey = referenceWorkItemTypeKey
 	return builder
 }
 func (builder *CreateFieldReqBuilder) ReferenceFieldKey(referenceFieldKey string) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).ReferenceFieldKey = referenceFieldKey
+	builder.body.ReferenceFieldKey = referenceFieldKey
 	return builder
 }
 func (builder *CreateFieldReqBuilder) FieldValue(fieldValue interface{}) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).FieldValue = fieldValue
+	builder.body.FieldValue = fieldValue
 	return builder
 }
 func (builder *CreateFieldReqBuilder) FreeAdd(freeAdd int64) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).FreeAdd = freeAdd
+	builder.body.FreeAdd = freeAdd
 	return builder
 }
 func (builder *CreateFieldReqBuilder) WorkItemRelationUUID(workItemRelationUUID string) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).WorkItemRelationUUID = workItemRelationUUID
+	builder.body.WorkItemRelationUUID = workItemRelationUUID
 	return builder
 }
 func (builder *CreateFieldReqBuilder) DefaultValue(defaultValue interface{}) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).DefaultValue = defaultValue
+	builder.body.DefaultValue = defaultValue
 	return builder
 }
 func (builder *CreateFieldReqBuilder) FieldAlias(fieldAlias string) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).FieldAlias = fieldAlias
+	builder.body.FieldAlias = fieldAlias
 	return builder
 }
 func (builder *CreateFieldReqBuilder) HelpDescription(helpDescription string) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).HelpDescription = helpDescription
+	builder.body.HelpDescription = helpDescription
 	return builder
 }
 func (builder *CreateFieldReqBuilder) AuthorizedRoles(authorizedRoles []string) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).AuthorizedRoles = authorizedRoles
+	builder.body.AuthorizedRoles = authorizedRoles
 	return builder
 }
 func (builder *CreateFieldReqBuilder) IsMulti(isMulti bool) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).IsMulti = isMulti
+	builder.body.IsMulti = isMulti
 	return builder
 }
 func (builder *CreateFieldReqBuilder) Format(format bool) *CreateFieldReqBuilder {
-	builder.apiReq.Body.(*CreateFieldReqBody).Format = format
+	builder.body.Format = format
 	return builder
 }
 func (builder *CreateFieldReqBuilder) Build() *CreateFieldReq {
 	req := &CreateFieldReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -173,6 +161,7 @@ type QueryProjectFieldsResp struct {
 
 type QueryProjectFieldsReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *QueryProjectFieldsReqBody
 }
 
 func NewQueryProjectFieldsReqBuilder() *QueryProjectFieldsReqBuilder {
@@ -180,21 +169,8 @@ func NewQueryProjectFieldsReqBuilder() *QueryProjectFieldsReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &QueryProjectFieldsReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryProjectFieldsReqBuilder) AccessUser(userKey string) *QueryProjectFieldsReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryProjectFieldsReqBuilder) UUID(uuid string) *QueryProjectFieldsReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &QueryProjectFieldsReqBody{}
 	return builder
 }
 func (builder *QueryProjectFieldsReqBuilder) ProjectKey(projectKey string) *QueryProjectFieldsReqBuilder {
@@ -202,12 +178,13 @@ func (builder *QueryProjectFieldsReqBuilder) ProjectKey(projectKey string) *Quer
 	return builder
 }
 func (builder *QueryProjectFieldsReqBuilder) WorkItemTypeKey(workItemTypeKey string) *QueryProjectFieldsReqBuilder {
-	builder.apiReq.Body.(*QueryProjectFieldsReqBody).WorkItemTypeKey = workItemTypeKey
+	builder.body.WorkItemTypeKey = workItemTypeKey
 	return builder
 }
 func (builder *QueryProjectFieldsReqBuilder) Build() *QueryProjectFieldsReq {
 	req := &QueryProjectFieldsReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -241,6 +218,7 @@ type UpdateFieldResp struct {
 
 type UpdateFieldReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *UpdateFieldReqBody
 }
 
 func NewUpdateFieldReqBuilder() *UpdateFieldReqBuilder {
@@ -248,21 +226,8 @@ func NewUpdateFieldReqBuilder() *UpdateFieldReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &UpdateFieldReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *UpdateFieldReqBuilder) AccessUser(userKey string) *UpdateFieldReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *UpdateFieldReqBuilder) UUID(uuid string) *UpdateFieldReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &UpdateFieldReqBody{}
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) ProjectKey(projectKey string) *UpdateFieldReqBuilder {
@@ -274,43 +239,44 @@ func (builder *UpdateFieldReqBuilder) WorkItemTypeKey(workItemTypeKey string) *U
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) FieldName(fieldName string) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).FieldName = fieldName
+	builder.body.FieldName = fieldName
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) FieldKey(fieldKey string) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).FieldKey = fieldKey
+	builder.body.FieldKey = fieldKey
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) FieldValue(fieldValue interface{}) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).FieldValue = fieldValue
+	builder.body.FieldValue = fieldValue
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) FreeAdd(freeAdd int64) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).FreeAdd = freeAdd
+	builder.body.FreeAdd = freeAdd
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) WorkItemRelationUUID(workItemRelationUUID string) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).WorkItemRelationUUID = workItemRelationUUID
+	builder.body.WorkItemRelationUUID = workItemRelationUUID
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) DefaultValue(defaultValue interface{}) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).DefaultValue = defaultValue
+	builder.body.DefaultValue = defaultValue
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) FieldAlias(fieldAlias string) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).FieldAlias = fieldAlias
+	builder.body.FieldAlias = fieldAlias
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) HelpDescription(helpDescription string) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).HelpDescription = helpDescription
+	builder.body.HelpDescription = helpDescription
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) AuthorizedRoles(authorizedRoles []string) *UpdateFieldReqBuilder {
-	builder.apiReq.Body.(*UpdateFieldReqBody).AuthorizedRoles = authorizedRoles
+	builder.body.AuthorizedRoles = authorizedRoles
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) Build() *UpdateFieldReq {
 	req := &UpdateFieldReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

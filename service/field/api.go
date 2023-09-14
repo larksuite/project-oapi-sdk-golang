@@ -39,7 +39,7 @@ type FieldService struct {
 }
 
 /*
- *
+ *   创建自定义字段
  */
 func (a *FieldService) CreateField(ctx context.Context, req *CreateFieldReq, options ...core.RequestOptionFunc) (*CreateFieldResp, error) {
 	// 发起请求
@@ -62,7 +62,7 @@ func (a *FieldService) CreateField(ctx context.Context, req *CreateFieldReq, opt
 }
 
 /*
- *
+ *   获取空间字段
  */
 func (a *FieldService) QueryProjectFields(ctx context.Context, req *QueryProjectFieldsReq, options ...core.RequestOptionFunc) (*QueryProjectFieldsResp, error) {
 	// 发起请求
@@ -85,7 +85,7 @@ func (a *FieldService) QueryProjectFields(ctx context.Context, req *QueryProject
 }
 
 /*
- *
+ *   更新自定义字段
  */
 func (a *FieldService) UpdateField(ctx context.Context, req *UpdateFieldReq, options ...core.RequestOptionFunc) (*UpdateFieldResp, error) {
 	// 发起请求

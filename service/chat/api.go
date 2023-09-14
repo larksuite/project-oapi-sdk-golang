@@ -35,7 +35,7 @@ type ChatService struct {
 }
 
 /*
- *
+ *   拉机器人入群
  */
 func (a *ChatService) BotJoinChat(ctx context.Context, req *BotJoinChatReq, options ...core.RequestOptionFunc) (*BotJoinChatResp, error) {
 	// 发起请求

@@ -45,7 +45,7 @@ type ViewService struct {
 }
 
 /*
- *
+ *   创建固定视图
  */
 func (a *ViewService) CreateFixView(ctx context.Context, req *CreateFixViewReq, options ...core.RequestOptionFunc) (*CreateFixViewResp, error) {
 	// 发起请求
@@ -68,7 +68,7 @@ func (a *ViewService) CreateFixView(ctx context.Context, req *CreateFixViewReq, 
 }
 
 /*
- *
+ *   删除固定视图
  */
 func (a *ViewService) DeleteFixView(ctx context.Context, req *DeleteFixViewReq, options ...core.RequestOptionFunc) (*DeleteFixViewResp, error) {
 	// 发起请求
@@ -91,7 +91,7 @@ func (a *ViewService) DeleteFixView(ctx context.Context, req *DeleteFixViewReq, 
 }
 
 /*
- *
+ *   获取视图下工作项列表（全景视图）
  */
 func (a *ViewService) QueryWorkItemDetailsByViewID(ctx context.Context, req *QueryWorkItemDetailsByViewIDReq, options ...core.RequestOptionFunc) (*QueryWorkItemDetailsByViewIDResp, error) {
 	// 发起请求
@@ -114,7 +114,7 @@ func (a *ViewService) QueryWorkItemDetailsByViewID(ctx context.Context, req *Que
 }
 
 /*
- *
+ *   更新固定视图
  */
 func (a *ViewService) UpdateFixView(ctx context.Context, req *UpdateFixViewReq, options ...core.RequestOptionFunc) (*UpdateFixViewResp, error) {
 	// 发起请求
@@ -137,7 +137,7 @@ func (a *ViewService) UpdateFixView(ctx context.Context, req *UpdateFixViewReq, 
 }
 
 /*
- *
+ *   获取视图列表
  */
 func (a *ViewService) ViewList(ctx context.Context, req *ViewListReq, options ...core.RequestOptionFunc) (*ViewListResp, error) {
 	// 发起请求
@@ -160,7 +160,7 @@ func (a *ViewService) ViewList(ctx context.Context, req *ViewListReq, options ..
 }
 
 /*
- *
+ *   获取视图下工作项列表
  */
 func (a *ViewService) WorkItemList(ctx context.Context, req *WorkItemListReq, options ...core.RequestOptionFunc) (*WorkItemListResp, error) {
 	// 发起请求

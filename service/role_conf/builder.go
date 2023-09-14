@@ -18,7 +18,6 @@ package role_conf
 
 import (
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
@@ -42,20 +41,7 @@ func NewQueryRoleConfDetailsReqBuilder() *QueryRoleConfDetailsReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryRoleConfDetailsReqBuilder) AccessUser(userKey string) *QueryRoleConfDetailsReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryRoleConfDetailsReqBuilder) UUID(uuid string) *QueryRoleConfDetailsReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *QueryRoleConfDetailsReqBuilder) ProjectKey(projectKey string) *QueryRoleConfDetailsReqBuilder {

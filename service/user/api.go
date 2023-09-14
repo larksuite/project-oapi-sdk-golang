@@ -35,7 +35,7 @@ type UserService struct {
 }
 
 /*
- *
+ *   获取用户详情
  */
 func (a *UserService) QueryUserDetail(ctx context.Context, req *QueryUserDetailReq, options ...core.RequestOptionFunc) (*QueryUserDetailResp, error) {
 	// 发起请求

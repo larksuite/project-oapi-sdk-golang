@@ -18,7 +18,6 @@ package project_relation
 
 import (
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
@@ -39,6 +38,7 @@ type CreateProjectRelationInstancesResp struct {
 
 type CreateProjectRelationInstancesReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CreateProjectRelationInstancesReqBody
 }
 
 func NewCreateProjectRelationInstancesReqBuilder() *CreateProjectRelationInstancesReqBuilder {
@@ -46,21 +46,8 @@ func NewCreateProjectRelationInstancesReqBuilder() *CreateProjectRelationInstanc
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CreateProjectRelationInstancesReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CreateProjectRelationInstancesReqBuilder) AccessUser(userKey string) *CreateProjectRelationInstancesReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CreateProjectRelationInstancesReqBuilder) UUID(uuid string) *CreateProjectRelationInstancesReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CreateProjectRelationInstancesReqBody{}
 	return builder
 }
 func (builder *CreateProjectRelationInstancesReqBuilder) ProjectKey(projectKey string) *CreateProjectRelationInstancesReqBuilder {
@@ -76,16 +63,17 @@ func (builder *CreateProjectRelationInstancesReqBuilder) WorkItemID(workItemID i
 	return builder
 }
 func (builder *CreateProjectRelationInstancesReqBuilder) RelationRuleID(relationRuleID string) *CreateProjectRelationInstancesReqBuilder {
-	builder.apiReq.Body.(*CreateProjectRelationInstancesReqBody).RelationRuleID = relationRuleID
+	builder.body.RelationRuleID = relationRuleID
 	return builder
 }
 func (builder *CreateProjectRelationInstancesReqBuilder) Instances(instances []*RelationBindInstance) *CreateProjectRelationInstancesReqBuilder {
-	builder.apiReq.Body.(*CreateProjectRelationInstancesReqBody).Instances = instances
+	builder.body.Instances = instances
 	return builder
 }
 func (builder *CreateProjectRelationInstancesReqBuilder) Build() *CreateProjectRelationInstancesReq {
 	req := &CreateProjectRelationInstancesReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -105,6 +93,7 @@ type DeleteProjectRelationInstanceResp struct {
 
 type DeleteProjectRelationInstanceReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *DeleteProjectRelationInstanceReqBody
 }
 
 func NewDeleteProjectRelationInstanceReqBuilder() *DeleteProjectRelationInstanceReqBuilder {
@@ -112,21 +101,8 @@ func NewDeleteProjectRelationInstanceReqBuilder() *DeleteProjectRelationInstance
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &DeleteProjectRelationInstanceReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *DeleteProjectRelationInstanceReqBuilder) AccessUser(userKey string) *DeleteProjectRelationInstanceReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *DeleteProjectRelationInstanceReqBuilder) UUID(uuid string) *DeleteProjectRelationInstanceReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &DeleteProjectRelationInstanceReqBody{}
 	return builder
 }
 func (builder *DeleteProjectRelationInstanceReqBuilder) ProjectKey(projectKey string) *DeleteProjectRelationInstanceReqBuilder {
@@ -142,16 +118,17 @@ func (builder *DeleteProjectRelationInstanceReqBuilder) WorkItemID(workItemID in
 	return builder
 }
 func (builder *DeleteProjectRelationInstanceReqBuilder) RelationRuleID(relationRuleID string) *DeleteProjectRelationInstanceReqBuilder {
-	builder.apiReq.Body.(*DeleteProjectRelationInstanceReqBody).RelationRuleID = relationRuleID
+	builder.body.RelationRuleID = relationRuleID
 	return builder
 }
 func (builder *DeleteProjectRelationInstanceReqBuilder) RelationWorkItemID(relationWorkItemID int64) *DeleteProjectRelationInstanceReqBuilder {
-	builder.apiReq.Body.(*DeleteProjectRelationInstanceReqBody).RelationWorkItemID = relationWorkItemID
+	builder.body.RelationWorkItemID = relationWorkItemID
 	return builder
 }
 func (builder *DeleteProjectRelationInstanceReqBuilder) Build() *DeleteProjectRelationInstanceReq {
 	req := &DeleteProjectRelationInstanceReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -170,6 +147,7 @@ type QueryProjectRelationResp struct {
 
 type QueryProjectRelationReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *QueryProjectRelationReqBody
 }
 
 func NewQueryProjectRelationReqBuilder() *QueryProjectRelationReqBuilder {
@@ -177,21 +155,8 @@ func NewQueryProjectRelationReqBuilder() *QueryProjectRelationReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &QueryProjectRelationReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryProjectRelationReqBuilder) AccessUser(userKey string) *QueryProjectRelationReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryProjectRelationReqBuilder) UUID(uuid string) *QueryProjectRelationReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &QueryProjectRelationReqBody{}
 	return builder
 }
 func (builder *QueryProjectRelationReqBuilder) ProjectKey(projectKey string) *QueryProjectRelationReqBuilder {
@@ -199,12 +164,13 @@ func (builder *QueryProjectRelationReqBuilder) ProjectKey(projectKey string) *Qu
 	return builder
 }
 func (builder *QueryProjectRelationReqBuilder) RemoteProjects(remoteProjects []string) *QueryProjectRelationReqBuilder {
-	builder.apiReq.Body.(*QueryProjectRelationReqBody).RemoteProjects = remoteProjects
+	builder.body.RemoteProjects = remoteProjects
 	return builder
 }
 func (builder *QueryProjectRelationReqBuilder) Build() *QueryProjectRelationReq {
 	req := &QueryProjectRelationReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -229,6 +195,7 @@ type QueryProjectRelationInstanceResp struct {
 
 type QueryProjectRelationInstanceReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *QueryProjectRelationInstanceReqBody
 }
 
 func NewQueryProjectRelationInstanceReqBuilder() *QueryProjectRelationInstanceReqBuilder {
@@ -236,21 +203,8 @@ func NewQueryProjectRelationInstanceReqBuilder() *QueryProjectRelationInstanceRe
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &QueryProjectRelationInstanceReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryProjectRelationInstanceReqBuilder) AccessUser(userKey string) *QueryProjectRelationInstanceReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryProjectRelationInstanceReqBuilder) UUID(uuid string) *QueryProjectRelationInstanceReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &QueryProjectRelationInstanceReqBody{}
 	return builder
 }
 func (builder *QueryProjectRelationInstanceReqBuilder) ProjectKey(projectKey string) *QueryProjectRelationInstanceReqBuilder {
@@ -266,23 +220,24 @@ func (builder *QueryProjectRelationInstanceReqBuilder) WorkItemID(workItemID int
 	return builder
 }
 func (builder *QueryProjectRelationInstanceReqBuilder) RelationRuleID(relationRuleID string) *QueryProjectRelationInstanceReqBuilder {
-	builder.apiReq.Body.(*QueryProjectRelationInstanceReqBody).RelationRuleID = relationRuleID
+	builder.body.RelationRuleID = relationRuleID
 	return builder
 }
 func (builder *QueryProjectRelationInstanceReqBuilder) RelationWorkItemID(relationWorkItemID int64) *QueryProjectRelationInstanceReqBuilder {
-	builder.apiReq.Body.(*QueryProjectRelationInstanceReqBody).RelationWorkItemID = relationWorkItemID
+	builder.body.RelationWorkItemID = relationWorkItemID
 	return builder
 }
 func (builder *QueryProjectRelationInstanceReqBuilder) RelationWorkItemTypeKey(relationWorkItemTypeKey string) *QueryProjectRelationInstanceReqBuilder {
-	builder.apiReq.Body.(*QueryProjectRelationInstanceReqBody).RelationWorkItemTypeKey = relationWorkItemTypeKey
+	builder.body.RelationWorkItemTypeKey = relationWorkItemTypeKey
 	return builder
 }
 func (builder *QueryProjectRelationInstanceReqBuilder) RelationProjectKey(relationProjectKey string) *QueryProjectRelationInstanceReqBuilder {
-	builder.apiReq.Body.(*QueryProjectRelationInstanceReqBody).RelationProjectKey = relationProjectKey
+	builder.body.RelationProjectKey = relationProjectKey
 	return builder
 }
 func (builder *QueryProjectRelationInstanceReqBuilder) Build() *QueryProjectRelationInstanceReq {
 	req := &QueryProjectRelationInstanceReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

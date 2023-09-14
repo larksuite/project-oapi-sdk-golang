@@ -17,13 +17,13 @@
 package view
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
+
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 )
 
 type CreateFixViewReq struct {
@@ -45,6 +45,7 @@ type CreateFixViewResp struct {
 
 type CreateFixViewReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CreateFixViewReqBody
 }
 
 func NewCreateFixViewReqBuilder() *CreateFixViewReqBuilder {
@@ -52,21 +53,8 @@ func NewCreateFixViewReqBuilder() *CreateFixViewReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CreateFixViewReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CreateFixViewReqBuilder) AccessUser(userKey string) *CreateFixViewReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CreateFixViewReqBuilder) UUID(uuid string) *CreateFixViewReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CreateFixViewReqBody{}
 	return builder
 }
 func (builder *CreateFixViewReqBuilder) ProjectKey(projectKey string) *CreateFixViewReqBuilder {
@@ -78,16 +66,17 @@ func (builder *CreateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 	return builder
 }
 func (builder *CreateFixViewReqBuilder) WorkItemIDList(workItemIDList []int64) *CreateFixViewReqBuilder {
-	builder.apiReq.Body.(*CreateFixViewReqBody).WorkItemIDList = workItemIDList
+	builder.body.WorkItemIDList = workItemIDList
 	return builder
 }
 func (builder *CreateFixViewReqBuilder) Name(name string) *CreateFixViewReqBuilder {
-	builder.apiReq.Body.(*CreateFixViewReqBody).Name = name
+	builder.body.Name = name
 	return builder
 }
 func (builder *CreateFixViewReqBuilder) Build() *CreateFixViewReq {
 	req := &CreateFixViewReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -109,20 +98,7 @@ func NewDeleteFixViewReqBuilder() *DeleteFixViewReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *DeleteFixViewReqBuilder) AccessUser(userKey string) *DeleteFixViewReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *DeleteFixViewReqBuilder) UUID(uuid string) *DeleteFixViewReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *DeleteFixViewReqBuilder) ProjectKey(projectKey string) *DeleteFixViewReqBuilder {
@@ -160,6 +136,7 @@ type QueryWorkItemDetailsByViewIDResp struct {
 
 type QueryWorkItemDetailsByViewIDReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *QueryWorkItemDetailsByViewIDReqBody
 }
 
 func NewQueryWorkItemDetailsByViewIDReqBuilder() *QueryWorkItemDetailsByViewIDReqBuilder {
@@ -167,21 +144,8 @@ func NewQueryWorkItemDetailsByViewIDReqBuilder() *QueryWorkItemDetailsByViewIDRe
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &QueryWorkItemDetailsByViewIDReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryWorkItemDetailsByViewIDReqBuilder) AccessUser(userKey string) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryWorkItemDetailsByViewIDReqBuilder) UUID(uuid string) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &QueryWorkItemDetailsByViewIDReqBody{}
 	return builder
 }
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ProjectKey(projectKey string) *QueryWorkItemDetailsByViewIDReqBuilder {
@@ -193,20 +157,21 @@ func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ViewID(viewID string) *Qu
 	return builder
 }
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageSize(pageSize int64) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageSize = pageSize
+	builder.body.PageSize = pageSize
 	return builder
 }
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageNum(pageNum int64) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageNum = pageNum
+	builder.body.PageNum = pageNum
 	return builder
 }
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Expand(expand *workitem.Expand) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).Expand = expand
+	builder.body.Expand = expand
 	return builder
 }
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Build() *QueryWorkItemDetailsByViewIDReq {
 	req := &QueryWorkItemDetailsByViewIDReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -229,6 +194,7 @@ type UpdateFixViewResp struct {
 
 type UpdateFixViewReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *UpdateFixViewReqBody
 }
 
 func NewUpdateFixViewReqBuilder() *UpdateFixViewReqBuilder {
@@ -236,21 +202,8 @@ func NewUpdateFixViewReqBuilder() *UpdateFixViewReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &UpdateFixViewReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *UpdateFixViewReqBuilder) AccessUser(userKey string) *UpdateFixViewReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *UpdateFixViewReqBuilder) UUID(uuid string) *UpdateFixViewReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &UpdateFixViewReqBody{}
 	return builder
 }
 func (builder *UpdateFixViewReqBuilder) ProjectKey(projectKey string) *UpdateFixViewReqBuilder {
@@ -266,16 +219,17 @@ func (builder *UpdateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 	return builder
 }
 func (builder *UpdateFixViewReqBuilder) AddWorkItemIDs(addWorkItemIDs []int64) *UpdateFixViewReqBuilder {
-	builder.apiReq.Body.(*UpdateFixViewReqBody).AddWorkItemIDs = addWorkItemIDs
+	builder.body.AddWorkItemIDs = addWorkItemIDs
 	return builder
 }
 func (builder *UpdateFixViewReqBuilder) RemoveWorkItemIDs(removeWorkItemIDs []int64) *UpdateFixViewReqBuilder {
-	builder.apiReq.Body.(*UpdateFixViewReqBody).RemoveWorkItemIDs = removeWorkItemIDs
+	builder.body.RemoveWorkItemIDs = removeWorkItemIDs
 	return builder
 }
 func (builder *UpdateFixViewReqBuilder) Build() *UpdateFixViewReq {
 	req := &UpdateFixViewReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -306,6 +260,7 @@ type ViewListResp struct {
 
 type ViewListReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *ViewListReqBody
 }
 
 func NewViewListReqBuilder() *ViewListReqBuilder {
@@ -313,21 +268,8 @@ func NewViewListReqBuilder() *ViewListReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &ViewListReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *ViewListReqBuilder) AccessUser(userKey string) *ViewListReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *ViewListReqBuilder) UUID(uuid string) *ViewListReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &ViewListReqBody{}
 	return builder
 }
 func (builder *ViewListReqBuilder) ProjectKey(projectKey string) *ViewListReqBuilder {
@@ -335,32 +277,33 @@ func (builder *ViewListReqBuilder) ProjectKey(projectKey string) *ViewListReqBui
 	return builder
 }
 func (builder *ViewListReqBuilder) WorkItemTypeKey(workItemTypeKey string) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).WorkItemTypeKey = workItemTypeKey
+	builder.body.WorkItemTypeKey = workItemTypeKey
 	return builder
 }
 func (builder *ViewListReqBuilder) ViewIDs(viewIDs []string) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).ViewIDs = viewIDs
+	builder.body.ViewIDs = viewIDs
 	return builder
 }
 func (builder *ViewListReqBuilder) CreatedBy(createdBy string) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).CreatedBy = createdBy
+	builder.body.CreatedBy = createdBy
 	return builder
 }
 func (builder *ViewListReqBuilder) CreatedAt(createdAt *workitem.TimeInterval) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).CreatedAt = createdAt
+	builder.body.CreatedAt = createdAt
 	return builder
 }
 func (builder *ViewListReqBuilder) PageSize(pageSize int64) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).PageSize = pageSize
+	builder.body.PageSize = pageSize
 	return builder
 }
 func (builder *ViewListReqBuilder) PageNum(pageNum int64) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).PageNum = pageNum
+	builder.body.PageNum = pageNum
 	return builder
 }
 func (builder *ViewListReqBuilder) Build() *ViewListReq {
 	req := &ViewListReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -385,20 +328,7 @@ func NewWorkItemListReqBuilder() *WorkItemListReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *WorkItemListReqBuilder) AccessUser(userKey string) *WorkItemListReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *WorkItemListReqBuilder) UUID(uuid string) *WorkItemListReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *WorkItemListReqBuilder) ProjectKey(projectKey string) *WorkItemListReqBuilder {

@@ -45,7 +45,7 @@ type TaskService struct {
 }
 
 /*
- *
+ *   创建子任务
  */
 func (a *TaskService) CreateSubTask(ctx context.Context, req *CreateSubTaskReq, options ...core.RequestOptionFunc) (*CreateSubTaskResp, error) {
 	// 发起请求
@@ -68,7 +68,7 @@ func (a *TaskService) CreateSubTask(ctx context.Context, req *CreateSubTaskReq, 
 }
 
 /*
- *
+ *   删除子任务
  */
 func (a *TaskService) DeleteSubTask(ctx context.Context, req *DeleteSubTaskReq, options ...core.RequestOptionFunc) (*DeleteSubTaskResp, error) {
 	// 发起请求
@@ -91,7 +91,7 @@ func (a *TaskService) DeleteSubTask(ctx context.Context, req *DeleteSubTaskReq, 
 }
 
 /*
- *
+ *   子任务完成/回滚
  */
 func (a *TaskService) ModifySubtask(ctx context.Context, req *ModifySubtaskReq, options ...core.RequestOptionFunc) (*ModifySubtaskResp, error) {
 	// 发起请求
@@ -114,7 +114,7 @@ func (a *TaskService) ModifySubtask(ctx context.Context, req *ModifySubtaskReq, 
 }
 
 /*
- *
+ *   获取指定的子任务列表（跨空间）
  */
 func (a *TaskService) SearchSubtask(ctx context.Context, req *SearchSubtaskReq, options ...core.RequestOptionFunc) (*SearchSubtaskResp, error) {
 	// 发起请求
@@ -137,7 +137,7 @@ func (a *TaskService) SearchSubtask(ctx context.Context, req *SearchSubtaskReq, 
 }
 
 /*
- *
+ *   获取子任务详情
  */
 func (a *TaskService) TaskDetail(ctx context.Context, req *TaskDetailReq, options ...core.RequestOptionFunc) (*TaskDetailResp, error) {
 	// 发起请求
@@ -160,7 +160,7 @@ func (a *TaskService) TaskDetail(ctx context.Context, req *TaskDetailReq, option
 }
 
 /*
- *
+ *   更新子任务
  */
 func (a *TaskService) UpdateSubTask(ctx context.Context, req *UpdateSubTaskReq, options ...core.RequestOptionFunc) (*UpdateSubTaskResp, error) {
 	// 发起请求

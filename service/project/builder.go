@@ -17,11 +17,11 @@
 package project
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
+
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 )
 
 type GetProjectDetailReq struct {
@@ -45,6 +45,7 @@ type GetProjectDetailResp struct {
 
 type GetProjectDetailReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *GetProjectDetailReqBody
 }
 
 func NewGetProjectDetailReqBuilder() *GetProjectDetailReqBuilder {
@@ -52,42 +53,30 @@ func NewGetProjectDetailReqBuilder() *GetProjectDetailReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &GetProjectDetailReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *GetProjectDetailReqBuilder) AccessUser(userKey string) *GetProjectDetailReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *GetProjectDetailReqBuilder) UUID(uuid string) *GetProjectDetailReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &GetProjectDetailReqBody{}
 	return builder
 }
 func (builder *GetProjectDetailReqBuilder) ProjectKeys(projectKeys []string) *GetProjectDetailReqBuilder {
-	builder.apiReq.Body.(*GetProjectDetailReqBody).ProjectKeys = projectKeys
+	builder.body.ProjectKeys = projectKeys
 	return builder
 }
 func (builder *GetProjectDetailReqBuilder) UserKey(userKey string) *GetProjectDetailReqBuilder {
-	builder.apiReq.Body.(*GetProjectDetailReqBody).UserKey = userKey
+	builder.body.UserKey = userKey
 	return builder
 }
 func (builder *GetProjectDetailReqBuilder) SimpleNames(simpleNames []string) *GetProjectDetailReqBuilder {
-	builder.apiReq.Body.(*GetProjectDetailReqBody).SimpleNames = simpleNames
+	builder.body.SimpleNames = simpleNames
 	return builder
 }
 func (builder *GetProjectDetailReqBuilder) TenantGroupID(tenantGroupID int64) *GetProjectDetailReqBuilder {
-	builder.apiReq.Body.(*GetProjectDetailReqBody).TenantGroupID = tenantGroupID
+	builder.body.TenantGroupID = tenantGroupID
 	return builder
 }
 func (builder *GetProjectDetailReqBuilder) Build() *GetProjectDetailReq {
 	req := &GetProjectDetailReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -110,6 +99,7 @@ type ListProjectResp struct {
 
 type ListProjectReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *ListProjectReqBody
 }
 
 func NewListProjectReqBuilder() *ListProjectReqBuilder {
@@ -117,38 +107,26 @@ func NewListProjectReqBuilder() *ListProjectReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &ListProjectReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *ListProjectReqBuilder) AccessUser(userKey string) *ListProjectReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *ListProjectReqBuilder) UUID(uuid string) *ListProjectReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &ListProjectReqBody{}
 	return builder
 }
 func (builder *ListProjectReqBuilder) UserKey(userKey string) *ListProjectReqBuilder {
-	builder.apiReq.Body.(*ListProjectReqBody).UserKey = userKey
+	builder.body.UserKey = userKey
 	return builder
 }
 func (builder *ListProjectReqBuilder) TenantGroupID(tenantGroupID int64) *ListProjectReqBuilder {
-	builder.apiReq.Body.(*ListProjectReqBody).TenantGroupID = tenantGroupID
+	builder.body.TenantGroupID = tenantGroupID
 	return builder
 }
 func (builder *ListProjectReqBuilder) AssetKey(assetKey string) *ListProjectReqBuilder {
-	builder.apiReq.Body.(*ListProjectReqBody).AssetKey = assetKey
+	builder.body.AssetKey = assetKey
 	return builder
 }
 func (builder *ListProjectReqBuilder) Build() *ListProjectReq {
 	req := &ListProjectReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -171,20 +149,7 @@ func NewListProjectBusinessReqBuilder() *ListProjectBusinessReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *ListProjectBusinessReqBuilder) AccessUser(userKey string) *ListProjectBusinessReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *ListProjectBusinessReqBuilder) UUID(uuid string) *ListProjectBusinessReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *ListProjectBusinessReqBuilder) ProjectKey(projectKey string) *ListProjectBusinessReqBuilder {
@@ -216,20 +181,7 @@ func NewListProjectTeamReqBuilder() *ListProjectTeamReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *ListProjectTeamReqBuilder) AccessUser(userKey string) *ListProjectTeamReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *ListProjectTeamReqBuilder) UUID(uuid string) *ListProjectTeamReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *ListProjectTeamReqBuilder) ProjectKey(projectKey string) *ListProjectTeamReqBuilder {
@@ -261,20 +213,7 @@ func NewListProjectWorkItemTypeReqBuilder() *ListProjectWorkItemTypeReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *ListProjectWorkItemTypeReqBuilder) AccessUser(userKey string) *ListProjectWorkItemTypeReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *ListProjectWorkItemTypeReqBuilder) UUID(uuid string) *ListProjectWorkItemTypeReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *ListProjectWorkItemTypeReqBuilder) ProjectKey(projectKey string) *ListProjectWorkItemTypeReqBuilder {

@@ -17,9 +17,6 @@
 package user
 
 import (
-	"fmt"
-	"net/http"
-
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
@@ -44,6 +41,7 @@ type QueryUserDetailResp struct {
 
 type QueryUserDetailReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *QueryUserDetailReqBody
 }
 
 func NewQueryUserDetailReqBuilder() *QueryUserDetailReqBuilder {
@@ -51,41 +49,29 @@ func NewQueryUserDetailReqBuilder() *QueryUserDetailReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &QueryUserDetailReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryUserDetailReqBuilder) AccessUser(userKey string) *QueryUserDetailReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryUserDetailReqBuilder) UUID(uuid string) *QueryUserDetailReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &QueryUserDetailReqBody{}
 	return builder
 }
 func (builder *QueryUserDetailReqBuilder) UserKeys(userKeys []string) *QueryUserDetailReqBuilder {
-	builder.apiReq.Body.(*QueryUserDetailReqBody).UserKeys = userKeys
+	builder.body.UserKeys = userKeys
 	return builder
 }
 func (builder *QueryUserDetailReqBuilder) Usernames(usernames []string) *QueryUserDetailReqBuilder {
-	builder.apiReq.Body.(*QueryUserDetailReqBody).Usernames = usernames
+	builder.body.Usernames = usernames
 	return builder
 }
 func (builder *QueryUserDetailReqBuilder) OutIDs(outIDs []string) *QueryUserDetailReqBuilder {
-	builder.apiReq.Body.(*QueryUserDetailReqBody).OutIDs = outIDs
+	builder.body.OutIDs = outIDs
 	return builder
 }
 func (builder *QueryUserDetailReqBuilder) Emails(emails []string) *QueryUserDetailReqBuilder {
-	builder.apiReq.Body.(*QueryUserDetailReqBody).Emails = emails
+	builder.body.Emails = emails
 	return builder
 }
 func (builder *QueryUserDetailReqBuilder) Build() *QueryUserDetailReq {
 	req := &QueryUserDetailReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

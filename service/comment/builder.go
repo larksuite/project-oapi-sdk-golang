@@ -18,7 +18,6 @@ package comment
 
 import (
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 
@@ -40,6 +39,7 @@ type CreateCommentResp struct {
 
 type CreateCommentReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CreateCommentReqBody
 }
 
 func NewCreateCommentReqBuilder() *CreateCommentReqBuilder {
@@ -47,21 +47,8 @@ func NewCreateCommentReqBuilder() *CreateCommentReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CreateCommentReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CreateCommentReqBuilder) AccessUser(userKey string) *CreateCommentReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CreateCommentReqBuilder) UUID(uuid string) *CreateCommentReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CreateCommentReqBody{}
 	return builder
 }
 func (builder *CreateCommentReqBuilder) ProjectKey(projectKey string) *CreateCommentReqBuilder {
@@ -77,12 +64,13 @@ func (builder *CreateCommentReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 	return builder
 }
 func (builder *CreateCommentReqBuilder) Content(content string) *CreateCommentReqBuilder {
-	builder.apiReq.Body.(*CreateCommentReqBody).Content = content
+	builder.body.Content = content
 	return builder
 }
 func (builder *CreateCommentReqBuilder) Build() *CreateCommentReq {
 	req := &CreateCommentReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -104,20 +92,7 @@ func NewDeleteCommentReqBuilder() *DeleteCommentReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *DeleteCommentReqBuilder) AccessUser(userKey string) *DeleteCommentReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *DeleteCommentReqBuilder) UUID(uuid string) *DeleteCommentReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *DeleteCommentReqBuilder) ProjectKey(projectKey string) *DeleteCommentReqBuilder {
@@ -163,20 +138,7 @@ func NewQueryCommentsReqBuilder() *QueryCommentsReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryCommentsReqBuilder) AccessUser(userKey string) *QueryCommentsReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryCommentsReqBuilder) UUID(uuid string) *QueryCommentsReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *QueryCommentsReqBuilder) ProjectKey(projectKey string) *QueryCommentsReqBuilder {
@@ -219,6 +181,7 @@ type UpdateCommentResp struct {
 
 type UpdateCommentReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *UpdateCommentReqBody
 }
 
 func NewUpdateCommentReqBuilder() *UpdateCommentReqBuilder {
@@ -226,21 +189,8 @@ func NewUpdateCommentReqBuilder() *UpdateCommentReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &UpdateCommentReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *UpdateCommentReqBuilder) AccessUser(userKey string) *UpdateCommentReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *UpdateCommentReqBuilder) UUID(uuid string) *UpdateCommentReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &UpdateCommentReqBody{}
 	return builder
 }
 func (builder *UpdateCommentReqBuilder) ProjectKey(projectKey string) *UpdateCommentReqBuilder {
@@ -260,11 +210,12 @@ func (builder *UpdateCommentReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 	return builder
 }
 func (builder *UpdateCommentReqBuilder) Content(content string) *UpdateCommentReqBuilder {
-	builder.apiReq.Body.(*UpdateCommentReqBody).Content = content
+	builder.body.Content = content
 	return builder
 }
 func (builder *UpdateCommentReqBuilder) Build() *UpdateCommentReq {
 	req := &UpdateCommentReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

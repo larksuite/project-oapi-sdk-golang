@@ -17,14 +17,15 @@
 package workitem
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
+
+	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+
+	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
 )
 
 type AbortWorkItemReq struct {
@@ -43,6 +44,7 @@ type AbortWorkItemResp struct {
 
 type AbortWorkItemReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *AbortWorkItemReqBody
 }
 
 func NewAbortWorkItemReqBuilder() *AbortWorkItemReqBuilder {
@@ -50,21 +52,8 @@ func NewAbortWorkItemReqBuilder() *AbortWorkItemReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &AbortWorkItemReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *AbortWorkItemReqBuilder) AccessUser(userKey string) *AbortWorkItemReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *AbortWorkItemReqBuilder) UUID(uuid string) *AbortWorkItemReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &AbortWorkItemReqBody{}
 	return builder
 }
 func (builder *AbortWorkItemReqBuilder) ProjectKey(projectKey string) *AbortWorkItemReqBuilder {
@@ -80,16 +69,17 @@ func (builder *AbortWorkItemReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 	return builder
 }
 func (builder *AbortWorkItemReqBuilder) IsAborted(isAborted bool) *AbortWorkItemReqBuilder {
-	builder.apiReq.Body.(*AbortWorkItemReqBody).IsAborted = isAborted
+	builder.body.IsAborted = isAborted
 	return builder
 }
 func (builder *AbortWorkItemReqBuilder) Reason(reason string) *AbortWorkItemReqBuilder {
-	builder.apiReq.Body.(*AbortWorkItemReqBody).Reason = reason
+	builder.body.Reason = reason
 	return builder
 }
 func (builder *AbortWorkItemReqBuilder) Build() *AbortWorkItemReq {
 	req := &AbortWorkItemReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -122,6 +112,7 @@ type CompositiveSearchResp struct {
 
 type CompositiveSearchReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CompositiveSearchReqBody
 }
 
 func NewCompositiveSearchReqBuilder() *CompositiveSearchReqBuilder {
@@ -129,54 +120,42 @@ func NewCompositiveSearchReqBuilder() *CompositiveSearchReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CompositiveSearchReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CompositiveSearchReqBuilder) AccessUser(userKey string) *CompositiveSearchReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CompositiveSearchReqBuilder) UUID(uuid string) *CompositiveSearchReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CompositiveSearchReqBody{}
 	return builder
 }
 func (builder *CompositiveSearchReqBuilder) ProjectKeys(projectKeys []string) *CompositiveSearchReqBuilder {
-	builder.apiReq.Body.(*CompositiveSearchReqBody).ProjectKeys = projectKeys
+	builder.body.ProjectKeys = projectKeys
 	return builder
 }
 func (builder *CompositiveSearchReqBuilder) QueryType(queryType string) *CompositiveSearchReqBuilder {
-	builder.apiReq.Body.(*CompositiveSearchReqBody).QueryType = queryType
+	builder.body.QueryType = queryType
 	return builder
 }
 func (builder *CompositiveSearchReqBuilder) Query(query string) *CompositiveSearchReqBuilder {
-	builder.apiReq.Body.(*CompositiveSearchReqBody).Query = query
+	builder.body.Query = query
 	return builder
 }
 func (builder *CompositiveSearchReqBuilder) QuerySubType(querySubType []string) *CompositiveSearchReqBuilder {
-	builder.apiReq.Body.(*CompositiveSearchReqBody).QuerySubType = querySubType
+	builder.body.QuerySubType = querySubType
 	return builder
 }
 func (builder *CompositiveSearchReqBuilder) PageSize(pageSize int64) *CompositiveSearchReqBuilder {
-	builder.apiReq.Body.(*CompositiveSearchReqBody).PageSize = pageSize
+	builder.body.PageSize = pageSize
 	return builder
 }
 func (builder *CompositiveSearchReqBuilder) PageNum(pageNum int64) *CompositiveSearchReqBuilder {
-	builder.apiReq.Body.(*CompositiveSearchReqBody).PageNum = pageNum
+	builder.body.PageNum = pageNum
 	return builder
 }
 func (builder *CompositiveSearchReqBuilder) SimpleNames(simpleNames []string) *CompositiveSearchReqBuilder {
-	builder.apiReq.Body.(*CompositiveSearchReqBody).SimpleNames = simpleNames
+	builder.body.SimpleNames = simpleNames
 	return builder
 }
 func (builder *CompositiveSearchReqBuilder) Build() *CompositiveSearchReq {
 	req := &CompositiveSearchReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -201,6 +180,7 @@ type CreateWorkItemResp struct {
 
 type CreateWorkItemReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CreateWorkItemReqBody
 }
 
 func NewCreateWorkItemReqBuilder() *CreateWorkItemReqBuilder {
@@ -208,21 +188,8 @@ func NewCreateWorkItemReqBuilder() *CreateWorkItemReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CreateWorkItemReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CreateWorkItemReqBuilder) AccessUser(userKey string) *CreateWorkItemReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CreateWorkItemReqBuilder) UUID(uuid string) *CreateWorkItemReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CreateWorkItemReqBody{}
 	return builder
 }
 func (builder *CreateWorkItemReqBuilder) ProjectKey(projectKey string) *CreateWorkItemReqBuilder {
@@ -230,24 +197,25 @@ func (builder *CreateWorkItemReqBuilder) ProjectKey(projectKey string) *CreateWo
 	return builder
 }
 func (builder *CreateWorkItemReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateWorkItemReqBuilder {
-	builder.apiReq.Body.(*CreateWorkItemReqBody).WorkItemTypeKey = workItemTypeKey
+	builder.body.WorkItemTypeKey = workItemTypeKey
 	return builder
 }
 func (builder *CreateWorkItemReqBuilder) FieldValuePairs(fieldValuePairs []*field.FieldValuePair) *CreateWorkItemReqBuilder {
-	builder.apiReq.Body.(*CreateWorkItemReqBody).FieldValuePairs = fieldValuePairs
+	builder.body.FieldValuePairs = fieldValuePairs
 	return builder
 }
 func (builder *CreateWorkItemReqBuilder) TemplateID(templateID int64) *CreateWorkItemReqBuilder {
-	builder.apiReq.Body.(*CreateWorkItemReqBody).TemplateID = templateID
+	builder.body.TemplateID = templateID
 	return builder
 }
 func (builder *CreateWorkItemReqBuilder) Name(name string) *CreateWorkItemReqBuilder {
-	builder.apiReq.Body.(*CreateWorkItemReqBody).Name = name
+	builder.body.Name = name
 	return builder
 }
 func (builder *CreateWorkItemReqBuilder) Build() *CreateWorkItemReq {
 	req := &CreateWorkItemReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -272,6 +240,7 @@ type CreateWorkItemRelationResp struct {
 
 type CreateWorkItemRelationReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CreateWorkItemRelationReqBody
 }
 
 func NewCreateWorkItemRelationReqBuilder() *CreateWorkItemRelationReqBuilder {
@@ -279,42 +248,30 @@ func NewCreateWorkItemRelationReqBuilder() *CreateWorkItemRelationReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CreateWorkItemRelationReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CreateWorkItemRelationReqBuilder) AccessUser(userKey string) *CreateWorkItemRelationReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CreateWorkItemRelationReqBuilder) UUID(uuid string) *CreateWorkItemRelationReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CreateWorkItemRelationReqBody{}
 	return builder
 }
 func (builder *CreateWorkItemRelationReqBuilder) ProjectKey(projectKey string) *CreateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*CreateWorkItemRelationReqBody).ProjectKey = projectKey
+	builder.body.ProjectKey = projectKey
 	return builder
 }
 func (builder *CreateWorkItemRelationReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*CreateWorkItemRelationReqBody).WorkItemTypeKey = workItemTypeKey
+	builder.body.WorkItemTypeKey = workItemTypeKey
 	return builder
 }
 func (builder *CreateWorkItemRelationReqBuilder) Name(name string) *CreateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*CreateWorkItemRelationReqBody).Name = name
+	builder.body.Name = name
 	return builder
 }
 func (builder *CreateWorkItemRelationReqBuilder) RelationDetails(relationDetails []*RelationDetail) *CreateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*CreateWorkItemRelationReqBody).RelationDetails = relationDetails
+	builder.body.RelationDetails = relationDetails
 	return builder
 }
 func (builder *CreateWorkItemRelationReqBuilder) Build() *CreateWorkItemRelationReq {
 	req := &CreateWorkItemRelationReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -336,20 +293,7 @@ func NewDeleteWorkItemReqBuilder() *DeleteWorkItemReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *DeleteWorkItemReqBuilder) AccessUser(userKey string) *DeleteWorkItemReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *DeleteWorkItemReqBuilder) UUID(uuid string) *DeleteWorkItemReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *DeleteWorkItemReqBuilder) ProjectKey(projectKey string) *DeleteWorkItemReqBuilder {
@@ -387,6 +331,7 @@ type DeleteWorkItemRelationResp struct {
 
 type DeleteWorkItemRelationReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *DeleteWorkItemRelationReqBody
 }
 
 func NewDeleteWorkItemRelationReqBuilder() *DeleteWorkItemRelationReqBuilder {
@@ -394,34 +339,22 @@ func NewDeleteWorkItemRelationReqBuilder() *DeleteWorkItemRelationReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &DeleteWorkItemRelationReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *DeleteWorkItemRelationReqBuilder) AccessUser(userKey string) *DeleteWorkItemRelationReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *DeleteWorkItemRelationReqBuilder) UUID(uuid string) *DeleteWorkItemRelationReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &DeleteWorkItemRelationReqBody{}
 	return builder
 }
 func (builder *DeleteWorkItemRelationReqBuilder) RelationID(relationID string) *DeleteWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*DeleteWorkItemRelationReqBody).RelationID = relationID
+	builder.body.RelationID = relationID
 	return builder
 }
 func (builder *DeleteWorkItemRelationReqBuilder) ProjectKey(projectKey string) *DeleteWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*DeleteWorkItemRelationReqBody).ProjectKey = projectKey
+	builder.body.ProjectKey = projectKey
 	return builder
 }
 func (builder *DeleteWorkItemRelationReqBuilder) Build() *DeleteWorkItemRelationReq {
 	req := &DeleteWorkItemRelationReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -468,6 +401,7 @@ type FilterResp struct {
 
 type FilterReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *FilterReqBody
 }
 
 func NewFilterReqBuilder() *FilterReqBuilder {
@@ -475,21 +409,8 @@ func NewFilterReqBuilder() *FilterReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &FilterReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *FilterReqBuilder) AccessUser(userKey string) *FilterReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *FilterReqBuilder) UUID(uuid string) *FilterReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &FilterReqBody{}
 	return builder
 }
 func (builder *FilterReqBuilder) ProjectKey(projectKey string) *FilterReqBuilder {
@@ -497,64 +418,65 @@ func (builder *FilterReqBuilder) ProjectKey(projectKey string) *FilterReqBuilder
 	return builder
 }
 func (builder *FilterReqBuilder) WorkItemName(workItemName string) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).WorkItemName = workItemName
+	builder.body.WorkItemName = workItemName
 	return builder
 }
 func (builder *FilterReqBuilder) UserKeys(userKeys []string) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).UserKeys = userKeys
+	builder.body.UserKeys = userKeys
 	return builder
 }
 func (builder *FilterReqBuilder) WorkItemIDs(workItemIDs []int64) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).WorkItemIDs = workItemIDs
+	builder.body.WorkItemIDs = workItemIDs
 	return builder
 }
 func (builder *FilterReqBuilder) WorkItemTypeKeys(workItemTypeKeys []string) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).WorkItemTypeKeys = workItemTypeKeys
+	builder.body.WorkItemTypeKeys = workItemTypeKeys
 	return builder
 }
 func (builder *FilterReqBuilder) CreatedAt(createdAt *TimeInterval) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).CreatedAt = createdAt
+	builder.body.CreatedAt = createdAt
 	return builder
 }
 func (builder *FilterReqBuilder) UpdatedAt(updatedAt *TimeInterval) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).UpdatedAt = updatedAt
+	builder.body.UpdatedAt = updatedAt
 	return builder
 }
 func (builder *FilterReqBuilder) SubStages(subStages []string) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).SubStages = subStages
+	builder.body.SubStages = subStages
 	return builder
 }
 func (builder *FilterReqBuilder) Businesses(businesses []string) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).Businesses = businesses
+	builder.body.Businesses = businesses
 	return builder
 }
 func (builder *FilterReqBuilder) Priorities(priorities []string) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).Priorities = priorities
+	builder.body.Priorities = priorities
 	return builder
 }
 func (builder *FilterReqBuilder) Tags(tags []string) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).Tags = tags
+	builder.body.Tags = tags
 	return builder
 }
 func (builder *FilterReqBuilder) PageNum(pageNum int64) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).PageNum = pageNum
+	builder.body.PageNum = pageNum
 	return builder
 }
 func (builder *FilterReqBuilder) PageSize(pageSize int64) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).PageSize = pageSize
+	builder.body.PageSize = pageSize
 	return builder
 }
 func (builder *FilterReqBuilder) WorkItemStatus(workItemStatus []*WorkItemStatus) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).WorkItemStatus = workItemStatus
+	builder.body.WorkItemStatus = workItemStatus
 	return builder
 }
 func (builder *FilterReqBuilder) Expand(expand *Expand) *FilterReqBuilder {
-	builder.apiReq.Body.(*FilterReqBody).Expand = expand
+	builder.body.Expand = expand
 	return builder
 }
 func (builder *FilterReqBuilder) Build() *FilterReq {
 	req := &FilterReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -607,6 +529,7 @@ type FilterAcrossProjectResp struct {
 
 type FilterAcrossProjectReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *FilterAcrossProjectReqBody
 }
 
 func NewFilterAcrossProjectReqBuilder() *FilterAcrossProjectReqBuilder {
@@ -614,94 +537,82 @@ func NewFilterAcrossProjectReqBuilder() *FilterAcrossProjectReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &FilterAcrossProjectReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *FilterAcrossProjectReqBuilder) AccessUser(userKey string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *FilterAcrossProjectReqBuilder) UUID(uuid string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &FilterAcrossProjectReqBody{}
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) ProjectKeys(projectKeys []string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).ProjectKeys = projectKeys
+	builder.body.ProjectKeys = projectKeys
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) SearchUser(searchUser *SearchUser) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).SearchUser = searchUser
+	builder.body.SearchUser = searchUser
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) WorkItemTypeKey(workItemTypeKey string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).WorkItemTypeKey = workItemTypeKey
+	builder.body.WorkItemTypeKey = workItemTypeKey
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) CreatedAt(createdAt *TimeInterval) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).CreatedAt = createdAt
+	builder.body.CreatedAt = createdAt
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) UpdatedAt(updatedAt *TimeInterval) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).UpdatedAt = updatedAt
+	builder.body.UpdatedAt = updatedAt
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) WorkItemStatus(workItemStatus []*WorkItemStatus) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).WorkItemStatus = workItemStatus
+	builder.body.WorkItemStatus = workItemStatus
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) WorkItemName(workItemName string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).WorkItemName = workItemName
+	builder.body.WorkItemName = workItemName
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) PageNum(pageNum int64) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).PageNum = pageNum
+	builder.body.PageNum = pageNum
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) PageSize(pageSize int64) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).PageSize = pageSize
+	builder.body.PageSize = pageSize
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) TenantGroupID(tenantGroupID int64) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).TenantGroupID = tenantGroupID
+	builder.body.TenantGroupID = tenantGroupID
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) WorkItemIDs(workItemIDs []int64) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).WorkItemIDs = workItemIDs
+	builder.body.WorkItemIDs = workItemIDs
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) Businesses(businesses []string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).Businesses = businesses
+	builder.body.Businesses = businesses
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) Priorities(priorities []string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).Priorities = priorities
+	builder.body.Priorities = priorities
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) Tags(tags []string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).Tags = tags
+	builder.body.Tags = tags
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) SimpleNames(simpleNames []string) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).SimpleNames = simpleNames
+	builder.body.SimpleNames = simpleNames
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) TemplateIDs(templateIDs []int64) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).TemplateIDs = templateIDs
+	builder.body.TemplateIDs = templateIDs
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) Expand(expand *Expand) *FilterAcrossProjectReqBuilder {
-	builder.apiReq.Body.(*FilterAcrossProjectReqBody).Expand = expand
+	builder.body.Expand = expand
 	return builder
 }
 func (builder *FilterAcrossProjectReqBuilder) Build() *FilterAcrossProjectReq {
 	req := &FilterAcrossProjectReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -724,20 +635,7 @@ func NewGetMetaReqBuilder() *GetMetaReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *GetMetaReqBuilder) AccessUser(userKey string) *GetMetaReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *GetMetaReqBuilder) UUID(uuid string) *GetMetaReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *GetMetaReqBuilder) ProjectKey(projectKey string) *GetMetaReqBuilder {
@@ -780,6 +678,7 @@ type NodeOperateResp struct {
 
 type NodeOperateReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *NodeOperateReqBody
 }
 
 func NewNodeOperateReqBuilder() *NodeOperateReqBuilder {
@@ -787,21 +686,8 @@ func NewNodeOperateReqBuilder() *NodeOperateReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &NodeOperateReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *NodeOperateReqBuilder) AccessUser(userKey string) *NodeOperateReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *NodeOperateReqBuilder) UUID(uuid string) *NodeOperateReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &NodeOperateReqBody{}
 	return builder
 }
 func (builder *NodeOperateReqBuilder) ProjectKey(projectKey string) *NodeOperateReqBuilder {
@@ -821,36 +707,37 @@ func (builder *NodeOperateReqBuilder) WorkItemTypeKey(workItemTypeKey string) *N
 	return builder
 }
 func (builder *NodeOperateReqBuilder) Action(action string) *NodeOperateReqBuilder {
-	builder.apiReq.Body.(*NodeOperateReqBody).Action = action
+	builder.body.Action = action
 	return builder
 }
 func (builder *NodeOperateReqBuilder) RollbackReason(rollbackReason string) *NodeOperateReqBuilder {
-	builder.apiReq.Body.(*NodeOperateReqBody).RollbackReason = rollbackReason
+	builder.body.RollbackReason = rollbackReason
 	return builder
 }
 func (builder *NodeOperateReqBuilder) NodeOwners(nodeOwners []string) *NodeOperateReqBuilder {
-	builder.apiReq.Body.(*NodeOperateReqBody).NodeOwners = nodeOwners
+	builder.body.NodeOwners = nodeOwners
 	return builder
 }
 func (builder *NodeOperateReqBuilder) NodeSchedule(nodeSchedule *Schedule) *NodeOperateReqBuilder {
-	builder.apiReq.Body.(*NodeOperateReqBody).NodeSchedule = nodeSchedule
+	builder.body.NodeSchedule = nodeSchedule
 	return builder
 }
 func (builder *NodeOperateReqBuilder) Schedules(schedules []*Schedule) *NodeOperateReqBuilder {
-	builder.apiReq.Body.(*NodeOperateReqBody).Schedules = schedules
+	builder.body.Schedules = schedules
 	return builder
 }
 func (builder *NodeOperateReqBuilder) Fields(fields []*field.FieldValuePair) *NodeOperateReqBuilder {
-	builder.apiReq.Body.(*NodeOperateReqBody).Fields = fields
+	builder.body.Fields = fields
 	return builder
 }
 func (builder *NodeOperateReqBuilder) RoleAssignee(roleAssignee []*user.RoleOwner) *NodeOperateReqBuilder {
-	builder.apiReq.Body.(*NodeOperateReqBody).RoleAssignee = roleAssignee
+	builder.body.RoleAssignee = roleAssignee
 	return builder
 }
 func (builder *NodeOperateReqBuilder) Build() *NodeOperateReq {
 	req := &NodeOperateReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -872,6 +759,7 @@ type NodeStateChangeResp struct {
 
 type NodeStateChangeReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *NodeStateChangeReqBody
 }
 
 func NewNodeStateChangeReqBuilder() *NodeStateChangeReqBuilder {
@@ -879,21 +767,8 @@ func NewNodeStateChangeReqBuilder() *NodeStateChangeReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &NodeStateChangeReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *NodeStateChangeReqBuilder) AccessUser(userKey string) *NodeStateChangeReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *NodeStateChangeReqBuilder) UUID(uuid string) *NodeStateChangeReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &NodeStateChangeReqBody{}
 	return builder
 }
 func (builder *NodeStateChangeReqBuilder) ProjectKey(projectKey string) *NodeStateChangeReqBuilder {
@@ -909,20 +784,21 @@ func (builder *NodeStateChangeReqBuilder) WorkItemTypeKey(workItemTypeKey string
 	return builder
 }
 func (builder *NodeStateChangeReqBuilder) TransitionID(transitionID int64) *NodeStateChangeReqBuilder {
-	builder.apiReq.Body.(*NodeStateChangeReqBody).TransitionID = transitionID
+	builder.body.TransitionID = transitionID
 	return builder
 }
 func (builder *NodeStateChangeReqBuilder) RoleOwners(roleOwners []*user.RoleOwner) *NodeStateChangeReqBuilder {
-	builder.apiReq.Body.(*NodeStateChangeReqBody).RoleOwners = roleOwners
+	builder.body.RoleOwners = roleOwners
 	return builder
 }
 func (builder *NodeStateChangeReqBuilder) Fields(fields []*field.FieldValuePair) *NodeStateChangeReqBuilder {
-	builder.apiReq.Body.(*NodeStateChangeReqBody).Fields = fields
+	builder.body.Fields = fields
 	return builder
 }
 func (builder *NodeStateChangeReqBuilder) Build() *NodeStateChangeReq {
 	req := &NodeStateChangeReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -948,6 +824,7 @@ type NodeUpdateResp struct {
 
 type NodeUpdateReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *NodeUpdateReqBody
 }
 
 func NewNodeUpdateReqBuilder() *NodeUpdateReqBuilder {
@@ -955,21 +832,8 @@ func NewNodeUpdateReqBuilder() *NodeUpdateReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &NodeUpdateReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *NodeUpdateReqBuilder) AccessUser(userKey string) *NodeUpdateReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *NodeUpdateReqBuilder) UUID(uuid string) *NodeUpdateReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &NodeUpdateReqBody{}
 	return builder
 }
 func (builder *NodeUpdateReqBuilder) ProjectKey(projectKey string) *NodeUpdateReqBuilder {
@@ -989,28 +853,29 @@ func (builder *NodeUpdateReqBuilder) WorkItemTypeKey(workItemTypeKey string) *No
 	return builder
 }
 func (builder *NodeUpdateReqBuilder) NodeOwners(nodeOwners []string) *NodeUpdateReqBuilder {
-	builder.apiReq.Body.(*NodeUpdateReqBody).NodeOwners = nodeOwners
+	builder.body.NodeOwners = nodeOwners
 	return builder
 }
 func (builder *NodeUpdateReqBuilder) NodeSchedule(nodeSchedule *Schedule) *NodeUpdateReqBuilder {
-	builder.apiReq.Body.(*NodeUpdateReqBody).NodeSchedule = nodeSchedule
+	builder.body.NodeSchedule = nodeSchedule
 	return builder
 }
 func (builder *NodeUpdateReqBuilder) Schedules(schedules []*Schedule) *NodeUpdateReqBuilder {
-	builder.apiReq.Body.(*NodeUpdateReqBody).Schedules = schedules
+	builder.body.Schedules = schedules
 	return builder
 }
 func (builder *NodeUpdateReqBuilder) Fields(fields []*field.FieldValuePair) *NodeUpdateReqBuilder {
-	builder.apiReq.Body.(*NodeUpdateReqBody).Fields = fields
+	builder.body.Fields = fields
 	return builder
 }
 func (builder *NodeUpdateReqBuilder) RoleAssignee(roleAssignee []*user.RoleOwner) *NodeUpdateReqBuilder {
-	builder.apiReq.Body.(*NodeUpdateReqBody).RoleAssignee = roleAssignee
+	builder.body.RoleAssignee = roleAssignee
 	return builder
 }
 func (builder *NodeUpdateReqBuilder) Build() *NodeUpdateReq {
 	req := &NodeUpdateReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1033,6 +898,7 @@ type QueryWorkItemDetailResp struct {
 
 type QueryWorkItemDetailReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *QueryWorkItemDetailReqBody
 }
 
 func NewQueryWorkItemDetailReqBuilder() *QueryWorkItemDetailReqBuilder {
@@ -1040,21 +906,8 @@ func NewQueryWorkItemDetailReqBuilder() *QueryWorkItemDetailReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &QueryWorkItemDetailReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryWorkItemDetailReqBuilder) AccessUser(userKey string) *QueryWorkItemDetailReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryWorkItemDetailReqBuilder) UUID(uuid string) *QueryWorkItemDetailReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &QueryWorkItemDetailReqBody{}
 	return builder
 }
 func (builder *QueryWorkItemDetailReqBuilder) ProjectKey(projectKey string) *QueryWorkItemDetailReqBuilder {
@@ -1066,20 +919,21 @@ func (builder *QueryWorkItemDetailReqBuilder) WorkItemTypeKey(workItemTypeKey st
 	return builder
 }
 func (builder *QueryWorkItemDetailReqBuilder) WorkItemIDs(workItemIDs []int64) *QueryWorkItemDetailReqBuilder {
-	builder.apiReq.Body.(*QueryWorkItemDetailReqBody).WorkItemIDs = workItemIDs
+	builder.body.WorkItemIDs = workItemIDs
 	return builder
 }
 func (builder *QueryWorkItemDetailReqBuilder) Fields(fields []string) *QueryWorkItemDetailReqBuilder {
-	builder.apiReq.Body.(*QueryWorkItemDetailReqBody).Fields = fields
+	builder.body.Fields = fields
 	return builder
 }
 func (builder *QueryWorkItemDetailReqBuilder) Expand(expand *Expand) *QueryWorkItemDetailReqBuilder {
-	builder.apiReq.Body.(*QueryWorkItemDetailReqBody).Expand = expand
+	builder.body.Expand = expand
 	return builder
 }
 func (builder *QueryWorkItemDetailReqBuilder) Build() *QueryWorkItemDetailReq {
 	req := &QueryWorkItemDetailReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1102,20 +956,7 @@ func NewQueryWorkItemRelationReqBuilder() *QueryWorkItemRelationReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryWorkItemRelationReqBuilder) AccessUser(userKey string) *QueryWorkItemRelationReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryWorkItemRelationReqBuilder) UUID(uuid string) *QueryWorkItemRelationReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *QueryWorkItemRelationReqBuilder) ProjectKey(projectKey string) *QueryWorkItemRelationReqBuilder {
@@ -1147,6 +988,7 @@ type QueryWorkflowResp struct {
 
 type QueryWorkflowReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *QueryWorkflowReqBody
 }
 
 func NewQueryWorkflowReqBuilder() *QueryWorkflowReqBuilder {
@@ -1154,21 +996,8 @@ func NewQueryWorkflowReqBuilder() *QueryWorkflowReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &QueryWorkflowReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryWorkflowReqBuilder) AccessUser(userKey string) *QueryWorkflowReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryWorkflowReqBuilder) UUID(uuid string) *QueryWorkflowReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &QueryWorkflowReqBody{}
 	return builder
 }
 func (builder *QueryWorkflowReqBuilder) ProjectKey(projectKey string) *QueryWorkflowReqBuilder {
@@ -1184,20 +1013,21 @@ func (builder *QueryWorkflowReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 	return builder
 }
 func (builder *QueryWorkflowReqBuilder) Fields(fields []string) *QueryWorkflowReqBuilder {
-	builder.apiReq.Body.(*QueryWorkflowReqBody).Fields = fields
+	builder.body.Fields = fields
 	return builder
 }
 func (builder *QueryWorkflowReqBuilder) FlowType(flowType int64) *QueryWorkflowReqBuilder {
-	builder.apiReq.Body.(*QueryWorkflowReqBody).FlowType = flowType
+	builder.body.FlowType = flowType
 	return builder
 }
 func (builder *QueryWorkflowReqBuilder) Expand(expand *Expand) *QueryWorkflowReqBuilder {
-	builder.apiReq.Body.(*QueryWorkflowReqBody).Expand = expand
+	builder.body.Expand = expand
 	return builder
 }
 func (builder *QueryWorkflowReqBuilder) Build() *QueryWorkflowReq {
 	req := &QueryWorkflowReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1226,6 +1056,7 @@ type SearchByParamsResp struct {
 
 type SearchByParamsReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *SearchByParamsReqBody
 }
 
 func NewSearchByParamsReqBuilder() *SearchByParamsReqBuilder {
@@ -1233,21 +1064,8 @@ func NewSearchByParamsReqBuilder() *SearchByParamsReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &SearchByParamsReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *SearchByParamsReqBuilder) AccessUser(userKey string) *SearchByParamsReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *SearchByParamsReqBuilder) UUID(uuid string) *SearchByParamsReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &SearchByParamsReqBody{}
 	return builder
 }
 func (builder *SearchByParamsReqBuilder) ProjectKey(projectKey string) *SearchByParamsReqBuilder {
@@ -1259,28 +1077,29 @@ func (builder *SearchByParamsReqBuilder) WorkItemTypeKey(workItemTypeKey string)
 	return builder
 }
 func (builder *SearchByParamsReqBuilder) SearchGroup(searchGroup *SearchGroup) *SearchByParamsReqBuilder {
-	builder.apiReq.Body.(*SearchByParamsReqBody).SearchGroup = searchGroup
+	builder.body.SearchGroup = searchGroup
 	return builder
 }
 func (builder *SearchByParamsReqBuilder) PageNum(pageNum int64) *SearchByParamsReqBuilder {
-	builder.apiReq.Body.(*SearchByParamsReqBody).PageNum = pageNum
+	builder.body.PageNum = pageNum
 	return builder
 }
 func (builder *SearchByParamsReqBuilder) PageSize(pageSize int64) *SearchByParamsReqBuilder {
-	builder.apiReq.Body.(*SearchByParamsReqBody).PageSize = pageSize
+	builder.body.PageSize = pageSize
 	return builder
 }
 func (builder *SearchByParamsReqBuilder) Fields(fields []string) *SearchByParamsReqBuilder {
-	builder.apiReq.Body.(*SearchByParamsReqBody).Fields = fields
+	builder.body.Fields = fields
 	return builder
 }
 func (builder *SearchByParamsReqBuilder) Expand(expand *Expand) *SearchByParamsReqBuilder {
-	builder.apiReq.Body.(*SearchByParamsReqBody).Expand = expand
+	builder.body.Expand = expand
 	return builder
 }
 func (builder *SearchByParamsReqBuilder) Build() *SearchByParamsReq {
 	req := &SearchByParamsReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1311,6 +1130,7 @@ type SearchByRelationResp struct {
 
 type SearchByRelationReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *SearchByRelationReqBody
 }
 
 func NewSearchByRelationReqBuilder() *SearchByRelationReqBuilder {
@@ -1318,21 +1138,8 @@ func NewSearchByRelationReqBuilder() *SearchByRelationReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &SearchByRelationReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *SearchByRelationReqBuilder) AccessUser(userKey string) *SearchByRelationReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *SearchByRelationReqBuilder) UUID(uuid string) *SearchByRelationReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &SearchByRelationReqBody{}
 	return builder
 }
 func (builder *SearchByRelationReqBuilder) ProjectKey(projectKey string) *SearchByRelationReqBuilder {
@@ -1348,32 +1155,33 @@ func (builder *SearchByRelationReqBuilder) WorkItemID(workItemID int64) *SearchB
 	return builder
 }
 func (builder *SearchByRelationReqBuilder) RelationWorkItemTypeKey(relationWorkItemTypeKey string) *SearchByRelationReqBuilder {
-	builder.apiReq.Body.(*SearchByRelationReqBody).RelationWorkItemTypeKey = relationWorkItemTypeKey
+	builder.body.RelationWorkItemTypeKey = relationWorkItemTypeKey
 	return builder
 }
 func (builder *SearchByRelationReqBuilder) RelationKey(relationKey string) *SearchByRelationReqBuilder {
-	builder.apiReq.Body.(*SearchByRelationReqBody).RelationKey = relationKey
+	builder.body.RelationKey = relationKey
 	return builder
 }
 func (builder *SearchByRelationReqBuilder) PageNum(pageNum int64) *SearchByRelationReqBuilder {
-	builder.apiReq.Body.(*SearchByRelationReqBody).PageNum = pageNum
+	builder.body.PageNum = pageNum
 	return builder
 }
 func (builder *SearchByRelationReqBuilder) PageSize(pageSize int64) *SearchByRelationReqBuilder {
-	builder.apiReq.Body.(*SearchByRelationReqBody).PageSize = pageSize
+	builder.body.PageSize = pageSize
 	return builder
 }
 func (builder *SearchByRelationReqBuilder) RelationType(relationType int32) *SearchByRelationReqBuilder {
-	builder.apiReq.Body.(*SearchByRelationReqBody).RelationType = relationType
+	builder.body.RelationType = relationType
 	return builder
 }
 func (builder *SearchByRelationReqBuilder) Expand(expand *Expand) *SearchByRelationReqBuilder {
-	builder.apiReq.Body.(*SearchByRelationReqBody).Expand = expand
+	builder.body.Expand = expand
 	return builder
 }
 func (builder *SearchByRelationReqBuilder) Build() *SearchByRelationReq {
 	req := &SearchByRelationReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1398,6 +1206,7 @@ type UpdateMultiSignalResp struct {
 
 type UpdateMultiSignalReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *UpdateMultiSignalReqBody
 }
 
 func NewUpdateMultiSignalReqBuilder() *UpdateMultiSignalReqBuilder {
@@ -1405,21 +1214,8 @@ func NewUpdateMultiSignalReqBuilder() *UpdateMultiSignalReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &UpdateMultiSignalReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *UpdateMultiSignalReqBuilder) AccessUser(userKey string) *UpdateMultiSignalReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *UpdateMultiSignalReqBuilder) UUID(uuid string) *UpdateMultiSignalReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &UpdateMultiSignalReqBody{}
 	return builder
 }
 func (builder *UpdateMultiSignalReqBuilder) ProjectKey(projectKey string) *UpdateMultiSignalReqBuilder {
@@ -1435,24 +1231,25 @@ func (builder *UpdateMultiSignalReqBuilder) WorkItemID(workItemID int64) *Update
 	return builder
 }
 func (builder *UpdateMultiSignalReqBuilder) FieldKey(fieldKey string) *UpdateMultiSignalReqBuilder {
-	builder.apiReq.Body.(*UpdateMultiSignalReqBody).FieldKey = fieldKey
+	builder.body.FieldKey = fieldKey
 	return builder
 }
 func (builder *UpdateMultiSignalReqBuilder) FieldAlias(fieldAlias string) *UpdateMultiSignalReqBuilder {
-	builder.apiReq.Body.(*UpdateMultiSignalReqBody).FieldAlias = fieldAlias
+	builder.body.FieldAlias = fieldAlias
 	return builder
 }
 func (builder *UpdateMultiSignalReqBuilder) Details(details []*field.MultiSignalDetail) *UpdateMultiSignalReqBuilder {
-	builder.apiReq.Body.(*UpdateMultiSignalReqBody).Details = details
+	builder.body.Details = details
 	return builder
 }
 func (builder *UpdateMultiSignalReqBuilder) UpdateType(updateType string) *UpdateMultiSignalReqBuilder {
-	builder.apiReq.Body.(*UpdateMultiSignalReqBody).UpdateType = updateType
+	builder.body.UpdateType = updateType
 	return builder
 }
 func (builder *UpdateMultiSignalReqBuilder) Build() *UpdateMultiSignalReq {
 	req := &UpdateMultiSignalReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1470,6 +1267,7 @@ type UpdateWorkItemResp struct {
 
 type UpdateWorkItemReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *UpdateWorkItemReqBody
 }
 
 func NewUpdateWorkItemReqBuilder() *UpdateWorkItemReqBuilder {
@@ -1477,21 +1275,8 @@ func NewUpdateWorkItemReqBuilder() *UpdateWorkItemReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &UpdateWorkItemReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *UpdateWorkItemReqBuilder) AccessUser(userKey string) *UpdateWorkItemReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *UpdateWorkItemReqBuilder) UUID(uuid string) *UpdateWorkItemReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &UpdateWorkItemReqBody{}
 	return builder
 }
 func (builder *UpdateWorkItemReqBuilder) ProjectKey(projectKey string) *UpdateWorkItemReqBuilder {
@@ -1507,12 +1292,13 @@ func (builder *UpdateWorkItemReqBuilder) WorkItemTypeKey(workItemTypeKey string)
 	return builder
 }
 func (builder *UpdateWorkItemReqBuilder) UpdateFields(updateFields []*field.FieldValuePair) *UpdateWorkItemReqBuilder {
-	builder.apiReq.Body.(*UpdateWorkItemReqBody).UpdateFields = updateFields
+	builder.body.UpdateFields = updateFields
 	return builder
 }
 func (builder *UpdateWorkItemReqBuilder) Build() *UpdateWorkItemReq {
 	req := &UpdateWorkItemReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1539,6 +1325,7 @@ type UpdateWorkItemRelationResp struct {
 
 type UpdateWorkItemRelationReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *UpdateWorkItemRelationReqBody
 }
 
 func NewUpdateWorkItemRelationReqBuilder() *UpdateWorkItemRelationReqBuilder {
@@ -1546,46 +1333,34 @@ func NewUpdateWorkItemRelationReqBuilder() *UpdateWorkItemRelationReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &UpdateWorkItemRelationReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *UpdateWorkItemRelationReqBuilder) AccessUser(userKey string) *UpdateWorkItemRelationReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *UpdateWorkItemRelationReqBuilder) UUID(uuid string) *UpdateWorkItemRelationReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &UpdateWorkItemRelationReqBody{}
 	return builder
 }
 func (builder *UpdateWorkItemRelationReqBuilder) RelationID(relationID string) *UpdateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*UpdateWorkItemRelationReqBody).RelationID = relationID
+	builder.body.RelationID = relationID
 	return builder
 }
 func (builder *UpdateWorkItemRelationReqBuilder) ProjectKey(projectKey string) *UpdateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*UpdateWorkItemRelationReqBody).ProjectKey = projectKey
+	builder.body.ProjectKey = projectKey
 	return builder
 }
 func (builder *UpdateWorkItemRelationReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UpdateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*UpdateWorkItemRelationReqBody).WorkItemTypeKey = workItemTypeKey
+	builder.body.WorkItemTypeKey = workItemTypeKey
 	return builder
 }
 func (builder *UpdateWorkItemRelationReqBuilder) Name(name string) *UpdateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*UpdateWorkItemRelationReqBody).Name = name
+	builder.body.Name = name
 	return builder
 }
 func (builder *UpdateWorkItemRelationReqBuilder) RelationDetails(relationDetails []*RelationDetail) *UpdateWorkItemRelationReqBuilder {
-	builder.apiReq.Body.(*UpdateWorkItemRelationReqBody).RelationDetails = relationDetails
+	builder.body.RelationDetails = relationDetails
 	return builder
 }
 func (builder *UpdateWorkItemRelationReqBuilder) Build() *UpdateWorkItemRelationReq {
 	req := &UpdateWorkItemRelationReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -1604,6 +1379,7 @@ type WbsViewResp struct {
 
 type WbsViewReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *WbsViewReqBody
 }
 
 func NewWbsViewReqBuilder() *WbsViewReqBuilder {
@@ -1611,21 +1387,8 @@ func NewWbsViewReqBuilder() *WbsViewReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &WbsViewReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *WbsViewReqBuilder) AccessUser(userKey string) *WbsViewReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *WbsViewReqBuilder) UUID(uuid string) *WbsViewReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &WbsViewReqBody{}
 	return builder
 }
 func (builder *WbsViewReqBuilder) ProjectKey(projectKey string) *WbsViewReqBuilder {
@@ -1641,11 +1404,12 @@ func (builder *WbsViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *WbsVi
 	return builder
 }
 func (builder *WbsViewReqBuilder) Expand(expand *Expand) *WbsViewReqBuilder {
-	builder.apiReq.Body.(*WbsViewReqBody).Expand = expand
+	builder.body.Expand = expand
 	return builder
 }
 func (builder *WbsViewReqBuilder) Build() *WbsViewReq {
 	req := &WbsViewReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

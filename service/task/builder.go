@@ -17,15 +17,17 @@
 package task
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
+
+	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+
+	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
+
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 )
 
 type CreateSubTaskReq struct {
@@ -55,6 +57,7 @@ type CreateSubTaskResp struct {
 
 type CreateSubTaskReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CreateSubTaskReqBody
 }
 
 func NewCreateSubTaskReqBuilder() *CreateSubTaskReqBuilder {
@@ -62,21 +65,8 @@ func NewCreateSubTaskReqBuilder() *CreateSubTaskReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CreateSubTaskReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CreateSubTaskReqBuilder) AccessUser(userKey string) *CreateSubTaskReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CreateSubTaskReqBuilder) UUID(uuid string) *CreateSubTaskReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CreateSubTaskReqBody{}
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) ProjectKey(projectKey string) *CreateSubTaskReqBuilder {
@@ -92,36 +82,37 @@ func (builder *CreateSubTaskReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) NodeID(nodeID string) *CreateSubTaskReqBuilder {
-	builder.apiReq.Body.(*CreateSubTaskReqBody).NodeID = nodeID
+	builder.body.NodeID = nodeID
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) Name(name string) *CreateSubTaskReqBuilder {
-	builder.apiReq.Body.(*CreateSubTaskReqBody).Name = name
+	builder.body.Name = name
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) AliasKey(aliasKey string) *CreateSubTaskReqBuilder {
-	builder.apiReq.Body.(*CreateSubTaskReqBody).AliasKey = aliasKey
+	builder.body.AliasKey = aliasKey
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) Assignee(assignee []string) *CreateSubTaskReqBuilder {
-	builder.apiReq.Body.(*CreateSubTaskReqBody).Assignee = assignee
+	builder.body.Assignee = assignee
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) RoleAssignee(roleAssignee []*user.RoleOwner) *CreateSubTaskReqBuilder {
-	builder.apiReq.Body.(*CreateSubTaskReqBody).RoleAssignee = roleAssignee
+	builder.body.RoleAssignee = roleAssignee
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) Schedule(schedule *workitem.Schedule) *CreateSubTaskReqBuilder {
-	builder.apiReq.Body.(*CreateSubTaskReqBody).Schedule = schedule
+	builder.body.Schedule = schedule
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) Note(note string) *CreateSubTaskReqBuilder {
-	builder.apiReq.Body.(*CreateSubTaskReqBody).Note = note
+	builder.body.Note = note
 	return builder
 }
 func (builder *CreateSubTaskReqBuilder) Build() *CreateSubTaskReq {
 	req := &CreateSubTaskReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -143,20 +134,7 @@ func NewDeleteSubTaskReqBuilder() *DeleteSubTaskReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *DeleteSubTaskReqBuilder) AccessUser(userKey string) *DeleteSubTaskReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *DeleteSubTaskReqBuilder) UUID(uuid string) *DeleteSubTaskReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *DeleteSubTaskReqBuilder) ProjectKey(projectKey string) *DeleteSubTaskReqBuilder {
@@ -209,6 +187,7 @@ type ModifySubtaskResp struct {
 
 type ModifySubtaskReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *ModifySubtaskReqBody
 }
 
 func NewModifySubtaskReqBuilder() *ModifySubtaskReqBuilder {
@@ -216,21 +195,8 @@ func NewModifySubtaskReqBuilder() *ModifySubtaskReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &ModifySubtaskReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *ModifySubtaskReqBuilder) AccessUser(userKey string) *ModifySubtaskReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *ModifySubtaskReqBuilder) UUID(uuid string) *ModifySubtaskReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &ModifySubtaskReqBody{}
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) ProjectKey(projectKey string) *ModifySubtaskReqBuilder {
@@ -246,40 +212,41 @@ func (builder *ModifySubtaskReqBuilder) WorkItemID(workItemID int64) *ModifySubt
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) NodeID(nodeID string) *ModifySubtaskReqBuilder {
-	builder.apiReq.Body.(*ModifySubtaskReqBody).NodeID = nodeID
+	builder.body.NodeID = nodeID
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) TaskID(taskID int64) *ModifySubtaskReqBuilder {
-	builder.apiReq.Body.(*ModifySubtaskReqBody).TaskID = taskID
+	builder.body.TaskID = taskID
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) Action(action string) *ModifySubtaskReqBuilder {
-	builder.apiReq.Body.(*ModifySubtaskReqBody).Action = action
+	builder.body.Action = action
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) Assignee(assignee []string) *ModifySubtaskReqBuilder {
-	builder.apiReq.Body.(*ModifySubtaskReqBody).Assignee = assignee
+	builder.body.Assignee = assignee
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) RoleAssignee(roleAssignee []*user.RoleOwner) *ModifySubtaskReqBuilder {
-	builder.apiReq.Body.(*ModifySubtaskReqBody).RoleAssignee = roleAssignee
+	builder.body.RoleAssignee = roleAssignee
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) Schedules(schedules []*workitem.Schedule) *ModifySubtaskReqBuilder {
-	builder.apiReq.Body.(*ModifySubtaskReqBody).Schedules = schedules
+	builder.body.Schedules = schedules
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) Deliverable(deliverable []*field.FieldValuePair) *ModifySubtaskReqBuilder {
-	builder.apiReq.Body.(*ModifySubtaskReqBody).Deliverable = deliverable
+	builder.body.Deliverable = deliverable
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) Note(note string) *ModifySubtaskReqBuilder {
-	builder.apiReq.Body.(*ModifySubtaskReqBody).Note = note
+	builder.body.Note = note
 	return builder
 }
 func (builder *ModifySubtaskReqBuilder) Build() *ModifySubtaskReq {
 	req := &ModifySubtaskReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -314,6 +281,7 @@ type SearchSubtaskResp struct {
 
 type SearchSubtaskReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *SearchSubtaskReqBody
 }
 
 func NewSearchSubtaskReqBuilder() *SearchSubtaskReqBuilder {
@@ -321,58 +289,46 @@ func NewSearchSubtaskReqBuilder() *SearchSubtaskReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &SearchSubtaskReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *SearchSubtaskReqBuilder) AccessUser(userKey string) *SearchSubtaskReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *SearchSubtaskReqBuilder) UUID(uuid string) *SearchSubtaskReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &SearchSubtaskReqBody{}
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) ProjectKeys(projectKeys []string) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).ProjectKeys = projectKeys
+	builder.body.ProjectKeys = projectKeys
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) PageSize(pageSize int64) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).PageSize = pageSize
+	builder.body.PageSize = pageSize
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) PageNum(pageNum int64) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).PageNum = pageNum
+	builder.body.PageNum = pageNum
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) Name(name string) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).Name = name
+	builder.body.Name = name
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) UserKeys(userKeys []string) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).UserKeys = userKeys
+	builder.body.UserKeys = userKeys
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) Status(status int32) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).Status = status
+	builder.body.Status = status
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) CreatedAt(createdAt *workitem.TimeInterval) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).CreatedAt = createdAt
+	builder.body.CreatedAt = createdAt
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) SimpleNames(simpleNames []string) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).SimpleNames = simpleNames
+	builder.body.SimpleNames = simpleNames
 	return builder
 }
 func (builder *SearchSubtaskReqBuilder) Build() *SearchSubtaskReq {
 	req := &SearchSubtaskReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -395,20 +351,7 @@ func NewTaskDetailReqBuilder() *TaskDetailReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *TaskDetailReqBuilder) AccessUser(userKey string) *TaskDetailReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *TaskDetailReqBuilder) UUID(uuid string) *TaskDetailReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *TaskDetailReqBuilder) ProjectKey(projectKey string) *TaskDetailReqBuilder {
@@ -457,6 +400,7 @@ type UpdateSubTaskResp struct {
 
 type UpdateSubTaskReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *UpdateSubTaskReqBody
 }
 
 func NewUpdateSubTaskReqBuilder() *UpdateSubTaskReqBuilder {
@@ -464,21 +408,8 @@ func NewUpdateSubTaskReqBuilder() *UpdateSubTaskReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &UpdateSubTaskReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *UpdateSubTaskReqBuilder) AccessUser(userKey string) *UpdateSubTaskReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *UpdateSubTaskReqBuilder) UUID(uuid string) *UpdateSubTaskReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &UpdateSubTaskReqBody{}
 	return builder
 }
 func (builder *UpdateSubTaskReqBuilder) ProjectKey(projectKey string) *UpdateSubTaskReqBuilder {
@@ -502,31 +433,32 @@ func (builder *UpdateSubTaskReqBuilder) TaskID(taskID int64) *UpdateSubTaskReqBu
 	return builder
 }
 func (builder *UpdateSubTaskReqBuilder) Name(name string) *UpdateSubTaskReqBuilder {
-	builder.apiReq.Body.(*UpdateSubTaskReqBody).Name = name
+	builder.body.Name = name
 	return builder
 }
 func (builder *UpdateSubTaskReqBuilder) Assignee(assignee []string) *UpdateSubTaskReqBuilder {
-	builder.apiReq.Body.(*UpdateSubTaskReqBody).Assignee = assignee
+	builder.body.Assignee = assignee
 	return builder
 }
 func (builder *UpdateSubTaskReqBuilder) RoleAssignee(roleAssignee []*user.RoleOwner) *UpdateSubTaskReqBuilder {
-	builder.apiReq.Body.(*UpdateSubTaskReqBody).RoleAssignee = roleAssignee
+	builder.body.RoleAssignee = roleAssignee
 	return builder
 }
 func (builder *UpdateSubTaskReqBuilder) Schedule(schedule *workitem.Schedule) *UpdateSubTaskReqBuilder {
-	builder.apiReq.Body.(*UpdateSubTaskReqBody).Schedule = schedule
+	builder.body.Schedule = schedule
 	return builder
 }
 func (builder *UpdateSubTaskReqBuilder) Note(note string) *UpdateSubTaskReqBuilder {
-	builder.apiReq.Body.(*UpdateSubTaskReqBody).Note = note
+	builder.body.Note = note
 	return builder
 }
 func (builder *UpdateSubTaskReqBuilder) Deliverable(deliverable []*field.FieldValuePair) *UpdateSubTaskReqBuilder {
-	builder.apiReq.Body.(*UpdateSubTaskReqBody).Deliverable = deliverable
+	builder.body.Deliverable = deliverable
 	return builder
 }
 func (builder *UpdateSubTaskReqBuilder) Build() *UpdateSubTaskReq {
 	req := &UpdateSubTaskReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

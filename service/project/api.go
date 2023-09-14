@@ -43,7 +43,7 @@ type ProjectService struct {
 }
 
 /*
- *
+ *   获取空间详情
  */
 func (a *ProjectService) GetProjectDetail(ctx context.Context, req *GetProjectDetailReq, options ...core.RequestOptionFunc) (*GetProjectDetailResp, error) {
 	// 发起请求
@@ -66,8 +66,10 @@ func (a *ProjectService) GetProjectDetail(ctx context.Context, req *GetProjectDe
 }
 
 /*
- *
- */
+  - ================================= BFF ======================================
+
+获取空间列表
+*/
 func (a *ProjectService) ListProject(ctx context.Context, req *ListProjectReq, options ...core.RequestOptionFunc) (*ListProjectResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -89,7 +91,7 @@ func (a *ProjectService) ListProject(ctx context.Context, req *ListProjectReq, o
 }
 
 /*
- *
+ *   获取空间下业务线详情
  */
 func (a *ProjectService) ListProjectBusiness(ctx context.Context, req *ListProjectBusinessReq, options ...core.RequestOptionFunc) (*ListProjectBusinessResp, error) {
 	// 发起请求
@@ -112,7 +114,7 @@ func (a *ProjectService) ListProjectBusiness(ctx context.Context, req *ListProje
 }
 
 /*
- *
+ *   获取空间下团队人员
  */
 func (a *ProjectService) ListProjectTeam(ctx context.Context, req *ListProjectTeamReq, options ...core.RequestOptionFunc) (*ListProjectTeamResp, error) {
 	// 发起请求
@@ -135,7 +137,7 @@ func (a *ProjectService) ListProjectTeam(ctx context.Context, req *ListProjectTe
 }
 
 /*
- *
+ *   获取空间下工作项类型
  */
 func (a *ProjectService) ListProjectWorkItemType(ctx context.Context, req *ListProjectWorkItemTypeReq, options ...core.RequestOptionFunc) (*ListProjectWorkItemTypeResp, error) {
 	// 发起请求

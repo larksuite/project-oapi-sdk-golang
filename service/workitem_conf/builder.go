@@ -18,7 +18,6 @@ package workitem_conf
 
 import (
 	"fmt"
-	"net/http"
 
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
@@ -44,6 +43,7 @@ type CreateTemplateDetailResp struct {
 
 type CreateTemplateDetailReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *CreateTemplateDetailReqBody
 }
 
 func NewCreateTemplateDetailReqBuilder() *CreateTemplateDetailReqBuilder {
@@ -51,42 +51,30 @@ func NewCreateTemplateDetailReqBuilder() *CreateTemplateDetailReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &CreateTemplateDetailReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *CreateTemplateDetailReqBuilder) AccessUser(userKey string) *CreateTemplateDetailReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *CreateTemplateDetailReqBuilder) UUID(uuid string) *CreateTemplateDetailReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &CreateTemplateDetailReqBody{}
 	return builder
 }
 func (builder *CreateTemplateDetailReqBuilder) ProjectKey(projectKey string) *CreateTemplateDetailReqBuilder {
-	builder.apiReq.Body.(*CreateTemplateDetailReqBody).ProjectKey = projectKey
+	builder.body.ProjectKey = projectKey
 	return builder
 }
 func (builder *CreateTemplateDetailReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateTemplateDetailReqBuilder {
-	builder.apiReq.Body.(*CreateTemplateDetailReqBody).WorkItemTypeKey = workItemTypeKey
+	builder.body.WorkItemTypeKey = workItemTypeKey
 	return builder
 }
 func (builder *CreateTemplateDetailReqBuilder) TemplateName(templateName string) *CreateTemplateDetailReqBuilder {
-	builder.apiReq.Body.(*CreateTemplateDetailReqBody).TemplateName = templateName
+	builder.body.TemplateName = templateName
 	return builder
 }
 func (builder *CreateTemplateDetailReqBuilder) CopyTemplateID(copyTemplateID int64) *CreateTemplateDetailReqBuilder {
-	builder.apiReq.Body.(*CreateTemplateDetailReqBody).CopyTemplateID = copyTemplateID
+	builder.body.CopyTemplateID = copyTemplateID
 	return builder
 }
 func (builder *CreateTemplateDetailReqBuilder) Build() *CreateTemplateDetailReq {
 	req := &CreateTemplateDetailReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 
@@ -108,20 +96,7 @@ func NewDeleteTemplateDetailReqBuilder() *DeleteTemplateDetailReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *DeleteTemplateDetailReqBuilder) AccessUser(userKey string) *DeleteTemplateDetailReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *DeleteTemplateDetailReqBuilder) UUID(uuid string) *DeleteTemplateDetailReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *DeleteTemplateDetailReqBuilder) ProjectKey(projectKey string) *DeleteTemplateDetailReqBuilder {
@@ -157,20 +132,7 @@ func NewQueryTemplateDetailReqBuilder() *QueryTemplateDetailReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryTemplateDetailReqBuilder) AccessUser(userKey string) *QueryTemplateDetailReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryTemplateDetailReqBuilder) UUID(uuid string) *QueryTemplateDetailReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *QueryTemplateDetailReqBuilder) ProjectKey(projectKey string) *QueryTemplateDetailReqBuilder {
@@ -206,20 +168,7 @@ func NewQueryWorkItemTemplatesReqBuilder() *QueryWorkItemTemplatesReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *QueryWorkItemTemplatesReqBuilder) AccessUser(userKey string) *QueryWorkItemTemplatesReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *QueryWorkItemTemplatesReqBuilder) UUID(uuid string) *QueryWorkItemTemplatesReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
 	return builder
 }
 func (builder *QueryWorkItemTemplatesReqBuilder) ProjectKey(projectKey string) *QueryWorkItemTemplatesReqBuilder {
@@ -256,6 +205,7 @@ type UpdateTemplateDetailResp struct {
 
 type UpdateTemplateDetailReqBuilder struct {
 	apiReq *core.ApiReq
+	body   *UpdateTemplateDetailReqBody
 }
 
 func NewUpdateTemplateDetailReqBuilder() *UpdateTemplateDetailReqBuilder {
@@ -263,41 +213,29 @@ func NewUpdateTemplateDetailReqBuilder() *UpdateTemplateDetailReqBuilder {
 	builder.apiReq = &core.ApiReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Header:      make(http.Header),
-		Body:        &UpdateTemplateDetailReqBody{},
 	}
-	return builder
-}
-
-// 可选，当选择使用插件身份凭证的时候，需要额外必选指定接口调用的用户user_key
-func (builder *UpdateTemplateDetailReqBuilder) AccessUser(userKey string) *UpdateTemplateDetailReqBuilder {
-	builder.apiReq.Header.Add("X-USER-KEY", fmt.Sprint(userKey))
-	return builder
-}
-
-// 可选，写类型接口的幂等串，可以不设置，设置后会进行同一个X-PLUGIN-TOKEN下同一接口的幂等判断
-func (builder *UpdateTemplateDetailReqBuilder) UUID(uuid string) *UpdateTemplateDetailReqBuilder {
-	builder.apiReq.Header.Add("X-IDEM-UUID", fmt.Sprint(uuid))
+	builder.body = &UpdateTemplateDetailReqBody{}
 	return builder
 }
 func (builder *UpdateTemplateDetailReqBuilder) ProjectKey(projectKey string) *UpdateTemplateDetailReqBuilder {
-	builder.apiReq.Body.(*UpdateTemplateDetailReqBody).ProjectKey = projectKey
+	builder.body.ProjectKey = projectKey
 	return builder
 }
 func (builder *UpdateTemplateDetailReqBuilder) TemplateID(templateID int64) *UpdateTemplateDetailReqBuilder {
-	builder.apiReq.Body.(*UpdateTemplateDetailReqBody).TemplateID = templateID
+	builder.body.TemplateID = templateID
 	return builder
 }
 func (builder *UpdateTemplateDetailReqBuilder) WorkflowConfs(workflowConfs []*WorkflowConfInfo) *UpdateTemplateDetailReqBuilder {
-	builder.apiReq.Body.(*UpdateTemplateDetailReqBody).WorkflowConfs = workflowConfs
+	builder.body.WorkflowConfs = workflowConfs
 	return builder
 }
 func (builder *UpdateTemplateDetailReqBuilder) StateFlowConfs(stateFlowConfs []*StateFlowConfInfo) *UpdateTemplateDetailReqBuilder {
-	builder.apiReq.Body.(*UpdateTemplateDetailReqBody).StateFlowConfs = stateFlowConfs
+	builder.body.StateFlowConfs = stateFlowConfs
 	return builder
 }
 func (builder *UpdateTemplateDetailReqBuilder) Build() *UpdateTemplateDetailReq {
 	req := &UpdateTemplateDetailReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

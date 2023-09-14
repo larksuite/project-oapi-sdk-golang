@@ -397,9 +397,9 @@ func main() {
   </tbody>
 </table>
 
-## 加入答疑群
+## 错误自查
 
-[单击加入答疑群](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=9eap85bd-4fe1-4f72-8cb4-e057cd4818ae)
+[查看错误码](https://bytedance.feishu.cn/docs/doccn3CyRRA52nL9HiYR2v9XC8K)
 
 
 

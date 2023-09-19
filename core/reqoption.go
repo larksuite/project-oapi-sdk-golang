@@ -34,9 +34,9 @@ func WithHeaders(header http.Header) RequestOptionFunc {
 	}
 }
 
-func WithAccessToken(pluginAccessToken string) RequestOptionFunc {
+func WithAccessToken(accessToken string) RequestOptionFunc {
 	return func(option *RequestOption) {
-		option.Header.Set(HTTPHeaderAccessToken, pluginAccessToken)
+		option.Header.Set(HTTPHeaderAccessToken, accessToken)
 	}
 }
 

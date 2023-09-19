@@ -235,17 +235,17 @@ Do(*http.Request) (*http.Response, error)
 ### 基本用法
 
 如下示例我们通过 client 调用空间业务的 ListProjectWorkItemType
-方法，获取空间下的工作项类型列表（注：请求头中的X-USER-KEY和X-IDEM-UUID参数可以通过ReqBuilder中的AccessUser和UUID方法进行设置）：
+方法，获取空间下的工作项类型列表：
 
 ``` go
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	sdk "code.byted.org/bits/project-oapi-sdk-golang"
 	sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
 	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
-	"net/http"
 )
 
 
@@ -255,9 +255,9 @@ func main() {
 
 	// 发起请求
 	resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
-		AccessUser("user_key").
 		ProjectKey("project_key").
 		Build(),
+		sdkcore.WithUserKey("7116154537953476628"),
 	)
 
 	//处理错误
@@ -300,10 +300,9 @@ header := make(http.Header)
 header.Add("k1", "v1")
 // 发起请求
 resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
-AccessUser("user_key").
 ProjectKey("project_key").
 Build(),
-sdkcore.WithUserPluginAccessToken("user_plugin_token"), //设置用户身份凭证
+sdkcore.WithAccessToken("user_plugin_token"), 		//设置用户身份凭证
 sdkcore.WithHeaders(header),                            //设置head
 )
 
@@ -357,39 +356,39 @@ fmt.Println(sdkcore.Prettify(resp.Data))
 
 <tr>
       <th>
-        <code>PluginAccessToken</code>
+        <code>AccessToken</code>
       </th>
       <td>
-        <code>projectcore.WithPluginAccessToken(pluginAccessToken string)</code>
+        <code>projectcore.WithAccessToken(accessToken string)</code>
       </td>
       <td>
-设置plugin_token，当开发者自己维护token 时（即创建Client时EnableTokenCache设置为了false），需通过该选项传递 plugin_token。
+设置token，当开发者自己维护token 时（即创建Client时EnableTokenCache设置为了false），需通过该选项传递 token。
 
 </td>
 </tr>
 
 <tr>
       <th>
-        <code>VirtualPluginAccessToken</code>
+        <code>UserKey</code>
       </th>
       <td>
-        <code>projectcore.WithVirtualPluginAccessToken(virtualPluginAccessToken string)</code>
+        <code>projectcore.WithUserKey(userKey string)</code>
       </td>
       <td>
-设置虚拟plugin_token，当开发者自己维护token 时（即创建Client时EnableTokenCache设置为了false），需通过该选项传递 virtual_plugin_token。
+设置请求头X-USER-KEY，可以通过添加header的方式在请求头添加X-USER-KEY，或通过该方式便捷添加X-USER-KEY到请求头中。
 
 </td>
 </tr>
 
 <tr>
       <th>
-        <code>UserPluginAccessToken</code>
+        <code>IdemUUID</code>
       </th>
       <td>
-        <code>projectcore.WithUserPluginAccessToken(userPluginAccessToken string)</code>
+        <code>projectcore.WithIdemUUID(uuid string)</code>
       </td>
       <td>
-设置user_plugin_token, 当开发者使用用户身份凭证时（即创建Client时AccessTokenType设置为了AccessTokenTypeUserPlugin），需通过该选项传递 user_plugin_token。
+设置请求头X-IDEM-UUID, 可以通过添加header的方式在请求头添加X-IDEM-UUID，或通过该方式便捷添加X-IDEM-UUID到请求头中。
 </td>
 </tr>
 

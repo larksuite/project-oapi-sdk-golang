@@ -7,23 +7,23 @@ type Schedule struct {
 }
 
 type Radio struct {
-	Label int64 `json:"label"`
+	Label string `json:"label"`
 
-	Value int64 `json:"value"`
+	Value string `json:"value"`
 }
 
 type Select struct {
-	Label int64 `json:"label"`
+	Label string `json:"label"`
 
-	Value int64 `json:"value"`
+	Value string `json:"value"`
 }
 
 type MUltiSelect []*Select
 
 type TreeSelect struct {
-	Label int64 `json:"label"`
+	Label string `json:"label"`
 
-	Value int64 `json:"value"`
+	Value string `json:"value"`
 
 	Children *TreeSelect `json:"children"`
 }
@@ -63,7 +63,7 @@ type SubCompoundField struct {
 type CompoundField []*SubCompoundField
 
 type Attrs struct {
-	UUID string `json:"uuid"`
+	Src string `json:"src"`
 }
 
 type Marks struct {
@@ -78,3 +78,25 @@ type MultiDoc struct {
 	Marks   *Marks      `json:"marks"`
 	Content []*MultiDoc `json:"content"`
 }
+
+type MultiDocs []*MultiDoc
+
+type Text string
+
+type Link string
+
+type Date int64
+
+type Number float64
+
+type WorkItemRelatedSelect int64
+
+type WorkItemRelatedMultiSelect int64
+
+type Signal bool
+
+type Bool bool
+
+type User string
+
+type MultiUser []string

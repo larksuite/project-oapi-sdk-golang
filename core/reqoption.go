@@ -36,18 +36,18 @@ func WithHeaders(header http.Header) RequestOptionFunc {
 
 func WithAccessToken(pluginAccessToken string) RequestOptionFunc {
 	return func(option *RequestOption) {
-		option.Header.Set(HttpHeaderAccessToken, pluginAccessToken)
+		option.Header.Set(HTTPHeaderAccessToken, pluginAccessToken)
 	}
 }
 
 func WithUserKey(userKey string) RequestOptionFunc {
 	return func(option *RequestOption) {
-		option.Header.Set(HttpHeaderUserKey, userKey)
+		option.Header.Set(HTTPHeaderUserKey, userKey)
 	}
 }
 
 func WithIdemUUID(uuid string) RequestOptionFunc {
 	return func(option *RequestOption) {
-		option.Header.Set(HttpHeaderIdemUUID, uuid)
+		option.Header.Set(HTTPHeaderIdemUUID, uuid)
 	}
 }

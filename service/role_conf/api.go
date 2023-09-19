@@ -48,7 +48,7 @@ func (a *RoleConfService) QueryRoleConfDetails(ctx context.Context, req *QueryRo
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryRoleConfDetailsResp{ApiResp: apiResp}
+	resp := &QueryRoleConfDetailsResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryRoleConfDetails] fail to unmarshal response body, error: %v", err.Error()))

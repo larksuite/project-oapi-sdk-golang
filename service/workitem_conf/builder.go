@@ -23,7 +23,7 @@ import (
 )
 
 type CreateTemplateDetailReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CreateTemplateDetailReqBody struct {
 	ProjectKey string `json:"project_key"`
@@ -36,19 +36,19 @@ type CreateTemplateDetailReqBody struct {
 }
 
 type CreateTemplateDetailResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data int64 `json:"data"`
 }
 
 type CreateTemplateDetailReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CreateTemplateDetailReqBody
 }
 
 func NewCreateTemplateDetailReqBuilder() *CreateTemplateDetailReqBuilder {
 	builder := &CreateTemplateDetailReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -79,21 +79,21 @@ func (builder *CreateTemplateDetailReqBuilder) Build() *CreateTemplateDetailReq 
 }
 
 type DeleteTemplateDetailReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type DeleteTemplateDetailResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type DeleteTemplateDetailReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewDeleteTemplateDetailReqBuilder() *DeleteTemplateDetailReqBuilder {
 	builder := &DeleteTemplateDetailReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -114,22 +114,22 @@ func (builder *DeleteTemplateDetailReqBuilder) Build() *DeleteTemplateDetailReq 
 }
 
 type QueryTemplateDetailReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type QueryTemplateDetailResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *TemplateDetail `json:"data"`
 }
 
 type QueryTemplateDetailReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewQueryTemplateDetailReqBuilder() *QueryTemplateDetailReqBuilder {
 	builder := &QueryTemplateDetailReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -150,22 +150,22 @@ func (builder *QueryTemplateDetailReqBuilder) Build() *QueryTemplateDetailReq {
 }
 
 type QueryWorkItemTemplatesReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type QueryWorkItemTemplatesResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*TemplateConf `json:"data"`
 }
 
 type QueryWorkItemTemplatesReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewQueryWorkItemTemplatesReqBuilder() *QueryWorkItemTemplatesReqBuilder {
 	builder := &QueryWorkItemTemplatesReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -186,7 +186,7 @@ func (builder *QueryWorkItemTemplatesReqBuilder) Build() *QueryWorkItemTemplates
 }
 
 type UpdateTemplateDetailReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type UpdateTemplateDetailReqBody struct {
 	ProjectKey string `json:"project_key"`
@@ -199,18 +199,18 @@ type UpdateTemplateDetailReqBody struct {
 }
 
 type UpdateTemplateDetailResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type UpdateTemplateDetailReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *UpdateTemplateDetailReqBody
 }
 
 func NewUpdateTemplateDetailReqBuilder() *UpdateTemplateDetailReqBuilder {
 	builder := &UpdateTemplateDetailReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

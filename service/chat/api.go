@@ -48,7 +48,7 @@ func (a *ChatService) BotJoinChat(ctx context.Context, req *BotJoinChatReq, opti
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &BotJoinChatResp{ApiResp: apiResp}
+	resp := &BotJoinChatResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[BotJoinChat] fail to unmarshal response body, error: %v", err.Error()))

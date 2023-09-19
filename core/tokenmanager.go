@@ -31,7 +31,7 @@ type TokenManager struct {
 }
 
 func (m *TokenManager) getAccessToken(ctx context.Context, config *Config) (string, error) {
-	token, err := m.get(ctx, accessTokenKey(config.AppId))
+	token, err := m.get(ctx, accessTokenKey(config.AppID))
 	if err != nil {
 		return "", err
 	}
@@ -66,7 +66,7 @@ type AccessToken struct {
 	Token      string `json:"token"`
 }
 type GetAccessTokenResp struct {
-	*ApiResp `json:"-"`
+	*APIResp `json:"-"`
 	Error    *AccessTokenErr `json:"error"`
 	Data     *AccessToken    `json:"data"`
 }
@@ -91,11 +91,11 @@ func accessTokenKey(appID string) string {
 }
 
 func (m *TokenManager) getAccessTokenThenCache(ctx context.Context, config *Config, tokenType int) (string, error) {
-	rawResp, err := Request(ctx, &ApiReq{
+	rawResp, err := Request(ctx, &APIReq{
 		HttpMethod: http.MethodPost,
 		ApiPath:    PluginAccessTokenInternalUrlPath,
 		Body: &GetAccessTokenReq{
-			PluginId:     config.AppId,
+			PluginId:     config.AppID,
 			PluginSecret: config.AppSecret,
 			Type:         tokenType,
 		},
@@ -115,7 +115,7 @@ func (m *TokenManager) getAccessTokenThenCache(ctx context.Context, config *Conf
 		return "", resp.Error
 	}
 	expire := time.Duration(resp.Data.ExpireTime)*time.Second - expiryDelta
-	err = m.set(ctx, accessTokenKey(config.AppId), resp.Data.Token, expire)
+	err = m.set(ctx, accessTokenKey(config.AppID), resp.Data.Token, expire)
 	if err != nil {
 		config.Logger.Warn(ctx, fmt.Sprintf("accessToken save cache, err:%v", err))
 	}

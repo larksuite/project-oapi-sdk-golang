@@ -29,7 +29,7 @@ import (
 )
 
 type AbortWorkItemReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type AbortWorkItemReqBody struct {
 	IsAborted bool `json:"is_aborted"`
@@ -38,18 +38,18 @@ type AbortWorkItemReqBody struct {
 }
 
 type AbortWorkItemResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type AbortWorkItemReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *AbortWorkItemReqBody
 }
 
 func NewAbortWorkItemReqBuilder() *AbortWorkItemReqBuilder {
 	builder := &AbortWorkItemReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -84,7 +84,7 @@ func (builder *AbortWorkItemReqBuilder) Build() *AbortWorkItemReq {
 }
 
 type CompositiveSearchReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CompositiveSearchReqBody struct {
 	ProjectKeys []string `json:"project_keys"`
@@ -103,7 +103,7 @@ type CompositiveSearchReqBody struct {
 }
 
 type CompositiveSearchResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*CompInfo `json:"data"`
 
@@ -111,13 +111,13 @@ type CompositiveSearchResp struct {
 }
 
 type CompositiveSearchReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CompositiveSearchReqBody
 }
 
 func NewCompositiveSearchReqBuilder() *CompositiveSearchReqBuilder {
 	builder := &CompositiveSearchReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -160,7 +160,7 @@ func (builder *CompositiveSearchReqBuilder) Build() *CompositiveSearchReq {
 }
 
 type CreateWorkItemReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CreateWorkItemReqBody struct {
 	WorkItemTypeKey string `json:"work_item_type_key"`
@@ -173,19 +173,19 @@ type CreateWorkItemReqBody struct {
 }
 
 type CreateWorkItemResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data int64 `json:"data"`
 }
 
 type CreateWorkItemReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CreateWorkItemReqBody
 }
 
 func NewCreateWorkItemReqBuilder() *CreateWorkItemReqBuilder {
 	builder := &CreateWorkItemReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -220,7 +220,7 @@ func (builder *CreateWorkItemReqBuilder) Build() *CreateWorkItemReq {
 }
 
 type CreateWorkItemRelationReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CreateWorkItemRelationReqBody struct {
 	ProjectKey string `json:"project_key"`
@@ -233,19 +233,19 @@ type CreateWorkItemRelationReqBody struct {
 }
 
 type CreateWorkItemRelationResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *CreateWorkItemRelationData `json:"data"`
 }
 
 type CreateWorkItemRelationReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CreateWorkItemRelationReqBody
 }
 
 func NewCreateWorkItemRelationReqBuilder() *CreateWorkItemRelationReqBuilder {
 	builder := &CreateWorkItemRelationReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -276,21 +276,21 @@ func (builder *CreateWorkItemRelationReqBuilder) Build() *CreateWorkItemRelation
 }
 
 type DeleteWorkItemReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type DeleteWorkItemResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type DeleteWorkItemReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewDeleteWorkItemReqBuilder() *DeleteWorkItemReqBuilder {
 	builder := &DeleteWorkItemReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -315,7 +315,7 @@ func (builder *DeleteWorkItemReqBuilder) Build() *DeleteWorkItemReq {
 }
 
 type DeleteWorkItemRelationReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type DeleteWorkItemRelationReqBody struct {
 	RelationID string `json:"relation_id"`
@@ -324,19 +324,19 @@ type DeleteWorkItemRelationReqBody struct {
 }
 
 type DeleteWorkItemRelationResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data string `json:"data"`
 }
 
 type DeleteWorkItemRelationReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *DeleteWorkItemRelationReqBody
 }
 
 func NewDeleteWorkItemRelationReqBuilder() *DeleteWorkItemRelationReqBuilder {
 	builder := &DeleteWorkItemRelationReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -359,7 +359,7 @@ func (builder *DeleteWorkItemRelationReqBuilder) Build() *DeleteWorkItemRelation
 }
 
 type FilterReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type FilterReqBody struct {
 	WorkItemName string `json:"work_item_name"`
@@ -392,7 +392,7 @@ type FilterReqBody struct {
 }
 
 type FilterResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*WorkItemInfo `json:"data"`
 
@@ -400,13 +400,13 @@ type FilterResp struct {
 }
 
 type FilterReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *FilterReqBody
 }
 
 func NewFilterReqBuilder() *FilterReqBuilder {
 	builder := &FilterReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -481,7 +481,7 @@ func (builder *FilterReqBuilder) Build() *FilterReq {
 }
 
 type FilterAcrossProjectReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type FilterAcrossProjectReqBody struct {
 	ProjectKeys []string `json:"project_keys"`
@@ -520,7 +520,7 @@ type FilterAcrossProjectReqBody struct {
 }
 
 type FilterAcrossProjectResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*WorkItemInfo `json:"data"`
 
@@ -528,13 +528,13 @@ type FilterAcrossProjectResp struct {
 }
 
 type FilterAcrossProjectReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *FilterAcrossProjectReqBody
 }
 
 func NewFilterAcrossProjectReqBuilder() *FilterAcrossProjectReqBuilder {
 	builder := &FilterAcrossProjectReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -617,22 +617,22 @@ func (builder *FilterAcrossProjectReqBuilder) Build() *FilterAcrossProjectReq {
 }
 
 type GetMetaReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type GetMetaResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*FieldConf `json:"data"`
 }
 
 type GetMetaReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewGetMetaReqBuilder() *GetMetaReqBuilder {
 	builder := &GetMetaReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -653,7 +653,7 @@ func (builder *GetMetaReqBuilder) Build() *GetMetaReq {
 }
 
 type NodeOperateReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type NodeOperateReqBody struct {
 	Action string `json:"action"`
@@ -672,18 +672,18 @@ type NodeOperateReqBody struct {
 }
 
 type NodeOperateResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type NodeOperateReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *NodeOperateReqBody
 }
 
 func NewNodeOperateReqBuilder() *NodeOperateReqBuilder {
 	builder := &NodeOperateReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -742,7 +742,7 @@ func (builder *NodeOperateReqBuilder) Build() *NodeOperateReq {
 }
 
 type NodeStateChangeReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type NodeStateChangeReqBody struct {
 	TransitionID int64 `json:"transition_id"`
@@ -753,18 +753,18 @@ type NodeStateChangeReqBody struct {
 }
 
 type NodeStateChangeResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type NodeStateChangeReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *NodeStateChangeReqBody
 }
 
 func NewNodeStateChangeReqBuilder() *NodeStateChangeReqBuilder {
 	builder := &NodeStateChangeReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -803,7 +803,7 @@ func (builder *NodeStateChangeReqBuilder) Build() *NodeStateChangeReq {
 }
 
 type NodeUpdateReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type NodeUpdateReqBody struct {
 	NodeOwners []string `json:"node_owners"`
@@ -818,18 +818,18 @@ type NodeUpdateReqBody struct {
 }
 
 type NodeUpdateResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type NodeUpdateReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *NodeUpdateReqBody
 }
 
 func NewNodeUpdateReqBuilder() *NodeUpdateReqBuilder {
 	builder := &NodeUpdateReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -880,7 +880,7 @@ func (builder *NodeUpdateReqBuilder) Build() *NodeUpdateReq {
 }
 
 type QueryWorkItemDetailReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type QueryWorkItemDetailReqBody struct {
 	WorkItemIDs []int64 `json:"work_item_ids"`
@@ -891,19 +891,19 @@ type QueryWorkItemDetailReqBody struct {
 }
 
 type QueryWorkItemDetailResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*WorkItemInfo `json:"data"`
 }
 
 type QueryWorkItemDetailReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *QueryWorkItemDetailReqBody
 }
 
 func NewQueryWorkItemDetailReqBuilder() *QueryWorkItemDetailReqBuilder {
 	builder := &QueryWorkItemDetailReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -938,22 +938,22 @@ func (builder *QueryWorkItemDetailReqBuilder) Build() *QueryWorkItemDetailReq {
 }
 
 type QueryWorkItemRelationReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type QueryWorkItemRelationResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*WorkItemRelation `json:"data"`
 }
 
 type QueryWorkItemRelationReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewQueryWorkItemRelationReqBuilder() *QueryWorkItemRelationReqBuilder {
 	builder := &QueryWorkItemRelationReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -970,7 +970,7 @@ func (builder *QueryWorkItemRelationReqBuilder) Build() *QueryWorkItemRelationRe
 }
 
 type QueryWorkflowReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type QueryWorkflowReqBody struct {
 	Fields []string `json:"fields"`
@@ -981,19 +981,19 @@ type QueryWorkflowReqBody struct {
 }
 
 type QueryWorkflowResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *NodesConnections `json:"data"`
 }
 
 type QueryWorkflowReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *QueryWorkflowReqBody
 }
 
 func NewQueryWorkflowReqBuilder() *QueryWorkflowReqBuilder {
 	builder := &QueryWorkflowReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -1032,7 +1032,7 @@ func (builder *QueryWorkflowReqBuilder) Build() *QueryWorkflowReq {
 }
 
 type SearchByParamsReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type SearchByParamsReqBody struct {
 	SearchGroup *SearchGroup `json:"search_group"`
@@ -1047,7 +1047,7 @@ type SearchByParamsReqBody struct {
 }
 
 type SearchByParamsResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*WorkItemInfo `json:"data"`
 
@@ -1055,13 +1055,13 @@ type SearchByParamsResp struct {
 }
 
 type SearchByParamsReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *SearchByParamsReqBody
 }
 
 func NewSearchByParamsReqBuilder() *SearchByParamsReqBuilder {
 	builder := &SearchByParamsReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -1104,7 +1104,7 @@ func (builder *SearchByParamsReqBuilder) Build() *SearchByParamsReq {
 }
 
 type SearchByRelationReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type SearchByRelationReqBody struct {
 	RelationWorkItemTypeKey string `json:"relation_work_item_type_key"`
@@ -1121,7 +1121,7 @@ type SearchByRelationReqBody struct {
 }
 
 type SearchByRelationResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*WorkItemInfo `json:"data"`
 
@@ -1129,13 +1129,13 @@ type SearchByRelationResp struct {
 }
 
 type SearchByRelationReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *SearchByRelationReqBody
 }
 
 func NewSearchByRelationReqBuilder() *SearchByRelationReqBuilder {
 	builder := &SearchByRelationReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -1186,7 +1186,7 @@ func (builder *SearchByRelationReqBuilder) Build() *SearchByRelationReq {
 }
 
 type UpdateMultiSignalReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type UpdateMultiSignalReqBody struct {
 	FieldKey string `json:"field_key"`
@@ -1199,19 +1199,19 @@ type UpdateMultiSignalReqBody struct {
 }
 
 type UpdateMultiSignalResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *field.MultiSignal `json:"data"`
 }
 
 type UpdateMultiSignalReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *UpdateMultiSignalReqBody
 }
 
 func NewUpdateMultiSignalReqBuilder() *UpdateMultiSignalReqBuilder {
 	builder := &UpdateMultiSignalReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -1254,25 +1254,25 @@ func (builder *UpdateMultiSignalReqBuilder) Build() *UpdateMultiSignalReq {
 }
 
 type UpdateWorkItemReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type UpdateWorkItemReqBody struct {
 	UpdateFields []*field.FieldValuePair `json:"update_fields"`
 }
 
 type UpdateWorkItemResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type UpdateWorkItemReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *UpdateWorkItemReqBody
 }
 
 func NewUpdateWorkItemReqBuilder() *UpdateWorkItemReqBuilder {
 	builder := &UpdateWorkItemReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -1303,7 +1303,7 @@ func (builder *UpdateWorkItemReqBuilder) Build() *UpdateWorkItemReq {
 }
 
 type UpdateWorkItemRelationReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type UpdateWorkItemRelationReqBody struct {
 	RelationID string `json:"relation_id"`
@@ -1318,19 +1318,19 @@ type UpdateWorkItemRelationReqBody struct {
 }
 
 type UpdateWorkItemRelationResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data string `json:"data"`
 }
 
 type UpdateWorkItemRelationReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *UpdateWorkItemRelationReqBody
 }
 
 func NewUpdateWorkItemRelationReqBuilder() *UpdateWorkItemRelationReqBuilder {
 	builder := &UpdateWorkItemRelationReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -1365,26 +1365,26 @@ func (builder *UpdateWorkItemRelationReqBuilder) Build() *UpdateWorkItemRelation
 }
 
 type WbsViewReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type WbsViewReqBody struct {
 	Expand *Expand `json:"expand"`
 }
 
 type WbsViewResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *WbsViewResponse `json:"data"`
 }
 
 type WbsViewReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *WbsViewReqBody
 }
 
 func NewWbsViewReqBuilder() *WbsViewReqBuilder {
 	builder := &WbsViewReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

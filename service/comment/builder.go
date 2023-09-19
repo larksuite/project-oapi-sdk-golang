@@ -25,26 +25,26 @@ import (
 )
 
 type CreateCommentReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CreateCommentReqBody struct {
 	Content string `json:"content"`
 }
 
 type CreateCommentResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data int64 `json:"data"`
 }
 
 type CreateCommentReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CreateCommentReqBody
 }
 
 func NewCreateCommentReqBuilder() *CreateCommentReqBuilder {
 	builder := &CreateCommentReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -75,21 +75,21 @@ func (builder *CreateCommentReqBuilder) Build() *CreateCommentReq {
 }
 
 type DeleteCommentReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type DeleteCommentResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type DeleteCommentReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewDeleteCommentReqBuilder() *DeleteCommentReqBuilder {
 	builder := &DeleteCommentReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -118,11 +118,11 @@ func (builder *DeleteCommentReqBuilder) Build() *DeleteCommentReq {
 }
 
 type QueryCommentsReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type QueryCommentsResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*Comment `json:"data"`
 
@@ -130,12 +130,12 @@ type QueryCommentsResp struct {
 }
 
 type QueryCommentsReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewQueryCommentsReqBuilder() *QueryCommentsReqBuilder {
 	builder := &QueryCommentsReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -168,25 +168,25 @@ func (builder *QueryCommentsReqBuilder) Build() *QueryCommentsReq {
 }
 
 type UpdateCommentReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type UpdateCommentReqBody struct {
 	Content string `json:"content"`
 }
 
 type UpdateCommentResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type UpdateCommentReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *UpdateCommentReqBody
 }
 
 func NewUpdateCommentReqBuilder() *UpdateCommentReqBuilder {
 	builder := &UpdateCommentReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

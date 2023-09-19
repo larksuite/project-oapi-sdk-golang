@@ -88,7 +88,7 @@ func (a *WorkItemService) AbortWorkItem(ctx context.Context, req *AbortWorkItemR
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &AbortWorkItemResp{ApiResp: apiResp}
+	resp := &AbortWorkItemResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[AbortWorkItem] fail to unmarshal response body, error: %v", err.Error()))
@@ -111,7 +111,7 @@ func (a *WorkItemService) CompositiveSearch(ctx context.Context, req *Compositiv
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CompositiveSearchResp{ApiResp: apiResp}
+	resp := &CompositiveSearchResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CompositiveSearch] fail to unmarshal response body, error: %v", err.Error()))
@@ -134,7 +134,7 @@ func (a *WorkItemService) CreateWorkItem(ctx context.Context, req *CreateWorkIte
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CreateWorkItemResp{ApiResp: apiResp}
+	resp := &CreateWorkItemResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateWorkItem] fail to unmarshal response body, error: %v", err.Error()))
@@ -157,7 +157,7 @@ func (a *WorkItemService) CreateWorkItemRelation(ctx context.Context, req *Creat
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CreateWorkItemRelationResp{ApiResp: apiResp}
+	resp := &CreateWorkItemRelationResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateWorkItemRelation] fail to unmarshal response body, error: %v", err.Error()))
@@ -180,7 +180,7 @@ func (a *WorkItemService) DeleteWorkItem(ctx context.Context, req *DeleteWorkIte
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &DeleteWorkItemResp{ApiResp: apiResp}
+	resp := &DeleteWorkItemResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteWorkItem] fail to unmarshal response body, error: %v", err.Error()))
@@ -203,7 +203,7 @@ func (a *WorkItemService) DeleteWorkItemRelation(ctx context.Context, req *Delet
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &DeleteWorkItemRelationResp{ApiResp: apiResp}
+	resp := &DeleteWorkItemRelationResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteWorkItemRelation] fail to unmarshal response body, error: %v", err.Error()))
@@ -226,7 +226,7 @@ func (a *WorkItemService) Filter(ctx context.Context, req *FilterReq, options ..
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &FilterResp{ApiResp: apiResp}
+	resp := &FilterResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[Filter] fail to unmarshal response body, error: %v", err.Error()))
@@ -249,7 +249,7 @@ func (a *WorkItemService) FilterAcrossProject(ctx context.Context, req *FilterAc
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &FilterAcrossProjectResp{ApiResp: apiResp}
+	resp := &FilterAcrossProjectResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[FilterAcrossProject] fail to unmarshal response body, error: %v", err.Error()))
@@ -272,7 +272,7 @@ func (a *WorkItemService) GetMeta(ctx context.Context, req *GetMetaReq, options 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &GetMetaResp{ApiResp: apiResp}
+	resp := &GetMetaResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetMeta] fail to unmarshal response body, error: %v", err.Error()))
@@ -295,7 +295,7 @@ func (a *WorkItemService) NodeOperate(ctx context.Context, req *NodeOperateReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &NodeOperateResp{ApiResp: apiResp}
+	resp := &NodeOperateResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[NodeOperate] fail to unmarshal response body, error: %v", err.Error()))
@@ -318,7 +318,7 @@ func (a *WorkItemService) NodeStateChange(ctx context.Context, req *NodeStateCha
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &NodeStateChangeResp{ApiResp: apiResp}
+	resp := &NodeStateChangeResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[NodeStateChange] fail to unmarshal response body, error: %v", err.Error()))
@@ -341,7 +341,7 @@ func (a *WorkItemService) NodeUpdate(ctx context.Context, req *NodeUpdateReq, op
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &NodeUpdateResp{ApiResp: apiResp}
+	resp := &NodeUpdateResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[NodeUpdate] fail to unmarshal response body, error: %v", err.Error()))
@@ -364,7 +364,7 @@ func (a *WorkItemService) QueryWorkItemDetail(ctx context.Context, req *QueryWor
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryWorkItemDetailResp{ApiResp: apiResp}
+	resp := &QueryWorkItemDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWorkItemDetail] fail to unmarshal response body, error: %v", err.Error()))
@@ -387,7 +387,7 @@ func (a *WorkItemService) QueryWorkItemRelation(ctx context.Context, req *QueryW
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryWorkItemRelationResp{ApiResp: apiResp}
+	resp := &QueryWorkItemRelationResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWorkItemRelation] fail to unmarshal response body, error: %v", err.Error()))
@@ -410,7 +410,7 @@ func (a *WorkItemService) QueryWorkflow(ctx context.Context, req *QueryWorkflowR
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryWorkflowResp{ApiResp: apiResp}
+	resp := &QueryWorkflowResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWorkflow] fail to unmarshal response body, error: %v", err.Error()))
@@ -433,7 +433,7 @@ func (a *WorkItemService) SearchByParams(ctx context.Context, req *SearchByParam
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &SearchByParamsResp{ApiResp: apiResp}
+	resp := &SearchByParamsResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchByParams] fail to unmarshal response body, error: %v", err.Error()))
@@ -456,7 +456,7 @@ func (a *WorkItemService) SearchByRelation(ctx context.Context, req *SearchByRel
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &SearchByRelationResp{ApiResp: apiResp}
+	resp := &SearchByRelationResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchByRelation] fail to unmarshal response body, error: %v", err.Error()))
@@ -479,7 +479,7 @@ func (a *WorkItemService) UpdateMultiSignal(ctx context.Context, req *UpdateMult
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateMultiSignalResp{ApiResp: apiResp}
+	resp := &UpdateMultiSignalResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateMultiSignal] fail to unmarshal response body, error: %v", err.Error()))
@@ -502,7 +502,7 @@ func (a *WorkItemService) UpdateWorkItem(ctx context.Context, req *UpdateWorkIte
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateWorkItemResp{ApiResp: apiResp}
+	resp := &UpdateWorkItemResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateWorkItem] fail to unmarshal response body, error: %v", err.Error()))
@@ -525,7 +525,7 @@ func (a *WorkItemService) UpdateWorkItemRelation(ctx context.Context, req *Updat
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateWorkItemRelationResp{ApiResp: apiResp}
+	resp := &UpdateWorkItemRelationResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateWorkItemRelation] fail to unmarshal response body, error: %v", err.Error()))
@@ -548,7 +548,7 @@ func (a *WorkItemService) WbsView(ctx context.Context, req *WbsViewReq, options 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &WbsViewResp{ApiResp: apiResp}
+	resp := &WbsViewResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[WbsView] fail to unmarshal response body, error: %v", err.Error()))

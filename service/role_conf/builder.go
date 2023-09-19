@@ -23,22 +23,22 @@ import (
 )
 
 type QueryRoleConfDetailsReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type QueryRoleConfDetailsResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*RoleConfDetail `json:"data"`
 }
 
 type QueryRoleConfDetailsReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewQueryRoleConfDetailsReqBuilder() *QueryRoleConfDetailsReqBuilder {
 	builder := &QueryRoleConfDetailsReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

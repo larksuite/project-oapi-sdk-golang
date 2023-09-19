@@ -58,7 +58,7 @@ func (a *ViewService) CreateFixView(ctx context.Context, req *CreateFixViewReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CreateFixViewResp{ApiResp: apiResp}
+	resp := &CreateFixViewResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateFixView] fail to unmarshal response body, error: %v", err.Error()))
@@ -81,7 +81,7 @@ func (a *ViewService) DeleteFixView(ctx context.Context, req *DeleteFixViewReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &DeleteFixViewResp{ApiResp: apiResp}
+	resp := &DeleteFixViewResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteFixView] fail to unmarshal response body, error: %v", err.Error()))
@@ -104,7 +104,7 @@ func (a *ViewService) QueryWorkItemDetailsByViewID(ctx context.Context, req *Que
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryWorkItemDetailsByViewIDResp{ApiResp: apiResp}
+	resp := &QueryWorkItemDetailsByViewIDResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWorkItemDetailsByViewID] fail to unmarshal response body, error: %v", err.Error()))
@@ -127,7 +127,7 @@ func (a *ViewService) UpdateFixView(ctx context.Context, req *UpdateFixViewReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateFixViewResp{ApiResp: apiResp}
+	resp := &UpdateFixViewResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateFixView] fail to unmarshal response body, error: %v", err.Error()))
@@ -150,7 +150,7 @@ func (a *ViewService) ViewList(ctx context.Context, req *ViewListReq, options ..
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ViewListResp{ApiResp: apiResp}
+	resp := &ViewListResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ViewList] fail to unmarshal response body, error: %v", err.Error()))
@@ -173,7 +173,7 @@ func (a *ViewService) WorkItemList(ctx context.Context, req *WorkItemListReq, op
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &WorkItemListResp{ApiResp: apiResp}
+	resp := &WorkItemListResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[WorkItemList] fail to unmarshal response body, error: %v", err.Error()))

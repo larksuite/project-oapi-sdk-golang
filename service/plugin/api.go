@@ -44,11 +44,11 @@ type PluginService struct {
 // - 官网API文档链接:https://bytedance.feishu.cn/docs/doccnwfUPJHYYZtdHWrPBd4Dckd#asGHeS
 func (a *PluginService) GetPluginToken(ctx context.Context, pluginType int, options ...core.RequestOptionFunc) (*core.GetAccessTokenResp, error) {
 	// 发起请求
-	apiReq := &core.ApiReq{
+	apiReq := &core.APIReq{
 		HttpMethod: http.MethodPost,
 		ApiPath:    ApiPath_GetPluginToken,
 		Body: &core.GetAccessTokenReq{
-			PluginId:     a.config.AppId,
+			PluginId:     a.config.AppID,
 			PluginSecret: a.config.AppSecret,
 			Type:         pluginType,
 		},
@@ -60,7 +60,7 @@ func (a *PluginService) GetPluginToken(ctx context.Context, pluginType int, opti
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &core.GetAccessTokenResp{ApiResp: apiResp}
+	resp := &core.GetAccessTokenResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetPluginToken] fail to unmarshal response body, error: %v", err.Error()))
@@ -74,7 +74,7 @@ func (a *PluginService) GetPluginToken(ctx context.Context, pluginType int, opti
 // - 官网API文档链接:https://bytedance.feishu.cn/docs/doccnwfUPJHYYZtdHWrPBd4Dckd#bMHgCI
 func (a *PluginService) GetUserPluginToken(ctx context.Context, code string, options ...core.RequestOptionFunc) (*GetUserPluginTokenResp, error) {
 	// 发起请求
-	apiReq := &core.ApiReq{
+	apiReq := &core.APIReq{
 		HttpMethod: http.MethodPost,
 		ApiPath:    ApiPath_GetUserPluginToken,
 		Body: &GetUserPluginTokenReq{
@@ -88,7 +88,7 @@ func (a *PluginService) GetUserPluginToken(ctx context.Context, code string, opt
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &GetUserPluginTokenResp{ApiResp: apiResp}
+	resp := &GetUserPluginTokenResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetUserPluginToken] fail to unmarshal response body, error: %v", err.Error()))
@@ -111,7 +111,7 @@ func (a *PluginService) RefreshToken(ctx context.Context, req *RefreshTokenReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &RefreshTokenResp{ApiResp: apiResp}
+	resp := &RefreshTokenResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[RefreshToken] fail to unmarshal response body, error: %v", err.Error()))

@@ -23,7 +23,7 @@ import (
 )
 
 type BotJoinChatReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type BotJoinChatReqBody struct {
 	WorkItemTypeKey string `json:"work_item_type_key"`
@@ -32,19 +32,19 @@ type BotJoinChatReqBody struct {
 }
 
 type BotJoinChatResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *BotJoinChatInfo `json:"data"`
 }
 
 type BotJoinChatReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *BotJoinChatReqBody
 }
 
 func NewBotJoinChatReqBuilder() *BotJoinChatReqBuilder {
 	builder := &BotJoinChatReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

@@ -54,7 +54,7 @@ func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentRe
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CreateCommentResp{ApiResp: apiResp}
+	resp := &CreateCommentResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateComment] fail to unmarshal response body, error: %v", err.Error()))
@@ -77,7 +77,7 @@ func (a *CommentService) DeleteComment(ctx context.Context, req *DeleteCommentRe
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &DeleteCommentResp{ApiResp: apiResp}
+	resp := &DeleteCommentResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteComment] fail to unmarshal response body, error: %v", err.Error()))
@@ -100,7 +100,7 @@ func (a *CommentService) QueryComments(ctx context.Context, req *QueryCommentsRe
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryCommentsResp{ApiResp: apiResp}
+	resp := &QueryCommentsResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryComments] fail to unmarshal response body, error: %v", err.Error()))
@@ -123,7 +123,7 @@ func (a *CommentService) UpdateComment(ctx context.Context, req *UpdateCommentRe
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateCommentResp{ApiResp: apiResp}
+	resp := &UpdateCommentResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateComment] fail to unmarshal response body, error: %v", err.Error()))

@@ -31,7 +31,7 @@ import (
 )
 
 type CreateSubTaskReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CreateSubTaskReqBody struct {
 	NodeID string `json:"node_id"`
@@ -50,19 +50,19 @@ type CreateSubTaskReqBody struct {
 }
 
 type CreateSubTaskResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data int64 `json:"data"`
 }
 
 type CreateSubTaskReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CreateSubTaskReqBody
 }
 
 func NewCreateSubTaskReqBuilder() *CreateSubTaskReqBuilder {
 	builder := &CreateSubTaskReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -117,21 +117,21 @@ func (builder *CreateSubTaskReqBuilder) Build() *CreateSubTaskReq {
 }
 
 type DeleteSubTaskReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type DeleteSubTaskResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type DeleteSubTaskReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewDeleteSubTaskReqBuilder() *DeleteSubTaskReqBuilder {
 	builder := &DeleteSubTaskReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -160,7 +160,7 @@ func (builder *DeleteSubTaskReqBuilder) Build() *DeleteSubTaskReq {
 }
 
 type ModifySubtaskReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type ModifySubtaskReqBody struct {
 	NodeID string `json:"node_id"`
@@ -181,18 +181,18 @@ type ModifySubtaskReqBody struct {
 }
 
 type ModifySubtaskResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type ModifySubtaskReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *ModifySubtaskReqBody
 }
 
 func NewModifySubtaskReqBuilder() *ModifySubtaskReqBuilder {
 	builder := &ModifySubtaskReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -251,7 +251,7 @@ func (builder *ModifySubtaskReqBuilder) Build() *ModifySubtaskReq {
 }
 
 type SearchSubtaskReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type SearchSubtaskReqBody struct {
 	ProjectKeys []string `json:"project_keys"`
@@ -272,7 +272,7 @@ type SearchSubtaskReqBody struct {
 }
 
 type SearchSubtaskResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Pagination *common.Pagination `json:"pagination"`
 
@@ -280,13 +280,13 @@ type SearchSubtaskResp struct {
 }
 
 type SearchSubtaskReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *SearchSubtaskReqBody
 }
 
 func NewSearchSubtaskReqBuilder() *SearchSubtaskReqBuilder {
 	builder := &SearchSubtaskReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -333,22 +333,22 @@ func (builder *SearchSubtaskReqBuilder) Build() *SearchSubtaskReq {
 }
 
 type TaskDetailReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type TaskDetailResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*workitem.NodeTask `json:"data"`
 }
 
 type TaskDetailReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewTaskDetailReqBuilder() *TaskDetailReqBuilder {
 	builder := &TaskDetailReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -377,7 +377,7 @@ func (builder *TaskDetailReqBuilder) Build() *TaskDetailReq {
 }
 
 type UpdateSubTaskReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type UpdateSubTaskReqBody struct {
 	Name string `json:"name"`
@@ -394,18 +394,18 @@ type UpdateSubTaskReqBody struct {
 }
 
 type UpdateSubTaskResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type UpdateSubTaskReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *UpdateSubTaskReqBody
 }
 
 func NewUpdateSubTaskReqBuilder() *UpdateSubTaskReqBuilder {
 	builder := &UpdateSubTaskReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

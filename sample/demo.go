@@ -17,23 +17,23 @@
 package sample
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
-	sub_task "code.byted.org/bits/project-oapi-sdk-golang/service/task"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 	"context"
 	"fmt"
 
 	sdk "code.byted.org/bits/project-oapi-sdk-golang"
 	sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
+	sub_task "code.byted.org/bits/project-oapi-sdk-golang/service/task"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
 )
 
 // 获取空间下工作项类型
 func listProjectWorkItemType(client *sdk.Client) {
 	resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
-		AccessUser("user_key").
 		ProjectKey("project_key").
 		Build(),
+		sdkcore.WithUserKey("user_key"),
 	)
 
 	//处理错误
@@ -55,7 +55,6 @@ func listProjectWorkItemType(client *sdk.Client) {
 // 创建工作项类型
 func createWorkItem(client *sdk.Client) {
 	resp, err := client.WorkItem.CreateWorkItem(context.Background(), workitem.NewCreateWorkItemReqBuilder().
-		AccessUser("user_key").
 		ProjectKey("project_key").
 		WorkItemTypeKey("work_item_type_key").
 		Name("name").
@@ -67,6 +66,7 @@ func createWorkItem(client *sdk.Client) {
 			},
 		}).
 		Build(),
+		sdkcore.WithUserKey("user_key"),
 	)
 
 	//处理错误
@@ -88,13 +88,13 @@ func createWorkItem(client *sdk.Client) {
 // 创建子任务
 func CreateSubTask(client *sdk.Client) {
 	resp, err := client.Task.CreateSubTask(context.Background(), sub_task.NewCreateSubTaskReqBuilder().
-		AccessUser("user_key").
 		ProjectKey("project_key").
 		WorkItemTypeKey("work_item_type_key").
 		WorkItemID(0).
 		NodeID("node_id").
 		Name("name").
 		Build(),
+		sdkcore.WithUserKey("user_key"),
 	)
 
 	//处理错误

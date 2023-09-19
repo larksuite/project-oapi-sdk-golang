@@ -28,7 +28,7 @@ import (
 type ReqTranslator struct {
 }
 
-func (translator *ReqTranslator) translate(ctx context.Context, req *ApiReq, config *Config, option *RequestOption) (*http.Request, error) {
+func (translator *ReqTranslator) translate(ctx context.Context, req *APIReq, config *Config, option *RequestOption) (*http.Request, error) {
 	body := req.Body
 	skipAuth := req.SkipAuth
 	contentType, rawBody, err := translator.payload(body)
@@ -36,26 +36,10 @@ func (translator *ReqTranslator) translate(ctx context.Context, req *ApiReq, con
 		return nil, err
 	}
 
-	// path
-	var pathSegs []string
-	for _, p := range strings.Split(req.ApiPath, "/") {
-		if strings.Index(p, ":") == 0 {
-			varName := p[1:]
-			v, ok := req.PathParams[varName]
-			if !ok {
-				return nil, fmt.Errorf("http path:%s, name: %s, not found value", req.ApiPath, varName)
-			}
-			val := fmt.Sprint(v)
-			if val == "" {
-				return nil, fmt.Errorf("http path:%s, name: %s, value is empty", req.ApiPath, varName)
-			}
-			val = url.PathEscape(val)
-			pathSegs = append(pathSegs, val)
-			continue
-		}
-		pathSegs = append(pathSegs, p)
+	newPath, err := translator.pathRebuild(req)
+	if err != nil {
+		return nil, err
 	}
-	newPath := strings.Join(pathSegs, "/")
 	if strings.Index(newPath, "http") != 0 {
 		newPath = fmt.Sprintf("%s%s", config.BaseUrl, newPath)
 	}
@@ -72,8 +56,30 @@ func (translator *ReqTranslator) translate(ctx context.Context, req *ApiReq, con
 	return req1, nil
 }
 
+func (translator *ReqTranslator) pathRebuild(req *APIReq) (string, error) {
+	var pathSegs []string
+	for _, p := range strings.Split(req.ApiPath, "/") {
+		if strings.Index(p, ":") == 0 {
+			varName := p[1:]
+			v, ok := req.PathParams[varName]
+			if !ok {
+				return "", fmt.Errorf("http path:%s, name: %s, not found value", req.ApiPath, varName)
+			}
+			val := fmt.Sprint(v)
+			if val == "" {
+				return "", fmt.Errorf("http path:%s, name: %s, value is empty", req.ApiPath, varName)
+			}
+			val = url.PathEscape(val)
+			pathSegs = append(pathSegs, val)
+			continue
+		}
+		pathSegs = append(pathSegs, p)
+	}
+	return strings.Join(pathSegs, "/"), nil
+}
+
 func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
-	req *ApiReq, url, contentType string, body []byte,
+	req *APIReq, url, contentType string, body []byte,
 	skipAuth bool, option *RequestOption, config *Config) (*http.Request, error) {
 	httpRequest, err := http.NewRequestWithContext(ctx, req.HttpMethod, url, bytes.NewBuffer(body))
 	if err != nil {
@@ -94,62 +100,20 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 		httpRequest.Header.Set(contentTypeHeader, contentType)
 	}
 	if !skipAuth {
-		httpHeaderAccessToken := httpRequest.Header.Get(HttpHeaderAccessToken)
+		httpHeaderAccessToken := httpRequest.Header.Get(HTTPHeaderAccessToken)
 		if config.EnableTokenCache && len(httpHeaderAccessToken) == 0 {
 			accessToken, err := tokenManager.getAccessToken(ctx, config)
 			if err != nil {
 				return nil, err
 			}
-			httpRequest.Header.Set(HttpHeaderAccessToken, accessToken)
+			httpRequest.Header.Set(HTTPHeaderAccessToken, accessToken)
 		}
 	}
 	return httpRequest, nil
 }
 
-func (translator *ReqTranslator) getFullReqUrl(domain string, httpPath string, pathVars, queries map[string]interface{}) (string, error) {
-	// path
-	var pathSegs []string
-	for _, p := range strings.Split(httpPath, "/") {
-		if strings.Index(p, ":") == 0 {
-			varName := p[1:]
-			v, ok := pathVars[varName]
-			if !ok {
-				return "", fmt.Errorf("http path:%s, name: %s, not found value", httpPath, varName)
-			}
-			val := fmt.Sprint(v)
-			if val == "" {
-				return "", fmt.Errorf("http path:%s, name: %s, value is empty", httpPath, varName)
-			}
-			val = url.PathEscape(val)
-			pathSegs = append(pathSegs, val)
-			continue
-		}
-		pathSegs = append(pathSegs, p)
-	}
-	newPath := strings.Join(pathSegs, "/")
-	if strings.Index(newPath, "http") != 0 {
-		newPath = fmt.Sprintf("%s%s", domain, newPath)
-	}
-	// query
-	query := make(url.Values)
-	for k, v := range queries {
-		sv := reflect.ValueOf(v)
-		if sv.Kind() == reflect.Slice || sv.Kind() == reflect.Array {
-			for i := 0; i < sv.Len(); i++ {
-				query.Add(k, fmt.Sprint(sv.Index(i)))
-			}
-		} else {
-			query.Set(k, fmt.Sprint(v))
-		}
-	}
-	if len(query) > 0 {
-		newPath = fmt.Sprintf("%s?%s", newPath, query.Encode())
-	}
-	return newPath, nil
-}
-
 func (translator *ReqTranslator) payload(body interface{}) (string, []byte, error) {
-	if fd, ok := body.(*Formdata); ok {
+	if fd, ok := body.(*FormData); ok {
 		return fd.content()
 	}
 	contentType := defaultContentType
@@ -160,11 +124,11 @@ func (translator *ReqTranslator) payload(body interface{}) (string, []byte, erro
 	return contentType, bs, err
 }
 
-func NewFormdata() *Formdata {
-	return &Formdata{}
+func NewFormdata() *FormData {
+	return &FormData{}
 }
 
-func (fd *Formdata) AddField(field string, val interface{}) *Formdata {
+func (fd *FormData) AddField(field string, val interface{}) *FormData {
 	if fd.fields == nil {
 		fd.fields = map[string]interface{}{}
 	}
@@ -172,11 +136,11 @@ func (fd *Formdata) AddField(field string, val interface{}) *Formdata {
 	return fd
 }
 
-func (fd *Formdata) AddFile(field string, r io.Reader) *Formdata {
+func (fd *FormData) AddFile(field string, r io.Reader) *FormData {
 	return fd.AddField(field, r)
 }
 
-func (fd *Formdata) content() (string, []byte, error) {
+func (fd *FormData) content() (string, []byte, error) {
 	if fd.data != nil {
 		return fd.data.contentType, fd.data.content, nil
 	}
@@ -211,7 +175,7 @@ func (fd *Formdata) content() (string, []byte, error) {
 	return fd.data.contentType, fd.data.content, nil
 }
 
-type Formdata struct {
+type FormData struct {
 	fields map[string]interface{}
 	data   *struct {
 		content     []byte
@@ -223,7 +187,7 @@ func (translator *ReqTranslator) parseInput(input interface{}, option *RequestOp
 	if input == nil {
 		return nil, nil, nil
 	}
-	if _, ok := input.(*Formdata); ok {
+	if _, ok := input.(*FormData); ok {
 		return nil, nil, input
 	}
 	var hasHTTPTag bool
@@ -267,8 +231,8 @@ func (translator *ReqTranslator) parseInput(input interface{}, option *RequestOp
 	return paths, queries, body
 }
 
-func toFormdata(body interface{}) *Formdata {
-	formdata := &Formdata{}
+func toFormdata(body interface{}) *FormData {
+	formdata := &FormData{}
 	v := reflect.ValueOf(body)
 	t := reflect.TypeOf(body)
 	if t.Kind() == reflect.Ptr {

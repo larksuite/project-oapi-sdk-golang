@@ -17,32 +17,33 @@
 package attachment
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
 	"fmt"
 	"io"
+
+	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
 // 添加附件接口参数构造器
 type UploadAttachmentReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 // 添加附件接口参数
 type UploadAttachmentReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 // 添加附件接口响应
 type UploadAttachmentResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 func NewUploadAttachmentReqBuilder() *UploadAttachmentReqBuilder {
 	builder := &UploadAttachmentReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams: core.PathParams{},
-		Body:       &core.Formdata{},
+		Body:       &core.FormData{},
 	}
 	return builder
 }
@@ -63,17 +64,17 @@ func (builder *UploadAttachmentReqBuilder) WorkItemID(workItemID int64) *UploadA
 }
 
 func (builder *UploadAttachmentReqBuilder) File(file io.Reader) *UploadAttachmentReqBuilder {
-	builder.apiReq.Body.(*core.Formdata).AddFile("file", file)
+	builder.apiReq.Body.(*core.FormData).AddFile("file", file)
 	return builder
 }
 
 func (builder *UploadAttachmentReqBuilder) FieldKey(fieldKey string) *UploadAttachmentReqBuilder {
-	builder.apiReq.Body.(*core.Formdata).AddField("field_key", fieldKey)
+	builder.apiReq.Body.(*core.FormData).AddField("field_key", fieldKey)
 	return builder
 }
 
 func (builder *UploadAttachmentReqBuilder) FieldAlias(fieldAlias string) *UploadAttachmentReqBuilder {
-	builder.apiReq.Body.(*core.Formdata).AddField("field_alias", fieldAlias)
+	builder.apiReq.Body.(*core.FormData).AddField("field_alias", fieldAlias)
 	return builder
 }
 

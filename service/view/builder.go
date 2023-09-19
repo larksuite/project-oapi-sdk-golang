@@ -27,7 +27,7 @@ import (
 )
 
 type CreateFixViewReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CreateFixViewReqBody struct {
 	WorkItemIDList []int64 `json:"work_item_id_list"`
@@ -36,7 +36,7 @@ type CreateFixViewReqBody struct {
 }
 
 type CreateFixViewResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *FixView `json:"data"`
 
@@ -44,13 +44,13 @@ type CreateFixViewResp struct {
 }
 
 type CreateFixViewReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CreateFixViewReqBody
 }
 
 func NewCreateFixViewReqBuilder() *CreateFixViewReqBuilder {
 	builder := &CreateFixViewReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -81,21 +81,21 @@ func (builder *CreateFixViewReqBuilder) Build() *CreateFixViewReq {
 }
 
 type DeleteFixViewReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type DeleteFixViewResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type DeleteFixViewReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewDeleteFixViewReqBuilder() *DeleteFixViewReqBuilder {
 	builder := &DeleteFixViewReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -116,7 +116,7 @@ func (builder *DeleteFixViewReqBuilder) Build() *DeleteFixViewReq {
 }
 
 type QueryWorkItemDetailsByViewIDReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type QueryWorkItemDetailsByViewIDReqBody struct {
 	PageSize int64 `json:"page_size"`
@@ -127,7 +127,7 @@ type QueryWorkItemDetailsByViewIDReqBody struct {
 }
 
 type QueryWorkItemDetailsByViewIDResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*workitem.WorkItemInfo `json:"data"`
 
@@ -135,13 +135,13 @@ type QueryWorkItemDetailsByViewIDResp struct {
 }
 
 type QueryWorkItemDetailsByViewIDReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *QueryWorkItemDetailsByViewIDReqBody
 }
 
 func NewQueryWorkItemDetailsByViewIDReqBuilder() *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder := &QueryWorkItemDetailsByViewIDReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -176,7 +176,7 @@ func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Build() *QueryWorkItemDet
 }
 
 type UpdateFixViewReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type UpdateFixViewReqBody struct {
 	AddWorkItemIDs []int64 `json:"add_work_item_ids"`
@@ -185,7 +185,7 @@ type UpdateFixViewReqBody struct {
 }
 
 type UpdateFixViewResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *FixView `json:"data"`
 
@@ -193,13 +193,13 @@ type UpdateFixViewResp struct {
 }
 
 type UpdateFixViewReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *UpdateFixViewReqBody
 }
 
 func NewUpdateFixViewReqBuilder() *UpdateFixViewReqBuilder {
 	builder := &UpdateFixViewReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -234,7 +234,7 @@ func (builder *UpdateFixViewReqBuilder) Build() *UpdateFixViewReq {
 }
 
 type ViewListReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type ViewListReqBody struct {
 	WorkItemTypeKey string `json:"work_item_type_key"`
@@ -251,7 +251,7 @@ type ViewListReqBody struct {
 }
 
 type ViewListResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*ViewConf `json:"data"`
 
@@ -259,13 +259,13 @@ type ViewListResp struct {
 }
 
 type ViewListReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *ViewListReqBody
 }
 
 func NewViewListReqBuilder() *ViewListReqBuilder {
 	builder := &ViewListReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -308,11 +308,11 @@ func (builder *ViewListReqBuilder) Build() *ViewListReq {
 }
 
 type WorkItemListReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type WorkItemListResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data *FixView `json:"data"`
 
@@ -320,12 +320,12 @@ type WorkItemListResp struct {
 }
 
 type WorkItemListReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewWorkItemListReqBuilder() *WorkItemListReqBuilder {
 	builder := &WorkItemListReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

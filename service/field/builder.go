@@ -23,7 +23,7 @@ import (
 )
 
 type CreateFieldReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CreateFieldReqBody struct {
 	FieldName string `json:"field_name"`
@@ -56,19 +56,19 @@ type CreateFieldReqBody struct {
 }
 
 type CreateFieldResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data string `json:"data"`
 }
 
 type CreateFieldReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CreateFieldReqBody
 }
 
 func NewCreateFieldReqBuilder() *CreateFieldReqBuilder {
 	builder := &CreateFieldReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -147,26 +147,26 @@ func (builder *CreateFieldReqBuilder) Build() *CreateFieldReq {
 }
 
 type QueryProjectFieldsReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type QueryProjectFieldsReqBody struct {
 	WorkItemTypeKey string `json:"work_item_type_key"`
 }
 
 type QueryProjectFieldsResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*SimpleField `json:"data"`
 }
 
 type QueryProjectFieldsReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *QueryProjectFieldsReqBody
 }
 
 func NewQueryProjectFieldsReqBuilder() *QueryProjectFieldsReqBuilder {
 	builder := &QueryProjectFieldsReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -189,7 +189,7 @@ func (builder *QueryProjectFieldsReqBuilder) Build() *QueryProjectFieldsReq {
 }
 
 type UpdateFieldReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type UpdateFieldReqBody struct {
 	FieldName string `json:"field_name"`
@@ -212,18 +212,18 @@ type UpdateFieldReqBody struct {
 }
 
 type UpdateFieldResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type UpdateFieldReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *UpdateFieldReqBody
 }
 
 func NewUpdateFieldReqBuilder() *UpdateFieldReqBuilder {
 	builder := &UpdateFieldReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

@@ -52,7 +52,7 @@ func (a *FieldService) CreateField(ctx context.Context, req *CreateFieldReq, opt
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CreateFieldResp{ApiResp: apiResp}
+	resp := &CreateFieldResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateField] fail to unmarshal response body, error: %v", err.Error()))
@@ -75,7 +75,7 @@ func (a *FieldService) QueryProjectFields(ctx context.Context, req *QueryProject
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryProjectFieldsResp{ApiResp: apiResp}
+	resp := &QueryProjectFieldsResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryProjectFields] fail to unmarshal response body, error: %v", err.Error()))
@@ -98,7 +98,7 @@ func (a *FieldService) UpdateField(ctx context.Context, req *UpdateFieldReq, opt
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateFieldResp{ApiResp: apiResp}
+	resp := &UpdateFieldResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateField] fail to unmarshal response body, error: %v", err.Error()))

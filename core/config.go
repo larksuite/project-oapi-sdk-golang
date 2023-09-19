@@ -23,7 +23,7 @@ import (
 
 type Config struct {
 	BaseUrl          string
-	AppId            string
+	AppID            string
 	AppSecret        string
 	ReqTimeout       time.Duration
 	LogLevel         LogLevel

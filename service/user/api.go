@@ -48,7 +48,7 @@ func (a *UserService) QueryUserDetail(ctx context.Context, req *QueryUserDetailR
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryUserDetailResp{ApiResp: apiResp}
+	resp := &QueryUserDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryUserDetail] fail to unmarshal response body, error: %v", err.Error()))

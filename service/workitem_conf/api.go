@@ -56,7 +56,7 @@ func (a *WorkItemConfService) CreateTemplateDetail(ctx context.Context, req *Cre
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CreateTemplateDetailResp{ApiResp: apiResp}
+	resp := &CreateTemplateDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateTemplateDetail] fail to unmarshal response body, error: %v", err.Error()))
@@ -79,7 +79,7 @@ func (a *WorkItemConfService) DeleteTemplateDetail(ctx context.Context, req *Del
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &DeleteTemplateDetailResp{ApiResp: apiResp}
+	resp := &DeleteTemplateDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteTemplateDetail] fail to unmarshal response body, error: %v", err.Error()))
@@ -102,7 +102,7 @@ func (a *WorkItemConfService) QueryTemplateDetail(ctx context.Context, req *Quer
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryTemplateDetailResp{ApiResp: apiResp}
+	resp := &QueryTemplateDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryTemplateDetail] fail to unmarshal response body, error: %v", err.Error()))
@@ -125,7 +125,7 @@ func (a *WorkItemConfService) QueryWorkItemTemplates(ctx context.Context, req *Q
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryWorkItemTemplatesResp{ApiResp: apiResp}
+	resp := &QueryWorkItemTemplatesResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWorkItemTemplates] fail to unmarshal response body, error: %v", err.Error()))
@@ -148,7 +148,7 @@ func (a *WorkItemConfService) UpdateTemplateDetail(ctx context.Context, req *Upd
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateTemplateDetailResp{ApiResp: apiResp}
+	resp := &UpdateTemplateDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateTemplateDetail] fail to unmarshal response body, error: %v", err.Error()))

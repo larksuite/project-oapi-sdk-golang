@@ -24,22 +24,22 @@ type GetUserPluginTokenReq struct {
 }
 
 type GetUserPluginTokenResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	Error         *TokenErr        `json:"error"`
 	Data          *UserPluginToken `json:"data"`
 }
 
 type RefreshTokenReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type RefreshTokenReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewRefreshTokenReqBuilder() *RefreshTokenReqBuilder {
 	builder := &RefreshTokenReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 		Body:        &RefreshTokenReqBody{},
@@ -71,7 +71,7 @@ func (builder *RefreshTokenReqBuilder) Build() *RefreshTokenReq {
 }
 
 type RefreshTokenResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	Error         *TokenErr     `json:"error"`
 	Data          *RefreshToken `json:"data"`
 }

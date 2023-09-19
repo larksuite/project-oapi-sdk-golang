@@ -56,7 +56,7 @@ func (a *ProjectService) GetProjectDetail(ctx context.Context, req *GetProjectDe
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &GetProjectDetailResp{ApiResp: apiResp}
+	resp := &GetProjectDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetProjectDetail] fail to unmarshal response body, error: %v", err.Error()))
@@ -81,7 +81,7 @@ func (a *ProjectService) ListProject(ctx context.Context, req *ListProjectReq, o
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListProjectResp{ApiResp: apiResp}
+	resp := &ListProjectResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ListProject] fail to unmarshal response body, error: %v", err.Error()))
@@ -104,7 +104,7 @@ func (a *ProjectService) ListProjectBusiness(ctx context.Context, req *ListProje
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListProjectBusinessResp{ApiResp: apiResp}
+	resp := &ListProjectBusinessResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ListProjectBusiness] fail to unmarshal response body, error: %v", err.Error()))
@@ -127,7 +127,7 @@ func (a *ProjectService) ListProjectTeam(ctx context.Context, req *ListProjectTe
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListProjectTeamResp{ApiResp: apiResp}
+	resp := &ListProjectTeamResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ListProjectTeam] fail to unmarshal response body, error: %v", err.Error()))
@@ -150,7 +150,7 @@ func (a *ProjectService) ListProjectWorkItemType(ctx context.Context, req *ListP
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ListProjectWorkItemTypeResp{ApiResp: apiResp}
+	resp := &ListProjectWorkItemTypeResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ListProjectWorkItemType] fail to unmarshal response body, error: %v", err.Error()))

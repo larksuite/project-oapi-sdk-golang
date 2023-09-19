@@ -21,7 +21,7 @@ import (
 )
 
 type QueryUserDetailReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type QueryUserDetailReqBody struct {
 	UserKeys []string `json:"user_keys"`
@@ -34,19 +34,19 @@ type QueryUserDetailReqBody struct {
 }
 
 type QueryUserDetailResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*UserBasicInfo `json:"data"`
 }
 
 type QueryUserDetailReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *QueryUserDetailReqBody
 }
 
 func NewQueryUserDetailReqBuilder() *QueryUserDetailReqBuilder {
 	builder := &QueryUserDetailReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

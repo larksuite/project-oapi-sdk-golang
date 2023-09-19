@@ -23,7 +23,7 @@ import (
 )
 
 type CreateProjectRelationInstancesReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type CreateProjectRelationInstancesReqBody struct {
 	RelationRuleID string `json:"relation_rule_id"`
@@ -32,18 +32,18 @@ type CreateProjectRelationInstancesReqBody struct {
 }
 
 type CreateProjectRelationInstancesResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type CreateProjectRelationInstancesReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *CreateProjectRelationInstancesReqBody
 }
 
 func NewCreateProjectRelationInstancesReqBuilder() *CreateProjectRelationInstancesReqBuilder {
 	builder := &CreateProjectRelationInstancesReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -78,7 +78,7 @@ func (builder *CreateProjectRelationInstancesReqBuilder) Build() *CreateProjectR
 }
 
 type DeleteProjectRelationInstanceReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type DeleteProjectRelationInstanceReqBody struct {
 	RelationRuleID string `json:"relation_rule_id"`
@@ -87,18 +87,18 @@ type DeleteProjectRelationInstanceReqBody struct {
 }
 
 type DeleteProjectRelationInstanceResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
 type DeleteProjectRelationInstanceReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *DeleteProjectRelationInstanceReqBody
 }
 
 func NewDeleteProjectRelationInstanceReqBuilder() *DeleteProjectRelationInstanceReqBuilder {
 	builder := &DeleteProjectRelationInstanceReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -133,26 +133,26 @@ func (builder *DeleteProjectRelationInstanceReqBuilder) Build() *DeleteProjectRe
 }
 
 type QueryProjectRelationReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type QueryProjectRelationReqBody struct {
 	RemoteProjects []string `json:"remote_projects"`
 }
 
 type QueryProjectRelationResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*ProjectRelationRule `json:"data"`
 }
 
 type QueryProjectRelationReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *QueryProjectRelationReqBody
 }
 
 func NewQueryProjectRelationReqBuilder() *QueryProjectRelationReqBuilder {
 	builder := &QueryProjectRelationReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -175,7 +175,7 @@ func (builder *QueryProjectRelationReqBuilder) Build() *QueryProjectRelationReq 
 }
 
 type QueryProjectRelationInstanceReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type QueryProjectRelationInstanceReqBody struct {
 	RelationRuleID string `json:"relation_rule_id"`
@@ -188,19 +188,19 @@ type QueryProjectRelationInstanceReqBody struct {
 }
 
 type QueryProjectRelationInstanceResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*RelationInstance `json:"data"`
 }
 
 type QueryProjectRelationInstanceReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *QueryProjectRelationInstanceReqBody
 }
 
 func NewQueryProjectRelationInstanceReqBuilder() *QueryProjectRelationInstanceReqBuilder {
 	builder := &QueryProjectRelationInstanceReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

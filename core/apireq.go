@@ -16,7 +16,7 @@ import (
 	"net/url"
 )
 
-type ApiReq struct {
+type APIReq struct {
 	HttpMethod  string
 	ApiPath     string
 	Body        interface{}

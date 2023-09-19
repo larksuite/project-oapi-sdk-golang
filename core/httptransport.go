@@ -31,7 +31,7 @@ func NewHttpClient(config *Config) {
 	}
 }
 
-func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*ApiResp, error) {
+func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient, logger Logger) (*APIResp, error) {
 	if httpClient == nil {
 		httpClient = http.DefaultClient
 	}
@@ -46,9 +46,9 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 	}
 
 	if resp.StatusCode == http.StatusGatewayTimeout {
-		logID := resp.Header.Get(HttpHeaderKeyLogId)
+		logID := resp.Header.Get(HTTPHeaderKeyLogID)
 		if logID == "" {
-			logID = resp.Header.Get(HttpHeaderKeyRequestId)
+			logID = resp.Header.Get(HTTPHeaderKeyRequestID)
 		}
 		logger.Info(ctx, fmt.Sprintf("req path:%s, server time out,requestId:%s",
 			rawRequest.URL.RequestURI(), logID))
@@ -59,14 +59,14 @@ func doSend(ctx context.Context, rawRequest *http.Request, httpClient HttpClient
 		return nil, err
 	}
 
-	return &ApiResp{
+	return &APIResp{
 		StatusCode: resp.StatusCode,
 		Header:     resp.Header,
 		RawBody:    body,
 	}, nil
 }
 
-func Request(ctx context.Context, req *ApiReq, config *Config, options ...RequestOptionFunc) (*ApiResp, error) {
+func Request(ctx context.Context, req *APIReq, config *Config, options ...RequestOptionFunc) (*APIResp, error) {
 	option := &RequestOption{
 		Header: make(http.Header),
 	}

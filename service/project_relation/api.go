@@ -54,7 +54,7 @@ func (a *ProjectRelationService) CreateProjectRelationInstances(ctx context.Cont
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CreateProjectRelationInstancesResp{ApiResp: apiResp}
+	resp := &CreateProjectRelationInstancesResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateProjectRelationInstances] fail to unmarshal response body, error: %v", err.Error()))
@@ -77,7 +77,7 @@ func (a *ProjectRelationService) DeleteProjectRelationInstance(ctx context.Conte
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &DeleteProjectRelationInstanceResp{ApiResp: apiResp}
+	resp := &DeleteProjectRelationInstanceResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteProjectRelationInstance] fail to unmarshal response body, error: %v", err.Error()))
@@ -100,7 +100,7 @@ func (a *ProjectRelationService) QueryProjectRelation(ctx context.Context, req *
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryProjectRelationResp{ApiResp: apiResp}
+	resp := &QueryProjectRelationResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryProjectRelation] fail to unmarshal response body, error: %v", err.Error()))
@@ -123,7 +123,7 @@ func (a *ProjectRelationService) QueryProjectRelationInstance(ctx context.Contex
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &QueryProjectRelationInstanceResp{ApiResp: apiResp}
+	resp := &QueryProjectRelationInstanceResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryProjectRelationInstance] fail to unmarshal response body, error: %v", err.Error()))

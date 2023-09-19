@@ -20,47 +20,25 @@ import (
 	"strings"
 )
 
-type ApiResp struct {
+type APIResp struct {
 	StatusCode int         `json:"-"`
 	Header     http.Header `json:"-"`
 	RawBody    []byte      `json:"-"`
 }
 
-func (resp ApiResp) Write(writer http.ResponseWriter) {
-	writer.WriteHeader(resp.StatusCode)
-	for k, vs := range resp.Header {
-		for _, v := range vs {
-			writer.Header().Add(k, v)
-		}
-	}
-	if _, err := writer.Write(resp.RawBody); err != nil {
-		panic(err)
-	}
-}
-
-func (resp ApiResp) JSONUnmarshalBody(val interface{}, config *Config) error {
+func (resp APIResp) JSONUnmarshalBody(val interface{}, config *Config) error {
 	if !strings.Contains(resp.Header.Get(contentTypeHeader), contentTypeJson) {
 		return fmt.Errorf("response content-type not json, response: %v", resp)
 	}
 	return json.Unmarshal(resp.RawBody, val)
 }
 
-func (resp ApiResp) RequestId() string {
-	logID := resp.Header.Get(HttpHeaderKeyLogId)
+func (resp APIResp) RequestId() string {
+	logID := resp.Header.Get(HTTPHeaderKeyLogID)
 	if logID != "" {
 		return logID
 	}
-	return resp.Header.Get(HttpHeaderKeyRequestId)
-}
-
-func (resp ApiResp) String() string {
-	contentType := resp.Header.Get(contentTypeHeader)
-	body := fmt.Sprintf("<binary> len %d", len(resp.RawBody))
-	if strings.Contains(contentType, "json") || strings.Contains(contentType, "text") {
-		body = string(resp.RawBody)
-	}
-	return fmt.Sprintf("StatusCode: %d, Header:%v, Content-Type: %s, Body: %v", resp.StatusCode,
-		resp.Header, resp.Header.Get(contentTypeHeader), body)
+	return resp.Header.Get(HTTPHeaderKeyRequestID)
 }
 
 type CodeError struct {

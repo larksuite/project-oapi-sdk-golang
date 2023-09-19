@@ -58,7 +58,7 @@ func (a *TaskService) CreateSubTask(ctx context.Context, req *CreateSubTaskReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &CreateSubTaskResp{ApiResp: apiResp}
+	resp := &CreateSubTaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateSubTask] fail to unmarshal response body, error: %v", err.Error()))
@@ -81,7 +81,7 @@ func (a *TaskService) DeleteSubTask(ctx context.Context, req *DeleteSubTaskReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &DeleteSubTaskResp{ApiResp: apiResp}
+	resp := &DeleteSubTaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteSubTask] fail to unmarshal response body, error: %v", err.Error()))
@@ -104,7 +104,7 @@ func (a *TaskService) ModifySubtask(ctx context.Context, req *ModifySubtaskReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &ModifySubtaskResp{ApiResp: apiResp}
+	resp := &ModifySubtaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ModifySubtask] fail to unmarshal response body, error: %v", err.Error()))
@@ -127,7 +127,7 @@ func (a *TaskService) SearchSubtask(ctx context.Context, req *SearchSubtaskReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &SearchSubtaskResp{ApiResp: apiResp}
+	resp := &SearchSubtaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchSubtask] fail to unmarshal response body, error: %v", err.Error()))
@@ -150,7 +150,7 @@ func (a *TaskService) TaskDetail(ctx context.Context, req *TaskDetailReq, option
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &TaskDetailResp{ApiResp: apiResp}
+	resp := &TaskDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[TaskDetail] fail to unmarshal response body, error: %v", err.Error()))
@@ -173,7 +173,7 @@ func (a *TaskService) UpdateSubTask(ctx context.Context, req *UpdateSubTaskReq, 
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UpdateSubTaskResp{ApiResp: apiResp}
+	resp := &UpdateSubTaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateSubTask] fail to unmarshal response body, error: %v", err.Error()))

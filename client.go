@@ -118,7 +118,7 @@ func WithHeaders(header http.Header) ClientOptionFunc {
 func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 	// 构建配置
 	config := &core.Config{
-		AppId:            appId,
+		AppID:            appId,
 		AppSecret:        appSecret,
 		EnableTokenCache: true,
 		AccessTokenType:  core.AccessTokenTypePlugin,

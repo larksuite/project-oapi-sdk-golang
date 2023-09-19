@@ -24,15 +24,13 @@ const defaultContentType = contentTypeJson + "; charset=utf-8"
 const userAgentHeader = "User-Agent"
 
 const (
-	HttpHeaderUserKey      = "X-USER-KEY"
-	HttpHeaderAccessToken  = "X-PLUGIN-TOKEN"
-	HttpHeaderIdemUUID     = "X-IDEM-UUID"
-	HttpHeaderKeyRequestId = "X-Request-Id"
-	httpHeaderRequestId    = "Request-Id"
-	HttpHeaderKeyLogId     = "X-Tt-Logid"
+	HTTPHeaderUserKey      = "X-USER-KEY"
+	HTTPHeaderAccessToken  = "X-PLUGIN-TOKEN"
+	HTTPHeaderIdemUUID     = "X-IDEM-UUID"
+	HTTPHeaderKeyRequestID = "X-Request-Id"
+	HTTPHeaderKeyLogID     = "X-Tt-Logid"
 	contentTypeHeader      = "Content-Type"
 	contentTypeJson        = "application/json"
-	customRequestId        = "Oapi-Sdk-Request-Id"
 )
 
 const (

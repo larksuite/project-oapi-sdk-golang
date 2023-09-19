@@ -25,7 +25,7 @@ import (
 )
 
 type GetProjectDetailReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type GetProjectDetailReqBody struct {
 	ProjectKeys []string `json:"project_keys"`
@@ -38,19 +38,19 @@ type GetProjectDetailReqBody struct {
 }
 
 type GetProjectDetailResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data map[string]*Project `json:"data"`
 }
 
 type GetProjectDetailReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *GetProjectDetailReqBody
 }
 
 func NewGetProjectDetailReqBuilder() *GetProjectDetailReqBuilder {
 	builder := &GetProjectDetailReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -81,7 +81,7 @@ func (builder *GetProjectDetailReqBuilder) Build() *GetProjectDetailReq {
 }
 
 type ListProjectReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 type ListProjectReqBody struct {
 	UserKey string `json:"user_key"`
@@ -92,19 +92,19 @@ type ListProjectReqBody struct {
 }
 
 type ListProjectResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []string `json:"data"`
 }
 
 type ListProjectReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 	body   *ListProjectReqBody
 }
 
 func NewListProjectReqBuilder() *ListProjectReqBuilder {
 	builder := &ListProjectReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -131,22 +131,22 @@ func (builder *ListProjectReqBuilder) Build() *ListProjectReq {
 }
 
 type ListProjectBusinessReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type ListProjectBusinessResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*Business `json:"data"`
 }
 
 type ListProjectBusinessReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewListProjectBusinessReqBuilder() *ListProjectBusinessReqBuilder {
 	builder := &ListProjectBusinessReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -163,22 +163,22 @@ func (builder *ListProjectBusinessReqBuilder) Build() *ListProjectBusinessReq {
 }
 
 type ListProjectTeamReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type ListProjectTeamResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*Team `json:"data"`
 }
 
 type ListProjectTeamReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewListProjectTeamReqBuilder() *ListProjectTeamReqBuilder {
 	builder := &ListProjectTeamReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}
@@ -195,22 +195,22 @@ func (builder *ListProjectTeamReqBuilder) Build() *ListProjectTeamReq {
 }
 
 type ListProjectWorkItemTypeReq struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 type ListProjectWorkItemTypeResp struct {
-	*core.ApiResp `json:"-"`
+	*core.APIResp `json:"-"`
 	core.CodeError
 	Data []*workitem.WorkItemKeyType `json:"data"`
 }
 
 type ListProjectWorkItemTypeReqBuilder struct {
-	apiReq *core.ApiReq
+	apiReq *core.APIReq
 }
 
 func NewListProjectWorkItemTypeReqBuilder() *ListProjectWorkItemTypeReqBuilder {
 	builder := &ListProjectWorkItemTypeReqBuilder{}
-	builder.apiReq = &core.ApiReq{
+	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
 	}

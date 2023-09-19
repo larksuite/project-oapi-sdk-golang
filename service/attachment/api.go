@@ -52,7 +52,7 @@ func (a *AttachmentService) UploadAttachment(ctx context.Context, req *UploadAtt
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &UploadAttachmentResp{ApiResp: apiResp}
+	resp := &UploadAttachmentResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UploadAttachment] fail to unmarshal response body, error: %v", err.Error()))

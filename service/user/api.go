@@ -23,7 +23,7 @@ import (
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
-const APIPath_QueryUserDetail = "/open_api/user/query"
+const APIPathQueryUserDetail = "/open_api/user/query"
 
 func NewService(config *core.Config) *UserService {
 	a := &UserService{config: config}
@@ -38,16 +38,14 @@ type UserService struct {
  *   获取用户详情
  */
 func (a *UserService) QueryUserDetail(ctx context.Context, req *QueryUserDetailReq, options ...core.RequestOptionFunc) (*QueryUserDetailResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_QueryUserDetail
+	apiReq.ApiPath = APIPathQueryUserDetail
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryUserDetail] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &QueryUserDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {

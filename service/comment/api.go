@@ -23,13 +23,13 @@ import (
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
-const APIPath_CreateComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/create"
+const APIPathCreateComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/create"
 
-const APIPath_DeleteComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/:comment_id"
+const APIPathDeleteComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/:comment_id"
 
-const APIPath_QueryComments = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comments"
+const APIPathQueryComments = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comments"
 
-const APIPath_UpdateComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/:comment_id"
+const APIPathUpdateComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/:comment_id"
 
 func NewService(config *core.Config) *CommentService {
 	a := &CommentService{config: config}
@@ -44,16 +44,14 @@ type CommentService struct {
  *   添加评论
  */
 func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentReq, options ...core.RequestOptionFunc) (*CreateCommentResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_CreateComment
+	apiReq.ApiPath = APIPathCreateComment
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateComment] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &CreateCommentResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -67,16 +65,14 @@ func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentRe
  *   删除评论
  */
 func (a *CommentService) DeleteComment(ctx context.Context, req *DeleteCommentReq, options ...core.RequestOptionFunc) (*DeleteCommentResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_DeleteComment
+	apiReq.ApiPath = APIPathDeleteComment
 	apiReq.HttpMethod = "DELETE"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteComment] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &DeleteCommentResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -90,16 +86,14 @@ func (a *CommentService) DeleteComment(ctx context.Context, req *DeleteCommentRe
  *   查询评论
  */
 func (a *CommentService) QueryComments(ctx context.Context, req *QueryCommentsReq, options ...core.RequestOptionFunc) (*QueryCommentsResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_QueryComments
+	apiReq.ApiPath = APIPathQueryComments
 	apiReq.HttpMethod = "GET"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryComments] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &QueryCommentsResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -113,16 +107,14 @@ func (a *CommentService) QueryComments(ctx context.Context, req *QueryCommentsRe
  *   更新评论
  */
 func (a *CommentService) UpdateComment(ctx context.Context, req *UpdateCommentReq, options ...core.RequestOptionFunc) (*UpdateCommentResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_UpdateComment
+	apiReq.ApiPath = APIPathUpdateComment
 	apiReq.HttpMethod = "PUT"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateComment] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &UpdateCommentResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {

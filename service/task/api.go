@@ -23,17 +23,17 @@ import (
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
-const APIPath_CreateSubTask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/workflow/task"
+const APIPathCreateSubTask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/workflow/task"
 
-const APIPath_DeleteSubTask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/task/:task_id"
+const APIPathDeleteSubTask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/task/:task_id"
 
-const APIPath_ModifySubtask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/subtask/modify"
+const APIPathModifySubtask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/subtask/modify"
 
-const APIPath_SearchSubtask = "/open_api/work_item/subtask/search"
+const APIPathSearchSubtask = "/open_api/work_item/subtask/search"
 
-const APIPath_TaskDetail = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/workflow/task"
+const APIPathTaskDetail = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/workflow/task"
 
-const APIPath_UpdateSubTask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/workflow/:node_id/task/:task_id"
+const APIPathUpdateSubTask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/workflow/:node_id/task/:task_id"
 
 func NewService(config *core.Config) *TaskService {
 	a := &TaskService{config: config}
@@ -48,16 +48,14 @@ type TaskService struct {
  *   创建子任务
  */
 func (a *TaskService) CreateSubTask(ctx context.Context, req *CreateSubTaskReq, options ...core.RequestOptionFunc) (*CreateSubTaskResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_CreateSubTask
+	apiReq.ApiPath = APIPathCreateSubTask
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateSubTask] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &CreateSubTaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -71,16 +69,14 @@ func (a *TaskService) CreateSubTask(ctx context.Context, req *CreateSubTaskReq, 
  *   删除子任务
  */
 func (a *TaskService) DeleteSubTask(ctx context.Context, req *DeleteSubTaskReq, options ...core.RequestOptionFunc) (*DeleteSubTaskResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_DeleteSubTask
+	apiReq.ApiPath = APIPathDeleteSubTask
 	apiReq.HttpMethod = "DELETE"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteSubTask] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &DeleteSubTaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -94,16 +90,14 @@ func (a *TaskService) DeleteSubTask(ctx context.Context, req *DeleteSubTaskReq, 
  *   子任务完成/回滚
  */
 func (a *TaskService) ModifySubtask(ctx context.Context, req *ModifySubtaskReq, options ...core.RequestOptionFunc) (*ModifySubtaskResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_ModifySubtask
+	apiReq.ApiPath = APIPathModifySubtask
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ModifySubtask] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &ModifySubtaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -117,16 +111,14 @@ func (a *TaskService) ModifySubtask(ctx context.Context, req *ModifySubtaskReq, 
  *   获取指定的子任务列表（跨空间）
  */
 func (a *TaskService) SearchSubtask(ctx context.Context, req *SearchSubtaskReq, options ...core.RequestOptionFunc) (*SearchSubtaskResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_SearchSubtask
+	apiReq.ApiPath = APIPathSearchSubtask
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchSubtask] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &SearchSubtaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -140,16 +132,14 @@ func (a *TaskService) SearchSubtask(ctx context.Context, req *SearchSubtaskReq, 
  *   获取子任务详情
  */
 func (a *TaskService) TaskDetail(ctx context.Context, req *TaskDetailReq, options ...core.RequestOptionFunc) (*TaskDetailResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_TaskDetail
+	apiReq.ApiPath = APIPathTaskDetail
 	apiReq.HttpMethod = "GET"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[TaskDetail] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &TaskDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -163,16 +153,14 @@ func (a *TaskService) TaskDetail(ctx context.Context, req *TaskDetailReq, option
  *   更新子任务
  */
 func (a *TaskService) UpdateSubTask(ctx context.Context, req *UpdateSubTaskReq, options ...core.RequestOptionFunc) (*UpdateSubTaskResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_UpdateSubTask
+	apiReq.ApiPath = APIPathUpdateSubTask
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateSubTask] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &UpdateSubTaskResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {

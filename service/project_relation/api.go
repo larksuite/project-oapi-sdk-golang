@@ -23,13 +23,13 @@ import (
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
-const APIPath_CreateProjectRelationInstances = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id/batch_bind"
+const APIPathCreateProjectRelationInstances = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id/batch_bind"
 
-const APIPath_DeleteProjectRelationInstance = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id"
+const APIPathDeleteProjectRelationInstance = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id"
 
-const APIPath_QueryProjectRelation = "/open_api/:project_key/relation/rules"
+const APIPathQueryProjectRelation = "/open_api/:project_key/relation/rules"
 
-const APIPath_QueryProjectRelationInstance = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id/work_item_list"
+const APIPathQueryProjectRelationInstance = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id/work_item_list"
 
 func NewService(config *core.Config) *ProjectRelationService {
 	a := &ProjectRelationService{config: config}
@@ -44,16 +44,14 @@ type ProjectRelationService struct {
  *   通过空间关联绑定关联工作项
  */
 func (a *ProjectRelationService) CreateProjectRelationInstances(ctx context.Context, req *CreateProjectRelationInstancesReq, options ...core.RequestOptionFunc) (*CreateProjectRelationInstancesResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_CreateProjectRelationInstances
+	apiReq.ApiPath = APIPathCreateProjectRelationInstances
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateProjectRelationInstances] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &CreateProjectRelationInstancesResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -67,16 +65,14 @@ func (a *ProjectRelationService) CreateProjectRelationInstances(ctx context.Cont
  *   通过空间关联解绑关联工作项
  */
 func (a *ProjectRelationService) DeleteProjectRelationInstance(ctx context.Context, req *DeleteProjectRelationInstanceReq, options ...core.RequestOptionFunc) (*DeleteProjectRelationInstanceResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_DeleteProjectRelationInstance
+	apiReq.ApiPath = APIPathDeleteProjectRelationInstance
 	apiReq.HttpMethod = "DELETE"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteProjectRelationInstance] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &DeleteProjectRelationInstanceResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -90,16 +86,14 @@ func (a *ProjectRelationService) DeleteProjectRelationInstance(ctx context.Conte
  *   获取空间关联规则列表
  */
 func (a *ProjectRelationService) QueryProjectRelation(ctx context.Context, req *QueryProjectRelationReq, options ...core.RequestOptionFunc) (*QueryProjectRelationResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_QueryProjectRelation
+	apiReq.ApiPath = APIPathQueryProjectRelation
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryProjectRelation] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &QueryProjectRelationResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -113,16 +107,14 @@ func (a *ProjectRelationService) QueryProjectRelation(ctx context.Context, req *
  *   获取空间关联下的关联工作项列表
  */
 func (a *ProjectRelationService) QueryProjectRelationInstance(ctx context.Context, req *QueryProjectRelationInstanceReq, options ...core.RequestOptionFunc) (*QueryProjectRelationInstanceResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_QueryProjectRelationInstance
+	apiReq.ApiPath = APIPathQueryProjectRelationInstance
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryProjectRelationInstance] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &QueryProjectRelationInstanceResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {

@@ -302,8 +302,8 @@ header.Add("k1", "v1")
 resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
 ProjectKey("project_key").
 Build(),
-sdkcore.WithAccessToken("user_plugin_token"), 		//设置用户身份凭证
-sdkcore.WithHeaders(header),                            //设置head
+sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
+sdkcore.WithHeaders(header), //设置head
 )
 
 //处理错误

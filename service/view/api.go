@@ -23,17 +23,17 @@ import (
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
-const APIPath_CreateFixView = "/open_api/:project_key/:work_item_type_key/fix_view"
+const APIPathCreateFixView = "/open_api/:project_key/:work_item_type_key/fix_view"
 
-const APIPath_DeleteFixView = "/open_api/:project_key/fix_view/:view_id"
+const APIPathDeleteFixView = "/open_api/:project_key/fix_view/:view_id"
 
-const APIPath_QueryWorkItemDetailsByViewID = "/open_api/:project_key/view/:view_id"
+const APIPathQueryWorkItemDetailsByViewID = "/open_api/:project_key/view/:view_id"
 
-const APIPath_UpdateFixView = "/open_api/:project_key/:work_item_type_key/fix_view/:view_id"
+const APIPathUpdateFixView = "/open_api/:project_key/:work_item_type_key/fix_view/:view_id"
 
-const APIPath_ViewList = "/open_api/:project_key/view_conf/list"
+const APIPathViewList = "/open_api/:project_key/view_conf/list"
 
-const APIPath_WorkItemList = "/open_api/:project_key/fix_view/:view_id"
+const APIPathWorkItemList = "/open_api/:project_key/fix_view/:view_id"
 
 func NewService(config *core.Config) *ViewService {
 	a := &ViewService{config: config}
@@ -48,16 +48,14 @@ type ViewService struct {
  *   创建固定视图
  */
 func (a *ViewService) CreateFixView(ctx context.Context, req *CreateFixViewReq, options ...core.RequestOptionFunc) (*CreateFixViewResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_CreateFixView
+	apiReq.ApiPath = APIPathCreateFixView
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateFixView] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &CreateFixViewResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -71,16 +69,14 @@ func (a *ViewService) CreateFixView(ctx context.Context, req *CreateFixViewReq, 
  *   删除固定视图
  */
 func (a *ViewService) DeleteFixView(ctx context.Context, req *DeleteFixViewReq, options ...core.RequestOptionFunc) (*DeleteFixViewResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_DeleteFixView
+	apiReq.ApiPath = APIPathDeleteFixView
 	apiReq.HttpMethod = "DELETE"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteFixView] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &DeleteFixViewResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -94,16 +90,14 @@ func (a *ViewService) DeleteFixView(ctx context.Context, req *DeleteFixViewReq, 
  *   获取视图下工作项列表（全景视图）
  */
 func (a *ViewService) QueryWorkItemDetailsByViewID(ctx context.Context, req *QueryWorkItemDetailsByViewIDReq, options ...core.RequestOptionFunc) (*QueryWorkItemDetailsByViewIDResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_QueryWorkItemDetailsByViewID
+	apiReq.ApiPath = APIPathQueryWorkItemDetailsByViewID
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWorkItemDetailsByViewID] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &QueryWorkItemDetailsByViewIDResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -117,16 +111,14 @@ func (a *ViewService) QueryWorkItemDetailsByViewID(ctx context.Context, req *Que
  *   更新固定视图
  */
 func (a *ViewService) UpdateFixView(ctx context.Context, req *UpdateFixViewReq, options ...core.RequestOptionFunc) (*UpdateFixViewResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_UpdateFixView
+	apiReq.ApiPath = APIPathUpdateFixView
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateFixView] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &UpdateFixViewResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -140,16 +132,14 @@ func (a *ViewService) UpdateFixView(ctx context.Context, req *UpdateFixViewReq, 
  *   获取视图列表
  */
 func (a *ViewService) ViewList(ctx context.Context, req *ViewListReq, options ...core.RequestOptionFunc) (*ViewListResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_ViewList
+	apiReq.ApiPath = APIPathViewList
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ViewList] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &ViewListResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -163,16 +153,14 @@ func (a *ViewService) ViewList(ctx context.Context, req *ViewListReq, options ..
  *   获取视图下工作项列表
  */
 func (a *ViewService) WorkItemList(ctx context.Context, req *WorkItemListReq, options ...core.RequestOptionFunc) (*WorkItemListResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_WorkItemList
+	apiReq.ApiPath = APIPathWorkItemList
 	apiReq.HttpMethod = "GET"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[WorkItemList] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &WorkItemListResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {

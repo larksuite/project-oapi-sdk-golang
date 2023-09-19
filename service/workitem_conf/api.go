@@ -23,15 +23,15 @@ import (
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
-const APIPath_CreateTemplateDetail = "/open_api/template/v2/create_template"
+const APIPathCreateTemplateDetail = "/open_api/template/v2/create_template"
 
-const APIPath_DeleteTemplateDetail = "/open_api/template/v2/delete_template/:project_key/:template_id"
+const APIPathDeleteTemplateDetail = "/open_api/template/v2/delete_template/:project_key/:template_id"
 
-const APIPath_QueryTemplateDetail = "/open_api/:project_key/template_detail/:template_id"
+const APIPathQueryTemplateDetail = "/open_api/:project_key/template_detail/:template_id"
 
-const APIPath_QueryWorkItemTemplates = "/open_api/:project_key/template_list/:work_item_type_key"
+const APIPathQueryWorkItemTemplates = "/open_api/:project_key/template_list/:work_item_type_key"
 
-const APIPath_UpdateTemplateDetail = "/open_api/template/v2/update_template"
+const APIPathUpdateTemplateDetail = "/open_api/template/v2/update_template"
 
 func NewService(config *core.Config) *WorkItemConfService {
 	a := &WorkItemConfService{config: config}
@@ -46,16 +46,14 @@ type WorkItemConfService struct {
  *   新增流程类型配置
  */
 func (a *WorkItemConfService) CreateTemplateDetail(ctx context.Context, req *CreateTemplateDetailReq, options ...core.RequestOptionFunc) (*CreateTemplateDetailResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_CreateTemplateDetail
+	apiReq.ApiPath = APIPathCreateTemplateDetail
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateTemplateDetail] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &CreateTemplateDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -69,16 +67,14 @@ func (a *WorkItemConfService) CreateTemplateDetail(ctx context.Context, req *Cre
  *   删除流程类型配置
  */
 func (a *WorkItemConfService) DeleteTemplateDetail(ctx context.Context, req *DeleteTemplateDetailReq, options ...core.RequestOptionFunc) (*DeleteTemplateDetailResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_DeleteTemplateDetail
+	apiReq.ApiPath = APIPathDeleteTemplateDetail
 	apiReq.HttpMethod = "DELETE"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteTemplateDetail] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &DeleteTemplateDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -92,16 +88,14 @@ func (a *WorkItemConfService) DeleteTemplateDetail(ctx context.Context, req *Del
  *   获取流程类型配置详情
  */
 func (a *WorkItemConfService) QueryTemplateDetail(ctx context.Context, req *QueryTemplateDetailReq, options ...core.RequestOptionFunc) (*QueryTemplateDetailResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_QueryTemplateDetail
+	apiReq.ApiPath = APIPathQueryTemplateDetail
 	apiReq.HttpMethod = "GET"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryTemplateDetail] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &QueryTemplateDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -115,16 +109,14 @@ func (a *WorkItemConfService) QueryTemplateDetail(ctx context.Context, req *Quer
  *   获取工作项下的流程类型
  */
 func (a *WorkItemConfService) QueryWorkItemTemplates(ctx context.Context, req *QueryWorkItemTemplatesReq, options ...core.RequestOptionFunc) (*QueryWorkItemTemplatesResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_QueryWorkItemTemplates
+	apiReq.ApiPath = APIPathQueryWorkItemTemplates
 	apiReq.HttpMethod = "GET"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWorkItemTemplates] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &QueryWorkItemTemplatesResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -138,16 +130,14 @@ func (a *WorkItemConfService) QueryWorkItemTemplates(ctx context.Context, req *Q
  *   更新流程类型配置
  */
 func (a *WorkItemConfService) UpdateTemplateDetail(ctx context.Context, req *UpdateTemplateDetailReq, options ...core.RequestOptionFunc) (*UpdateTemplateDetailResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_UpdateTemplateDetail
+	apiReq.ApiPath = APIPathUpdateTemplateDetail
 	apiReq.HttpMethod = "PUT"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateTemplateDetail] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &UpdateTemplateDetailResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {

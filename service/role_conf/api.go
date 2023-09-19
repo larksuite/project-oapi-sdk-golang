@@ -23,7 +23,7 @@ import (
 	"code.byted.org/bits/project-oapi-sdk-golang/core"
 )
 
-const APIPath_QueryRoleConfDetails = "/open_api/:project_key/flow_roles/:work_item_type_key"
+const APIPathQueryRoleConfDetails = "/open_api/:project_key/flow_roles/:work_item_type_key"
 
 func NewService(config *core.Config) *RoleConfService {
 	a := &RoleConfService{config: config}
@@ -38,16 +38,14 @@ type RoleConfService struct {
  *   获取流程角色配置详情
  */
 func (a *RoleConfService) QueryRoleConfDetails(ctx context.Context, req *QueryRoleConfDetailsReq, options ...core.RequestOptionFunc) (*QueryRoleConfDetailsResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_QueryRoleConfDetails
+	apiReq.ApiPath = APIPathQueryRoleConfDetails
 	apiReq.HttpMethod = "GET"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryRoleConfDetails] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &QueryRoleConfDetailsResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {

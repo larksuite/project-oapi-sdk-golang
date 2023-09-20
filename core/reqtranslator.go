@@ -27,32 +27,29 @@ import (
 type ReqTranslator struct {
 }
 
-func (translator *ReqTranslator) translate(ctx context.Context, req *APIReq, config *Config, option *RequestOption) (*http.Request, error) {
-	body := req.Body
-	skipAuth := req.SkipAuth
+func (translator *ReqTranslator) translate(ctx context.Context, apiReq *APIReq, config *Config, option *RequestOption) (*http.Request, error) {
+	body := apiReq.Body
+	skipAuth := apiReq.SkipAuth
 	contentType, rawBody, err := translator.payload(body)
 	if err != nil {
 		return nil, err
 	}
 
-	newPath, err := translator.pathRebuild(req)
+	newPath, err := translator.pathRebuild(apiReq)
 	if err != nil {
 		return nil, err
 	}
-	if strings.Index(newPath, "http") != 0 {
-		newPath = fmt.Sprintf("%s%s", config.BaseUrl, newPath)
-	}
 
-	queryPath := req.QueryParams.Encode()
+	queryPath := apiReq.QueryParams.Encode()
 	if queryPath != "" {
 		newPath = fmt.Sprintf("%s?%s", newPath, queryPath)
 	}
 
-	req1, err := translator.newHTTPRequest(ctx, req, newPath, contentType, rawBody, skipAuth, option, config)
+	httpReq, err := translator.newHTTPRequest(ctx, apiReq, newPath, contentType, rawBody, skipAuth, option, config)
 	if err != nil {
 		return nil, err
 	}
-	return req1, nil
+	return httpReq, nil
 }
 
 func (translator *ReqTranslator) pathRebuild(req *APIReq) (string, error) {
@@ -83,9 +80,6 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	httpRequest, err := http.NewRequestWithContext(ctx, req.HttpMethod, url, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
-	}
-	if option.RequestId != "" {
-		httpRequest.Header.Add(customRequestId, option.RequestId)
 	}
 	for k, vs := range option.Header {
 		for _, v := range vs {

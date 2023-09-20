@@ -43,10 +43,9 @@ type AttachmentService struct {
 }
 
 /*
- *   添加附件
+ *  添加附件
  */
 func (a *AttachmentService) UploadAttachment(ctx context.Context, req *UploadAttachmentReq, options ...core.RequestOptionFunc) (*UploadAttachmentResp, error) {
-	options = append(options, core.WithFileUpload())
 	apiReq := req.apiReq
 	apiReq.ApiPath = ApiPathUploadAttachement
 	apiReq.HttpMethod = http.MethodPost
@@ -65,10 +64,9 @@ func (a *AttachmentService) UploadAttachment(ctx context.Context, req *UploadAtt
 }
 
 /*
- *   下载附件
+ *  下载附件
  */
 func (a *AttachmentService) DownloadAttachment(ctx context.Context, req *DownloadAttachmentReq, options ...core.RequestOptionFunc) (*DownloadAttachmentResp, error) {
-	options = append(options, core.WithFileDownload())
 	apiReq := req.apiReq
 	apiReq.ApiPath = ApiPathDownloadAttachement
 	apiReq.HttpMethod = http.MethodPost

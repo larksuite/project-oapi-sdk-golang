@@ -19,19 +19,10 @@ package core
 import "net/http"
 
 type RequestOption struct {
-	RequestId    string
-	Header       http.Header
-	FileUpload   bool
-	FileDownload bool
+	Header http.Header
 }
 
 type RequestOptionFunc func(option *RequestOption)
-
-func WithRequestId(requestId string) RequestOptionFunc {
-	return func(option *RequestOption) {
-		option.RequestId = requestId
-	}
-}
 
 func WithHeaders(header http.Header) RequestOptionFunc {
 	return func(option *RequestOption) {
@@ -58,17 +49,5 @@ func WithUserKey(userKey string) RequestOptionFunc {
 func WithIdemUUID(uuid string) RequestOptionFunc {
 	return func(option *RequestOption) {
 		option.Header.Set(HTTPHeaderIdemUUID, uuid)
-	}
-}
-
-func WithFileUpload() RequestOptionFunc {
-	return func(option *RequestOption) {
-		option.FileUpload = true
-	}
-}
-
-func WithFileDownload() RequestOptionFunc {
-	return func(option *RequestOption) {
-		option.FileDownload = true
 	}
 }

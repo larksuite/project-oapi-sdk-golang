@@ -15,6 +15,7 @@ package core
 import (
 	"encoding/json"
 	"fmt"
+	"mime"
 	"net/http"
 	"strconv"
 	"strings"
@@ -87,4 +88,13 @@ func (ce AccessTokenErr) String() string {
 	sb.WriteString(",code:")
 	sb.WriteString(strconv.Itoa(ce.Code))
 	return sb.String()
+}
+
+func FileNameByHeader(header http.Header) string {
+	filename := ""
+	_, media, _ := mime.ParseMediaType(header.Get("Content-Disposition"))
+	if len(media) > 0 {
+		filename = media["filename"]
+	}
+	return filename
 }

@@ -257,7 +257,7 @@ func main() {
 	resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
 		ProjectKey("project_key").
 		Build(),
-		sdkcore.WithUserKey("7116154537953476628"),
+		sdkcore.WithUserKey("user_key"),
 	)
 
 	//处理错误
@@ -268,7 +268,7 @@ func main() {
 
 	// 服务端错误处理
 	if !resp.Success() {
-           fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+           fmt.Println(resp.Code, resp.ErrMsg, resp.RequestId())
 	   return 
 	}
 
@@ -314,7 +314,7 @@ return
 
 // 服务端错误处理
 if !resp.Success() {
-fmt.Println(resp.Code, resp.Msg, resp.RequestId())
+fmt.Println(resp.Code, resp.ErrMsg, resp.RequestId())
 return
 }
 

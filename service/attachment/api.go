@@ -17,6 +17,7 @@
 package attachment
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"net/http"
@@ -26,7 +27,10 @@ import (
 
 const (
 	// 添加附件接口path
-	ApiPath_UploadAttachement = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file/upload"
+	ApiPathUploadAttachement = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file/upload"
+
+	// 下载附件接口path
+	ApiPathDownloadAttachement = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file/download"
 )
 
 func NewService(config *core.Config) *AttachmentService {
@@ -38,24 +42,51 @@ type AttachmentService struct {
 	config *core.Config
 }
 
-// 添加附件
-//
-// - 官网API文档链接:https://bytedance.feishu.cn/docs/doccntEfMPoh8Qv3hDCshfRLEuY#tkxHhZ
+/*
+ *   添加附件
+ */
 func (a *AttachmentService) UploadAttachment(ctx context.Context, req *UploadAttachmentReq, options ...core.RequestOptionFunc) (*UploadAttachmentResp, error) {
-	// 发起请求
+	options = append(options, core.WithFileUpload())
 	apiReq := req.apiReq
-	apiReq.ApiPath = ApiPath_UploadAttachement
+	apiReq.ApiPath = ApiPathUploadAttachement
 	apiReq.HttpMethod = http.MethodPost
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UploadAttachment] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &UploadAttachmentResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UploadAttachment] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ *   下载附件
+ */
+func (a *AttachmentService) DownloadAttachment(ctx context.Context, req *DownloadAttachmentReq, options ...core.RequestOptionFunc) (*DownloadAttachmentResp, error) {
+	options = append(options, core.WithFileDownload())
+	apiReq := req.apiReq
+	apiReq.ApiPath = ApiPathDownloadAttachement
+	apiReq.HttpMethod = http.MethodPost
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[DownloadAttachment] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &DownloadAttachmentResp{APIResp: apiResp}
+	// 如果是下载，则设置响应结果
+	if apiResp.StatusCode == http.StatusOK {
+		resp.File = bytes.NewBuffer(apiResp.RawBody)
+		resp.FileName = core.FileNameByHeader(apiResp.Header)
+		return resp, err
+	}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[DownloadAttachment] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

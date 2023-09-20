@@ -18,7 +18,6 @@ package sample
 
 import (
 	"context"
-	"fmt"
 
 	sdk "code.byted.org/bits/project-oapi-sdk-golang"
 	sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
@@ -44,12 +43,12 @@ func listProjectWorkItemType(client *sdk.Client) {
 
 	// 服务端错误处理
 	if !resp.Success() {
-		fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
+		//fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
 		return
 	}
 
 	// 业务数据处理
-	fmt.Println(sdkcore.Prettify(resp.Data))
+	//fmt.Println(sdkcore.Prettify(resp.Data))
 }
 
 // 创建工作项类型
@@ -77,12 +76,12 @@ func createWorkItem(client *sdk.Client) {
 
 	// 服务端错误处理
 	if !resp.Success() {
-		fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
+		//fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
 		return
 	}
 
 	// 业务数据处理
-	fmt.Println(sdkcore.Prettify(resp.Data))
+	//fmt.Println(sdkcore.Prettify(resp.Data))
 }
 
 // 创建子任务
@@ -105,10 +104,10 @@ func CreateSubTask(client *sdk.Client) {
 
 	// 服务端错误处理
 	if !resp.Success() {
-		fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
+		//fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
 		return
 	}
 
 	// 业务数据处理
-	fmt.Println(sdkcore.Prettify(resp.Data))
+	//fmt.Println(sdkcore.Prettify(resp.Data))
 }

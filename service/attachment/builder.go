@@ -26,6 +26,7 @@ import (
 // 添加附件接口参数构造器
 type UploadAttachmentReqBuilder struct {
 	apiReq *core.APIReq
+	body   *core.FormData
 }
 
 // 添加附件接口参数
@@ -43,8 +44,8 @@ func NewUploadAttachmentReqBuilder() *UploadAttachmentReqBuilder {
 	builder := &UploadAttachmentReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams: core.PathParams{},
-		Body:       &core.FormData{},
 	}
+	builder.body = &core.FormData{}
 	return builder
 }
 
@@ -64,22 +65,79 @@ func (builder *UploadAttachmentReqBuilder) WorkItemID(workItemID int64) *UploadA
 }
 
 func (builder *UploadAttachmentReqBuilder) File(file io.Reader) *UploadAttachmentReqBuilder {
-	builder.apiReq.Body.(*core.FormData).AddFile("file", file)
+	builder.body.AddFile("file", file)
 	return builder
 }
 
 func (builder *UploadAttachmentReqBuilder) FieldKey(fieldKey string) *UploadAttachmentReqBuilder {
-	builder.apiReq.Body.(*core.FormData).AddField("field_key", fieldKey)
+	builder.body.AddField("field_key", fieldKey)
 	return builder
 }
 
 func (builder *UploadAttachmentReqBuilder) FieldAlias(fieldAlias string) *UploadAttachmentReqBuilder {
-	builder.apiReq.Body.(*core.FormData).AddField("field_alias", fieldAlias)
+	builder.body.AddField("field_alias", fieldAlias)
 	return builder
 }
 
 func (builder *UploadAttachmentReqBuilder) Build() *UploadAttachmentReq {
 	req := &UploadAttachmentReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DownloadAttachmentReqBody struct {
+	UUID string `json:"uuid"`
+}
+
+type DownloadAttachmentReqBuilder struct {
+	apiReq *core.APIReq
+	body   *DownloadAttachmentReqBody
+}
+
+type DownloadAttachmentReq struct {
+	apiReq *core.APIReq
+}
+
+type DownloadAttachmentResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	File     io.Reader `json:"-"`
+	FileName string    `json:"-"`
+}
+
+func NewDownloadAttachmentReqBuilder() *DownloadAttachmentReqBuilder {
+	builder := &DownloadAttachmentReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams: core.PathParams{},
+	}
+	builder.body = &DownloadAttachmentReqBody{}
+	return builder
+}
+
+func (builder *DownloadAttachmentReqBuilder) ProjectKey(projectKey string) *DownloadAttachmentReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", projectKey)
+	return builder
+}
+
+func (builder *DownloadAttachmentReqBuilder) WorkItemTypeKey(workItemTypeKey string) *DownloadAttachmentReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", workItemTypeKey)
+	return builder
+}
+
+func (builder *DownloadAttachmentReqBuilder) WorkItemID(workItemID int64) *DownloadAttachmentReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(workItemID))
+	return builder
+}
+
+func (builder *DownloadAttachmentReqBuilder) UUID(uuid string) *DownloadAttachmentReqBuilder {
+	builder.body.UUID = uuid
+	return builder
+}
+
+func (builder *DownloadAttachmentReqBuilder) Build() *DownloadAttachmentReq {
+	req := &DownloadAttachmentReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }

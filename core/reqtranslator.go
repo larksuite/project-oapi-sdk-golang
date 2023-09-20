@@ -21,7 +21,6 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/url"
-	"reflect"
 	"strings"
 )
 
@@ -84,6 +83,9 @@ func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
 	httpRequest, err := http.NewRequestWithContext(ctx, req.HttpMethod, url, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
+	}
+	if option.RequestId != "" {
+		httpRequest.Header.Add(customRequestId, option.RequestId)
 	}
 	for k, vs := range option.Header {
 		for _, v := range vs {
@@ -181,74 +183,4 @@ type FormData struct {
 		content     []byte
 		contentType string
 	}
-}
-
-func (translator *ReqTranslator) parseInput(input interface{}, option *RequestOption) (map[string]interface{}, map[string]interface{}, interface{}) {
-	if input == nil {
-		return nil, nil, nil
-	}
-	if _, ok := input.(*FormData); ok {
-		return nil, nil, input
-	}
-	var hasHTTPTag bool
-	paths, queries := map[string]interface{}{}, map[string]interface{}{}
-	vv := reflect.ValueOf(input)
-	vt := reflect.TypeOf(input)
-	if vt.Kind() == reflect.Ptr {
-		vv = vv.Elem()
-		vt = vt.Elem()
-	}
-	if vt.Kind() != reflect.Struct {
-		return nil, nil, input
-	}
-	var body interface{}
-	for i := 0; i < vt.NumField(); i++ {
-		fieldValue := vv.Field(i)
-		fieldType := vt.Field(i)
-		if path, ok := fieldType.Tag.Lookup("path"); ok {
-			hasHTTPTag = true
-			if path != "" && !isEmptyValue(fieldValue) {
-				paths[path] = reflect.Indirect(fieldValue).Interface()
-			}
-			continue
-		}
-		if query, ok := fieldType.Tag.Lookup("query"); ok {
-			hasHTTPTag = true
-			if query != "" && !isEmptyValue(fieldValue) {
-				queries[query] = reflect.Indirect(fieldValue).Interface()
-			}
-			continue
-		}
-		if _, ok := fieldType.Tag.Lookup("body"); ok {
-			hasHTTPTag = true
-			body = fieldValue.Interface()
-		}
-	}
-	if !hasHTTPTag {
-		body = input
-		return nil, nil, body
-	}
-	return paths, queries, body
-}
-
-func toFormdata(body interface{}) *FormData {
-	formdata := &FormData{}
-	v := reflect.ValueOf(body)
-	t := reflect.TypeOf(body)
-	if t.Kind() == reflect.Ptr {
-		v = v.Elem()
-		t = t.Elem()
-	}
-	for i := 0; i < t.NumField(); i++ {
-		fieldValue := v.Field(i)
-		fieldType := t.Field(i)
-		if isEmptyValue(fieldValue) {
-			continue
-		}
-		if fieldName := fieldType.Tag.Get("json"); fieldName != "" {
-			fieldName = strings.TrimSuffix(fieldName, ",omitempty")
-			formdata.AddField(fieldName, reflect.Indirect(fieldValue).Interface())
-		}
-	}
-	return formdata
 }

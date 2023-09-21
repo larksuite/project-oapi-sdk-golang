@@ -39,6 +39,9 @@ func (translator *ReqTranslator) translate(ctx context.Context, apiReq *APIReq, 
 	if err != nil {
 		return nil, err
 	}
+	if strings.Index(newPath, "http") != 0 {
+		newPath = fmt.Sprintf("%s%s", config.BaseUrl, newPath)
+	}
 
 	queryPath := apiReq.QueryParams.Encode()
 	if queryPath != "" {

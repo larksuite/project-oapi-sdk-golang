@@ -99,10 +99,10 @@ sdk.WithHttpClient(http.DefaultClient))
 
 ```go
 type Logger interface {
-Debug(context.Context, ...any)
-Info(context.Context, ...any)
-Warn(context.Context, ...any)
-Error(context.Context, ...any)
+Debug(context.Context, ...interface{})
+Info(context.Context, ...interface{})
+Warn(context.Context, ...interface{})
+Error(context.Context, ...interface{})
 }
 ```
 

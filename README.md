@@ -31,6 +31,8 @@ go get -u code.byted.org/bits/project-oapi-sdk-golang
 ### 创建API Client
 
 ```go
+import sdk "code.byted.org/bits/project-oapi-sdk-golang"
+
 var client = sdk.NewClient("PluginID", "PluginSecret") //默认插件身份凭证
 ```
 
@@ -39,6 +41,8 @@ var client = sdk.NewClient("PluginID", "PluginSecret") //默认插件身份凭�
 创建 API Client 时，可对 API Client 进行一定的配置，比如我们可以在创建 API Client 时设置日志级别、设置 http 请求超时时间等等：
 
 ```go
+import sdk "code.byted.org/bits/project-oapi-sdk-golang"
+
 var client = sdk.NewClient("PluginID", "PluginSecret",
 sdk.WithLogLevel(core.LogLevelDebug),
 sdk.WithReqTimeout(3*time.Second),
@@ -95,10 +99,10 @@ sdk.WithHttpClient(http.DefaultClient))
 
 ```go
 type Logger interface {
-Debug(context.Context, ...interface{})
-Info(context.Context, ...interface{})
-Warn(context.Context, ...interface{})
-Error(context.Context, ...interface{})
+Debug(context.Context, ...any)
+Info(context.Context, ...any)
+Warn(context.Context, ...any)
+Error(context.Context, ...any)
 }
 ```
 
@@ -268,7 +272,7 @@ func main() {
 
 	// 服务端错误处理
 	if !resp.Success() {
-           fmt.Println(resp.Code, resp.ErrMsg, resp.RequestId())
+           fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
 	   return 
 	}
 
@@ -314,7 +318,7 @@ return
 
 // 服务端错误处理
 if !resp.Success() {
-fmt.Println(resp.Code, resp.ErrMsg, resp.RequestId())
+fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
 return
 }
 

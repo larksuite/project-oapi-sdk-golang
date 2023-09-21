@@ -74,9 +74,15 @@ func (translator *ReqTranslator) pathRebuild(req *APIReq) (string, error) {
 	return strings.Join(pathSegs, "/"), nil
 }
 
-func (translator *ReqTranslator) newHTTPRequest(ctx context.Context,
-	req *APIReq, url, contentType string, body []byte,
-	skipAuth bool, option *RequestOption, config *Config) (*http.Request, error) {
+func (translator *ReqTranslator) newHTTPRequest(
+	ctx context.Context,
+	req *APIReq,
+	url, contentType string,
+	body []byte,
+	skipAuth bool,
+	option *RequestOption,
+	config *Config,
+) (*http.Request, error) {
 	httpRequest, err := http.NewRequestWithContext(ctx, req.HttpMethod, url, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err

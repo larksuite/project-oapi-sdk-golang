@@ -35,6 +35,7 @@ type RefreshTokenReq struct {
 
 type RefreshTokenReqBuilder struct {
 	apiReq *core.APIReq
+	body   *RefreshTokenReqBody
 }
 
 func NewRefreshTokenReqBuilder() *RefreshTokenReqBuilder {
@@ -42,8 +43,8 @@ func NewRefreshTokenReqBuilder() *RefreshTokenReqBuilder {
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &RefreshTokenReqBody{},
 	}
+	builder.body = &RefreshTokenReqBody{}
 	return builder
 }
 
@@ -54,19 +55,20 @@ type RefreshTokenReqBody struct {
 
 // 刷新token
 func (builder *RefreshTokenReqBuilder) RefreshToken(refreshToken string) *RefreshTokenReqBuilder {
-	builder.apiReq.Body.(*RefreshTokenReqBody).RefreshToken = refreshToken
+	builder.body.RefreshToken = refreshToken
 	return builder
 }
 
 // 要刷新的token类型，目前固定填1
 func (builder *RefreshTokenReqBuilder) TokenType(tokenType int) *RefreshTokenReqBuilder {
-	builder.apiReq.Body.(*RefreshTokenReqBody).TokenType = tokenType
+	builder.body.TokenType = tokenType
 	return builder
 }
 
 func (builder *RefreshTokenReqBuilder) Build() *RefreshTokenReq {
 	req := &RefreshTokenReq{}
 	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
 	return req
 }
 

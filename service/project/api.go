@@ -64,10 +64,8 @@ func (a *ProjectService) GetProjectDetail(ctx context.Context, req *GetProjectDe
 }
 
 /*
-  - ================================= BFF ======================================
-
-获取空间列表
-*/
+ *   获取空间列表
+ */
 func (a *ProjectService) ListProject(ctx context.Context, req *ListProjectReq, options ...core.RequestOptionFunc) (*ListProjectResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathListProject

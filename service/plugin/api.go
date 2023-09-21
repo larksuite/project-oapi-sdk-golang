@@ -25,9 +25,9 @@ import (
 
 const (
 	// 获取plugin_token
-	ApiPath_GetPluginToken     = "/open_api/authen/plugin_token"
-	ApiPath_GetUserPluginToken = "/open_api/authen/user_plugin_token"
-	ApiPath_RefreshToken       = "/open_api/authen/refresh_token"
+	ApiPathGetPluginToken     = "/open_api/authen/plugin_token"
+	ApiPathGetUserPluginToken = "/open_api/authen/user_plugin_token"
+	ApiPathRefreshToken       = "/open_api/authen/refresh_token"
 )
 
 func NewService(config *core.Config) *PluginService {
@@ -40,13 +40,10 @@ type PluginService struct {
 }
 
 // 获取plugin_token（0为plugin_token，1为虚拟plugin_token）
-//
-// - 官网API文档链接:https://bytedance.feishu.cn/docs/doccnwfUPJHYYZtdHWrPBd4Dckd#asGHeS
 func (a *PluginService) GetPluginToken(ctx context.Context, pluginType int, options ...core.RequestOptionFunc) (*core.GetAccessTokenResp, error) {
-	// 发起请求
 	apiReq := &core.APIReq{
 		HttpMethod: http.MethodPost,
-		ApiPath:    ApiPath_GetPluginToken,
+		ApiPath:    ApiPathGetPluginToken,
 		Body: &core.GetAccessTokenReq{
 			PluginId:     a.config.AppID,
 			PluginSecret: a.config.AppSecret,
@@ -59,7 +56,6 @@ func (a *PluginService) GetPluginToken(ctx context.Context, pluginType int, opti
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetPluginToken] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &core.GetAccessTokenResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -70,13 +66,10 @@ func (a *PluginService) GetPluginToken(ctx context.Context, pluginType int, opti
 }
 
 // 获取user_plugin_token
-//
-// - 官网API文档链接:https://bytedance.feishu.cn/docs/doccnwfUPJHYYZtdHWrPBd4Dckd#bMHgCI
 func (a *PluginService) GetUserPluginToken(ctx context.Context, code string, options ...core.RequestOptionFunc) (*GetUserPluginTokenResp, error) {
-	// 发起请求
 	apiReq := &core.APIReq{
 		HttpMethod: http.MethodPost,
-		ApiPath:    ApiPath_GetUserPluginToken,
+		ApiPath:    ApiPathGetUserPluginToken,
 		Body: &GetUserPluginTokenReq{
 			Code:      code,
 			GrantType: "authorization_code",
@@ -87,7 +80,6 @@ func (a *PluginService) GetUserPluginToken(ctx context.Context, code string, opt
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetUserPluginToken] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &GetUserPluginTokenResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
@@ -98,19 +90,15 @@ func (a *PluginService) GetUserPluginToken(ctx context.Context, code string, opt
 }
 
 // 刷新Token（目前刷新token仅支持刷新user_plugin_token）
-//
-// - 官网API文档链接:https://bytedance.feishu.cn/docs/doccnwfUPJHYYZtdHWrPBd4Dckd#DvaHR0
 func (a *PluginService) RefreshToken(ctx context.Context, req *RefreshTokenReq, options ...core.RequestOptionFunc) (*RefreshTokenResp, error) {
-	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = ApiPath_RefreshToken
+	apiReq.ApiPath = ApiPathRefreshToken
 	apiReq.HttpMethod = http.MethodPost
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[RefreshToken] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
-	// 反序列响应结果
 	resp := &RefreshTokenResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {

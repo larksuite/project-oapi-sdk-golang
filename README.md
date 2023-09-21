@@ -14,7 +14,7 @@
 - [API调用](#api调用)
     - [基本用法](#基本用法)
     - [设置请求选项](#设置请求选项)
-- [加入答疑群](#加入答疑群)
+- [错误自查](#错误自查)
 
 <!-- tocstop -->
 
@@ -31,7 +31,7 @@ go get -u code.byted.org/bits/project-oapi-sdk-golang
 ### 创建API Client
 
 ```go
-var client = project.NewClient("PluginID", "PluginSecret") //默认插件身份凭证
+var client = sdk.NewClient("PluginID", "PluginSecret") //默认插件身份凭证
 ```
 
 ### 配置API Client
@@ -39,11 +39,11 @@ var client = project.NewClient("PluginID", "PluginSecret") //默认插件身份�
 创建 API Client 时，可对 API Client 进行一定的配置，比如我们可以在创建 API Client 时设置日志级别、设置 http 请求超时时间等等：
 
 ```go
-var client = project.NewClient("PluginID", "PluginSecret",
-project.WithLogLevel(projectcore.LogLevelDebug),
-project.WithReqTimeout(3*time.Second),
-project.WithEnableTokenCache(true),
-project.WithHttpClient(http.DefaultClient))
+var client = sdk.NewClient("PluginID", "PluginSecret",
+sdk.WithLogLevel(core.LogLevelDebug),
+sdk.WithReqTimeout(3*time.Second),
+sdk.WithEnableTokenCache(true),
+sdk.WithHttpClient(http.DefaultClient))
 ```
 
 每个配置选项的具体含义，如下表格：
@@ -68,7 +68,7 @@ project.WithHttpClient(http.DefaultClient))
         <code>LogLevel</code>
       </th>
       <td>
-        <code>project.WithLogLevel(logLevel projectcore.LogLevel)</code>
+        <code>sdk.WithLogLevel(logLevel projectcore.LogLevel)</code>
       </td>
       <td>
 设置 API Client 的日志输出级别(默认为 Info 级别)，枚举值如下：
@@ -86,7 +86,7 @@ project.WithHttpClient(http.DefaultClient))
         <code>Logger</code>
       </th>
       <td>
-        <code>project.WithLogger(logger projectcore.Logger)</code>
+        <code>sdk.WithLogger(logger projectcore.Logger)</code>
       </td>
       <td>
 设置API Client的日志器，默认日志输出到标准输出。
@@ -110,7 +110,7 @@ Error(context.Context, ...interface{})
         <code>LogReqAtDebug</code>
       </th>
       <td>
-        <code>project.WithLogReqAtDebug(printReqRespLog bool)</code>
+        <code>sdk.WithLogReqAtDebug(printReqRespLog bool)</code>
       </td>
       <td>
 设置是否开启 Http 请求参数和响应参数的日志打印开关；开启后，在 debug 模式下会打印 http 请求和响应的 headers,body 等信息。
@@ -126,7 +126,7 @@ Error(context.Context, ...interface{})
         <code>BaseUrl</code>
       </th>
       <td>
-        <code>project.WithOpenBaseUrl(baseUrl string)</code>
+        <code>sdk.WithOpenBaseUrl(baseUrl string)</code>
       </td>
       <td>
 设置飞书项目域名，默认为https://project.feishu.cn
@@ -139,7 +139,7 @@ Error(context.Context, ...interface{})
         <code>AccessTokenType</code>
       </th>
       <td>
-        <code>project.WithAccessTokenType(accessTokenType projectcore.AccessTokenType)</code>
+        <code>sdk.WithAccessTokenType(accessTokenType projectcore.AccessTokenType)</code>
       </td>
       <td>
 设置 plugin_token 类型，枚举值如下：
@@ -156,7 +156,7 @@ Error(context.Context, ...interface{})
         <code>TokenCache</code>
       </th>
       <td>
-        <code>project.WithTokenCache(cache projectcore.Cache)</code>
+        <code>sdk.WithTokenCache(cache projectcore.Cache)</code>
       </td>
       <td>
 设置 token 缓存器，用来缓存 token, 默认实现为内存。
@@ -179,7 +179,7 @@ Get(ctx context.Context, key string) (string, error)
         <code>EnableTokenCache</code>
       </th>
       <td>
-        <code>project.WithEnableTokenCache(enableTokenCache bool)</code>
+        <code>sdk.WithEnableTokenCache(enableTokenCache bool)</code>
       </td>
       <td>
 设置是否开启 Token 的自动获取与缓存。
@@ -193,7 +193,7 @@ Get(ctx context.Context, key string) (string, error)
         <code>ReqTimeout</code>
       </th>
       <td>
-        <code>project.WithReqTimeout(time time.Duration)</code>
+        <code>sdk.WithReqTimeout(time time.Duration)</code>
       </td>
       <td>
 设置 SDK 内置的 Http Client 的请求超时时间，默认为0代表永不超时。
@@ -205,7 +205,7 @@ Get(ctx context.Context, key string) (string, error)
         <code>HttpClient</code>
       </th>
       <td>
-        <code>project.WithHttpClient(httpClient projectcore.HttpClient)</code>
+        <code>sdk.WithHttpClient(httpClient projectcore.HttpClient)</code>
       </td>
       <td>
 设置 HttpClient，用于替换 SDK 提供的默认实现。
@@ -346,7 +346,7 @@ fmt.Println(sdkcore.Prettify(resp.Data))
         <code>Header</code>
       </th>
       <td>
-        <code>projectcore.WithHeaders(header http.Header)</code>
+        <code>sdkcore.WithHeaders(header http.Header)</code>
       </td>
       <td>
 设置自定义请求头，开发者可在发起请求时，这些请求头会被透传到飞书项目开放平台服务端。
@@ -359,7 +359,7 @@ fmt.Println(sdkcore.Prettify(resp.Data))
         <code>AccessToken</code>
       </th>
       <td>
-        <code>projectcore.WithAccessToken(accessToken string)</code>
+        <code>sdkcore.WithAccessToken(accessToken string)</code>
       </td>
       <td>
 设置token，当开发者自己维护token 时（即创建Client时EnableTokenCache设置为了false），需通过该选项传递 token。
@@ -372,7 +372,7 @@ fmt.Println(sdkcore.Prettify(resp.Data))
         <code>UserKey</code>
       </th>
       <td>
-        <code>projectcore.WithUserKey(userKey string)</code>
+        <code>sdkcore.WithUserKey(userKey string)</code>
       </td>
       <td>
 设置请求头X-USER-KEY，可以通过添加header的方式在请求头添加X-USER-KEY，或通过该方式便捷添加X-USER-KEY到请求头中。
@@ -385,7 +385,7 @@ fmt.Println(sdkcore.Prettify(resp.Data))
         <code>IdemUUID</code>
       </th>
       <td>
-        <code>projectcore.WithIdemUUID(uuid string)</code>
+        <code>sdkcore.WithIdemUUID(uuid string)</code>
       </td>
       <td>
 设置请求头X-IDEM-UUID, 可以通过添加header的方式在请求头添加X-IDEM-UUID，或通过该方式便捷添加X-IDEM-UUID到请求头中。
@@ -400,5 +400,13 @@ fmt.Println(sdkcore.Prettify(resp.Data))
 
 [查看错误码](https://bytedance.feishu.cn/docs/doccn3CyRRA52nL9HiYR2v9XC8K)
 
+## FAQ
+### project_key如何获取
+飞书项目中双击空间名称，如下图所示
 
+![img_1.png](static/img_1.png)
 
+### user_key如何获取
+飞书项目左下角双击个人头像，如下图所示
+
+![img_2.png](static/img_2.png)

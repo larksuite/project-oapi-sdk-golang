@@ -44,9 +44,7 @@ type ViewService struct {
 	config *core.Config
 }
 
-/*
- *   创建固定视图
- */
+// 创建固定视图
 func (a *ViewService) CreateFixView(ctx context.Context, req *CreateFixViewReq, options ...core.RequestOptionFunc) (*CreateFixViewResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathCreateFixView
@@ -65,9 +63,7 @@ func (a *ViewService) CreateFixView(ctx context.Context, req *CreateFixViewReq, 
 	return resp, err
 }
 
-/*
- *   删除固定视图
- */
+// 删除固定视图
 func (a *ViewService) DeleteFixView(ctx context.Context, req *DeleteFixViewReq, options ...core.RequestOptionFunc) (*DeleteFixViewResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathDeleteFixView
@@ -86,9 +82,7 @@ func (a *ViewService) DeleteFixView(ctx context.Context, req *DeleteFixViewReq, 
 	return resp, err
 }
 
-/*
- *   获取视图下工作项列表（全景视图）
- */
+// 获取视图下工作项列表（全景视图）
 func (a *ViewService) QueryWorkItemDetailsByViewID(ctx context.Context, req *QueryWorkItemDetailsByViewIDReq, options ...core.RequestOptionFunc) (*QueryWorkItemDetailsByViewIDResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryWorkItemDetailsByViewID
@@ -107,9 +101,7 @@ func (a *ViewService) QueryWorkItemDetailsByViewID(ctx context.Context, req *Que
 	return resp, err
 }
 
-/*
- *   更新固定视图
- */
+// 更新固定视图
 func (a *ViewService) UpdateFixView(ctx context.Context, req *UpdateFixViewReq, options ...core.RequestOptionFunc) (*UpdateFixViewResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathUpdateFixView
@@ -128,9 +120,7 @@ func (a *ViewService) UpdateFixView(ctx context.Context, req *UpdateFixViewReq, 
 	return resp, err
 }
 
-/*
- *   获取视图列表
- */
+// 获取视图列表
 func (a *ViewService) ViewList(ctx context.Context, req *ViewListReq, options ...core.RequestOptionFunc) (*ViewListResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathViewList
@@ -149,9 +139,7 @@ func (a *ViewService) ViewList(ctx context.Context, req *ViewListReq, options ..
 	return resp, err
 }
 
-/*
- *   获取视图下工作项列表
- */
+// 获取视图下工作项列表
 func (a *ViewService) WorkItemList(ctx context.Context, req *WorkItemListReq, options ...core.RequestOptionFunc) (*WorkItemListResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathWorkItemList

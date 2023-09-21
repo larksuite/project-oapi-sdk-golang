@@ -40,9 +40,7 @@ type CommentService struct {
 	config *core.Config
 }
 
-/*
- *   添加评论
- */
+// 添加评论
 func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentReq, options ...core.RequestOptionFunc) (*CreateCommentResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathCreateComment
@@ -61,9 +59,7 @@ func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentRe
 	return resp, err
 }
 
-/*
- *   删除评论
- */
+// 删除评论
 func (a *CommentService) DeleteComment(ctx context.Context, req *DeleteCommentReq, options ...core.RequestOptionFunc) (*DeleteCommentResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathDeleteComment
@@ -82,9 +78,7 @@ func (a *CommentService) DeleteComment(ctx context.Context, req *DeleteCommentRe
 	return resp, err
 }
 
-/*
- *   查询评论
- */
+// 查询评论
 func (a *CommentService) QueryComments(ctx context.Context, req *QueryCommentsReq, options ...core.RequestOptionFunc) (*QueryCommentsResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryComments
@@ -103,9 +97,7 @@ func (a *CommentService) QueryComments(ctx context.Context, req *QueryCommentsRe
 	return resp, err
 }
 
-/*
- *   更新评论
- */
+// 更新评论
 func (a *CommentService) UpdateComment(ctx context.Context, req *UpdateCommentReq, options ...core.RequestOptionFunc) (*UpdateCommentResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathUpdateComment

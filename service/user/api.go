@@ -34,9 +34,7 @@ type UserService struct {
 	config *core.Config
 }
 
-/*
- *   获取用户详情
- */
+// 获取用户详情
 func (a *UserService) QueryUserDetail(ctx context.Context, req *QueryUserDetailReq, options ...core.RequestOptionFunc) (*QueryUserDetailResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryUserDetail

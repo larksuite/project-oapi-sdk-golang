@@ -34,9 +34,7 @@ type RoleConfService struct {
 	config *core.Config
 }
 
-/*
- *   获取流程角色配置详情
- */
+// 获取流程角色配置详情
 func (a *RoleConfService) QueryRoleConfDetails(ctx context.Context, req *QueryRoleConfDetailsReq, options ...core.RequestOptionFunc) (*QueryRoleConfDetailsResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryRoleConfDetails

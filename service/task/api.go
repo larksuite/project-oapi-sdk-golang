@@ -44,9 +44,7 @@ type TaskService struct {
 	config *core.Config
 }
 
-/*
- *   创建子任务
- */
+// 创建子任务
 func (a *TaskService) CreateSubTask(ctx context.Context, req *CreateSubTaskReq, options ...core.RequestOptionFunc) (*CreateSubTaskResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathCreateSubTask
@@ -65,9 +63,7 @@ func (a *TaskService) CreateSubTask(ctx context.Context, req *CreateSubTaskReq, 
 	return resp, err
 }
 
-/*
- *   删除子任务
- */
+// 删除子任务
 func (a *TaskService) DeleteSubTask(ctx context.Context, req *DeleteSubTaskReq, options ...core.RequestOptionFunc) (*DeleteSubTaskResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathDeleteSubTask
@@ -86,9 +82,7 @@ func (a *TaskService) DeleteSubTask(ctx context.Context, req *DeleteSubTaskReq, 
 	return resp, err
 }
 
-/*
- *   子任务完成/回滚
- */
+// 子任务完成/回滚
 func (a *TaskService) ModifySubtask(ctx context.Context, req *ModifySubtaskReq, options ...core.RequestOptionFunc) (*ModifySubtaskResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathModifySubtask
@@ -107,9 +101,7 @@ func (a *TaskService) ModifySubtask(ctx context.Context, req *ModifySubtaskReq, 
 	return resp, err
 }
 
-/*
- *   获取指定的子任务列表（跨空间）
- */
+// 获取指定的子任务列表（跨空间）
 func (a *TaskService) SearchSubtask(ctx context.Context, req *SearchSubtaskReq, options ...core.RequestOptionFunc) (*SearchSubtaskResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathSearchSubtask
@@ -128,9 +120,7 @@ func (a *TaskService) SearchSubtask(ctx context.Context, req *SearchSubtaskReq, 
 	return resp, err
 }
 
-/*
- *   获取子任务详情
- */
+// 获取子任务详情
 func (a *TaskService) TaskDetail(ctx context.Context, req *TaskDetailReq, options ...core.RequestOptionFunc) (*TaskDetailResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathTaskDetail
@@ -149,9 +139,7 @@ func (a *TaskService) TaskDetail(ctx context.Context, req *TaskDetailReq, option
 	return resp, err
 }
 
-/*
- *   更新子任务
- */
+// 更新子任务
 func (a *TaskService) UpdateSubTask(ctx context.Context, req *UpdateSubTaskReq, options ...core.RequestOptionFunc) (*UpdateSubTaskResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathUpdateSubTask

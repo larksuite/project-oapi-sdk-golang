@@ -401,12 +401,15 @@ fmt.Println(sdkcore.Prettify(resp.Data))
 [查看错误码](https://bytedance.feishu.cn/docs/doccn3CyRRA52nL9HiYR2v9XC8K)
 
 ## FAQ
+
 ### project_key如何获取
+
 飞书项目中双击空间名称，如下图所示
 
 ![img_1.png](static/img_1.png)
 
 ### user_key如何获取
+
 飞书项目左下角双击个人头像，如下图所示
 
 ![img_2.png](static/img_2.png)

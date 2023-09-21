@@ -74,9 +74,7 @@ type WorkItemService struct {
 	config *core.Config
 }
 
-/*
- *   终止/恢复工作项
- */
+// 终止/恢复工作项
 func (a *WorkItemService) AbortWorkItem(ctx context.Context, req *AbortWorkItemReq, options ...core.RequestOptionFunc) (*AbortWorkItemResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathAbortWorkItem
@@ -95,9 +93,7 @@ func (a *WorkItemService) AbortWorkItem(ctx context.Context, req *AbortWorkItemR
 	return resp, err
 }
 
-/*
- *   获取指定的工作项列表（全文搜索）
- */
+// 获取指定的工作项列表（全文搜索）
 func (a *WorkItemService) CompositiveSearch(ctx context.Context, req *CompositiveSearchReq, options ...core.RequestOptionFunc) (*CompositiveSearchResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathCompositiveSearch
@@ -116,9 +112,7 @@ func (a *WorkItemService) CompositiveSearch(ctx context.Context, req *Compositiv
 	return resp, err
 }
 
-/*
- *   创建工作项
- */
+// 创建工作项
 func (a *WorkItemService) CreateWorkItem(ctx context.Context, req *CreateWorkItemReq, options ...core.RequestOptionFunc) (*CreateWorkItemResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathCreateWorkItem
@@ -137,9 +131,7 @@ func (a *WorkItemService) CreateWorkItem(ctx context.Context, req *CreateWorkIte
 	return resp, err
 }
 
-/*
- *   创建工作项关系
- */
+// 创建工作项关系
 func (a *WorkItemService) CreateWorkItemRelation(ctx context.Context, req *CreateWorkItemRelationReq, options ...core.RequestOptionFunc) (*CreateWorkItemRelationResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathCreateWorkItemRelation
@@ -158,9 +150,7 @@ func (a *WorkItemService) CreateWorkItemRelation(ctx context.Context, req *Creat
 	return resp, err
 }
 
-/*
- *   删除工作项
- */
+// 删除工作项
 func (a *WorkItemService) DeleteWorkItem(ctx context.Context, req *DeleteWorkItemReq, options ...core.RequestOptionFunc) (*DeleteWorkItemResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathDeleteWorkItem
@@ -179,9 +169,7 @@ func (a *WorkItemService) DeleteWorkItem(ctx context.Context, req *DeleteWorkIte
 	return resp, err
 }
 
-/*
- *   删除工作项关系
- */
+// 删除工作项关系
 func (a *WorkItemService) DeleteWorkItemRelation(ctx context.Context, req *DeleteWorkItemRelationReq, options ...core.RequestOptionFunc) (*DeleteWorkItemRelationResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathDeleteWorkItemRelation
@@ -200,9 +188,7 @@ func (a *WorkItemService) DeleteWorkItemRelation(ctx context.Context, req *Delet
 	return resp, err
 }
 
-/*
- *   获取指定的工作项列表（非跨空间）
- */
+// 获取指定的工作项列表（非跨空间）
 func (a *WorkItemService) Filter(ctx context.Context, req *FilterReq, options ...core.RequestOptionFunc) (*FilterResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathFilter
@@ -221,9 +207,7 @@ func (a *WorkItemService) Filter(ctx context.Context, req *FilterReq, options ..
 	return resp, err
 }
 
-/*
- *   获取指定的工作项列表（跨空间）
- */
+// 获取指定的工作项列表（跨空间）
 func (a *WorkItemService) FilterAcrossProject(ctx context.Context, req *FilterAcrossProjectReq, options ...core.RequestOptionFunc) (*FilterAcrossProjectResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathFilterAcrossProject
@@ -242,9 +226,7 @@ func (a *WorkItemService) FilterAcrossProject(ctx context.Context, req *FilterAc
 	return resp, err
 }
 
-/*
- *   获取创建工作项元数据
- */
+// 获取创建工作项元数据
 func (a *WorkItemService) GetMeta(ctx context.Context, req *GetMetaReq, options ...core.RequestOptionFunc) (*GetMetaResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathGetMeta
@@ -263,9 +245,7 @@ func (a *WorkItemService) GetMeta(ctx context.Context, req *GetMetaReq, options 
 	return resp, err
 }
 
-/*
- *   节点完成/回滚
- */
+// 节点完成/回滚
 func (a *WorkItemService) NodeOperate(ctx context.Context, req *NodeOperateReq, options ...core.RequestOptionFunc) (*NodeOperateResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathNodeOperate
@@ -284,9 +264,7 @@ func (a *WorkItemService) NodeOperate(ctx context.Context, req *NodeOperateReq, 
 	return resp, err
 }
 
-/*
- *   状态流转
- */
+// 状态流转
 func (a *WorkItemService) NodeStateChange(ctx context.Context, req *NodeStateChangeReq, options ...core.RequestOptionFunc) (*NodeStateChangeResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathNodeStateChange
@@ -305,9 +283,7 @@ func (a *WorkItemService) NodeStateChange(ctx context.Context, req *NodeStateCha
 	return resp, err
 }
 
-/*
- *   更新节点/排期
- */
+// 更新节点/排期
 func (a *WorkItemService) NodeUpdate(ctx context.Context, req *NodeUpdateReq, options ...core.RequestOptionFunc) (*NodeUpdateResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathNodeUpdate
@@ -326,9 +302,7 @@ func (a *WorkItemService) NodeUpdate(ctx context.Context, req *NodeUpdateReq, op
 	return resp, err
 }
 
-/*
- *   获取工作项详情
- */
+// 获取工作项详情
 func (a *WorkItemService) QueryWorkItemDetail(ctx context.Context, req *QueryWorkItemDetailReq, options ...core.RequestOptionFunc) (*QueryWorkItemDetailResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryWorkItemDetail
@@ -347,9 +321,7 @@ func (a *WorkItemService) QueryWorkItemDetail(ctx context.Context, req *QueryWor
 	return resp, err
 }
 
-/*
- *   获取工作项关系列表
- */
+// 获取工作项关系列表
 func (a *WorkItemService) QueryWorkItemRelation(ctx context.Context, req *QueryWorkItemRelationReq, options ...core.RequestOptionFunc) (*QueryWorkItemRelationResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryWorkItemRelation
@@ -368,9 +340,7 @@ func (a *WorkItemService) QueryWorkItemRelation(ctx context.Context, req *QueryW
 	return resp, err
 }
 
-/*
- *   获取工作流详情
- */
+// 获取工作流详情
 func (a *WorkItemService) QueryWorkflow(ctx context.Context, req *QueryWorkflowReq, options ...core.RequestOptionFunc) (*QueryWorkflowResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryWorkflow
@@ -389,9 +359,7 @@ func (a *WorkItemService) QueryWorkflow(ctx context.Context, req *QueryWorkflowR
 	return resp, err
 }
 
-/*
- *   获取指定的工作项列表（单空间 | 复杂传参）
- */
+// 获取指定的工作项列表（单空间 | 复杂传参）
 func (a *WorkItemService) SearchByParams(ctx context.Context, req *SearchByParamsReq, options ...core.RequestOptionFunc) (*SearchByParamsResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathSearchByParams
@@ -410,9 +378,7 @@ func (a *WorkItemService) SearchByParams(ctx context.Context, req *SearchByParam
 	return resp, err
 }
 
-/*
- *   获取指定的关联工作项列表（单空间）
- */
+// 获取指定的关联工作项列表（单空间）
 func (a *WorkItemService) SearchByRelation(ctx context.Context, req *SearchByRelationReq, options ...core.RequestOptionFunc) (*SearchByRelationResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathSearchByRelation
@@ -431,9 +397,7 @@ func (a *WorkItemService) SearchByRelation(ctx context.Context, req *SearchByRel
 	return resp, err
 }
 
-/*
- *   更新多值系统外信号
- */
+// 更新多值系统外信号
 func (a *WorkItemService) UpdateMultiSignal(ctx context.Context, req *UpdateMultiSignalReq, options ...core.RequestOptionFunc) (*UpdateMultiSignalResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathUpdateMultiSignal
@@ -452,9 +416,7 @@ func (a *WorkItemService) UpdateMultiSignal(ctx context.Context, req *UpdateMult
 	return resp, err
 }
 
-/*
- *   更新工作项
- */
+// 更新工作项
 func (a *WorkItemService) UpdateWorkItem(ctx context.Context, req *UpdateWorkItemReq, options ...core.RequestOptionFunc) (*UpdateWorkItemResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathUpdateWorkItem
@@ -473,9 +435,7 @@ func (a *WorkItemService) UpdateWorkItem(ctx context.Context, req *UpdateWorkIte
 	return resp, err
 }
 
-/*
- *   更新工作项关系
- */
+// 更新工作项关系
 func (a *WorkItemService) UpdateWorkItemRelation(ctx context.Context, req *UpdateWorkItemRelationReq, options ...core.RequestOptionFunc) (*UpdateWorkItemRelationResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathUpdateWorkItemRelation
@@ -494,9 +454,7 @@ func (a *WorkItemService) UpdateWorkItemRelation(ctx context.Context, req *Updat
 	return resp, err
 }
 
-/*
- *   获取工作流详情（wbs）
- */
+// 获取工作流详情（wbs）
 func (a *WorkItemService) WbsView(ctx context.Context, req *WbsViewReq, options ...core.RequestOptionFunc) (*WbsViewResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathWbsView

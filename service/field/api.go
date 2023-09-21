@@ -38,9 +38,7 @@ type FieldService struct {
 	config *core.Config
 }
 
-/*
- *   创建自定义字段
- */
+// 创建自定义字段
 func (a *FieldService) CreateField(ctx context.Context, req *CreateFieldReq, options ...core.RequestOptionFunc) (*CreateFieldResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathCreateField
@@ -59,9 +57,7 @@ func (a *FieldService) CreateField(ctx context.Context, req *CreateFieldReq, opt
 	return resp, err
 }
 
-/*
- *   获取空间字段
- */
+// 获取空间字段
 func (a *FieldService) QueryProjectFields(ctx context.Context, req *QueryProjectFieldsReq, options ...core.RequestOptionFunc) (*QueryProjectFieldsResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryProjectFields
@@ -80,9 +76,7 @@ func (a *FieldService) QueryProjectFields(ctx context.Context, req *QueryProject
 	return resp, err
 }
 
-/*
- *   更新自定义字段
- */
+// 更新自定义字段
 func (a *FieldService) UpdateField(ctx context.Context, req *UpdateFieldReq, options ...core.RequestOptionFunc) (*UpdateFieldResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathUpdateField

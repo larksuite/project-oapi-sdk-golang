@@ -40,9 +40,7 @@ type ProjectRelationService struct {
 	config *core.Config
 }
 
-/*
- *   通过空间关联绑定关联工作项
- */
+// 通过空间关联绑定关联工作项
 func (a *ProjectRelationService) CreateProjectRelationInstances(ctx context.Context, req *CreateProjectRelationInstancesReq, options ...core.RequestOptionFunc) (*CreateProjectRelationInstancesResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathCreateProjectRelationInstances
@@ -61,9 +59,7 @@ func (a *ProjectRelationService) CreateProjectRelationInstances(ctx context.Cont
 	return resp, err
 }
 
-/*
- *   通过空间关联解绑关联工作项
- */
+// 通过空间关联解绑关联工作项
 func (a *ProjectRelationService) DeleteProjectRelationInstance(ctx context.Context, req *DeleteProjectRelationInstanceReq, options ...core.RequestOptionFunc) (*DeleteProjectRelationInstanceResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathDeleteProjectRelationInstance
@@ -82,9 +78,7 @@ func (a *ProjectRelationService) DeleteProjectRelationInstance(ctx context.Conte
 	return resp, err
 }
 
-/*
- *   获取空间关联规则列表
- */
+// 获取空间关联规则列表
 func (a *ProjectRelationService) QueryProjectRelation(ctx context.Context, req *QueryProjectRelationReq, options ...core.RequestOptionFunc) (*QueryProjectRelationResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryProjectRelation
@@ -103,9 +97,7 @@ func (a *ProjectRelationService) QueryProjectRelation(ctx context.Context, req *
 	return resp, err
 }
 
-/*
- *   获取空间关联下的关联工作项列表
- */
+// 获取空间关联下的关联工作项列表
 func (a *ProjectRelationService) QueryProjectRelationInstance(ctx context.Context, req *QueryProjectRelationInstanceReq, options ...core.RequestOptionFunc) (*QueryProjectRelationInstanceResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathQueryProjectRelationInstance

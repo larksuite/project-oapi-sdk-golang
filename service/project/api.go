@@ -42,9 +42,7 @@ type ProjectService struct {
 	config *core.Config
 }
 
-/*
- *   获取空间详情
- */
+// 获取空间详情
 func (a *ProjectService) GetProjectDetail(ctx context.Context, req *GetProjectDetailReq, options ...core.RequestOptionFunc) (*GetProjectDetailResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathGetProjectDetail
@@ -63,9 +61,7 @@ func (a *ProjectService) GetProjectDetail(ctx context.Context, req *GetProjectDe
 	return resp, err
 }
 
-/*
- *   获取空间列表
- */
+// 获取空间列表
 func (a *ProjectService) ListProject(ctx context.Context, req *ListProjectReq, options ...core.RequestOptionFunc) (*ListProjectResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathListProject
@@ -84,9 +80,7 @@ func (a *ProjectService) ListProject(ctx context.Context, req *ListProjectReq, o
 	return resp, err
 }
 
-/*
- *   获取空间下业务线详情
- */
+// 获取空间下业务线详情
 func (a *ProjectService) ListProjectBusiness(ctx context.Context, req *ListProjectBusinessReq, options ...core.RequestOptionFunc) (*ListProjectBusinessResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathListProjectBusiness
@@ -105,9 +99,7 @@ func (a *ProjectService) ListProjectBusiness(ctx context.Context, req *ListProje
 	return resp, err
 }
 
-/*
- *   获取空间下团队人员
- */
+// 获取空间下团队人员
 func (a *ProjectService) ListProjectTeam(ctx context.Context, req *ListProjectTeamReq, options ...core.RequestOptionFunc) (*ListProjectTeamResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathListProjectTeam
@@ -126,9 +118,7 @@ func (a *ProjectService) ListProjectTeam(ctx context.Context, req *ListProjectTe
 	return resp, err
 }
 
-/*
- *   获取空间下工作项类型
- */
+// 获取空间下工作项类型
 func (a *ProjectService) ListProjectWorkItemType(ctx context.Context, req *ListProjectWorkItemTypeReq, options ...core.RequestOptionFunc) (*ListProjectWorkItemTypeResp, error) {
 	apiReq := req.apiReq
 	apiReq.ApiPath = APIPathListProjectWorkItemType

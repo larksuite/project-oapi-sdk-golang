@@ -31,6 +31,9 @@ const (
 
 	// 下载附件接口path
 	ApiPathDownloadAttachement = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file/download"
+
+	// 附件上传接口path
+	ApiPathSpecialUploadAttachement = "/open_api/:project_key/file/upload"
 )
 
 func NewService(config *core.Config) *AttachmentService {
@@ -81,6 +84,25 @@ func (a *AttachmentService) DownloadAttachment(ctx context.Context, req *Downloa
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DownloadAttachment] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+// 附件上传
+func (a *AttachmentService) SpecialUploadAttachment(ctx context.Context, req *SpecialUploadAttachmentReq, options ...core.RequestOptionFunc) (*SpecialUploadAttachmentResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = ApiPathSpecialUploadAttachement
+	apiReq.HttpMethod = http.MethodPost
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[SpecialUploadAttachment] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &SpecialUploadAttachmentResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[SpecialUploadAttachment] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

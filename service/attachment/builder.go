@@ -141,3 +141,43 @@ func (builder *DownloadAttachmentReqBuilder) Build() *DownloadAttachmentReq {
 	req.apiReq.Body = builder.body
 	return req
 }
+
+type SpecialUploadAttachmentReqBuilder struct {
+	apiReq *core.APIReq
+	body   *core.FormData
+}
+
+type SpecialUploadAttachmentReq struct {
+	apiReq *core.APIReq
+}
+
+type SpecialUploadAttachmentResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+func NewSpecialUploadAttachmentReqBuilder() *SpecialUploadAttachmentReqBuilder {
+	builder := &SpecialUploadAttachmentReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams: core.PathParams{},
+	}
+	builder.body = &core.FormData{}
+	return builder
+}
+
+func (builder *SpecialUploadAttachmentReqBuilder) ProjectKey(projectKey string) *SpecialUploadAttachmentReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", projectKey)
+	return builder
+}
+
+func (builder *SpecialUploadAttachmentReqBuilder) File(file io.Reader) *SpecialUploadAttachmentReqBuilder {
+	builder.body.AddFile("file", file)
+	return builder
+}
+
+func (builder *SpecialUploadAttachmentReqBuilder) Build() *SpecialUploadAttachmentReq {
+	req := &SpecialUploadAttachmentReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}

@@ -19,6 +19,7 @@ package workitem
 import (
 	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
 	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/role_conf"
 	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
 )
 
@@ -60,6 +61,16 @@ type Connection struct {
 
 type CreateWorkItemRelationData struct {
 	RelationID string `json:"relation_id"`
+}
+
+type CreateWorkingHourRecord struct {
+	ResourceType string `json:"resource_type"`
+
+	ResourceID string `json:"resource_id"`
+
+	WorkTime string `json:"work_time"`
+
+	WorkDescription string `json:"work_description"`
 }
 
 type DefaultValue struct {
@@ -112,6 +123,34 @@ type FieldDetail struct {
 	WorkItemTypeKey string `json:"work_item_type_key"`
 
 	ProjectKey string `json:"project_key"`
+}
+
+type ManHourRecord struct {
+	ID int64 `json:"id"`
+
+	RelatedWorkItemID int64 `json:"related_work_item_id"`
+
+	RelatedWorkItemTypeKey string `json:"related_work_item_type_key"`
+
+	RelatedWorkItemName string `json:"related_work_item_name"`
+
+	ResourceType string `json:"resource_type"`
+
+	ResourceID string `json:"resource_id"`
+
+	WorkDescription string `json:"work_description"`
+
+	WorkTime float64 `json:"work_time"`
+
+	WorkUserKey string `json:"work_user_key"`
+
+	CreatedAt int64 `json:"created_at"`
+
+	UpdatedAt int64 `json:"updated_at"`
+
+	ResourceName string `json:"resource_name"`
+
+	WorkDate int64 `json:"work_date"`
 }
 
 type MultiText struct {
@@ -296,6 +335,14 @@ type TimeInterval struct {
 	End int64 `json:"end"`
 }
 
+type UpdateWorkingHourRecord struct {
+	ID int64 `json:"id"`
+
+	WorkTime string `json:"work_time"`
+
+	WorkDescription string `json:"work_description"`
+}
+
 type WBSParentWorkItem struct {
 	IsTop bool `json:"is_top"`
 
@@ -454,6 +501,38 @@ type WorkItemStatus struct {
 	UpdatedBy string `json:"updated_by"`
 
 	History []*WorkItemStatus `json:"history"`
+}
+
+type WorkItemTypeInfo struct {
+	TypeKey string `json:"type_key"`
+
+	Name string `json:"name"`
+
+	FlowMode string `json:"flow_mode"`
+
+	APIName string `json:"api_name"`
+
+	Description string `json:"description"`
+
+	IsDisabled bool `json:"is_disabled"`
+
+	IsPinned bool `json:"is_pinned"`
+
+	EnableSchedule bool `json:"enable_schedule"`
+
+	ScheduleFieldKey string `json:"schedule_field_key"`
+
+	ScheduleFieldName string `json:"schedule_field_name"`
+
+	EstimatePointFieldKey string `json:"estimate_point_field_key"`
+
+	EstimatePointFieldName string `json:"estimate_point_field_name"`
+
+	ActualWorkTimeFieldKey string `json:"actual_work_time_field_key"`
+
+	ActualWorkTimeFieldName string `json:"actual_work_time_field_name"`
+
+	BelongRoles []*role_conf.SimpleRoleConf `json:"belong_roles"`
 }
 
 type WorkflowNode struct {

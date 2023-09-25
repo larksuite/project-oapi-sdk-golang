@@ -14,32 +14,22 @@
  * limitations under the License.
  */
 
-package role_conf
+package measure
 
-type RoleConfDetail struct {
-	ID string `json:"id"`
+type ChartData struct {
+	Dim map[int32]string `json:"dim"`
 
-	Name string `json:"name"`
-
-	IsOwner bool `json:"is_owner"`
-
-	RoleAppearMode int64 `json:"role_appear_mode"`
-
-	Deletable bool `json:"deletable"`
-
-	AutoEnterGroup bool `json:"auto_enter_group"`
-
-	MemberAssignMode int64 `json:"member_assign_mode"`
-
-	Members []string `json:"members"`
-
-	Key string `json:"key"`
+	Value map[int32]string `json:"value"`
 }
 
-type SimpleRoleConf struct {
-	ID string `json:"id"`
-
+type MeasureData struct {
 	Name string `json:"name"`
 
-	Key string `json:"key"`
+	ChartID string `json:"chart_id"`
+
+	ChartDataList [][]*ChartData `json:"chart_data_list"`
+
+	DimTitles []string `json:"dim_titles"`
+
+	QuotaTitles []string `json:"quota_titles"`
 }

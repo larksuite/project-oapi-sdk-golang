@@ -149,6 +149,48 @@ func (builder *QueryTemplateDetailReqBuilder) Build() *QueryTemplateDetailReq {
 	return req
 }
 
+type QueryWbsTemplateConfReq struct {
+	apiReq *core.APIReq
+}
+type QueryWbsTemplateConfReqBody struct {
+	TemplateKey string `json:"template_key"`
+}
+
+type QueryWbsTemplateConfResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data *WbsTemplate `json:"data"`
+}
+
+type QueryWbsTemplateConfReqBuilder struct {
+	apiReq *core.APIReq
+	body   *QueryWbsTemplateConfReqBody
+}
+
+func NewQueryWbsTemplateConfReqBuilder() *QueryWbsTemplateConfReqBuilder {
+	builder := &QueryWbsTemplateConfReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	builder.body = &QueryWbsTemplateConfReqBody{}
+	return builder
+}
+func (builder *QueryWbsTemplateConfReqBuilder) ProjectKey(projectKey string) *QueryWbsTemplateConfReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+func (builder *QueryWbsTemplateConfReqBuilder) TemplateKey(templateKey string) *QueryWbsTemplateConfReqBuilder {
+	builder.body.TemplateKey = templateKey
+	return builder
+}
+func (builder *QueryWbsTemplateConfReqBuilder) Build() *QueryWbsTemplateConfReq {
+	req := &QueryWbsTemplateConfReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}
+
 type QueryWorkItemTemplatesReq struct {
 	apiReq *core.APIReq
 }

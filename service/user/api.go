@@ -25,6 +25,8 @@ import (
 
 const APIPathQueryUserDetail = "/open_api/user/query"
 
+const APIPathSearchUser = "/open_api/user/search"
+
 func NewService(config *core.Config) *UserService {
 	a := &UserService{config: config}
 	return a
@@ -48,6 +50,25 @@ func (a *UserService) QueryUserDetail(ctx context.Context, req *QueryUserDetailR
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryUserDetail] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+// 模糊查询指定空间的用户列表
+func (a *UserService) SearchUser(ctx context.Context, req *SearchUserReq, options ...core.RequestOptionFunc) (*SearchUserResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPathSearchUser
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchUser] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &SearchUserResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchUser] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

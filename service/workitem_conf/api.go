@@ -29,6 +29,8 @@ const APIPathDeleteTemplateDetail = "/open_api/template/v2/delete_template/:proj
 
 const APIPathQueryTemplateDetail = "/open_api/:project_key/template_detail/:template_id"
 
+const APIPathQueryWbsTemplateConf = "/open_api/:project_key/wbs_template"
+
 const APIPathQueryWorkItemTemplates = "/open_api/:project_key/template_list/:work_item_type_key"
 
 const APIPathUpdateTemplateDetail = "/open_api/template/v2/update_template"
@@ -94,6 +96,25 @@ func (a *WorkItemConfService) QueryTemplateDetail(ctx context.Context, req *Quer
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryTemplateDetail] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取流程类型配置（wbs）
+func (a *WorkItemConfService) QueryWbsTemplateConf(ctx context.Context, req *QueryWbsTemplateConfReq, options ...core.RequestOptionFunc) (*QueryWbsTemplateConfResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPathQueryWbsTemplateConf
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWbsTemplateConf] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &QueryWbsTemplateConfResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWbsTemplateConf] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

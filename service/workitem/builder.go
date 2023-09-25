@@ -275,6 +275,74 @@ func (builder *CreateWorkItemRelationReqBuilder) Build() *CreateWorkItemRelation
 	return req
 }
 
+type CreateWorkingHourRecordReq struct {
+	apiReq *core.APIReq
+}
+type CreateWorkingHourRecordReqBody struct {
+	WorkBeginDate int64 `json:"work_begin_date"`
+
+	WorkEndDate int64 `json:"work_end_date"`
+
+	IncludeHolidays bool `json:"include_holidays"`
+
+	WorkingHourRecords []*CreateWorkingHourRecord `json:"working_hour_records"`
+}
+
+type CreateWorkingHourRecordResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data []*ManHourRecord `json:"data"`
+}
+
+type CreateWorkingHourRecordReqBuilder struct {
+	apiReq *core.APIReq
+	body   *CreateWorkingHourRecordReqBody
+}
+
+func NewCreateWorkingHourRecordReqBuilder() *CreateWorkingHourRecordReqBuilder {
+	builder := &CreateWorkingHourRecordReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	builder.body = &CreateWorkingHourRecordReqBody{}
+	return builder
+}
+func (builder *CreateWorkingHourRecordReqBuilder) ProjectKey(projectKey string) *CreateWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+func (builder *CreateWorkingHourRecordReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+func (builder *CreateWorkingHourRecordReqBuilder) WorkItemID(workItemID int64) *CreateWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(workItemID))
+	return builder
+}
+func (builder *CreateWorkingHourRecordReqBuilder) WorkBeginDate(workBeginDate int64) *CreateWorkingHourRecordReqBuilder {
+	builder.body.WorkBeginDate = workBeginDate
+	return builder
+}
+func (builder *CreateWorkingHourRecordReqBuilder) WorkEndDate(workEndDate int64) *CreateWorkingHourRecordReqBuilder {
+	builder.body.WorkEndDate = workEndDate
+	return builder
+}
+func (builder *CreateWorkingHourRecordReqBuilder) IncludeHolidays(includeHolidays bool) *CreateWorkingHourRecordReqBuilder {
+	builder.body.IncludeHolidays = includeHolidays
+	return builder
+}
+func (builder *CreateWorkingHourRecordReqBuilder) WorkingHourRecords(workingHourRecords []*CreateWorkingHourRecord) *CreateWorkingHourRecordReqBuilder {
+	builder.body.WorkingHourRecords = workingHourRecords
+	return builder
+}
+func (builder *CreateWorkingHourRecordReqBuilder) Build() *CreateWorkingHourRecordReq {
+	req := &CreateWorkingHourRecordReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}
+
 type DeleteWorkItemReq struct {
 	apiReq *core.APIReq
 }
@@ -353,6 +421,55 @@ func (builder *DeleteWorkItemRelationReqBuilder) ProjectKey(projectKey string) *
 }
 func (builder *DeleteWorkItemRelationReqBuilder) Build() *DeleteWorkItemRelationReq {
 	req := &DeleteWorkItemRelationReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DeleteWorkingHourRecordReq struct {
+	apiReq *core.APIReq
+}
+type DeleteWorkingHourRecordReqBody struct {
+	WorkingHourRecordIDs []int64 `json:"working_hour_record_ids"`
+}
+
+type DeleteWorkingHourRecordResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type DeleteWorkingHourRecordReqBuilder struct {
+	apiReq *core.APIReq
+	body   *DeleteWorkingHourRecordReqBody
+}
+
+func NewDeleteWorkingHourRecordReqBuilder() *DeleteWorkingHourRecordReqBuilder {
+	builder := &DeleteWorkingHourRecordReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	builder.body = &DeleteWorkingHourRecordReqBody{}
+	return builder
+}
+func (builder *DeleteWorkingHourRecordReqBuilder) ProjectKey(projectKey string) *DeleteWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+func (builder *DeleteWorkingHourRecordReqBuilder) WorkItemTypeKey(workItemTypeKey string) *DeleteWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+func (builder *DeleteWorkingHourRecordReqBuilder) WorkItemID(workItemID int64) *DeleteWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(workItemID))
+	return builder
+}
+func (builder *DeleteWorkingHourRecordReqBuilder) WorkingHourRecordIDs(workingHourRecordIDs []int64) *DeleteWorkingHourRecordReqBuilder {
+	builder.body.WorkingHourRecordIDs = workingHourRecordIDs
+	return builder
+}
+func (builder *DeleteWorkingHourRecordReqBuilder) Build() *DeleteWorkingHourRecordReq {
+	req := &DeleteWorkingHourRecordReq{}
 	req.apiReq = builder.apiReq
 	req.apiReq.Body = builder.body
 	return req
@@ -648,6 +765,106 @@ func (builder *GetMetaReqBuilder) WorkItemTypeKey(workItemTypeKey string) *GetMe
 }
 func (builder *GetMetaReqBuilder) Build() *GetMetaReq {
 	req := &GetMetaReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type GetWorkItemManHourRecordsReq struct {
+	apiReq *core.APIReq
+}
+type GetWorkItemManHourRecordsReqBody struct {
+	ProjectKey string `json:"project_key"`
+
+	WorkItemTypeKey string `json:"work_item_type_key"`
+
+	WorkItemID int64 `json:"work_item_id"`
+
+	PageNum int64 `json:"page_num"`
+
+	PageSize int64 `json:"page_size"`
+}
+
+type GetWorkItemManHourRecordsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data []*ManHourRecord `json:"data"`
+
+	Pagination *common.Pagination `json:"pagination"`
+}
+
+type GetWorkItemManHourRecordsReqBuilder struct {
+	apiReq *core.APIReq
+	body   *GetWorkItemManHourRecordsReqBody
+}
+
+func NewGetWorkItemManHourRecordsReqBuilder() *GetWorkItemManHourRecordsReqBuilder {
+	builder := &GetWorkItemManHourRecordsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	builder.body = &GetWorkItemManHourRecordsReqBody{}
+	return builder
+}
+func (builder *GetWorkItemManHourRecordsReqBuilder) ProjectKey(projectKey string) *GetWorkItemManHourRecordsReqBuilder {
+	builder.body.ProjectKey = projectKey
+	return builder
+}
+func (builder *GetWorkItemManHourRecordsReqBuilder) WorkItemTypeKey(workItemTypeKey string) *GetWorkItemManHourRecordsReqBuilder {
+	builder.body.WorkItemTypeKey = workItemTypeKey
+	return builder
+}
+func (builder *GetWorkItemManHourRecordsReqBuilder) WorkItemID(workItemID int64) *GetWorkItemManHourRecordsReqBuilder {
+	builder.body.WorkItemID = workItemID
+	return builder
+}
+func (builder *GetWorkItemManHourRecordsReqBuilder) PageNum(pageNum int64) *GetWorkItemManHourRecordsReqBuilder {
+	builder.body.PageNum = pageNum
+	return builder
+}
+func (builder *GetWorkItemManHourRecordsReqBuilder) PageSize(pageSize int64) *GetWorkItemManHourRecordsReqBuilder {
+	builder.body.PageSize = pageSize
+	return builder
+}
+func (builder *GetWorkItemManHourRecordsReqBuilder) Build() *GetWorkItemManHourRecordsReq {
+	req := &GetWorkItemManHourRecordsReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type GetWorkItemTypeInfoByKeyReq struct {
+	apiReq *core.APIReq
+}
+
+type GetWorkItemTypeInfoByKeyResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data *WorkItemTypeInfo `json:"data"`
+}
+
+type GetWorkItemTypeInfoByKeyReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewGetWorkItemTypeInfoByKeyReqBuilder() *GetWorkItemTypeInfoByKeyReqBuilder {
+	builder := &GetWorkItemTypeInfoByKeyReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	return builder
+}
+func (builder *GetWorkItemTypeInfoByKeyReqBuilder) ProjectKey(projectKey string) *GetWorkItemTypeInfoByKeyReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+func (builder *GetWorkItemTypeInfoByKeyReqBuilder) WorkItemTypeKey(workItemTypeKey string) *GetWorkItemTypeInfoByKeyReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+func (builder *GetWorkItemTypeInfoByKeyReqBuilder) Build() *GetWorkItemTypeInfoByKeyReq {
+	req := &GetWorkItemTypeInfoByKeyReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
@@ -1359,6 +1576,148 @@ func (builder *UpdateWorkItemRelationReqBuilder) RelationDetails(relationDetails
 }
 func (builder *UpdateWorkItemRelationReqBuilder) Build() *UpdateWorkItemRelationReq {
 	req := &UpdateWorkItemRelationReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateWorkItemTypeInfoReq struct {
+	apiReq *core.APIReq
+}
+type UpdateWorkItemTypeInfoReqBody struct {
+	Description string `json:"description"`
+
+	IsDisabled bool `json:"is_disabled"`
+
+	IsPinned bool `json:"is_pinned"`
+
+	EnableSchedule bool `json:"enable_schedule"`
+
+	ScheduleFieldKey string `json:"schedule_field_key"`
+
+	EstimatePointFieldKey string `json:"estimate_point_field_key"`
+
+	ActualWorkTimeFieldKey string `json:"actual_work_time_field_key"`
+
+	BelongRoleKeys []string `json:"belong_role_keys"`
+
+	ActualWorkTimeSwitch bool `json:"actual_work_time_switch"`
+}
+
+type UpdateWorkItemTypeInfoResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateWorkItemTypeInfoReqBuilder struct {
+	apiReq *core.APIReq
+	body   *UpdateWorkItemTypeInfoReqBody
+}
+
+func NewUpdateWorkItemTypeInfoReqBuilder() *UpdateWorkItemTypeInfoReqBuilder {
+	builder := &UpdateWorkItemTypeInfoReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	builder.body = &UpdateWorkItemTypeInfoReqBody{}
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) ProjectKey(projectKey string) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) Description(description string) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.Description = description
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) IsDisabled(isDisabled bool) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.IsDisabled = isDisabled
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) IsPinned(isPinned bool) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.IsPinned = isPinned
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) EnableSchedule(enableSchedule bool) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.EnableSchedule = enableSchedule
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) ScheduleFieldKey(scheduleFieldKey string) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.ScheduleFieldKey = scheduleFieldKey
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) EstimatePointFieldKey(estimatePointFieldKey string) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.EstimatePointFieldKey = estimatePointFieldKey
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) ActualWorkTimeFieldKey(actualWorkTimeFieldKey string) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.ActualWorkTimeFieldKey = actualWorkTimeFieldKey
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) BelongRoleKeys(belongRoleKeys []string) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.BelongRoleKeys = belongRoleKeys
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) ActualWorkTimeSwitch(actualWorkTimeSwitch bool) *UpdateWorkItemTypeInfoReqBuilder {
+	builder.body.ActualWorkTimeSwitch = actualWorkTimeSwitch
+	return builder
+}
+func (builder *UpdateWorkItemTypeInfoReqBuilder) Build() *UpdateWorkItemTypeInfoReq {
+	req := &UpdateWorkItemTypeInfoReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateWorkingHourRecordReq struct {
+	apiReq *core.APIReq
+}
+type UpdateWorkingHourRecordReqBody struct {
+	WorkingHourRecords []*UpdateWorkingHourRecord `json:"working_hour_records"`
+}
+
+type UpdateWorkingHourRecordResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateWorkingHourRecordReqBuilder struct {
+	apiReq *core.APIReq
+	body   *UpdateWorkingHourRecordReqBody
+}
+
+func NewUpdateWorkingHourRecordReqBuilder() *UpdateWorkingHourRecordReqBuilder {
+	builder := &UpdateWorkingHourRecordReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	builder.body = &UpdateWorkingHourRecordReqBody{}
+	return builder
+}
+func (builder *UpdateWorkingHourRecordReqBuilder) ProjectKey(projectKey string) *UpdateWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+func (builder *UpdateWorkingHourRecordReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UpdateWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+func (builder *UpdateWorkingHourRecordReqBuilder) WorkItemID(workItemID int64) *UpdateWorkingHourRecordReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(workItemID))
+	return builder
+}
+func (builder *UpdateWorkingHourRecordReqBuilder) WorkingHourRecords(workingHourRecords []*UpdateWorkingHourRecord) *UpdateWorkingHourRecordReqBuilder {
+	builder.body.WorkingHourRecords = workingHourRecords
+	return builder
+}
+func (builder *UpdateWorkingHourRecordReqBuilder) Build() *UpdateWorkingHourRecordReq {
+	req := &UpdateWorkingHourRecordReq{}
 	req.apiReq = builder.apiReq
 	req.apiReq.Body = builder.body
 	return req

@@ -26,6 +26,42 @@ type ConfirmForm struct {
 	StateKey string `json:"state_key"`
 }
 
+type Connection struct {
+	SourceStateKey string `json:"source_state_key"`
+
+	TargetStateKey string `json:"target_state_key"`
+}
+
+type NodeConf struct {
+	StateKey string `json:"state_key"`
+
+	NodeName string `json:"node_name"`
+
+	NodeTags []string `json:"node_tags"`
+
+	NodeType string `json:"node_type"`
+
+	IsVisibility int32 `json:"is_visibility"`
+
+	NeedSchedule bool `json:"need_schedule"`
+
+	Owner *OwnerConf `json:"owner"`
+
+	WbsStatusMap *WbsStatusMap `json:"wbs_status_map"`
+
+	NodeSubProcess *SubProcessConf `json:"node_sub_process"`
+
+	WbsNodeMap *WbsNodeMap `json:"wbs_node_map"`
+}
+
+type OwnerConf struct {
+	OwnerUsageMode string `json:"owner_usage_mode"`
+
+	OwnerRoles []string `json:"owner_roles"`
+
+	UserKeys []string `json:"user_keys"`
+}
+
 type StateFlowConfInfo struct {
 	StateKey string `json:"state_key"`
 
@@ -38,6 +74,26 @@ type StateFlowConfInfo struct {
 	ConfirmFormList []*ConfirmForm `json:"confirm_form_list"`
 
 	Action int64 `json:"action"`
+}
+
+type StatusConf struct {
+	StatusKey string `json:"status_key"`
+
+	StatusName string `json:"status_name"`
+
+	StatusOrderIndex int32 `json:"status_order_index"`
+}
+
+type SubProcessConf struct {
+	TemplateKey string `json:"template_key"`
+
+	TemplateName string `json:"template_name"`
+
+	TemplateID string `json:"template_id"`
+
+	WorkItemTypeKey string `json:"work_item_type_key"`
+
+	FlowMode string `json:"flow_mode"`
 }
 
 type TaskConf struct {
@@ -82,6 +138,40 @@ type TemplateDetail struct {
 	Version int64 `json:"version"`
 
 	IsDisabled int64 `json:"is_disabled"`
+}
+
+type WbsNodeMap struct {
+	StateKey string `json:"state_key"`
+
+	StatusName string `json:"status_name"`
+}
+
+type WbsStatusMap struct {
+	StatusKey string `json:"status_key"`
+
+	StatusName string `json:"status_name"`
+}
+
+type WbsTemplate struct {
+	TemplateKey string `json:"template_key"`
+
+	TemplateName string `json:"template_name"`
+
+	TemplateID string `json:"template_id"`
+
+	IsDisabled bool `json:"is_disabled"`
+
+	Version int64 `json:"version"`
+
+	WorkflowConf *WorkflowConf `json:"workflow_conf"`
+}
+
+type WorkflowConf struct {
+	StatusInfos []*StatusConf `json:"status_infos"`
+
+	NodeInfos []*NodeConf `json:"node_infos"`
+
+	Connections []*Connection `json:"connections"`
 }
 
 type WorkflowConfInfo struct {

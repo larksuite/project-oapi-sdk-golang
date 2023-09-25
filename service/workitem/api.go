@@ -31,15 +31,23 @@ const APIPathCreateWorkItem = "/open_api/:project_key/work_item/create"
 
 const APIPathCreateWorkItemRelation = "/open_api/work_item/relation/create"
 
+const APIPathCreateWorkingHourRecord = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/work_hour_record"
+
 const APIPathDeleteWorkItem = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id"
 
 const APIPathDeleteWorkItemRelation = "/open_api/work_item/relation/delete"
+
+const APIPathDeleteWorkingHourRecord = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/work_hour_record"
 
 const APIPathFilter = "/open_api/:project_key/work_item/filter"
 
 const APIPathFilterAcrossProject = "/open_api/work_items/filter_across_project"
 
 const APIPathGetMeta = "/open_api/:project_key/work_item/:work_item_type_key/meta"
+
+const APIPathGetWorkItemManHourRecords = "/open_api/work_item/man_hour/records"
+
+const APIPathGetWorkItemTypeInfoByKey = "/open_api/:project_key/work_item/type/:work_item_type_key"
 
 const APIPathNodeOperate = "/open_api/:project_key/workflow/:work_item_type_key/:work_item_id/node/:node_id/operate"
 
@@ -62,6 +70,10 @@ const APIPathUpdateMultiSignal = "/open_api/:project_key/work_item/:work_item_ty
 const APIPathUpdateWorkItem = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id"
 
 const APIPathUpdateWorkItemRelation = "/open_api/work_item/relation/update"
+
+const APIPathUpdateWorkItemTypeInfo = "/open_api/:project_key/work_item/type/:work_item_type_key"
+
+const APIPathUpdateWorkingHourRecord = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/work_hour_record"
 
 const APIPathWbsView = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/wbs_view"
 
@@ -150,6 +162,25 @@ func (a *WorkItemService) CreateWorkItemRelation(ctx context.Context, req *Creat
 	return resp, err
 }
 
+// 创建实际工时
+func (a *WorkItemService) CreateWorkingHourRecord(ctx context.Context, req *CreateWorkingHourRecordReq, options ...core.RequestOptionFunc) (*CreateWorkingHourRecordResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPathCreateWorkingHourRecord
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateWorkingHourRecord] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &CreateWorkingHourRecordResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateWorkingHourRecord] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
 // 删除工作项
 func (a *WorkItemService) DeleteWorkItem(ctx context.Context, req *DeleteWorkItemReq, options ...core.RequestOptionFunc) (*DeleteWorkItemResp, error) {
 	apiReq := req.apiReq
@@ -183,6 +214,25 @@ func (a *WorkItemService) DeleteWorkItemRelation(ctx context.Context, req *Delet
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteWorkItemRelation] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+// 删除实际工时
+func (a *WorkItemService) DeleteWorkingHourRecord(ctx context.Context, req *DeleteWorkingHourRecordReq, options ...core.RequestOptionFunc) (*DeleteWorkingHourRecordResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPathDeleteWorkingHourRecord
+	apiReq.HttpMethod = "DELETE"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteWorkingHourRecord] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &DeleteWorkingHourRecordResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteWorkingHourRecord] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -240,6 +290,44 @@ func (a *WorkItemService) GetMeta(ctx context.Context, req *GetMetaReq, options 
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetMeta] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取工作项的工时记录列表
+func (a *WorkItemService) GetWorkItemManHourRecords(ctx context.Context, req *GetWorkItemManHourRecordsReq, options ...core.RequestOptionFunc) (*GetWorkItemManHourRecordsResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPathGetWorkItemManHourRecords
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemManHourRecords] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &GetWorkItemManHourRecordsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemManHourRecords] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+// 获取工作项基础信息配置
+func (a *WorkItemService) GetWorkItemTypeInfoByKey(ctx context.Context, req *GetWorkItemTypeInfoByKeyReq, options ...core.RequestOptionFunc) (*GetWorkItemTypeInfoByKeyResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPathGetWorkItemTypeInfoByKey
+	apiReq.HttpMethod = "GET"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemTypeInfoByKey] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &GetWorkItemTypeInfoByKeyResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemTypeInfoByKey] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -449,6 +537,44 @@ func (a *WorkItemService) UpdateWorkItemRelation(ctx context.Context, req *Updat
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateWorkItemRelation] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新工作项基础信息配置
+func (a *WorkItemService) UpdateWorkItemTypeInfo(ctx context.Context, req *UpdateWorkItemTypeInfoReq, options ...core.RequestOptionFunc) (*UpdateWorkItemTypeInfoResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPathUpdateWorkItemTypeInfo
+	apiReq.HttpMethod = "PUT"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateWorkItemTypeInfo] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &UpdateWorkItemTypeInfoResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateWorkItemTypeInfo] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+// 更新实际工时
+func (a *WorkItemService) UpdateWorkingHourRecord(ctx context.Context, req *UpdateWorkingHourRecordReq, options ...core.RequestOptionFunc) (*UpdateWorkingHourRecordResp, error) {
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPathUpdateWorkingHourRecord
+	apiReq.HttpMethod = "PUT"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateWorkingHourRecord] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	resp := &UpdateWorkingHourRecordResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateWorkingHourRecord] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

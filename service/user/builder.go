@@ -75,3 +75,47 @@ func (builder *QueryUserDetailReqBuilder) Build() *QueryUserDetailReq {
 	req.apiReq.Body = builder.body
 	return req
 }
+
+type SearchUserReq struct {
+	apiReq *core.APIReq
+}
+type SearchUserReqBody struct {
+	Query string `json:"query"`
+
+	ProjectKey string `json:"project_key"`
+}
+
+type SearchUserResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data []*UserBasicInfo `json:"data"`
+}
+
+type SearchUserReqBuilder struct {
+	apiReq *core.APIReq
+	body   *SearchUserReqBody
+}
+
+func NewSearchUserReqBuilder() *SearchUserReqBuilder {
+	builder := &SearchUserReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	builder.body = &SearchUserReqBody{}
+	return builder
+}
+func (builder *SearchUserReqBuilder) Query(query string) *SearchUserReqBuilder {
+	builder.body.Query = query
+	return builder
+}
+func (builder *SearchUserReqBuilder) ProjectKey(projectKey string) *SearchUserReqBuilder {
+	builder.body.ProjectKey = projectKey
+	return builder
+}
+func (builder *SearchUserReqBuilder) Build() *SearchUserReq {
+	req := &SearchUserReq{}
+	req.apiReq = builder.apiReq
+	req.apiReq.Body = builder.body
+	return req
+}

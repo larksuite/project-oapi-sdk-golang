@@ -154,6 +154,7 @@ type SpecialUploadAttachmentReq struct {
 type SpecialUploadAttachmentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
+	Data []string `json:"data"`
 }
 
 func NewSpecialUploadAttachmentReqBuilder() *SpecialUploadAttachmentReqBuilder {

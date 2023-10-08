@@ -15,7 +15,7 @@
     - [基本用法](#基本用法)
     - [设置请求选项](#设置请求选项)
 - [错误自查](#错误自查)
-
+- [FAQ](#FAQ)
 <!-- tocstop -->
 
 ## 安装
@@ -289,43 +289,42 @@ func main() {
 
 ```go
 import (
-"context"
-"fmt"
+    "context"
+    "fmt"
 
-sdk "code.byted.org/bits/project-oapi-sdk-golang"
-sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
-"code.byted.org/bits/project-oapi-sdk-golang/service/project"
+    sdk "code.byted.org/bits/project-oapi-sdk-golang"
+    sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
+    "code.byted.org/bits/project-oapi-sdk-golang/service/project"
 )
 
 func main() {
-// 创建 client
-client := sdk.NewClient("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
-header := make(http.Header)
-header.Add("k1", "v1")
-// 发起请求
-resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
-ProjectKey("project_key").
-Build(),
-sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
-sdkcore.WithHeaders(header), //设置head
-)
+    // 创建 client
+    client := sdk.NewClient("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
+    header := make(http.Header)
+    header.Add("k1", "v1")
+    // 发起请求
+    resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
+        ProjectKey("project_key").
+        Build(),
+        sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
+        sdkcore.WithHeaders(header), //设置head
+    )
 
-//处理错误
-if err != nil {
-// 处理err
-return
+    //处理错误
+    if err != nil {
+    // 处理err
+        return
+	}
+
+    // 服务端错误处理
+    if !resp.Success() {
+        fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
+        return
+    }
+
+    // 业务数据处理
+    fmt.Println(sdkcore.Prettify(resp.Data))
 }
-
-// 服务端错误处理
-if !resp.Success() {
-fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
-return
-}
-
-// 业务数据处理
-fmt.Println(sdkcore.Prettify(resp.Data))
-}
-
 ```
 
 如下表格，展示了所有请求级别可设置的选项：

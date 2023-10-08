@@ -31,7 +31,6 @@ const (
 	HTTPHeaderKeyLogID     = "X-Tt-Logid"
 	contentTypeHeader      = "Content-Type"
 	contentTypeJson        = "application/json"
-	customRequestId        = "Oapi-Sdk-Request-Id"
 )
 
 const (

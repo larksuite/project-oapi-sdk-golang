@@ -22,6 +22,7 @@ import (
 	"code.byted.org/bits/project-oapi-sdk-golang/service/chat"
 	"code.byted.org/bits/project-oapi-sdk-golang/service/comment"
 	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+	"code.byted.org/bits/project-oapi-sdk-golang/service/measure"
 	"code.byted.org/bits/project-oapi-sdk-golang/service/plugin"
 	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
 	"code.byted.org/bits/project-oapi-sdk-golang/service/project_relation"
@@ -36,13 +37,13 @@ import (
 )
 
 type Client struct {
+	config          *core.Config                             // sdk配置
 	View            *view.ViewService                        // 视图
 	Attachment      *attachment.AttachmentService            // 附件
 	Field           *field.FieldService                      // 字段
 	WorkItemConf    *workitem_conf.WorkItemConfService       // 工作项配置
 	Chat            *chat.ChatService                        // 群组
 	Comment         *comment.CommentService                  // 评论
-	config          *core.Config                             // sdk配置
 	WorkItem        *workitem.WorkItemService                // 工作项
 	User            *user.UserService                        // 用户
 	Project         *project.ProjectService                  // 空间
@@ -50,6 +51,7 @@ type Client struct {
 	RoleConf        *role_conf.RoleConfService               // 流程角色
 	ProjectRelation *project_relation.ProjectRelationService // 空间关联
 	Plugin          *plugin.PluginService                    // token
+	Measure         *measure.MeasureService                  // 度量
 }
 
 type ClientOptionFunc func(config *core.Config)
@@ -158,4 +160,5 @@ func initService(client *Client, config *core.Config) {
 	client.RoleConf = role_conf.NewService(config)
 	client.ProjectRelation = project_relation.NewService(config)
 	client.Plugin = plugin.NewService(config)
+	client.Measure = measure.NewService(config)
 }

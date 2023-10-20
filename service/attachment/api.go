@@ -27,13 +27,13 @@ import (
 
 const (
 	// 添加附件接口path
-	ApiPathUploadAttachement = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file/upload"
+	ApiPathUploadAttachment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file/upload"
 
 	// 下载附件接口path
-	ApiPathDownloadAttachement = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file/download"
+	ApiPathDownloadAttachment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file/download"
 
 	// 附件上传接口path
-	ApiPathSpecialUploadAttachement = "/open_api/:project_key/file/upload"
+	ApiPathSpecialUploadAttachment = "/open_api/:project_key/file/upload"
 )
 
 func NewService(config *core.Config) *AttachmentService {
@@ -48,7 +48,7 @@ type AttachmentService struct {
 // 添加附件
 func (a *AttachmentService) UploadAttachment(ctx context.Context, req *UploadAttachmentReq, options ...core.RequestOptionFunc) (*UploadAttachmentResp, error) {
 	apiReq := req.apiReq
-	apiReq.ApiPath = ApiPathUploadAttachement
+	apiReq.ApiPath = ApiPathUploadAttachment
 	apiReq.HttpMethod = http.MethodPost
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
@@ -67,7 +67,7 @@ func (a *AttachmentService) UploadAttachment(ctx context.Context, req *UploadAtt
 // 下载附件
 func (a *AttachmentService) DownloadAttachment(ctx context.Context, req *DownloadAttachmentReq, options ...core.RequestOptionFunc) (*DownloadAttachmentResp, error) {
 	apiReq := req.apiReq
-	apiReq.ApiPath = ApiPathDownloadAttachement
+	apiReq.ApiPath = ApiPathDownloadAttachment
 	apiReq.HttpMethod = http.MethodPost
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
@@ -92,7 +92,7 @@ func (a *AttachmentService) DownloadAttachment(ctx context.Context, req *Downloa
 // 附件上传
 func (a *AttachmentService) SpecialUploadAttachment(ctx context.Context, req *SpecialUploadAttachmentReq, options ...core.RequestOptionFunc) (*SpecialUploadAttachmentResp, error) {
 	apiReq := req.apiReq
-	apiReq.ApiPath = ApiPathSpecialUploadAttachement
+	apiReq.ApiPath = ApiPathSpecialUploadAttachment
 	apiReq.HttpMethod = http.MethodPost
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {

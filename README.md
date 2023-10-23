@@ -16,12 +16,13 @@
     - [设置请求选项](#设置请求选项)
 - [错误自查](#错误自查)
 - [FAQ](#FAQ)
+
 <!-- tocstop -->
 
 ## 安装
 
 ```go
-go get -u code.byted.org/bits/project-oapi-sdk-golang
+go get -u github.com/larksuite/project-oapi-sdk-golang
 ```
 
 ## API Client
@@ -31,7 +32,7 @@ go get -u code.byted.org/bits/project-oapi-sdk-golang
 ### 创建API Client
 
 ```go
-import sdk "code.byted.org/bits/project-oapi-sdk-golang"
+import sdk "github.com/larksuite/project-oapi-sdk-golang"
 
 var client = sdk.NewClient("PluginID", "PluginSecret") //默认插件身份凭证
 ```
@@ -41,7 +42,7 @@ var client = sdk.NewClient("PluginID", "PluginSecret") //默认插件身份凭�
 创建 API Client 时，可对 API Client 进行一定的配置，比如我们可以在创建 API Client 时设置日志级别、设置 http 请求超时时间等等：
 
 ```go
-import sdk "code.byted.org/bits/project-oapi-sdk-golang"
+import sdk "github.com/larksuite/project-oapi-sdk-golang"
 
 var client = sdk.NewClient("PluginID", "PluginSecret",
 sdk.WithLogLevel(core.LogLevelDebug),
@@ -247,9 +248,9 @@ import (
 	"fmt"
 	"net/http"
 
-	sdk "code.byted.org/bits/project-oapi-sdk-golang"
-	sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
+	sdk "github.com/larksuite/project-oapi-sdk-golang"
+	sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/service/project"
 )
 
 
@@ -289,41 +290,41 @@ func main() {
 
 ```go
 import (
-    "context"
-    "fmt"
+"context"
+"fmt"
 
-    sdk "code.byted.org/bits/project-oapi-sdk-golang"
-    sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
-    "code.byted.org/bits/project-oapi-sdk-golang/service/project"
+sdk "github.com/larksuite/project-oapi-sdk-golang"
+sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
+"github.com/larksuite/project-oapi-sdk-golang/service/project"
 )
 
 func main() {
-    // 创建 client
-    client := sdk.NewClient("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
-    header := make(http.Header)
-    header.Add("k1", "v1")
-    // 发起请求
-    resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
-        ProjectKey("project_key").
-        Build(),
-        sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
-        sdkcore.WithHeaders(header), //设置head
-    )
+// 创建 client
+client := sdk.NewClient("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
+header := make(http.Header)
+header.Add("k1", "v1")
+// 发起请求
+resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
+ProjectKey("project_key").
+Build(),
+sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
+sdkcore.WithHeaders(header), //设置head
+)
 
-    //处理错误
-    if err != nil {
-    // 处理err
-        return
-	}
+//处理错误
+if err != nil {
+// 处理err
+return
+}
 
-    // 服务端错误处理
-    if !resp.Success() {
-        fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
-        return
-    }
+// 服务端错误处理
+if !resp.Success() {
+fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
+return
+}
 
-    // 业务数据处理
-    fmt.Println(sdkcore.Prettify(resp.Data))
+// 业务数据处理
+fmt.Println(sdkcore.Prettify(resp.Data))
 }
 ```
 

@@ -20,7 +20,7 @@ import (
 	"fmt"
 	"io"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
 // 添加附件接口参数构造器

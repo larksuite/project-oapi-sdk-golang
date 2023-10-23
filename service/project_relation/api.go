@@ -20,7 +20,7 @@ import (
 	"context"
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
 const APIPathCreateProjectRelationInstances = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id/batch_bind"

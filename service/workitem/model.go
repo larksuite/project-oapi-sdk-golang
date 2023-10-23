@@ -17,10 +17,10 @@
 package workitem
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/role_conf"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
+	"github.com/larksuite/project-oapi-sdk-golang/service/common"
+	"github.com/larksuite/project-oapi-sdk-golang/service/field"
+	"github.com/larksuite/project-oapi-sdk-golang/service/role_conf"
+	"github.com/larksuite/project-oapi-sdk-golang/service/user"
 )
 
 type Checker struct {
@@ -565,4 +565,6 @@ type WorkflowNode struct {
 	SubStatus []*Checker `json:"sub_status"`
 
 	Milestone bool `json:"milestone"`
+
+	Participants []string `json:"participants"`
 }

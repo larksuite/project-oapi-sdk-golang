@@ -17,7 +17,7 @@
 package project
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
+	"github.com/larksuite/project-oapi-sdk-golang/service/user"
 )
 
 type Business struct {

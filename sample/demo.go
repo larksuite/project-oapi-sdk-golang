@@ -19,12 +19,12 @@ package sample
 import (
 	"context"
 
-	sdk "code.byted.org/bits/project-oapi-sdk-golang"
-	sdkcore "code.byted.org/bits/project-oapi-sdk-golang/core"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
-	sub_task "code.byted.org/bits/project-oapi-sdk-golang/service/task"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
+	sdk "github.com/larksuite/project-oapi-sdk-golang"
+	sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/service/field"
+	"github.com/larksuite/project-oapi-sdk-golang/service/project"
+	sub_task "github.com/larksuite/project-oapi-sdk-golang/service/task"
+	"github.com/larksuite/project-oapi-sdk-golang/service/workitem"
 )
 
 // 获取空间下工作项类型

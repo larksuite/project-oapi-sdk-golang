@@ -20,7 +20,7 @@ import (
 	"context"
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
 const APIPathQueryRoleConfDetails = "/open_api/:project_key/flow_roles/:work_item_type_key"

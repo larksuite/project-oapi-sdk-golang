@@ -17,23 +17,24 @@
 package sdk
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/attachment"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/chat"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/comment"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/measure"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/plugin"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/project"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/project_relation"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/role_conf"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/task"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/view"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem_conf"
 	"net/http"
 	"time"
+
+	"github.com/larksuite/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/service/attachment"
+	"github.com/larksuite/project-oapi-sdk-golang/service/chat"
+	"github.com/larksuite/project-oapi-sdk-golang/service/comment"
+	"github.com/larksuite/project-oapi-sdk-golang/service/field"
+	"github.com/larksuite/project-oapi-sdk-golang/service/measure"
+	"github.com/larksuite/project-oapi-sdk-golang/service/plugin"
+	"github.com/larksuite/project-oapi-sdk-golang/service/project"
+	"github.com/larksuite/project-oapi-sdk-golang/service/project_relation"
+	"github.com/larksuite/project-oapi-sdk-golang/service/role_conf"
+	"github.com/larksuite/project-oapi-sdk-golang/service/task"
+	"github.com/larksuite/project-oapi-sdk-golang/service/user"
+	"github.com/larksuite/project-oapi-sdk-golang/service/view"
+	"github.com/larksuite/project-oapi-sdk-golang/service/workitem"
+	"github.com/larksuite/project-oapi-sdk-golang/service/workitem_conf"
 )
 
 type Client struct {

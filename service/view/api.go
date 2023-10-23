@@ -20,7 +20,7 @@ import (
 	"context"
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
 const APIPathCreateFixView = "/open_api/:project_key/:work_item_type_key/fix_view"

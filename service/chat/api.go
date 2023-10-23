@@ -20,7 +20,7 @@ import (
 	"context"
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
 const APIPathBotJoinChat = "/open_api/:project_key/work_item/:work_item_id/bot_join_chat"

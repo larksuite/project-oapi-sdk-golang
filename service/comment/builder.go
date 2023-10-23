@@ -19,9 +19,9 @@ package comment
 import (
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
+	"github.com/larksuite/project-oapi-sdk-golang/service/common"
 )
 
 type CreateCommentReq struct {

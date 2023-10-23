@@ -19,11 +19,11 @@ package view
 import (
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
+	"github.com/larksuite/project-oapi-sdk-golang/service/common"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
+	"github.com/larksuite/project-oapi-sdk-golang/service/workitem"
 )
 
 type CreateFixViewReq struct {
@@ -33,6 +33,12 @@ type CreateFixViewReqBody struct {
 	WorkItemIDList []int64 `json:"work_item_id_list"`
 
 	Name string `json:"name"`
+
+	CooperationMode int64 `json:"cooperation_mode"`
+
+	CooperationUserKeys []string `json:"cooperation_user_keys"`
+
+	CooperationTeamIDs []int64 `json:"cooperation_team_ids"`
 }
 
 type CreateFixViewResp struct {
@@ -71,6 +77,18 @@ func (builder *CreateFixViewReqBuilder) WorkItemIDList(workItemIDList []int64) *
 }
 func (builder *CreateFixViewReqBuilder) Name(name string) *CreateFixViewReqBuilder {
 	builder.body.Name = name
+	return builder
+}
+func (builder *CreateFixViewReqBuilder) CooperationMode(cooperationMode int64) *CreateFixViewReqBuilder {
+	builder.body.CooperationMode = cooperationMode
+	return builder
+}
+func (builder *CreateFixViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *CreateFixViewReqBuilder {
+	builder.body.CooperationUserKeys = cooperationUserKeys
+	return builder
+}
+func (builder *CreateFixViewReqBuilder) CooperationTeamIDs(cooperationTeamIDs []int64) *CreateFixViewReqBuilder {
+	builder.body.CooperationTeamIDs = cooperationTeamIDs
 	return builder
 }
 func (builder *CreateFixViewReqBuilder) Build() *CreateFixViewReq {
@@ -182,6 +200,12 @@ type UpdateFixViewReqBody struct {
 	AddWorkItemIDs []int64 `json:"add_work_item_ids"`
 
 	RemoveWorkItemIDs []int64 `json:"remove_work_item_ids"`
+
+	CooperationMode int64 `json:"cooperation_mode"`
+
+	CooperationUserKeys []string `json:"cooperation_user_keys"`
+
+	CooperationTeamIDs []int64 `json:"cooperation_team_ids"`
 }
 
 type UpdateFixViewResp struct {
@@ -224,6 +248,18 @@ func (builder *UpdateFixViewReqBuilder) AddWorkItemIDs(addWorkItemIDs []int64) *
 }
 func (builder *UpdateFixViewReqBuilder) RemoveWorkItemIDs(removeWorkItemIDs []int64) *UpdateFixViewReqBuilder {
 	builder.body.RemoveWorkItemIDs = removeWorkItemIDs
+	return builder
+}
+func (builder *UpdateFixViewReqBuilder) CooperationMode(cooperationMode int64) *UpdateFixViewReqBuilder {
+	builder.body.CooperationMode = cooperationMode
+	return builder
+}
+func (builder *UpdateFixViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *UpdateFixViewReqBuilder {
+	builder.body.CooperationUserKeys = cooperationUserKeys
+	return builder
+}
+func (builder *UpdateFixViewReqBuilder) CooperationTeamIDs(cooperationTeamIDs []int64) *UpdateFixViewReqBuilder {
+	builder.body.CooperationTeamIDs = cooperationTeamIDs
 	return builder
 }
 func (builder *UpdateFixViewReqBuilder) Build() *UpdateFixViewReq {

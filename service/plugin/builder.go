@@ -16,7 +16,7 @@
 
 package plugin
 
-import "code.byted.org/bits/project-oapi-sdk-golang/core"
+import "github.com/larksuite/project-oapi-sdk-golang/core"
 
 type GetUserPluginTokenReq struct {
 	Code      string `json:"code"`

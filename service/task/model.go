@@ -17,7 +17,7 @@
 package task
 
 import (
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
+	"github.com/larksuite/project-oapi-sdk-golang/service/workitem"
 )
 
 type SubDetail struct {

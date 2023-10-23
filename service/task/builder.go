@@ -19,15 +19,15 @@ package task
 import (
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/service/common"
+	"github.com/larksuite/project-oapi-sdk-golang/service/common"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/service/field"
+	"github.com/larksuite/project-oapi-sdk-golang/service/field"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/service/user"
+	"github.com/larksuite/project-oapi-sdk-golang/service/user"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
+	"github.com/larksuite/project-oapi-sdk-golang/service/workitem"
 )
 
 type CreateSubTaskReq struct {

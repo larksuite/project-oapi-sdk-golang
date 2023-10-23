@@ -19,9 +19,9 @@ package project
 import (
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/service/workitem"
+	"github.com/larksuite/project-oapi-sdk-golang/service/workitem"
 )
 
 type GetProjectDetailReq struct {
@@ -89,6 +89,8 @@ type ListProjectReqBody struct {
 	TenantGroupID int64 `json:"tenant_group_id"`
 
 	AssetKey string `json:"asset_key"`
+
+	Order []string `json:"order"`
 }
 
 type ListProjectResp struct {
@@ -121,6 +123,10 @@ func (builder *ListProjectReqBuilder) TenantGroupID(tenantGroupID int64) *ListPr
 }
 func (builder *ListProjectReqBuilder) AssetKey(assetKey string) *ListProjectReqBuilder {
 	builder.body.AssetKey = assetKey
+	return builder
+}
+func (builder *ListProjectReqBuilder) Order(order []string) *ListProjectReqBuilder {
+	builder.body.Order = order
 	return builder
 }
 func (builder *ListProjectReqBuilder) Build() *ListProjectReq {

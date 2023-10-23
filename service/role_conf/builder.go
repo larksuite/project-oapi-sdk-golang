@@ -19,7 +19,7 @@ package role_conf
 import (
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
 type QueryRoleConfDetailsReq struct {

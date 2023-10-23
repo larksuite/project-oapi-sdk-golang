@@ -19,7 +19,7 @@ package measure
 import (
 	"fmt"
 
-	"code.byted.org/bits/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
 type QueryChartDataReq struct {

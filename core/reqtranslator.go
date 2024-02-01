@@ -21,7 +21,6 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/url"
-	"os"
 	"strings"
 )
 
@@ -154,11 +153,7 @@ func (fd *FormData) content() (string, []byte, error) {
 	writer := multipart.NewWriter(buf)
 	for key, val := range fd.fields {
 		if r, ok := val.(io.Reader); ok {
-			fileName := "unknown-file"
-			if file, ok := val.(*os.File); ok {
-				fileName = file.Name()
-			}
-			part, err := writer.CreateFormFile(key, fileName)
+			part, err := writer.CreateFormFile("file", key)
 			if err != nil {
 				return "", nil, err
 			}

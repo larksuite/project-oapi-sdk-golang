@@ -153,7 +153,7 @@ func (fd *FormData) content() (string, []byte, error) {
 	writer := multipart.NewWriter(buf)
 	for key, val := range fd.fields {
 		if r, ok := val.(io.Reader); ok {
-			part, err := writer.CreateFormFile(key, "unknown-file")
+			part, err := writer.CreateFormFile("file", key)
 			if err != nil {
 				return "", nil, err
 			}

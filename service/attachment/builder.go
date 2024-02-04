@@ -65,7 +65,12 @@ func (builder *UploadAttachmentReqBuilder) WorkItemID(workItemID int64) *UploadA
 }
 
 func (builder *UploadAttachmentReqBuilder) File(file io.Reader) *UploadAttachmentReqBuilder {
-	builder.body.AddFile("file", file)
+	builder.body.AddFile("unknown-file", file)
+	return builder
+}
+
+func (builder *UploadAttachmentReqBuilder) FileWithFileName(fileName string, file io.Reader) *UploadAttachmentReqBuilder {
+	builder.body.AddFile(fileName, file)
 	return builder
 }
 
@@ -172,7 +177,12 @@ func (builder *SpecialUploadAttachmentReqBuilder) ProjectKey(projectKey string) 
 }
 
 func (builder *SpecialUploadAttachmentReqBuilder) File(file io.Reader) *SpecialUploadAttachmentReqBuilder {
-	builder.body.AddFile("file", file)
+	builder.body.AddFile("unknown-file", file)
+	return builder
+}
+
+func (builder *SpecialUploadAttachmentReqBuilder) FileWithFileName(fileName string, file io.Reader) *SpecialUploadAttachmentReqBuilder {
+	builder.body.AddFile(fileName, file)
 	return builder
 }
 

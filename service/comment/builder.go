@@ -28,7 +28,8 @@ type CreateCommentReq struct {
 	apiReq *core.APIReq
 }
 type CreateCommentReqBody struct {
-	Content string `json:"content"`
+	Content  string        `json:"content"`
+	RichText []interface{} `json:"rich_text"`
 }
 
 type CreateCommentResp struct {
@@ -65,6 +66,10 @@ func (builder *CreateCommentReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 }
 func (builder *CreateCommentReqBuilder) Content(content string) *CreateCommentReqBuilder {
 	builder.body.Content = content
+	return builder
+}
+func (builder *CreateCommentReqBuilder) RichText(richText []interface{}) *CreateCommentReqBuilder {
+	builder.body.RichText = richText
 	return builder
 }
 func (builder *CreateCommentReqBuilder) Build() *CreateCommentReq {

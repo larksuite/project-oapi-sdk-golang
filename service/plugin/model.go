@@ -27,7 +27,7 @@ type UserPluginToken struct {
 	RefreshToken           string `json:"refresh_token"`
 	RefreshTokenExpireTime int    `json:"refresh_token_expire_time"`
 	UserKey                string `json:"user_key"`
-	TenantKey              string `json:"tenant_key"`
+	TenantKey              string `json:"saas_tenant_key"`
 }
 
 type RefreshToken struct {

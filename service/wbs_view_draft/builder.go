@@ -71,7 +71,7 @@ func (builder *WbsCollaborationPublishReqBuilder) Build() *WbsCollaborationPubli
 type WbsCollaborationPublishResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Success bool `json:"success"`
+	IsSuccess bool `json:"success"`
 }
 
 type SwitchBackToWbsViewDraftReq struct {
@@ -123,5 +123,5 @@ func (builder *SwitchBackToWbsViewDraftReqBuilder) Build() *SwitchBackToWbsViewD
 type SwitchBackToWbsViewDraftResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Success bool `json:"success"`
+	IsSuccess bool `json:"success"`
 }

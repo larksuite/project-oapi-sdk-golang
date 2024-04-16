@@ -33,6 +33,7 @@ import (
 	"github.com/larksuite/project-oapi-sdk-golang/service/task"
 	"github.com/larksuite/project-oapi-sdk-golang/service/user"
 	"github.com/larksuite/project-oapi-sdk-golang/service/view"
+	"github.com/larksuite/project-oapi-sdk-golang/service/wbs_view_draft"
 	"github.com/larksuite/project-oapi-sdk-golang/service/workitem"
 	"github.com/larksuite/project-oapi-sdk-golang/service/workitem_conf"
 )
@@ -53,6 +54,7 @@ type Client struct {
 	ProjectRelation *project_relation.ProjectRelationService // 空间关联
 	Plugin          *plugin.PluginService                    // token
 	Measure         *measure.MeasureService                  // 度量
+	WbsViewDraft    *wbs_view_draft.WbsViewDraftService      // 计划表草稿
 }
 
 type ClientOptionFunc func(config *core.Config)
@@ -162,4 +164,5 @@ func initService(client *Client, config *core.Config) {
 	client.ProjectRelation = project_relation.NewService(config)
 	client.Plugin = plugin.NewService(config)
 	client.Measure = measure.NewService(config)
+	client.WbsViewDraft = wbs_view_draft.NewService(config)
 }

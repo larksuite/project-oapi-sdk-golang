@@ -27,7 +27,7 @@ const APIPathWbsCollaborationPublish = "/open_api/:project_key/wbs_view_draft/pu
 
 const APIPathSwitchBackToWbsViewDraft = "/open_api/:project_key/wbs_view_draft/switch"
 
-func NewWbsViewDraftService(config *core.Config) *WbsViewDraftService {
+func NewService(config *core.Config) *WbsViewDraftService {
 	a := &WbsViewDraftService{config: config}
 	return a
 }

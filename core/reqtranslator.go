@@ -18,7 +18,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"mime/multipart"
 	"net/http"
 	"net/url"
 	"strings"
@@ -130,7 +129,14 @@ func (translator *ReqTranslator) payload(body interface{}) (string, []byte, erro
 }
 
 func NewFormdata() *FormData {
-	return &FormData{}
+	return &FormData{
+		mimeType: "application/octet-stream",
+	}
+}
+
+func (fd *FormData) SetMimeType(mimeType string) *FormData {
+	fd.mimeType = mimeType
+	return fd
 }
 
 func (fd *FormData) AddField(field string, val interface{}) *FormData {
@@ -150,10 +156,10 @@ func (fd *FormData) content() (string, []byte, error) {
 		return fd.data.contentType, fd.data.content, nil
 	}
 	buf := &bytes.Buffer{}
-	writer := multipart.NewWriter(buf)
+	writer := NewWriter(buf)
 	for key, val := range fd.fields {
 		if r, ok := val.(io.Reader); ok {
-			part, err := writer.CreateFormFile("file", key)
+			part, err := writer.CreateFormFileWithMime("file", key, fd.mimeType)
 			if err != nil {
 				return "", nil, err
 			}
@@ -181,8 +187,9 @@ func (fd *FormData) content() (string, []byte, error) {
 }
 
 type FormData struct {
-	fields map[string]interface{}
-	data   *struct {
+	mimeType string
+	fields   map[string]interface{}
+	data     *struct {
 		content     []byte
 		contentType string
 	}

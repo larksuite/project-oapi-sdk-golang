@@ -69,6 +69,11 @@ func (builder *UploadAttachmentReqBuilder) File(file io.Reader) *UploadAttachmen
 	return builder
 }
 
+func (builder *UploadAttachmentReqBuilder) FileMimeType(mimeType string) *UploadAttachmentReqBuilder {
+	builder.body.SetMimeType(mimeType)
+	return builder
+}
+
 func (builder *UploadAttachmentReqBuilder) FileWithFileName(fileName string, file io.Reader) *UploadAttachmentReqBuilder {
 	builder.body.AddFile(fileName, file)
 	return builder

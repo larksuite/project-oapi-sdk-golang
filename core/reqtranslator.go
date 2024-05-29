@@ -18,7 +18,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime/multipart"
 	"net/http"
+	"net/textproto"
 	"net/url"
 	"strings"
 )
@@ -156,10 +158,15 @@ func (fd *FormData) content() (string, []byte, error) {
 		return fd.data.contentType, fd.data.content, nil
 	}
 	buf := &bytes.Buffer{}
-	writer := NewWriter(buf)
+	writer := multipart.NewWriter(buf)
 	for key, val := range fd.fields {
 		if r, ok := val.(io.Reader); ok {
-			part, err := writer.CreateFormFileWithMime("file", key, fd.mimeType)
+			h := make(textproto.MIMEHeader)
+			h.Set("Content-Disposition",
+				fmt.Sprintf(`form-data; name="%s"; filename="%s"`,
+					escapeQuotes("file"), escapeQuotes(key)))
+			h.Set("Content-Type", fd.mimeType)
+			part, err := writer.CreatePart(h)
 			if err != nil {
 				return "", nil, err
 			}
@@ -193,4 +200,10 @@ type FormData struct {
 		content     []byte
 		contentType string
 	}
+}
+
+var quoteEscaper = strings.NewReplacer("\\", "\\\\", `"`, "\\\"")
+
+func escapeQuotes(s string) string {
+	return quoteEscaper.Replace(s)
 }

@@ -45,7 +45,7 @@ func NewUploadAttachmentReqBuilder() *UploadAttachmentReqBuilder {
 	builder.apiReq = &core.APIReq{
 		PathParams: core.PathParams{},
 	}
-	builder.body = &core.FormData{}
+	builder.body = core.NewFormdata()
 	return builder
 }
 
@@ -66,6 +66,11 @@ func (builder *UploadAttachmentReqBuilder) WorkItemID(workItemID int64) *UploadA
 
 func (builder *UploadAttachmentReqBuilder) File(file io.Reader) *UploadAttachmentReqBuilder {
 	builder.body.AddFile("unknown-file", file)
+	return builder
+}
+
+func (builder *UploadAttachmentReqBuilder) FileMimeType(mimeType string) *UploadAttachmentReqBuilder {
+	builder.body.SetMimeType(mimeType)
 	return builder
 }
 
@@ -167,7 +172,7 @@ func NewSpecialUploadAttachmentReqBuilder() *SpecialUploadAttachmentReqBuilder {
 	builder.apiReq = &core.APIReq{
 		PathParams: core.PathParams{},
 	}
-	builder.body = &core.FormData{}
+	builder.body = core.NewFormdata()
 	return builder
 }
 

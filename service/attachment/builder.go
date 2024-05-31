@@ -45,7 +45,7 @@ func NewUploadAttachmentReqBuilder() *UploadAttachmentReqBuilder {
 	builder.apiReq = &core.APIReq{
 		PathParams: core.PathParams{},
 	}
-	builder.body = &core.FormData{}
+	builder.body = core.NewFormdata()
 	return builder
 }
 
@@ -172,7 +172,7 @@ func NewSpecialUploadAttachmentReqBuilder() *SpecialUploadAttachmentReqBuilder {
 	builder.apiReq = &core.APIReq{
 		PathParams: core.PathParams{},
 	}
-	builder.body = &core.FormData{}
+	builder.body = core.NewFormdata()
 	return builder
 }
 

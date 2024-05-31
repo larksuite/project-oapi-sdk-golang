@@ -20,6 +20,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/textproto"
 	"net/url"
 	"strings"
 )
@@ -130,7 +131,14 @@ func (translator *ReqTranslator) payload(body interface{}) (string, []byte, erro
 }
 
 func NewFormdata() *FormData {
-	return &FormData{}
+	return &FormData{
+		mimeType: "application/octet-stream",
+	}
+}
+
+func (fd *FormData) SetMimeType(mimeType string) *FormData {
+	fd.mimeType = mimeType
+	return fd
 }
 
 func (fd *FormData) AddField(field string, val interface{}) *FormData {
@@ -153,7 +161,12 @@ func (fd *FormData) content() (string, []byte, error) {
 	writer := multipart.NewWriter(buf)
 	for key, val := range fd.fields {
 		if r, ok := val.(io.Reader); ok {
-			part, err := writer.CreateFormFile("file", key)
+			h := make(textproto.MIMEHeader)
+			h.Set("Content-Disposition",
+				fmt.Sprintf(`form-data; name="%s"; filename="%s"`,
+					escapeQuotes("file"), escapeQuotes(key)))
+			h.Set("Content-Type", fd.mimeType)
+			part, err := writer.CreatePart(h)
 			if err != nil {
 				return "", nil, err
 			}
@@ -181,9 +194,16 @@ func (fd *FormData) content() (string, []byte, error) {
 }
 
 type FormData struct {
-	fields map[string]interface{}
-	data   *struct {
+	mimeType string
+	fields   map[string]interface{}
+	data     *struct {
 		content     []byte
 		contentType string
 	}
+}
+
+var quoteEscaper = strings.NewReplacer("\\", "\\\\", `"`, "\\\"")
+
+func escapeQuotes(s string) string {
+	return quoteEscaper.Replace(s)
 }

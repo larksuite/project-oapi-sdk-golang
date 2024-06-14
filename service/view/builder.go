@@ -275,6 +275,8 @@ type ViewListReq struct {
 type ViewListReqBody struct {
 	WorkItemTypeKey string `json:"work_item_type_key"`
 
+	ViewName string `json:"view_name"`
+
 	ViewIDs []string `json:"view_ids"`
 
 	CreatedBy string `json:"created_by"`
@@ -314,6 +316,10 @@ func (builder *ViewListReqBuilder) ProjectKey(projectKey string) *ViewListReqBui
 }
 func (builder *ViewListReqBuilder) WorkItemTypeKey(workItemTypeKey string) *ViewListReqBuilder {
 	builder.body.WorkItemTypeKey = workItemTypeKey
+	return builder
+}
+func (builder *ViewListReqBuilder) ViewName(viewName string) *ViewListReqBuilder {
+	builder.body.ViewName = viewName
 	return builder
 }
 func (builder *ViewListReqBuilder) ViewIDs(viewIDs []string) *ViewListReqBuilder {

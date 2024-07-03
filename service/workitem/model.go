@@ -458,6 +458,8 @@ type WorkItemInfo struct {
 
 	MultiTexts []*MultiText `json:"multi_texts"`
 
+	CompoundFieldExtra []*field.FieldValuePair `json:"compound_field_extra"`
+
 	RelationFieldsDetail []*RelationFieldDetail `json:"relation_fields_detail"`
 
 	UserDetails []*common.UserDetail `json:"user_details"`

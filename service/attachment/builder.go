@@ -191,6 +191,11 @@ func (builder *SpecialUploadAttachmentReqBuilder) FileWithFileName(fileName stri
 	return builder
 }
 
+func (builder *SpecialUploadAttachmentReqBuilder) FileMimeType(mimeType string) *SpecialUploadAttachmentReqBuilder {
+	builder.body.SetMimeType(mimeType)
+	return builder
+}
+
 func (builder *SpecialUploadAttachmentReqBuilder) Build() *SpecialUploadAttachmentReq {
 	req := &SpecialUploadAttachmentReq{}
 	req.apiReq = builder.apiReq

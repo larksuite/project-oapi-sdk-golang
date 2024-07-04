@@ -69,6 +69,10 @@ func (ce CodeError) String() string {
 	sb.WriteString(ce.ErrMsg)
 	sb.WriteString(",code:")
 	sb.WriteString(strconv.Itoa(ce.ErrCode))
+	sb.WriteString(",msg_detail:")
+	sb.WriteString(ce.Err.Msg)
+	sb.WriteString(",code_detail:")
+	sb.WriteString(strconv.Itoa(ce.Err.Code))
 	return sb.String()
 }
 

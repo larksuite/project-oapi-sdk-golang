@@ -238,7 +238,7 @@ type Schedule struct {
 
 	Owners []string `json:"owners"`
 
-	ActualWorkTime float64 `json:"actual_work_time,omitempty"`
+	ActualWorkTime *float64 `json:"actual_work_time,omitempty"`
 }
 
 type SearchGroup struct {

@@ -19,7 +19,11 @@ package field
 type FieldValuePair struct {
 	FieldKey string `json:"field_key"`
 
+	FieldKey1 string `json:"fieldKey"`
+
 	FieldValue interface{} `json:"field_value"`
+
+	Value interface{} `json:"value"`
 
 	TargetState *TargetState `json:"target_state"`
 

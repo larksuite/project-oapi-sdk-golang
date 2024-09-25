@@ -505,6 +505,8 @@ type FilterReqBody struct {
 
 	WorkItemStatus []*WorkItemStatus `json:"work_item_status"`
 
+	SearchID string `json:"search_id"`
+
 	Expand *Expand `json:"expand"`
 }
 
@@ -582,6 +584,12 @@ func (builder *FilterReqBuilder) PageSize(pageSize int64) *FilterReqBuilder {
 	builder.body.PageSize = pageSize
 	return builder
 }
+
+func (builder *FilterReqBuilder) SearchID(searchID string) *FilterReqBuilder {
+	builder.body.SearchID = searchID
+	return builder
+}
+
 func (builder *FilterReqBuilder) WorkItemStatus(workItemStatus []*WorkItemStatus) *FilterReqBuilder {
 	builder.body.WorkItemStatus = workItemStatus
 	return builder

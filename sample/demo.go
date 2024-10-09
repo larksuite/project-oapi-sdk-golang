@@ -52,7 +52,7 @@ func listProjectWorkItemType(client *sdk.Client) {
 }
 
 // 创建工作项类型
-func createWorkItem(client *sdk.Client) {
+func createWorkItem2(client *sdk.Client) {
 	resp, err := client.WorkItem.CreateWorkItem(context.Background(), workitem.NewCreateWorkItemReqBuilder().
 		ProjectKey("project_key").
 		WorkItemTypeKey("work_item_type_key").
@@ -85,7 +85,7 @@ func createWorkItem(client *sdk.Client) {
 }
 
 // 创建子任务
-func CreateSubTask(client *sdk.Client) {
+func CreateSubTask2(client *sdk.Client) {
 	resp, err := client.Task.CreateSubTask(context.Background(), sub_task.NewCreateSubTaskReqBuilder().
 		ProjectKey("project_key").
 		WorkItemTypeKey("work_item_type_key").

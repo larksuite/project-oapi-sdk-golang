@@ -31,6 +31,21 @@ const (
 	HTTPHeaderKeyLogID     = "X-Tt-Logid"
 	contentTypeHeader      = "Content-Type"
 	contentTypeJson        = "application/json"
+
+	// Meego related
+	MeegoRefreshUserPluginToken = "534ae578-fe24-46cb-a1c9-a88145f0e1c0"
+	MeegoPluginToken            = "u-bc0280ad-c959-4e23-8388-bba5aa547afa"
+	MeegoPluginIdv2             = "MII_66DED47A2A45C001"
+	MeegoPluginSecretv2         = "1C89B4CF735C080A4B79338979784EBC"
+	MeegoPorjectKey             = "5bebafa4956c37218e2cf5c3"
+	MeegoUserKey                = "7226723139252781057"
+	MeegoBaseUrl                = "https://meego.larkoffice.com"
+
+	// lark related
+	AppId             = "cli_a61dccc07dfd900b"
+	AppSecret         = "KJPCMvEz4gQDlJikPx8cUfAnxyi22NaC"
+	EncryptKey        = "W9t8WbHuey1RFpGTv9n4xINsWRwaJQIw"
+	VerificationToken = "gBLa23S6EvEO60fZVk3IGdcrwpTFCBrG"
 )
 
 const (

@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"github.com/larksuite/project-oapi-sdk-golang/core"
+	constants "github.com/larksuite/project-oapi-sdk-golang/core"
 	"github.com/larksuite/project-oapi-sdk-golang/service/attachment"
 	"github.com/larksuite/project-oapi-sdk-golang/service/chat"
 	"github.com/larksuite/project-oapi-sdk-golang/service/comment"
@@ -125,7 +126,7 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 		AppSecret:        appSecret,
 		EnableTokenCache: true,
 		AccessTokenType:  core.AccessTokenTypePlugin,
-		BaseUrl:          "https://project.feishu.cn",
+		BaseUrl:          constants.MeegoBaseUrl,
 	}
 	for _, option := range options {
 		option(config)

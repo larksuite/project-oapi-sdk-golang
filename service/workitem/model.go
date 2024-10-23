@@ -230,15 +230,17 @@ type RelationFieldDetail struct {
 }
 
 type Schedule struct {
-	Points float64 `json:"points"`
+	Points *float64 `json:"points,omitempty"`
 
-	EstimateStartDate int64 `json:"estimate_start_date"`
+	EstimateStartDate *int64 `json:"estimate_start_date,omitempty"`
 
-	EstimateEndDate int64 `json:"estimate_end_date"`
+	EstimateEndDate *int64 `json:"estimate_end_date,omitempty"`
 
 	Owners []string `json:"owners"`
 
 	ActualWorkTime *float64 `json:"actual_work_time,omitempty"`
+
+	IsAuto *bool `json:"is_auto,omitempty"`
 }
 
 type SearchGroup struct {

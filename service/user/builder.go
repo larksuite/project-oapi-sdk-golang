@@ -31,6 +31,8 @@ type QueryUserDetailReqBody struct {
 	OutIDs []string `json:"out_ids"`
 
 	Emails []string `json:"emails"`
+
+	TenantKey string `json:"tenant_key"`
 }
 
 type QueryUserDetailResp struct {
@@ -69,6 +71,12 @@ func (builder *QueryUserDetailReqBuilder) Emails(emails []string) *QueryUserDeta
 	builder.body.Emails = emails
 	return builder
 }
+
+func (builder *QueryUserDetailReqBuilder) TenantKey(tenantKey string) *QueryUserDetailReqBuilder {
+	builder.body.TenantKey = tenantKey
+	return builder
+}
+
 func (builder *QueryUserDetailReqBuilder) Build() *QueryUserDetailReq {
 	req := &QueryUserDetailReq{}
 	req.apiReq = builder.apiReq

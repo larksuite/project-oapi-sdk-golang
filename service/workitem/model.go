@@ -237,7 +237,7 @@ type Schedule struct {
 	EstimateEndDate *int64 `json:"estimate_end_date,omitempty"`
 
 	Owners []string `json:"owners"`
-
+  
 	ActualWorkTime *float64 `json:"actual_work_time,omitempty"`
 
 	IsAuto *bool `json:"is_auto,omitempty"`

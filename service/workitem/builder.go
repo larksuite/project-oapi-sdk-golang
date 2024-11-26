@@ -1595,11 +1595,11 @@ type UpdateWorkItemTypeInfoReq struct {
 type UpdateWorkItemTypeInfoReqBody struct {
 	Description string `json:"description"`
 
-	IsDisabled bool `json:"is_disabled"`
+	IsDisabled *bool `json:"is_disabled,omitempty"`
 
-	IsPinned bool `json:"is_pinned"`
+	IsPinned *bool `json:"is_pinned,omitempty"`
 
-	EnableSchedule bool `json:"enable_schedule"`
+	EnableSchedule *bool `json:"enable_schedule,omitempty"`
 
 	ScheduleFieldKey string `json:"schedule_field_key"`
 
@@ -1609,7 +1609,7 @@ type UpdateWorkItemTypeInfoReqBody struct {
 
 	BelongRoleKeys []string `json:"belong_role_keys"`
 
-	ActualWorkTimeSwitch bool `json:"actual_work_time_switch"`
+	ActualWorkTimeSwitch *bool `json:"actual_work_time_switch,omitempty"`
 }
 
 type UpdateWorkItemTypeInfoResp struct {
@@ -1644,15 +1644,15 @@ func (builder *UpdateWorkItemTypeInfoReqBuilder) Description(description string)
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) IsDisabled(isDisabled bool) *UpdateWorkItemTypeInfoReqBuilder {
-	builder.body.IsDisabled = isDisabled
+	builder.body.IsDisabled = &isDisabled
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) IsPinned(isPinned bool) *UpdateWorkItemTypeInfoReqBuilder {
-	builder.body.IsPinned = isPinned
+	builder.body.IsPinned = &isPinned
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) EnableSchedule(enableSchedule bool) *UpdateWorkItemTypeInfoReqBuilder {
-	builder.body.EnableSchedule = enableSchedule
+	builder.body.EnableSchedule = &enableSchedule
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) ScheduleFieldKey(scheduleFieldKey string) *UpdateWorkItemTypeInfoReqBuilder {
@@ -1672,7 +1672,7 @@ func (builder *UpdateWorkItemTypeInfoReqBuilder) BelongRoleKeys(belongRoleKeys [
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) ActualWorkTimeSwitch(actualWorkTimeSwitch bool) *UpdateWorkItemTypeInfoReqBuilder {
-	builder.body.ActualWorkTimeSwitch = actualWorkTimeSwitch
+	builder.body.ActualWorkTimeSwitch = &actualWorkTimeSwitch
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) Build() *UpdateWorkItemTypeInfoReq {

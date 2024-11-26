@@ -65,10 +65,14 @@ func (ce CodeError) Error() string {
 
 func (ce CodeError) String() string {
 	sb := strings.Builder{}
-	sb.WriteString("msg:")
-	sb.WriteString(ce.ErrMsg)
-	sb.WriteString(",code:")
+	sb.WriteString("resp err, code:")
 	sb.WriteString(strconv.Itoa(ce.ErrCode))
+	sb.WriteString(", msg:")
+	sb.WriteString(ce.ErrMsg)
+	sb.WriteString(", inner code:")
+	sb.WriteString(strconv.Itoa(ce.Err.Code))
+	sb.WriteString(", inner msg:")
+	sb.WriteString(ce.Err.Msg)
 	return sb.String()
 }
 

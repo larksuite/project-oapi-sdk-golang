@@ -495,6 +495,8 @@ type WorkItemRelation struct {
 	WorkItemTypeName string `json:"work_item_type_name"`
 
 	RelationDetails []*RelationDetail `json:"relation_details"`
+
+	RelationType int64 `json:"relation_type"`
 }
 
 type WorkItemStatus struct {

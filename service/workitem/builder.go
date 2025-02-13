@@ -35,6 +35,8 @@ type AbortWorkItemReqBody struct {
 	IsAborted bool `json:"is_aborted"`
 
 	Reason string `json:"reason"`
+
+	ReasonOption string `json:"reason_option"`
 }
 
 type AbortWorkItemResp struct {
@@ -56,6 +58,7 @@ func NewAbortWorkItemReqBuilder() *AbortWorkItemReqBuilder {
 	builder.body = &AbortWorkItemReqBody{}
 	return builder
 }
+
 func (builder *AbortWorkItemReqBuilder) ProjectKey(projectKey string) *AbortWorkItemReqBuilder {
 	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
@@ -72,10 +75,17 @@ func (builder *AbortWorkItemReqBuilder) IsAborted(isAborted bool) *AbortWorkItem
 	builder.body.IsAborted = isAborted
 	return builder
 }
+
 func (builder *AbortWorkItemReqBuilder) Reason(reason string) *AbortWorkItemReqBuilder {
 	builder.body.Reason = reason
 	return builder
 }
+
+func (builder *AbortWorkItemReqBuilder) ReasonOption(reasonOption string) *AbortWorkItemReqBuilder {
+	builder.body.ReasonOption = reasonOption
+	return builder
+}
+
 func (builder *AbortWorkItemReqBuilder) Build() *AbortWorkItemReq {
 	req := &AbortWorkItemReq{}
 	req.apiReq = builder.apiReq

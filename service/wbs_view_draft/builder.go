@@ -29,6 +29,7 @@ type WbsCollaborationPublishReq struct {
 type WbsCollaborationPublishReqBody struct {
 	WorkItemID int64  `json:"work_item_id"`
 	DraftID    string `json:"draft_id"`
+	CommitID   string `json:"commit_id"`
 }
 
 type WbsCollaborationPublishReqBuilder struct {
@@ -61,6 +62,11 @@ func (builder *WbsCollaborationPublishReqBuilder) DraftID(draftID string) *WbsCo
 	return builder
 }
 
+func (builder *WbsCollaborationPublishReqBuilder) CommitID(commitID string) *WbsCollaborationPublishReqBuilder {
+	builder.body.CommitID = commitID
+	return builder
+}
+
 func (builder *WbsCollaborationPublishReqBuilder) Build() *WbsCollaborationPublishReq {
 	req := &WbsCollaborationPublishReq{}
 	req.apiReq = builder.apiReq
@@ -81,6 +87,7 @@ type SwitchBackToWbsViewDraftReq struct {
 type SwitchBackToWbsViewDraftReqBody struct {
 	WorkItemID int64  `json:"work_item_id"`
 	DraftID    string `json:"draft_id"`
+	CommitID   string `json:"commit_id"`
 }
 
 type SwitchBackToWbsViewDraftReqBuilder struct {
@@ -113,6 +120,10 @@ func (builder *SwitchBackToWbsViewDraftReqBuilder) DraftID(draftID string) *Swit
 	return builder
 }
 
+func (builder *SwitchBackToWbsViewDraftReqBuilder) CommitID(commitID string) *SwitchBackToWbsViewDraftReqBuilder {
+	builder.body.CommitID = commitID
+	return builder
+}
 func (builder *SwitchBackToWbsViewDraftReqBuilder) Build() *SwitchBackToWbsViewDraftReq {
 	req := &SwitchBackToWbsViewDraftReq{}
 	req.apiReq = builder.apiReq

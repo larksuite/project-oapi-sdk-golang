@@ -136,3 +136,60 @@ type SwitchBackToWbsViewDraftResp struct {
 	core.CodeError
 	Data *WbsViewDraftRespData `json:"data"`
 }
+
+type OAPIWBSUpdateDraftFrozenRowsReq struct {
+	apiReq *core.APIReq
+}
+type OAPIWBSUpdateDraftFrozenRowsReqBody struct {
+	WorkItemID *int64 `json:"work_item_id,omitempty"`
+
+	DraftID *string `json:"draft_id,omitempty"`
+
+	UpdateType *int32 `json:"update_type,omitempty"`
+
+	CommitID *string `json:"commit_id,omitempty"`
+}
+
+type OAPIWBSUpdateDraftFrozenRowsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type OAPIWBSUpdateDraftFrozenRowsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewOAPIWBSUpdateDraftFrozenRowsReqBuilder() *OAPIWBSUpdateDraftFrozenRowsReqBuilder {
+	builder := &OAPIWBSUpdateDraftFrozenRowsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &OAPIWBSUpdateDraftFrozenRowsReqBody{},
+	}
+	return builder
+}
+func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) ProjectKey(projectKey *string) *OAPIWBSUpdateDraftFrozenRowsReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+	return builder
+}
+func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) WorkItemID(workItemID *int64) *OAPIWBSUpdateDraftFrozenRowsReqBuilder {
+	builder.apiReq.Body.(*OAPIWBSUpdateDraftFrozenRowsReqBody).WorkItemID = workItemID
+	return builder
+}
+func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) DraftID(draftID *string) *OAPIWBSUpdateDraftFrozenRowsReqBuilder {
+	builder.apiReq.Body.(*OAPIWBSUpdateDraftFrozenRowsReqBody).DraftID = draftID
+	return builder
+}
+func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) UpdateType(updateType *int32) *OAPIWBSUpdateDraftFrozenRowsReqBuilder {
+	builder.apiReq.Body.(*OAPIWBSUpdateDraftFrozenRowsReqBody).UpdateType = updateType
+	return builder
+}
+func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) CommitID(commitID *string) *OAPIWBSUpdateDraftFrozenRowsReqBuilder {
+	builder.apiReq.Body.(*OAPIWBSUpdateDraftFrozenRowsReqBody).CommitID = commitID
+	return builder
+}
+func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) Build() *OAPIWBSUpdateDraftFrozenRowsReq {
+	req := &OAPIWBSUpdateDraftFrozenRowsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}

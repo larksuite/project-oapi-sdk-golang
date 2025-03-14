@@ -168,8 +168,8 @@ func NewOAPIWBSUpdateDraftFrozenRowsReqBuilder() *OAPIWBSUpdateDraftFrozenRowsRe
 	}
 	return builder
 }
-func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) ProjectKey(projectKey *string) *OAPIWBSUpdateDraftFrozenRowsReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) ProjectKey(projectKey string) *OAPIWBSUpdateDraftFrozenRowsReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
 func (builder *OAPIWBSUpdateDraftFrozenRowsReqBuilder) WorkItemID(workItemID *int64) *OAPIWBSUpdateDraftFrozenRowsReqBuilder {

@@ -81,4 +81,7 @@ func initServiceV2(client *ClientV2, config *core.Config) {
 	client.View = view.NewService(config)
 	client.Attachment = attachment.NewService(config)
 	client.Measure = measure.NewService(config)
+	client.Search = search.NewService(config)
+	client.MeegoIntegration = meego_integration.NewService(config)
+	client.OpenAPI = open_api.NewService(config)
 }

@@ -1780,3 +1780,79 @@ func (builder *WbsViewReqBuilder) Build() *WbsViewReq {
 	req.apiReq.Body = builder.body
 	return req
 }
+
+type UniversalSearchReq struct {
+	apiReq *core.APIReq
+}
+type UniversalSearchReqBody struct {
+	DataSources []DataSource `json:"data_sources,omitempty"`
+
+	UserKey *string `json:"user_key,omitempty"`
+
+	SearchGroup *SearchGroup `json:"search_group,omitempty"`
+
+	Sort *Sort `json:"sort,omitempty"`
+
+	Pagination *Pagination `json:"pagination,omitempty"`
+
+	FieldSelected []string `json:"field_selected,omitempty"`
+
+	Features map[string]string `json:"features,omitempty"`
+}
+
+type UniversalSearchResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data *string `json:"data,omitempty"`
+
+	Pagination *Pagination `json:"pagination,omitempty"`
+
+	ExtraInfo map[string]string `json:"extra_info,omitempty"`
+}
+
+type UniversalSearchReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUniversalSearchReqBuilder() *UniversalSearchReqBuilder {
+	builder := &UniversalSearchReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UniversalSearchReqBody{},
+	}
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) DataSources(dataSources []DataSource) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).DataSources = dataSources
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) UserKey(userKey *string) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).UserKey = userKey
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) SearchGroup(searchGroup *SearchGroup) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).SearchGroup = searchGroup
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) Sort(sort *Sort) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).Sort = sort
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) Pagination(pagination *Pagination) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).Pagination = pagination
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) FieldSelected(fieldSelected []string) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).FieldSelected = fieldSelected
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) Features(features map[string]string) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).Features = features
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) Build() *UniversalSearchReq {
+	req := &UniversalSearchReq{}
+	req.apiReq = builder.apiReq
+	return req
+}

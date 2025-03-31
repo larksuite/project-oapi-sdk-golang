@@ -77,6 +77,8 @@ const APIPathUpdateWorkingHourRecord = "/open_api/:project_key/work_item/:work_i
 
 const APIPathWbsView = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/wbs_view"
 
+const APIPath_UniversalSearch = "/open_api/view_search/universal_search"
+
 func NewService(config *core.Config) *WorkItemService {
 	a := &WorkItemService{config: config}
 	return a
@@ -594,6 +596,30 @@ func (a *WorkItemService) WbsView(ctx context.Context, req *WbsViewReq, options 
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[WbsView] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: openapi获取指定的工作项列表（极简链路，替代原有的GeneralSearch系列）
+ * @desc: openapi获取指定的工作项列表（极简链路，替代原有的GeneralSearch系列）
+ */
+func (a *WorkItemService) UniversalSearch(ctx context.Context, req *UniversalSearchReq, options ...core.RequestOptionFunc) (*UniversalSearchResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_UniversalSearch
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UniversalSearch] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UniversalSearchResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UniversalSearch] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

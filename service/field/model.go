@@ -71,23 +71,25 @@ type QueryLink struct {
 type SimpleField struct {
 	FieldKey string `json:"field_key"`
 
-	FieldTypeKey string `json:"field_type_key"`
-
-	Options []*Option `json:"options"`
-
-	CompoundFields []*SimpleField `json:"compound_fields"`
-
 	FieldAlias string `json:"field_alias"`
+
+	FieldTypeKey string `json:"field_type_key"`
 
 	FieldName string `json:"field_name"`
 
 	IsCustomField bool `json:"is_custom_field"`
+
+	Options []*Option `json:"options"`
+
+	CompoundFields []*SimpleField `json:"compound_fields"`
 
 	IsObsoleted bool `json:"is_obsoleted"`
 
 	WorkItemScopes []string `json:"work_item_scopes"`
 
 	ValueGenerateMode string `json:"value_generate_mode"`
+
+	RelationID string `json:"relation_id"`
 }
 
 type TargetState struct {

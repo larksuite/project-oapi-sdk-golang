@@ -46,8 +46,9 @@ type CodeError struct {
 	ErrCode int    `json:"err_code"`
 	ErrMsg  string `json:"err_msg"`
 	Err     struct {
-		Code int    `json:"code,omitempty"`
-		Msg  string `json:"msg,omitempty"`
+		Code  int    `json:"code,omitempty"`
+		Msg   string `json:"msg,omitempty"`
+		LogID string `json:"log_id,omitempty"`
 	} `json:"err"`
 }
 
@@ -65,10 +66,18 @@ func (ce CodeError) Error() string {
 
 func (ce CodeError) String() string {
 	sb := strings.Builder{}
-	sb.WriteString("msg:")
-	sb.WriteString(ce.ErrMsg)
-	sb.WriteString(",code:")
+	sb.WriteString("resp err, code:")
 	sb.WriteString(strconv.Itoa(ce.ErrCode))
+	sb.WriteString(", msg:")
+	sb.WriteString(ce.ErrMsg)
+	sb.WriteString(", inner code:")
+	sb.WriteString(strconv.Itoa(ce.Err.Code))
+	sb.WriteString(", inner msg:")
+	sb.WriteString(ce.Err.Msg)
+	if len(ce.Err.LogID) > 0 {
+		sb.WriteString(", log_id:")
+		sb.WriteString(ce.Err.LogID)
+	}
 	return sb.String()
 }
 

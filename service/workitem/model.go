@@ -612,3 +612,29 @@ type InstanceDeliverableItem struct {
 
 	Remark string `json:"remark"`
 }
+
+type DataSource struct {
+	ProjectKey *string `json:"project_key,omitempty"`
+
+	WorkItemTypeKeys *string `json:"work_item_type_keys,omitempty"`
+}
+
+type Sort struct {
+	FieldKey *string `json:"field_key,omitempty"`
+
+	FieldType *string `json:"field_type,omitempty"`
+
+	WorkItemTypeKey *string `json:"work_item_type_key,omitempty"`
+
+	Order *string `json:"order,omitempty"`
+
+	Params map[string]string `json:"params,omitempty"`
+}
+
+type Pagination struct {
+	PageNum *int64 `json:"page_num,omitempty"`
+
+	PageSize *int64 `json:"page_size,omitempty"`
+
+	Total *int64 `json:"total,omitempty"`
+}

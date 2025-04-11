@@ -52,38 +52,53 @@ func NewOAPIBatchWebHookReqBuilder() *OAPIBatchWebHookReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIBatchWebHookReqBuilder) RequestTime(requestTime *string) *OAPIBatchWebHookReqBuilder {
-	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).RequestTime = requestTime
+
+func (builder *OAPIBatchWebHookReqBuilder) RequestTime(requestTime string) *OAPIBatchWebHookReqBuilder {
+	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).RequestTime = &requestTime
 	return builder
 }
-func (builder *OAPIBatchWebHookReqBuilder) Signature(signature *string) *OAPIBatchWebHookReqBuilder {
-	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).Signature = signature
+
+
+func (builder *OAPIBatchWebHookReqBuilder) Signature(signature string) *OAPIBatchWebHookReqBuilder {
+	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).Signature = &signature
 	return builder
 }
-func (builder *OAPIBatchWebHookReqBuilder) ProjectKey(projectKey *string) *OAPIBatchWebHookReqBuilder {
-	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).ProjectKey = projectKey
+
+
+func (builder *OAPIBatchWebHookReqBuilder) ProjectKey(projectKey string) *OAPIBatchWebHookReqBuilder {
+	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).ProjectKey = &projectKey
 	return builder
 }
-func (builder *OAPIBatchWebHookReqBuilder) ViewID(viewID *string) *OAPIBatchWebHookReqBuilder {
-	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).ViewID = viewID
+
+
+func (builder *OAPIBatchWebHookReqBuilder) ViewID(viewID string) *OAPIBatchWebHookReqBuilder {
+	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).ViewID = &viewID
 	return builder
 }
-func (builder *OAPIBatchWebHookReqBuilder) Source(source *string) *OAPIBatchWebHookReqBuilder {
-	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).Source = source
+
+
+func (builder *OAPIBatchWebHookReqBuilder) Source(source string) *OAPIBatchWebHookReqBuilder {
+	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).Source = &source
 	return builder
 }
-func (builder *OAPIBatchWebHookReqBuilder) UserLanguage(userLanguage *string) *OAPIBatchWebHookReqBuilder {
-	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).UserLanguage = userLanguage
+
+
+func (builder *OAPIBatchWebHookReqBuilder) UserLanguage(userLanguage string) *OAPIBatchWebHookReqBuilder {
+	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).UserLanguage = &userLanguage
 	return builder
 }
+
+
 func (builder *OAPIBatchWebHookReqBuilder) PluginInfo(pluginInfo *PluginInfo) *OAPIBatchWebHookReqBuilder {
 	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).PluginInfo = pluginInfo
 	return builder
 }
+
 func (builder *OAPIBatchWebHookReqBuilder) UserInfo(userInfo *UserInfo) *OAPIBatchWebHookReqBuilder {
 	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).UserInfo = userInfo
 	return builder
 }
+
 func (builder *OAPIBatchWebHookReqBuilder) WorkItemInfos(workItemInfos []WorkItemInfo) *OAPIBatchWebHookReqBuilder {
 	builder.apiReq.Body.(*OAPIBatchWebHookReqBody).WorkItemInfos = workItemInfos
 	return builder
@@ -131,10 +146,12 @@ func NewOAPIQueryTaskResultReqBuilder() *OAPIQueryTaskResultReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIQueryTaskResultReqBuilder) TaskID(taskID *string) *OAPIQueryTaskResultReqBuilder {
+
+func (builder *OAPIQueryTaskResultReqBuilder) TaskID(taskID string) *OAPIQueryTaskResultReqBuilder {
 	builder.apiReq.QueryParams.Set("task_id", fmt.Sprint(taskID))
 	return builder
 }
+
 func (builder *OAPIQueryTaskResultReqBuilder) Build() *OAPIQueryTaskResultReq {
 	req := &OAPIQueryTaskResultReq{}
 	req.apiReq = builder.apiReq

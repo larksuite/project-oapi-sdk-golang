@@ -30,14 +30,18 @@ func NewOAPIGetChartDataReqBuilder() *OAPIGetChartDataReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIGetChartDataReqBuilder) ProjectKey(projectKey *string) *OAPIGetChartDataReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *OAPIGetChartDataReqBuilder) ProjectKey(projectKey string) *OAPIGetChartDataReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *OAPIGetChartDataReqBuilder) ChartID(chartID *string) *OAPIGetChartDataReqBuilder {
-	builder.apiReq.PathParams.Set("chart_id", fmt.Sprint(*chartID))
+
+
+func (builder *OAPIGetChartDataReqBuilder) ChartID(chartID string) *OAPIGetChartDataReqBuilder {
+	builder.apiReq.PathParams.Set("chart_id", fmt.Sprint(chartID))
 	return builder
 }
+
 func (builder *OAPIGetChartDataReqBuilder) Build() *OAPIGetChartDataReq {
 	req := &OAPIGetChartDataReq{}
 	req.apiReq = builder.apiReq

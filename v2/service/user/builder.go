@@ -34,10 +34,12 @@ func NewOAPIActiveAccountReqBuilder() *OAPIActiveAccountReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIActiveAccountReqBuilder) UserMeegoKey(userMeegoKey *string) *OAPIActiveAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIActiveAccountReqBody).UserMeegoKey = userMeegoKey
+
+func (builder *OAPIActiveAccountReqBuilder) UserMeegoKey(userMeegoKey string) *OAPIActiveAccountReqBuilder {
+	builder.apiReq.Body.(*OAPIActiveAccountReqBody).UserMeegoKey = &userMeegoKey
 	return builder
 }
+
 func (builder *OAPIActiveAccountReqBuilder) Build() *OAPIActiveAccountReq {
 	req := &OAPIActiveAccountReq{}
 	req.apiReq = builder.apiReq
@@ -81,22 +83,30 @@ func NewOAPICreateAccountReqBuilder() *OAPICreateAccountReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPICreateAccountReqBuilder) OutUserID(outUserID *string) *OAPICreateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPICreateAccountReqBody).OutUserID = outUserID
+
+func (builder *OAPICreateAccountReqBuilder) OutUserID(outUserID string) *OAPICreateAccountReqBuilder {
+	builder.apiReq.Body.(*OAPICreateAccountReqBody).OutUserID = &outUserID
 	return builder
 }
+
+
 func (builder *OAPICreateAccountReqBuilder) Name(name map[string]string) *OAPICreateAccountReqBuilder {
 	builder.apiReq.Body.(*OAPICreateAccountReqBody).Name = name
 	return builder
 }
-func (builder *OAPICreateAccountReqBuilder) LoginPlatformType(loginPlatformType *string) *OAPICreateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPICreateAccountReqBody).LoginPlatformType = loginPlatformType
+
+func (builder *OAPICreateAccountReqBuilder) LoginPlatformType(loginPlatformType string) *OAPICreateAccountReqBuilder {
+	builder.apiReq.Body.(*OAPICreateAccountReqBody).LoginPlatformType = &loginPlatformType
 	return builder
 }
-func (builder *OAPICreateAccountReqBuilder) AvatarUrl(avatarUrl *string) *OAPICreateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPICreateAccountReqBody).AvatarUrl = avatarUrl
+
+
+func (builder *OAPICreateAccountReqBuilder) AvatarUrl(avatarUrl string) *OAPICreateAccountReqBuilder {
+	builder.apiReq.Body.(*OAPICreateAccountReqBody).AvatarUrl = &avatarUrl
 	return builder
 }
+
+
 func (builder *OAPICreateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys []string) *OAPICreateAccountReqBuilder {
 	builder.apiReq.Body.(*OAPICreateAccountReqBody).DepartmentMeegoKeys = departmentMeegoKeys
 	return builder
@@ -138,14 +148,17 @@ func NewOAPICreateDepartmentReqBuilder() *OAPICreateDepartmentReqBuilder {
 	}
 	return builder
 }
+
 func (builder *OAPICreateDepartmentReqBuilder) Name(name map[string]string) *OAPICreateDepartmentReqBuilder {
 	builder.apiReq.Body.(*OAPICreateDepartmentReqBody).Name = name
 	return builder
 }
-func (builder *OAPICreateDepartmentReqBuilder) ParentDepartmentMeegoKey(parentDepartmentMeegoKey *string) *OAPICreateDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPICreateDepartmentReqBody).ParentDepartmentMeegoKey = parentDepartmentMeegoKey
+
+func (builder *OAPICreateDepartmentReqBuilder) ParentDepartmentMeegoKey(parentDepartmentMeegoKey string) *OAPICreateDepartmentReqBuilder {
+	builder.apiReq.Body.(*OAPICreateDepartmentReqBody).ParentDepartmentMeegoKey = &parentDepartmentMeegoKey
 	return builder
 }
+
 func (builder *OAPICreateDepartmentReqBuilder) Build() *OAPICreateDepartmentReq {
 	req := &OAPICreateDepartmentReq{}
 	req.apiReq = builder.apiReq
@@ -183,14 +196,19 @@ func NewOAPICreateUserGroupReqBuilder() *OAPICreateUserGroupReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPICreateUserGroupReqBuilder) ProjectKey(projectKey *string) *OAPICreateUserGroupReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *OAPICreateUserGroupReqBuilder) ProjectKey(projectKey string) *OAPICreateUserGroupReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *OAPICreateUserGroupReqBuilder) Name(name *string) *OAPICreateUserGroupReqBuilder {
-	builder.apiReq.Body.(*OAPICreateUserGroupReqBody).Name = name
+
+
+func (builder *OAPICreateUserGroupReqBuilder) Name(name string) *OAPICreateUserGroupReqBuilder {
+	builder.apiReq.Body.(*OAPICreateUserGroupReqBody).Name = &name
 	return builder
 }
+
+
 func (builder *OAPICreateUserGroupReqBuilder) Users(users []string) *OAPICreateUserGroupReqBuilder {
 	builder.apiReq.Body.(*OAPICreateUserGroupReqBody).Users = users
 	return builder
@@ -228,10 +246,12 @@ func NewOAPIDeleteDepartmentReqBuilder() *OAPIDeleteDepartmentReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIDeleteDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey *string) *OAPIDeleteDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIDeleteDepartmentReqBody).DepartmentMeegoKey = departmentMeegoKey
+
+func (builder *OAPIDeleteDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *OAPIDeleteDepartmentReqBuilder {
+	builder.apiReq.Body.(*OAPIDeleteDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
 	return builder
 }
+
 func (builder *OAPIDeleteDepartmentReqBuilder) Build() *OAPIDeleteDepartmentReq {
 	req := &OAPIDeleteDepartmentReq{}
 	req.apiReq = builder.apiReq
@@ -275,22 +295,29 @@ func NewOAPIPageUserGroupMembersReqBuilder() *OAPIPageUserGroupMembersReqBuilder
 	}
 	return builder
 }
-func (builder *OAPIPageUserGroupMembersReqBuilder) ProjectKey(projectKey *string) *OAPIPageUserGroupMembersReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *OAPIPageUserGroupMembersReqBuilder) ProjectKey(projectKey string) *OAPIPageUserGroupMembersReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *OAPIPageUserGroupMembersReqBuilder) UserGroupType(userGroupType *string) *OAPIPageUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).UserGroupType = userGroupType
+
+
+func (builder *OAPIPageUserGroupMembersReqBuilder) UserGroupType(userGroupType string) *OAPIPageUserGroupMembersReqBuilder {
+	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).UserGroupType = &userGroupType
 	return builder
 }
+
+
 func (builder *OAPIPageUserGroupMembersReqBuilder) UserGroupIDs(userGroupIDs []string) *OAPIPageUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).UserGroupIDs = userGroupIDs
 	return builder
 }
+
 func (builder *OAPIPageUserGroupMembersReqBuilder) PageNum(pageNum *int64) *OAPIPageUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).PageNum = pageNum
 	return builder
 }
+
 func (builder *OAPIPageUserGroupMembersReqBuilder) PageSize(pageSize *int64) *OAPIPageUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).PageSize = pageSize
 	return builder
@@ -336,26 +363,35 @@ func NewOAPIPatchUserGroupMembersReqBuilder() *OAPIPatchUserGroupMembersReqBuild
 	}
 	return builder
 }
-func (builder *OAPIPatchUserGroupMembersReqBuilder) ProjectKey(projectKey *string) *OAPIPatchUserGroupMembersReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *OAPIPatchUserGroupMembersReqBuilder) ProjectKey(projectKey string) *OAPIPatchUserGroupMembersReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *OAPIPatchUserGroupMembersReqBuilder) UserGroupType(userGroupType *string) *OAPIPatchUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).UserGroupType = userGroupType
+
+
+func (builder *OAPIPatchUserGroupMembersReqBuilder) UserGroupType(userGroupType string) *OAPIPatchUserGroupMembersReqBuilder {
+	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).UserGroupType = &userGroupType
 	return builder
 }
-func (builder *OAPIPatchUserGroupMembersReqBuilder) UserGroupID(userGroupID *string) *OAPIPatchUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).UserGroupID = userGroupID
+
+
+func (builder *OAPIPatchUserGroupMembersReqBuilder) UserGroupID(userGroupID string) *OAPIPatchUserGroupMembersReqBuilder {
+	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).UserGroupID = &userGroupID
 	return builder
 }
+
+
 func (builder *OAPIPatchUserGroupMembersReqBuilder) AddUsers(addUsers []string) *OAPIPatchUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).AddUsers = addUsers
 	return builder
 }
+
 func (builder *OAPIPatchUserGroupMembersReqBuilder) DeleteUsers(deleteUsers []string) *OAPIPatchUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).DeleteUsers = deleteUsers
 	return builder
 }
+
 func (builder *OAPIPatchUserGroupMembersReqBuilder) ReplaceUsers(replaceUsers []string) *OAPIPatchUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).ReplaceUsers = replaceUsers
 	return builder
@@ -411,14 +447,17 @@ func NewOAPIQueryDepartmentReqBuilder() *OAPIQueryDepartmentReqBuilder {
 	}
 	return builder
 }
+
 func (builder *OAPIQueryDepartmentReqBuilder) Scopes(scopes []string) *OAPIQueryDepartmentReqBuilder {
 	builder.apiReq.Body.(*OAPIQueryDepartmentReqBody).Scopes = scopes
 	return builder
 }
-func (builder *OAPIQueryDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey *string) *OAPIQueryDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryDepartmentReqBody).DepartmentMeegoKey = departmentMeegoKey
+
+func (builder *OAPIQueryDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *OAPIQueryDepartmentReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
 	return builder
 }
+
 func (builder *OAPIQueryDepartmentReqBuilder) Build() *OAPIQueryDepartmentReq {
 	req := &OAPIQueryDepartmentReq{}
 	req.apiReq = builder.apiReq
@@ -468,6 +507,7 @@ func NewOAPIQueryTenantReqBuilder() *OAPIQueryTenantReqBuilder {
 	}
 	return builder
 }
+
 func (builder *OAPIQueryTenantReqBuilder) Scopes(scopes []string) *OAPIQueryTenantReqBuilder {
 	builder.apiReq.Body.(*OAPIQueryTenantReqBody).Scopes = scopes
 	return builder
@@ -511,14 +551,17 @@ func NewOAPIQueryUsersForTenantPluginReqBuilder() *OAPIQueryUsersForTenantPlugin
 	}
 	return builder
 }
+
 func (builder *OAPIQueryUsersForTenantPluginReqBuilder) UserKeys(userKeys []string) *OAPIQueryUsersForTenantPluginReqBuilder {
 	builder.apiReq.Body.(*OAPIQueryUsersForTenantPluginReqBody).UserKeys = userKeys
 	return builder
 }
+
 func (builder *OAPIQueryUsersForTenantPluginReqBuilder) Emails(emails []string) *OAPIQueryUsersForTenantPluginReqBuilder {
 	builder.apiReq.Body.(*OAPIQueryUsersForTenantPluginReqBody).Emails = emails
 	return builder
 }
+
 func (builder *OAPIQueryUsersForTenantPluginReqBuilder) OutUsers(outUsers []OutUserInfo) *OAPIQueryUsersForTenantPluginReqBuilder {
 	builder.apiReq.Body.(*OAPIQueryUsersForTenantPluginReqBody).OutUsers = outUsers
 	return builder
@@ -560,14 +603,18 @@ func NewOAPISearchUserByWordReqBuilder() *OAPISearchUserByWordReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPISearchUserByWordReqBuilder) Query(query *string) *OAPISearchUserByWordReqBuilder {
-	builder.apiReq.Body.(*OAPISearchUserByWordReqBody).Query = query
+
+func (builder *OAPISearchUserByWordReqBuilder) Query(query string) *OAPISearchUserByWordReqBuilder {
+	builder.apiReq.Body.(*OAPISearchUserByWordReqBody).Query = &query
 	return builder
 }
-func (builder *OAPISearchUserByWordReqBuilder) ProjectKey(projectKey *string) *OAPISearchUserByWordReqBuilder {
-	builder.apiReq.Body.(*OAPISearchUserByWordReqBody).ProjectKey = projectKey
+
+
+func (builder *OAPISearchUserByWordReqBuilder) ProjectKey(projectKey string) *OAPISearchUserByWordReqBuilder {
+	builder.apiReq.Body.(*OAPISearchUserByWordReqBody).ProjectKey = &projectKey
 	return builder
 }
+
 func (builder *OAPISearchUserByWordReqBuilder) Build() *OAPISearchUserByWordReq {
 	req := &OAPISearchUserByWordReq{}
 	req.apiReq = builder.apiReq
@@ -601,10 +648,12 @@ func NewOAPIStopAccountReqBuilder() *OAPIStopAccountReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIStopAccountReqBuilder) UserMeegoKey(userMeegoKey *string) *OAPIStopAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIStopAccountReqBody).UserMeegoKey = userMeegoKey
+
+func (builder *OAPIStopAccountReqBuilder) UserMeegoKey(userMeegoKey string) *OAPIStopAccountReqBuilder {
+	builder.apiReq.Body.(*OAPIStopAccountReqBody).UserMeegoKey = &userMeegoKey
 	return builder
 }
+
 func (builder *OAPIStopAccountReqBuilder) Build() *OAPIStopAccountReq {
 	req := &OAPIStopAccountReq{}
 	req.apiReq = builder.apiReq
@@ -644,18 +693,24 @@ func NewOAPIUpdateAccountReqBuilder() *OAPIUpdateAccountReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIUpdateAccountReqBuilder) UserMeegoKey(userMeegoKey *string) *OAPIUpdateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).UserMeegoKey = userMeegoKey
+
+func (builder *OAPIUpdateAccountReqBuilder) UserMeegoKey(userMeegoKey string) *OAPIUpdateAccountReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).UserMeegoKey = &userMeegoKey
 	return builder
 }
+
+
 func (builder *OAPIUpdateAccountReqBuilder) Name(name map[string]string) *OAPIUpdateAccountReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).Name = name
 	return builder
 }
-func (builder *OAPIUpdateAccountReqBuilder) AvatarUrl(avatarUrl *string) *OAPIUpdateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).AvatarUrl = avatarUrl
+
+func (builder *OAPIUpdateAccountReqBuilder) AvatarUrl(avatarUrl string) *OAPIUpdateAccountReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).AvatarUrl = &avatarUrl
 	return builder
 }
+
+
 func (builder *OAPIUpdateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys []string) *OAPIUpdateAccountReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).DepartmentMeegoKeys = departmentMeegoKeys
 	return builder
@@ -697,18 +752,23 @@ func NewOAPIUpdateDepartmentReqBuilder() *OAPIUpdateDepartmentReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIUpdateDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey *string) *OAPIUpdateDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateDepartmentReqBody).DepartmentMeegoKey = departmentMeegoKey
+
+func (builder *OAPIUpdateDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *OAPIUpdateDepartmentReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
 	return builder
 }
+
+
 func (builder *OAPIUpdateDepartmentReqBuilder) Name(name map[string]string) *OAPIUpdateDepartmentReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateDepartmentReqBody).Name = name
 	return builder
 }
-func (builder *OAPIUpdateDepartmentReqBuilder) ParentDepartmentMeegoKey(parentDepartmentMeegoKey *string) *OAPIUpdateDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateDepartmentReqBody).ParentDepartmentMeegoKey = parentDepartmentMeegoKey
+
+func (builder *OAPIUpdateDepartmentReqBuilder) ParentDepartmentMeegoKey(parentDepartmentMeegoKey string) *OAPIUpdateDepartmentReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateDepartmentReqBody).ParentDepartmentMeegoKey = &parentDepartmentMeegoKey
 	return builder
 }
+
 func (builder *OAPIUpdateDepartmentReqBuilder) Build() *OAPIUpdateDepartmentReq {
 	req := &OAPIUpdateDepartmentReq{}
 	req.apiReq = builder.apiReq
@@ -750,22 +810,27 @@ func NewQueryUserDetailReqBuilder() *QueryUserDetailReqBuilder {
 	}
 	return builder
 }
+
 func (builder *QueryUserDetailReqBuilder) UserKeys(userKeys []string) *QueryUserDetailReqBuilder {
 	builder.apiReq.Body.(*QueryUserDetailReqBody).UserKeys = userKeys
 	return builder
 }
+
 func (builder *QueryUserDetailReqBuilder) OutIDs(outIDs []string) *QueryUserDetailReqBuilder {
 	builder.apiReq.Body.(*QueryUserDetailReqBody).OutIDs = outIDs
 	return builder
 }
+
 func (builder *QueryUserDetailReqBuilder) Emails(emails []string) *QueryUserDetailReqBuilder {
 	builder.apiReq.Body.(*QueryUserDetailReqBody).Emails = emails
 	return builder
 }
-func (builder *QueryUserDetailReqBuilder) TenantKey(tenantKey *string) *QueryUserDetailReqBuilder {
-	builder.apiReq.Body.(*QueryUserDetailReqBody).TenantKey = tenantKey
+
+func (builder *QueryUserDetailReqBuilder) TenantKey(tenantKey string) *QueryUserDetailReqBuilder {
+	builder.apiReq.Body.(*QueryUserDetailReqBody).TenantKey = &tenantKey
 	return builder
 }
+
 func (builder *QueryUserDetailReqBuilder) Build() *QueryUserDetailReq {
 	req := &QueryUserDetailReq{}
 	req.apiReq = builder.apiReq

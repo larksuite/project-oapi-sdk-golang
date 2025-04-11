@@ -30,10 +30,12 @@ func NewListProjectTeamReqBuilder() *ListProjectTeamReqBuilder {
 	}
 	return builder
 }
-func (builder *ListProjectTeamReqBuilder) ProjectKey(projectKey *string) *ListProjectTeamReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *ListProjectTeamReqBuilder) ProjectKey(projectKey string) *ListProjectTeamReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
+
 func (builder *ListProjectTeamReqBuilder) Build() *ListProjectTeamReq {
 	req := &ListProjectTeamReq{}
 	req.apiReq = builder.apiReq
@@ -73,14 +75,18 @@ func NewOAPIBatchQueryProjectInfoReqBuilder() *OAPIBatchQueryProjectInfoReqBuild
 	}
 	return builder
 }
-func (builder *OAPIBatchQueryProjectInfoReqBuilder) UserKey(userKey *string) *OAPIBatchQueryProjectInfoReqBuilder {
-	builder.apiReq.Body.(*OAPIBatchQueryProjectInfoReqBody).UserKey = userKey
+
+func (builder *OAPIBatchQueryProjectInfoReqBuilder) UserKey(userKey string) *OAPIBatchQueryProjectInfoReqBuilder {
+	builder.apiReq.Body.(*OAPIBatchQueryProjectInfoReqBody).UserKey = &userKey
 	return builder
 }
+
+
 func (builder *OAPIBatchQueryProjectInfoReqBuilder) SimpleNames(simpleNames []string) *OAPIBatchQueryProjectInfoReqBuilder {
 	builder.apiReq.Body.(*OAPIBatchQueryProjectInfoReqBody).SimpleNames = simpleNames
 	return builder
 }
+
 func (builder *OAPIBatchQueryProjectInfoReqBuilder) TenantGroupID(tenantGroupID *int64) *OAPIBatchQueryProjectInfoReqBuilder {
 	builder.apiReq.Body.(*OAPIBatchQueryProjectInfoReqBody).TenantGroupID = tenantGroupID
 	return builder
@@ -122,22 +128,30 @@ func NewOAPICreateCommentReqBuilder() *OAPICreateCommentReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPICreateCommentReqBuilder) ProjectKey(projectKey *string) *OAPICreateCommentReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *OAPICreateCommentReqBuilder) ProjectKey(projectKey string) *OAPICreateCommentReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
+
+
 func (builder *OAPICreateCommentReqBuilder) WorkItemID(workItemID *int64) *OAPICreateCommentReqBuilder {
 	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(*workItemID))
 	return builder
 }
-func (builder *OAPICreateCommentReqBuilder) Content(content *string) *OAPICreateCommentReqBuilder {
-	builder.apiReq.Body.(*OAPICreateCommentReqBody).Content = content
+
+func (builder *OAPICreateCommentReqBuilder) Content(content string) *OAPICreateCommentReqBuilder {
+	builder.apiReq.Body.(*OAPICreateCommentReqBody).Content = &content
 	return builder
 }
-func (builder *OAPICreateCommentReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *OAPICreateCommentReqBuilder {
-	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(*workItemTypeKey))
+
+
+func (builder *OAPICreateCommentReqBuilder) WorkItemTypeKey(workItemTypeKey string) *OAPICreateCommentReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
 	return builder
 }
+
+
 func (builder *OAPICreateCommentReqBuilder) RichText(richText interface{}) *OAPICreateCommentReqBuilder {
 	builder.apiReq.Body.(*OAPICreateCommentReqBody).RichText = richText
 	return builder
@@ -169,18 +183,24 @@ func NewOAPIDeleteCommentReqBuilder() *OAPIDeleteCommentReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIDeleteCommentReqBuilder) ProjectKey(projectKey *string) *OAPIDeleteCommentReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *OAPIDeleteCommentReqBuilder) ProjectKey(projectKey string) *OAPIDeleteCommentReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *OAPIDeleteCommentReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *OAPIDeleteCommentReqBuilder {
-	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(*workItemTypeKey))
+
+
+func (builder *OAPIDeleteCommentReqBuilder) WorkItemTypeKey(workItemTypeKey string) *OAPIDeleteCommentReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
 	return builder
 }
+
+
 func (builder *OAPIDeleteCommentReqBuilder) WorkItemID(workItemID *int64) *OAPIDeleteCommentReqBuilder {
 	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(*workItemID))
 	return builder
 }
+
 func (builder *OAPIDeleteCommentReqBuilder) CommentID(commentID *int64) *OAPIDeleteCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(*commentID))
 	return builder
@@ -216,24 +236,31 @@ func NewOAPIListCommentsReqBuilder() *OAPIListCommentsReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIListCommentsReqBuilder) ProjectKey(projectKey *string) *OAPIListCommentsReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *OAPIListCommentsReqBuilder) ProjectKey(projectKey string) *OAPIListCommentsReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
+
+
 func (builder *OAPIListCommentsReqBuilder) WorkItemID(workItemID *int64) *OAPIListCommentsReqBuilder {
 	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(*workItemID))
 	return builder
 }
-func (builder *OAPIListCommentsReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *OAPIListCommentsReqBuilder {
-	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(*workItemTypeKey))
+
+func (builder *OAPIListCommentsReqBuilder) WorkItemTypeKey(workItemTypeKey string) *OAPIListCommentsReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
 	return builder
 }
+
+
 func (builder *OAPIListCommentsReqBuilder) PageSize(pageSize *int64) *OAPIListCommentsReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(*pageSize))
 	return builder
 }
+
 func (builder *OAPIListCommentsReqBuilder) PageNum(pageNum *int64) *OAPIListCommentsReqBuilder {
-	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(pageNum))
+	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(*pageNum))
 	return builder
 }
 func (builder *OAPIListCommentsReqBuilder) Build() *OAPIListCommentsReq {
@@ -299,50 +326,64 @@ func NewOAPIPageGetWorkItemOpRecordReqBuilder() *OAPIPageGetWorkItemOpRecordReqB
 	}
 	return builder
 }
-func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) ProjectKey(projectKey *string) *OAPIPageGetWorkItemOpRecordReqBuilder {
-	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).ProjectKey = projectKey
+
+func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) ProjectKey(projectKey string) *OAPIPageGetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).ProjectKey = &projectKey
 	return builder
 }
+
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) WorkItemIDs(workItemIDs []int64) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).WorkItemIDs = workItemIDs
 	return builder
 }
-func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) StartFrom(startFrom *string) *OAPIPageGetWorkItemOpRecordReqBuilder {
-	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).StartFrom = startFrom
+
+func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) StartFrom(startFrom string) *OAPIPageGetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).StartFrom = &startFrom
 	return builder
 }
+
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) Operator(operator []string) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).Operator = operator
 	return builder
 }
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) OperatorType(operatorType []string) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).OperatorType = operatorType
 	return builder
 }
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) SourceType(sourceType []string) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).SourceType = sourceType
 	return builder
 }
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) Source(source []string) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).Source = source
 	return builder
 }
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) OperationType(operationType []string) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).OperationType = operationType
 	return builder
 }
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) Start(start *int64) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).Start = start
 	return builder
 }
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) End(end *int64) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).End = end
 	return builder
 }
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) OpRecordModule(opRecordModule []string) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).OpRecordModule = opRecordModule
 	return builder
 }
+
 func (builder *OAPIPageGetWorkItemOpRecordReqBuilder) PageSize(pageSize *int64) *OAPIPageGetWorkItemOpRecordReqBuilder {
 	builder.apiReq.Body.(*OAPIPageGetWorkItemOpRecordReqBody).PageSize = pageSize
 	return builder
@@ -388,18 +429,24 @@ func NewOAPIQueryProjectsReqBuilder() *OAPIQueryProjectsReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIQueryProjectsReqBuilder) UserKey(userKey *string) *OAPIQueryProjectsReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryProjectsReqBody).UserKey = userKey
+
+func (builder *OAPIQueryProjectsReqBuilder) UserKey(userKey string) *OAPIQueryProjectsReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryProjectsReqBody).UserKey = &userKey
 	return builder
 }
+
+
 func (builder *OAPIQueryProjectsReqBuilder) TenantGroupID(tenantGroupID *int64) *OAPIQueryProjectsReqBuilder {
 	builder.apiReq.Body.(*OAPIQueryProjectsReqBody).TenantGroupID = tenantGroupID
 	return builder
 }
-func (builder *OAPIQueryProjectsReqBuilder) AssetKey(assetKey *string) *OAPIQueryProjectsReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryProjectsReqBody).AssetKey = assetKey
+
+func (builder *OAPIQueryProjectsReqBuilder) AssetKey(assetKey string) *OAPIQueryProjectsReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryProjectsReqBody).AssetKey = &assetKey
 	return builder
 }
+
+
 func (builder *OAPIQueryProjectsReqBuilder) Order(order []string) *OAPIQueryProjectsReqBuilder {
 	builder.apiReq.Body.(*OAPIQueryProjectsReqBody).Order = order
 	return builder
@@ -439,26 +486,35 @@ func NewOAPIUpdateCommentReqBuilder() *OAPIUpdateCommentReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIUpdateCommentReqBuilder) ProjectKey(projectKey *string) *OAPIUpdateCommentReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *OAPIUpdateCommentReqBuilder) ProjectKey(projectKey string) *OAPIUpdateCommentReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
+
+
 func (builder *OAPIUpdateCommentReqBuilder) WorkItemID(workItemID *int64) *OAPIUpdateCommentReqBuilder {
 	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(*workItemID))
 	return builder
 }
+
 func (builder *OAPIUpdateCommentReqBuilder) CommentID(commentID *int64) *OAPIUpdateCommentReqBuilder {
 	builder.apiReq.PathParams.Set("comment_id", fmt.Sprint(*commentID))
 	return builder
 }
-func (builder *OAPIUpdateCommentReqBuilder) Content(content *string) *OAPIUpdateCommentReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateCommentReqBody).Content = content
+
+func (builder *OAPIUpdateCommentReqBuilder) Content(content string) *OAPIUpdateCommentReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateCommentReqBody).Content = &content
 	return builder
 }
-func (builder *OAPIUpdateCommentReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *OAPIUpdateCommentReqBuilder {
-	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(*workItemTypeKey))
+
+
+func (builder *OAPIUpdateCommentReqBuilder) WorkItemTypeKey(workItemTypeKey string) *OAPIUpdateCommentReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
 	return builder
 }
+
+
 func (builder *OAPIUpdateCommentReqBuilder) RichText(richText interface{}) *OAPIUpdateCommentReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateCommentReqBody).RichText = richText
 	return builder

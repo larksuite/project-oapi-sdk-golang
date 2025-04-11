@@ -44,34 +44,42 @@ func NewOAPICreateConditionViewReqBuilder() *OAPICreateConditionViewReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPICreateConditionViewReqBuilder) ProjectKey(projectKey *string) *OAPICreateConditionViewReqBuilder {
-	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).ProjectKey = projectKey
+
+func (builder *OAPICreateConditionViewReqBuilder) ProjectKey(projectKey string) *OAPICreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).ProjectKey = &projectKey
 	return builder
 }
-func (builder *OAPICreateConditionViewReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *OAPICreateConditionViewReqBuilder {
-	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).WorkItemTypeKey = workItemTypeKey
+
+func (builder *OAPICreateConditionViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *OAPICreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).WorkItemTypeKey = &workItemTypeKey
 	return builder
 }
+
 func (builder *OAPICreateConditionViewReqBuilder) SearchGroup(searchGroup *SearchGroup) *OAPICreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).SearchGroup = searchGroup
 	return builder
 }
+
 func (builder *OAPICreateConditionViewReqBuilder) CooperationMode(cooperationMode *int64) *OAPICreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).CooperationMode = cooperationMode
 	return builder
 }
+
 func (builder *OAPICreateConditionViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *OAPICreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).CooperationUserKeys = cooperationUserKeys
 	return builder
 }
+
 func (builder *OAPICreateConditionViewReqBuilder) CooperationTeamIDs(cooperationTeamIDs []int64) *OAPICreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).CooperationTeamIDs = cooperationTeamIDs
 	return builder
 }
-func (builder *OAPICreateConditionViewReqBuilder) Name(name *string) *OAPICreateConditionViewReqBuilder {
-	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).Name = name
+
+func (builder *OAPICreateConditionViewReqBuilder) Name(name string) *OAPICreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).Name = &name
 	return builder
 }
+
 func (builder *OAPICreateConditionViewReqBuilder) CooperationTeams(cooperationTeams []Team) *OAPICreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPICreateConditionViewReqBody).CooperationTeams = cooperationTeams
 	return builder
@@ -123,38 +131,47 @@ func NewOAPIUpdateConditionViewReqBuilder() *OAPIUpdateConditionViewReqBuilder {
 	}
 	return builder
 }
-func (builder *OAPIUpdateConditionViewReqBuilder) ProjectKey(projectKey *string) *OAPIUpdateConditionViewReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).ProjectKey = projectKey
+
+func (builder *OAPIUpdateConditionViewReqBuilder) ProjectKey(projectKey string) *OAPIUpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).ProjectKey = &projectKey
 	return builder
 }
-func (builder *OAPIUpdateConditionViewReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *OAPIUpdateConditionViewReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).WorkItemTypeKey = workItemTypeKey
+
+func (builder *OAPIUpdateConditionViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *OAPIUpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).WorkItemTypeKey = &workItemTypeKey
 	return builder
 }
+
 func (builder *OAPIUpdateConditionViewReqBuilder) SearchGroup(searchGroup *SearchGroup) *OAPIUpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).SearchGroup = searchGroup
 	return builder
 }
+
 func (builder *OAPIUpdateConditionViewReqBuilder) CooperationMode(cooperationMode *int64) *OAPIUpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).CooperationMode = cooperationMode
 	return builder
 }
+
 func (builder *OAPIUpdateConditionViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *OAPIUpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).CooperationUserKeys = cooperationUserKeys
 	return builder
 }
+
 func (builder *OAPIUpdateConditionViewReqBuilder) CooperationTeamIDs(cooperationTeamIDs []int64) *OAPIUpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).CooperationTeamIDs = cooperationTeamIDs
 	return builder
 }
-func (builder *OAPIUpdateConditionViewReqBuilder) Name(name *string) *OAPIUpdateConditionViewReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).Name = name
+
+func (builder *OAPIUpdateConditionViewReqBuilder) Name(name string) *OAPIUpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).Name = &name
 	return builder
 }
-func (builder *OAPIUpdateConditionViewReqBuilder) ViewID(viewID *string) *OAPIUpdateConditionViewReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).ViewID = viewID
+
+func (builder *OAPIUpdateConditionViewReqBuilder) ViewID(viewID string) *OAPIUpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).ViewID = &viewID
 	return builder
 }
+
 func (builder *OAPIUpdateConditionViewReqBuilder) CooperationTeams(cooperationTeams []Team) *OAPIUpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateConditionViewReqBody).CooperationTeams = cooperationTeams
 	return builder

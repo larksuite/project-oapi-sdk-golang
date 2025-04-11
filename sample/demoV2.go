@@ -32,9 +32,9 @@ func createWorkItemV2(client *sdk.ClientV2) {
 	work_item_type_key := "story"
 	name := "generator1"
 	resp, err := client.WorkItem.OAPICreateWorkItem(context.Background(), workitem.NewOAPICreateWorkItemReqBuilder().
-		ProjectKey(&project_key).
-		WorkItemTypeKey(&work_item_type_key).
-		Name(&name).
+		ProjectKey(project_key).
+		WorkItemTypeKey(work_item_type_key).
+		Name(name).
 		Build(),
 		sdkcore.WithUserKey("7356795280408297476"),
 	)
@@ -70,8 +70,8 @@ func updateWorkItemV2(client *sdk.ClientV2) {
 		},
 	}
 	resp, err := client.WorkItem.OAPIUpdateWorkItem(context.Background(), workitem.NewOAPIUpdateWorkItemReqBuilder().
-		ProjectKey(&project_key).
-		WorkItemTypeKey(&work_item_type_key).
+		ProjectKey(project_key).
+		WorkItemTypeKey(work_item_type_key).
 		WorkItemID(&work_item_id).
 		UpdateFields(fieldValuePairs).
 		Build(),

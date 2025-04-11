@@ -48,34 +48,45 @@ func NewCreateFixViewReqBuilder() *CreateFixViewReqBuilder {
 	}
 	return builder
 }
-func (builder *CreateFixViewReqBuilder) ProjectKey(projectKey *string) *CreateFixViewReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *CreateFixViewReqBuilder) ProjectKey(projectKey string) *CreateFixViewReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
+
+
 func (builder *CreateFixViewReqBuilder) WorkItemIDList(workItemIDList []int64) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).WorkItemIDList = workItemIDList
 	return builder
 }
-func (builder *CreateFixViewReqBuilder) Name(name *string) *CreateFixViewReqBuilder {
-	builder.apiReq.Body.(*CreateFixViewReqBody).Name = name
+
+func (builder *CreateFixViewReqBuilder) Name(name string) *CreateFixViewReqBuilder {
+	builder.apiReq.Body.(*CreateFixViewReqBody).Name = &name
 	return builder
 }
-func (builder *CreateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *CreateFixViewReqBuilder {
-	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(*workItemTypeKey))
+
+
+func (builder *CreateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateFixViewReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
 	return builder
 }
+
+
 func (builder *CreateFixViewReqBuilder) CooperationMode(cooperationMode *int64) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationMode = cooperationMode
 	return builder
 }
+
 func (builder *CreateFixViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationUserKeys = cooperationUserKeys
 	return builder
 }
+
 func (builder *CreateFixViewReqBuilder) CooperationTeamIDs(cooperationTeamIDs []int64) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationTeamIDs = cooperationTeamIDs
 	return builder
 }
+
 func (builder *CreateFixViewReqBuilder) CooperationTeams(cooperationTeams []Team) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationTeams = cooperationTeams
 	return builder
@@ -107,14 +118,18 @@ func NewDeleteFixViewReqBuilder() *DeleteFixViewReqBuilder {
 	}
 	return builder
 }
-func (builder *DeleteFixViewReqBuilder) ProjectKey(projectKey *string) *DeleteFixViewReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *DeleteFixViewReqBuilder) ProjectKey(projectKey string) *DeleteFixViewReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *DeleteFixViewReqBuilder) ViewID(viewID *string) *DeleteFixViewReqBuilder {
-	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(*viewID))
+
+
+func (builder *DeleteFixViewReqBuilder) ViewID(viewID string) *DeleteFixViewReqBuilder {
+	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewID))
 	return builder
 }
+
 func (builder *DeleteFixViewReqBuilder) Build() *DeleteFixViewReq {
 	req := &DeleteFixViewReq{}
 	req.apiReq = builder.apiReq
@@ -156,22 +171,29 @@ func NewQueryWorkItemDetailsByViewIDReqBuilder() *QueryWorkItemDetailsByViewIDRe
 	}
 	return builder
 }
-func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ProjectKey(projectKey *string) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ProjectKey(projectKey string) *QueryWorkItemDetailsByViewIDReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ViewID(viewID *string) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(*viewID))
+
+
+func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ViewID(viewID string) *QueryWorkItemDetailsByViewIDReqBuilder {
+	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewID))
 	return builder
 }
+
+
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageSize(pageSize *int64) *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageSize = pageSize
 	return builder
 }
+
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageNum(pageNum *int64) *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageNum = pageNum
 	return builder
 }
+
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Expand(expand *Expand) *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).Expand = expand
 	return builder
@@ -223,38 +245,50 @@ func NewUpdateFixViewReqBuilder() *UpdateFixViewReqBuilder {
 	}
 	return builder
 }
-func (builder *UpdateFixViewReqBuilder) ProjectKey(projectKey *string) *UpdateFixViewReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *UpdateFixViewReqBuilder) ProjectKey(projectKey string) *UpdateFixViewReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *UpdateFixViewReqBuilder) ViewID(viewID *string) *UpdateFixViewReqBuilder {
-	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(*viewID))
+
+
+func (builder *UpdateFixViewReqBuilder) ViewID(viewID string) *UpdateFixViewReqBuilder {
+	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewID))
 	return builder
 }
+
+
 func (builder *UpdateFixViewReqBuilder) AddWorkItemIDs(addWorkItemIDs []int64) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).AddWorkItemIDs = addWorkItemIDs
 	return builder
 }
+
 func (builder *UpdateFixViewReqBuilder) RemoveWorkItemIDs(removeWorkItemIDs []int64) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).RemoveWorkItemIDs = removeWorkItemIDs
 	return builder
 }
-func (builder *UpdateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *UpdateFixViewReqBuilder {
-	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(*workItemTypeKey))
+
+func (builder *UpdateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UpdateFixViewReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
 	return builder
 }
+
+
 func (builder *UpdateFixViewReqBuilder) CooperationMode(cooperationMode *int64) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationMode = cooperationMode
 	return builder
 }
+
 func (builder *UpdateFixViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationUserKeys = cooperationUserKeys
 	return builder
 }
+
 func (builder *UpdateFixViewReqBuilder) CooperationTeamIDs(cooperationTeamIDs []int64) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationTeamIDs = cooperationTeamIDs
 	return builder
 }
+
 func (builder *UpdateFixViewReqBuilder) CooperationTeams(cooperationTeams []Team) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationTeams = cooperationTeams
 	return builder
@@ -308,38 +342,50 @@ func NewViewListReqBuilder() *ViewListReqBuilder {
 	}
 	return builder
 }
-func (builder *ViewListReqBuilder) ProjectKey(projectKey *string) *ViewListReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *ViewListReqBuilder) ProjectKey(projectKey string) *ViewListReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *ViewListReqBuilder) WorkItemTypeKey(workItemTypeKey *string) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).WorkItemTypeKey = workItemTypeKey
+
+
+func (builder *ViewListReqBuilder) WorkItemTypeKey(workItemTypeKey string) *ViewListReqBuilder {
+	builder.apiReq.Body.(*ViewListReqBody).WorkItemTypeKey = &workItemTypeKey
 	return builder
 }
+
+
 func (builder *ViewListReqBuilder) ViewIDs(viewIDs []string) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).ViewIDs = viewIDs
 	return builder
 }
-func (builder *ViewListReqBuilder) CreatedBy(createdBy *string) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).CreatedBy = createdBy
+
+func (builder *ViewListReqBuilder) CreatedBy(createdBy string) *ViewListReqBuilder {
+	builder.apiReq.Body.(*ViewListReqBody).CreatedBy = &createdBy
 	return builder
 }
+
+
 func (builder *ViewListReqBuilder) CreatedAt(createdAt *TimeInterval) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).CreatedAt = createdAt
 	return builder
 }
+
 func (builder *ViewListReqBuilder) PageSize(pageSize *int64) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).PageSize = pageSize
 	return builder
 }
+
 func (builder *ViewListReqBuilder) PageNum(pageNum *int64) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).PageNum = pageNum
 	return builder
 }
-func (builder *ViewListReqBuilder) ViewName(viewName *string) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).ViewName = viewName
+
+func (builder *ViewListReqBuilder) ViewName(viewName string) *ViewListReqBuilder {
+	builder.apiReq.Body.(*ViewListReqBody).ViewName = &viewName
 	return builder
 }
+
 func (builder *ViewListReqBuilder) Build() *ViewListReq {
 	req := &ViewListReq{}
 	req.apiReq = builder.apiReq
@@ -371,20 +417,26 @@ func NewWorkItemListReqBuilder() *WorkItemListReqBuilder {
 	}
 	return builder
 }
-func (builder *WorkItemListReqBuilder) ProjectKey(projectKey *string) *WorkItemListReqBuilder {
-	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(*projectKey))
+
+func (builder *WorkItemListReqBuilder) ProjectKey(projectKey string) *WorkItemListReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
-func (builder *WorkItemListReqBuilder) ViewID(viewID *string) *WorkItemListReqBuilder {
-	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(*viewID))
+
+
+func (builder *WorkItemListReqBuilder) ViewID(viewID string) *WorkItemListReqBuilder {
+	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewID))
 	return builder
 }
+
+
 func (builder *WorkItemListReqBuilder) PageSize(pageSize *int64) *WorkItemListReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(*pageSize))
 	return builder
 }
+
 func (builder *WorkItemListReqBuilder) PageNum(pageNum *int64) *WorkItemListReqBuilder {
-	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(pageNum))
+	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(*pageNum))
 	return builder
 }
 func (builder *WorkItemListReqBuilder) Build() *WorkItemListReq {

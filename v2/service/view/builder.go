@@ -7,6 +7,99 @@ import (
 )
 
 
+type CreateConditionViewReq struct {
+	apiReq *core.APIReq
+}
+type CreateConditionViewReqBody struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    SearchGroup  *SearchGroup `json:"search_group,omitempty"`
+
+    CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
+
+    CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
+
+    CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
+
+}
+
+type CreateConditionViewResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	ViewID       *string         `json:"view_id"`
+	
+}
+
+type CreateConditionViewReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewCreateConditionViewReqBuilder() *CreateConditionViewReqBuilder {
+	builder := &CreateConditionViewReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &CreateConditionViewReqBody{},
+	}
+	return builder
+}
+
+func (builder *CreateConditionViewReqBuilder) ProjectKey(projectKey string) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *CreateConditionViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).WorkItemTypeKey = &workItemTypeKey
+	return builder
+}
+
+
+func (builder *CreateConditionViewReqBuilder) SearchGroup(searchGroup *SearchGroup) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).SearchGroup = searchGroup
+	return builder
+}
+
+func (builder *CreateConditionViewReqBuilder) CooperationMode(cooperationMode int64) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).CooperationMode = &cooperationMode
+	return builder
+}
+
+
+func (builder *CreateConditionViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).CooperationUserKeys = cooperationUserKeys
+	return builder
+}
+
+func (builder *CreateConditionViewReqBuilder) CooperationTeamIDs(cooperationTeamIDs []int64) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).CooperationTeamIDs = cooperationTeamIDs
+	return builder
+}
+
+func (builder *CreateConditionViewReqBuilder) Name(name string) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).Name = &name
+	return builder
+}
+
+
+func (builder *CreateConditionViewReqBuilder) CooperationTeams(cooperationTeams []Team) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).CooperationTeams = cooperationTeams
+	return builder
+}
+func (builder *CreateConditionViewReqBuilder) Build() *CreateConditionViewReq {
+	req := &CreateConditionViewReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type CreateFixViewReq struct {
 	apiReq *core.APIReq
 }
@@ -72,10 +165,11 @@ func (builder *CreateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 }
 
 
-func (builder *CreateFixViewReqBuilder) CooperationMode(cooperationMode *int64) *CreateFixViewReqBuilder {
-	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationMode = cooperationMode
+func (builder *CreateFixViewReqBuilder) CooperationMode(cooperationMode int64) *CreateFixViewReqBuilder {
+	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationMode = &cooperationMode
 	return builder
 }
+
 
 func (builder *CreateFixViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationUserKeys = cooperationUserKeys
@@ -184,15 +278,17 @@ func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ViewID(viewID string) *Qu
 }
 
 
-func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageSize(pageSize *int64) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageSize = pageSize
+func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageSize(pageSize int64) *QueryWorkItemDetailsByViewIDReqBuilder {
+	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageSize = &pageSize
 	return builder
 }
 
-func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageNum(pageNum *int64) *QueryWorkItemDetailsByViewIDReqBuilder {
-	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageNum = pageNum
+
+func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageNum(pageNum int64) *QueryWorkItemDetailsByViewIDReqBuilder {
+	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageNum = &pageNum
 	return builder
 }
+
 
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Expand(expand *Expand) *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).Expand = expand
@@ -200,6 +296,105 @@ func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Expand(expand *Expand) *Q
 }
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Build() *QueryWorkItemDetailsByViewIDReq {
 	req := &QueryWorkItemDetailsByViewIDReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type UpdateConditionViewReq struct {
+	apiReq *core.APIReq
+}
+type UpdateConditionViewReqBody struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    SearchGroup  *SearchGroup `json:"search_group,omitempty"`
+
+    CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
+
+    CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
+
+    CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    ViewID  *string `json:"view_id,omitempty"`
+
+    CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
+
+}
+
+type UpdateConditionViewResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateConditionViewReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUpdateConditionViewReqBuilder() *UpdateConditionViewReqBuilder {
+	builder := &UpdateConditionViewReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UpdateConditionViewReqBody{},
+	}
+	return builder
+}
+
+func (builder *UpdateConditionViewReqBuilder) ProjectKey(projectKey string) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *UpdateConditionViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).WorkItemTypeKey = &workItemTypeKey
+	return builder
+}
+
+
+func (builder *UpdateConditionViewReqBuilder) SearchGroup(searchGroup *SearchGroup) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).SearchGroup = searchGroup
+	return builder
+}
+
+func (builder *UpdateConditionViewReqBuilder) CooperationMode(cooperationMode int64) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).CooperationMode = &cooperationMode
+	return builder
+}
+
+
+func (builder *UpdateConditionViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).CooperationUserKeys = cooperationUserKeys
+	return builder
+}
+
+func (builder *UpdateConditionViewReqBuilder) CooperationTeamIDs(cooperationTeamIDs []int64) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).CooperationTeamIDs = cooperationTeamIDs
+	return builder
+}
+
+func (builder *UpdateConditionViewReqBuilder) Name(name string) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).Name = &name
+	return builder
+}
+
+
+func (builder *UpdateConditionViewReqBuilder) ViewID(viewID string) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).ViewID = &viewID
+	return builder
+}
+
+
+func (builder *UpdateConditionViewReqBuilder) CooperationTeams(cooperationTeams []Team) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).CooperationTeams = cooperationTeams
+	return builder
+}
+func (builder *UpdateConditionViewReqBuilder) Build() *UpdateConditionViewReq {
+	req := &UpdateConditionViewReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
@@ -274,10 +469,11 @@ func (builder *UpdateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 }
 
 
-func (builder *UpdateFixViewReqBuilder) CooperationMode(cooperationMode *int64) *UpdateFixViewReqBuilder {
-	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationMode = cooperationMode
+func (builder *UpdateFixViewReqBuilder) CooperationMode(cooperationMode int64) *UpdateFixViewReqBuilder {
+	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationMode = &cooperationMode
 	return builder
 }
+
 
 func (builder *UpdateFixViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationUserKeys = cooperationUserKeys
@@ -371,15 +567,17 @@ func (builder *ViewListReqBuilder) CreatedAt(createdAt *TimeInterval) *ViewListR
 	return builder
 }
 
-func (builder *ViewListReqBuilder) PageSize(pageSize *int64) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).PageSize = pageSize
+func (builder *ViewListReqBuilder) PageSize(pageSize int64) *ViewListReqBuilder {
+	builder.apiReq.Body.(*ViewListReqBody).PageSize = &pageSize
 	return builder
 }
 
-func (builder *ViewListReqBuilder) PageNum(pageNum *int64) *ViewListReqBuilder {
-	builder.apiReq.Body.(*ViewListReqBody).PageNum = pageNum
+
+func (builder *ViewListReqBuilder) PageNum(pageNum int64) *ViewListReqBuilder {
+	builder.apiReq.Body.(*ViewListReqBody).PageNum = &pageNum
 	return builder
 }
+
 
 func (builder *ViewListReqBuilder) ViewName(viewName string) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).ViewName = &viewName
@@ -430,15 +628,17 @@ func (builder *WorkItemListReqBuilder) ViewID(viewID string) *WorkItemListReqBui
 }
 
 
-func (builder *WorkItemListReqBuilder) PageSize(pageSize *int64) *WorkItemListReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(*pageSize))
+func (builder *WorkItemListReqBuilder) PageSize(pageSize int64) *WorkItemListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-func (builder *WorkItemListReqBuilder) PageNum(pageNum *int64) *WorkItemListReqBuilder {
-	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(*pageNum))
+
+func (builder *WorkItemListReqBuilder) PageNum(pageNum int64) *WorkItemListReqBuilder {
+	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(pageNum))
 	return builder
 }
+
 func (builder *WorkItemListReqBuilder) Build() *WorkItemListReq {
 	req := &WorkItemListReq{}
 	req.apiReq = builder.apiReq

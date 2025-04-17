@@ -8,11 +8,15 @@ import (
 )
 
 
+const APIPath_CreateConditionView = "/open_api/view/v1/create_condition_view"
+
 const APIPath_CreateFixView = "/open_api/:project_key/:work_item_type_key/fix_view"
 
 const APIPath_DeleteFixView = "/open_api/:project_key/fix_view/:view_id"
 
 const APIPath_QueryWorkItemDetailsByViewID = "/open_api/:project_key/view/:view_id"
+
+const APIPath_UpdateConditionView = "/open_api/view/v1/update_condition_view"
 
 const APIPath_UpdateFixView = "/open_api/:project_key/:work_item_type_key/fix_view/:view_id"
 
@@ -30,6 +34,30 @@ type ViewService struct {
 	config *core.Config
 }
 
+
+/*
+ * @name: openapi创建条件视图
+ * @desc: openapi创建条件视图
+ */
+func (a *ViewService) CreateConditionView(ctx context.Context, req *CreateConditionViewReq, options ...core.RequestOptionFunc) (*CreateConditionViewResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_CreateConditionView
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateConditionView] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateConditionViewResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateConditionView] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
 
 /*
  * @name: openapi创建固定视图
@@ -98,6 +126,30 @@ func (a *ViewService) QueryWorkItemDetailsByViewID(ctx context.Context, req *Que
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryWorkItemDetailsByViewID] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: openapi更新条件视图
+ * @desc: openapi更新条件视图
+ */
+func (a *ViewService) UpdateConditionView(ctx context.Context, req *UpdateConditionViewReq, options ...core.RequestOptionFunc) (*UpdateConditionViewResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_UpdateConditionView
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateConditionView] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateConditionViewResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateConditionView] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

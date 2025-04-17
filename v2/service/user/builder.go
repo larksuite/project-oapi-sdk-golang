@@ -7,49 +7,49 @@ import (
 )
 
 
-type OAPIActiveAccountReq struct {
+type ActiveAccountReq struct {
 	apiReq *core.APIReq
 }
-type OAPIActiveAccountReqBody struct {
+type ActiveAccountReqBody struct {
 
     UserMeegoKey  *string `json:"user_meego_key,omitempty"`
 
 }
 
-type OAPIActiveAccountResp struct {
+type ActiveAccountResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
-type OAPIActiveAccountReqBuilder struct {
+type ActiveAccountReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPIActiveAccountReqBuilder() *OAPIActiveAccountReqBuilder {
-	builder := &OAPIActiveAccountReqBuilder{}
+func NewActiveAccountReqBuilder() *ActiveAccountReqBuilder {
+	builder := &ActiveAccountReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPIActiveAccountReqBody{},
+		Body:        &ActiveAccountReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPIActiveAccountReqBuilder) UserMeegoKey(userMeegoKey string) *OAPIActiveAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIActiveAccountReqBody).UserMeegoKey = &userMeegoKey
+func (builder *ActiveAccountReqBuilder) UserMeegoKey(userMeegoKey string) *ActiveAccountReqBuilder {
+	builder.apiReq.Body.(*ActiveAccountReqBody).UserMeegoKey = &userMeegoKey
 	return builder
 }
 
-func (builder *OAPIActiveAccountReqBuilder) Build() *OAPIActiveAccountReq {
-	req := &OAPIActiveAccountReq{}
+func (builder *ActiveAccountReqBuilder) Build() *ActiveAccountReq {
+	req := &ActiveAccountReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
 
-type OAPICreateAccountReq struct {
+type CreateAccountReq struct {
 	apiReq *core.APIReq
 }
-type OAPICreateAccountReqBody struct {
+type CreateAccountReqBody struct {
 
     OutUserID  *string `json:"out_user_id,omitempty"`
 
@@ -61,66 +61,74 @@ type OAPICreateAccountReqBody struct {
 
     DepartmentMeegoKeys  []string `json:"department_meego_keys,omitempty"`
 
+    Email  *string `json:"email,omitempty"`
+
 }
 
-type OAPICreateAccountResp struct {
+type CreateAccountResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 	UserMeegoKey       *string         `json:"user_meego_key"`
 	
 }
 
-type OAPICreateAccountReqBuilder struct {
+type CreateAccountReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPICreateAccountReqBuilder() *OAPICreateAccountReqBuilder {
-	builder := &OAPICreateAccountReqBuilder{}
+func NewCreateAccountReqBuilder() *CreateAccountReqBuilder {
+	builder := &CreateAccountReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPICreateAccountReqBody{},
+		Body:        &CreateAccountReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPICreateAccountReqBuilder) OutUserID(outUserID string) *OAPICreateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPICreateAccountReqBody).OutUserID = &outUserID
+func (builder *CreateAccountReqBuilder) OutUserID(outUserID string) *CreateAccountReqBuilder {
+	builder.apiReq.Body.(*CreateAccountReqBody).OutUserID = &outUserID
 	return builder
 }
 
 
-func (builder *OAPICreateAccountReqBuilder) Name(name map[string]string) *OAPICreateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPICreateAccountReqBody).Name = name
+func (builder *CreateAccountReqBuilder) Name(name map[string]string) *CreateAccountReqBuilder {
+	builder.apiReq.Body.(*CreateAccountReqBody).Name = name
 	return builder
 }
 
-func (builder *OAPICreateAccountReqBuilder) LoginPlatformType(loginPlatformType string) *OAPICreateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPICreateAccountReqBody).LoginPlatformType = &loginPlatformType
-	return builder
-}
-
-
-func (builder *OAPICreateAccountReqBuilder) AvatarUrl(avatarUrl string) *OAPICreateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPICreateAccountReqBody).AvatarUrl = &avatarUrl
+func (builder *CreateAccountReqBuilder) LoginPlatformType(loginPlatformType string) *CreateAccountReqBuilder {
+	builder.apiReq.Body.(*CreateAccountReqBody).LoginPlatformType = &loginPlatformType
 	return builder
 }
 
 
-func (builder *OAPICreateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys []string) *OAPICreateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPICreateAccountReqBody).DepartmentMeegoKeys = departmentMeegoKeys
+func (builder *CreateAccountReqBuilder) AvatarUrl(avatarUrl string) *CreateAccountReqBuilder {
+	builder.apiReq.Body.(*CreateAccountReqBody).AvatarUrl = &avatarUrl
 	return builder
 }
-func (builder *OAPICreateAccountReqBuilder) Build() *OAPICreateAccountReq {
-	req := &OAPICreateAccountReq{}
+
+
+func (builder *CreateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys []string) *CreateAccountReqBuilder {
+	builder.apiReq.Body.(*CreateAccountReqBody).DepartmentMeegoKeys = departmentMeegoKeys
+	return builder
+}
+
+func (builder *CreateAccountReqBuilder) Email(email string) *CreateAccountReqBuilder {
+	builder.apiReq.Body.(*CreateAccountReqBody).Email = &email
+	return builder
+}
+
+func (builder *CreateAccountReqBuilder) Build() *CreateAccountReq {
+	req := &CreateAccountReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
 
-type OAPICreateDepartmentReq struct {
+type CreateDepartmentReq struct {
 	apiReq *core.APIReq
 }
-type OAPICreateDepartmentReqBody struct {
+type CreateDepartmentReqBody struct {
 
     Name  map[string]string `json:"name,omitempty"`
 
@@ -128,47 +136,47 @@ type OAPICreateDepartmentReqBody struct {
 
 }
 
-type OAPICreateDepartmentResp struct {
+type CreateDepartmentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 	DepartmentMeegoKey       *string         `json:"department_meego_key"`
 	
 }
 
-type OAPICreateDepartmentReqBuilder struct {
+type CreateDepartmentReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPICreateDepartmentReqBuilder() *OAPICreateDepartmentReqBuilder {
-	builder := &OAPICreateDepartmentReqBuilder{}
+func NewCreateDepartmentReqBuilder() *CreateDepartmentReqBuilder {
+	builder := &CreateDepartmentReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPICreateDepartmentReqBody{},
+		Body:        &CreateDepartmentReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPICreateDepartmentReqBuilder) Name(name map[string]string) *OAPICreateDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPICreateDepartmentReqBody).Name = name
+func (builder *CreateDepartmentReqBuilder) Name(name map[string]string) *CreateDepartmentReqBuilder {
+	builder.apiReq.Body.(*CreateDepartmentReqBody).Name = name
 	return builder
 }
 
-func (builder *OAPICreateDepartmentReqBuilder) ParentDepartmentMeegoKey(parentDepartmentMeegoKey string) *OAPICreateDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPICreateDepartmentReqBody).ParentDepartmentMeegoKey = &parentDepartmentMeegoKey
+func (builder *CreateDepartmentReqBuilder) ParentDepartmentMeegoKey(parentDepartmentMeegoKey string) *CreateDepartmentReqBuilder {
+	builder.apiReq.Body.(*CreateDepartmentReqBody).ParentDepartmentMeegoKey = &parentDepartmentMeegoKey
 	return builder
 }
 
-func (builder *OAPICreateDepartmentReqBuilder) Build() *OAPICreateDepartmentReq {
-	req := &OAPICreateDepartmentReq{}
+func (builder *CreateDepartmentReqBuilder) Build() *CreateDepartmentReq {
+	req := &CreateDepartmentReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
 
-type OAPICreateUserGroupReq struct {
+type CreateUserGroupReq struct {
 	apiReq *core.APIReq
 }
-type OAPICreateUserGroupReqBody struct {
+type CreateUserGroupReqBody struct {
 
     Name  *string `json:"name,omitempty"`
 
@@ -176,162 +184,127 @@ type OAPICreateUserGroupReqBody struct {
 
 }
 
-type OAPICreateUserGroupResp struct {
+type CreateUserGroupResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 	ID       *string         `json:"id"`
 	
 }
 
-type OAPICreateUserGroupReqBuilder struct {
+type CreateUserGroupReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPICreateUserGroupReqBuilder() *OAPICreateUserGroupReqBuilder {
-	builder := &OAPICreateUserGroupReqBuilder{}
+func NewCreateUserGroupReqBuilder() *CreateUserGroupReqBuilder {
+	builder := &CreateUserGroupReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPICreateUserGroupReqBody{},
+		Body:        &CreateUserGroupReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPICreateUserGroupReqBuilder) ProjectKey(projectKey string) *OAPICreateUserGroupReqBuilder {
+func (builder *CreateUserGroupReqBuilder) ProjectKey(projectKey string) *CreateUserGroupReqBuilder {
 	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
 
 
-func (builder *OAPICreateUserGroupReqBuilder) Name(name string) *OAPICreateUserGroupReqBuilder {
-	builder.apiReq.Body.(*OAPICreateUserGroupReqBody).Name = &name
+func (builder *CreateUserGroupReqBuilder) Name(name string) *CreateUserGroupReqBuilder {
+	builder.apiReq.Body.(*CreateUserGroupReqBody).Name = &name
 	return builder
 }
 
 
-func (builder *OAPICreateUserGroupReqBuilder) Users(users []string) *OAPICreateUserGroupReqBuilder {
-	builder.apiReq.Body.(*OAPICreateUserGroupReqBody).Users = users
+func (builder *CreateUserGroupReqBuilder) Users(users []string) *CreateUserGroupReqBuilder {
+	builder.apiReq.Body.(*CreateUserGroupReqBody).Users = users
 	return builder
 }
-func (builder *OAPICreateUserGroupReqBuilder) Build() *OAPICreateUserGroupReq {
-	req := &OAPICreateUserGroupReq{}
+func (builder *CreateUserGroupReqBuilder) Build() *CreateUserGroupReq {
+	req := &CreateUserGroupReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
 
-type OAPIDeleteDepartmentReq struct {
+type DeleteDepartmentReq struct {
 	apiReq *core.APIReq
 }
-type OAPIDeleteDepartmentReqBody struct {
+type DeleteDepartmentReqBody struct {
 
     DepartmentMeegoKey  *string `json:"department_meego_key,omitempty"`
 
 }
 
-type OAPIDeleteDepartmentResp struct {
+type DeleteDepartmentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
-type OAPIDeleteDepartmentReqBuilder struct {
+type DeleteDepartmentReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPIDeleteDepartmentReqBuilder() *OAPIDeleteDepartmentReqBuilder {
-	builder := &OAPIDeleteDepartmentReqBuilder{}
+func NewDeleteDepartmentReqBuilder() *DeleteDepartmentReqBuilder {
+	builder := &DeleteDepartmentReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPIDeleteDepartmentReqBody{},
+		Body:        &DeleteDepartmentReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPIDeleteDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *OAPIDeleteDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIDeleteDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
+func (builder *DeleteDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *DeleteDepartmentReqBuilder {
+	builder.apiReq.Body.(*DeleteDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
 	return builder
 }
 
-func (builder *OAPIDeleteDepartmentReqBuilder) Build() *OAPIDeleteDepartmentReq {
-	req := &OAPIDeleteDepartmentReq{}
+func (builder *DeleteDepartmentReqBuilder) Build() *DeleteDepartmentReq {
+	req := &DeleteDepartmentReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
 
-type OAPIPageUserGroupMembersReq struct {
+type ListProjectTeamReq struct {
 	apiReq *core.APIReq
 }
-type OAPIPageUserGroupMembersReqBody struct {
 
-    UserGroupType  *string `json:"user_group_type,omitempty"`
-
-    UserGroupIDs  []string `json:"user_group_ids,omitempty"`
-
-    PageNum  *int64 `json:"page_num,omitempty"`
-
-    PageSize  *int64 `json:"page_size,omitempty"`
-
-}
-
-type OAPIPageUserGroupMembersResp struct {
+type ListProjectTeamResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	List       []UserGroupDetail         `json:"list"`
-	
-	Pagination       *Pagination         `json:"pagination"`
+	Data       []Team         `json:"data"`
 	
 }
 
-type OAPIPageUserGroupMembersReqBuilder struct {
+type ListProjectTeamReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPIPageUserGroupMembersReqBuilder() *OAPIPageUserGroupMembersReqBuilder {
-	builder := &OAPIPageUserGroupMembersReqBuilder{}
+func NewListProjectTeamReqBuilder() *ListProjectTeamReqBuilder {
+	builder := &ListProjectTeamReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPIPageUserGroupMembersReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPIPageUserGroupMembersReqBuilder) ProjectKey(projectKey string) *OAPIPageUserGroupMembersReqBuilder {
+func (builder *ListProjectTeamReqBuilder) ProjectKey(projectKey string) *ListProjectTeamReqBuilder {
 	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
 
-
-func (builder *OAPIPageUserGroupMembersReqBuilder) UserGroupType(userGroupType string) *OAPIPageUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).UserGroupType = &userGroupType
-	return builder
-}
-
-
-func (builder *OAPIPageUserGroupMembersReqBuilder) UserGroupIDs(userGroupIDs []string) *OAPIPageUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).UserGroupIDs = userGroupIDs
-	return builder
-}
-
-func (builder *OAPIPageUserGroupMembersReqBuilder) PageNum(pageNum *int64) *OAPIPageUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).PageNum = pageNum
-	return builder
-}
-
-func (builder *OAPIPageUserGroupMembersReqBuilder) PageSize(pageSize *int64) *OAPIPageUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPageUserGroupMembersReqBody).PageSize = pageSize
-	return builder
-}
-func (builder *OAPIPageUserGroupMembersReqBuilder) Build() *OAPIPageUserGroupMembersReq {
-	req := &OAPIPageUserGroupMembersReq{}
+func (builder *ListProjectTeamReqBuilder) Build() *ListProjectTeamReq {
+	req := &ListProjectTeamReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
 
-type OAPIPatchUserGroupMembersReq struct {
+type PatchUserGroupMembersReq struct {
 	apiReq *core.APIReq
 }
-type OAPIPatchUserGroupMembersReqBody struct {
+type PatchUserGroupMembersReqBody struct {
 
     UserGroupType  *string `json:"user_group_type,omitempty"`
 
@@ -345,67 +318,67 @@ type OAPIPatchUserGroupMembersReqBody struct {
 
 }
 
-type OAPIPatchUserGroupMembersResp struct {
+type PatchUserGroupMembersResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 }
 
-type OAPIPatchUserGroupMembersReqBuilder struct {
+type PatchUserGroupMembersReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPIPatchUserGroupMembersReqBuilder() *OAPIPatchUserGroupMembersReqBuilder {
-	builder := &OAPIPatchUserGroupMembersReqBuilder{}
+func NewPatchUserGroupMembersReqBuilder() *PatchUserGroupMembersReqBuilder {
+	builder := &PatchUserGroupMembersReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPIPatchUserGroupMembersReqBody{},
+		Body:        &PatchUserGroupMembersReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPIPatchUserGroupMembersReqBuilder) ProjectKey(projectKey string) *OAPIPatchUserGroupMembersReqBuilder {
+func (builder *PatchUserGroupMembersReqBuilder) ProjectKey(projectKey string) *PatchUserGroupMembersReqBuilder {
 	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
 
 
-func (builder *OAPIPatchUserGroupMembersReqBuilder) UserGroupType(userGroupType string) *OAPIPatchUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).UserGroupType = &userGroupType
+func (builder *PatchUserGroupMembersReqBuilder) UserGroupType(userGroupType string) *PatchUserGroupMembersReqBuilder {
+	builder.apiReq.Body.(*PatchUserGroupMembersReqBody).UserGroupType = &userGroupType
 	return builder
 }
 
 
-func (builder *OAPIPatchUserGroupMembersReqBuilder) UserGroupID(userGroupID string) *OAPIPatchUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).UserGroupID = &userGroupID
+func (builder *PatchUserGroupMembersReqBuilder) UserGroupID(userGroupID string) *PatchUserGroupMembersReqBuilder {
+	builder.apiReq.Body.(*PatchUserGroupMembersReqBody).UserGroupID = &userGroupID
 	return builder
 }
 
 
-func (builder *OAPIPatchUserGroupMembersReqBuilder) AddUsers(addUsers []string) *OAPIPatchUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).AddUsers = addUsers
+func (builder *PatchUserGroupMembersReqBuilder) AddUsers(addUsers []string) *PatchUserGroupMembersReqBuilder {
+	builder.apiReq.Body.(*PatchUserGroupMembersReqBody).AddUsers = addUsers
 	return builder
 }
 
-func (builder *OAPIPatchUserGroupMembersReqBuilder) DeleteUsers(deleteUsers []string) *OAPIPatchUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).DeleteUsers = deleteUsers
+func (builder *PatchUserGroupMembersReqBuilder) DeleteUsers(deleteUsers []string) *PatchUserGroupMembersReqBuilder {
+	builder.apiReq.Body.(*PatchUserGroupMembersReqBody).DeleteUsers = deleteUsers
 	return builder
 }
 
-func (builder *OAPIPatchUserGroupMembersReqBuilder) ReplaceUsers(replaceUsers []string) *OAPIPatchUserGroupMembersReqBuilder {
-	builder.apiReq.Body.(*OAPIPatchUserGroupMembersReqBody).ReplaceUsers = replaceUsers
+func (builder *PatchUserGroupMembersReqBuilder) ReplaceUsers(replaceUsers []string) *PatchUserGroupMembersReqBuilder {
+	builder.apiReq.Body.(*PatchUserGroupMembersReqBody).ReplaceUsers = replaceUsers
 	return builder
 }
-func (builder *OAPIPatchUserGroupMembersReqBuilder) Build() *OAPIPatchUserGroupMembersReq {
-	req := &OAPIPatchUserGroupMembersReq{}
+func (builder *PatchUserGroupMembersReqBuilder) Build() *PatchUserGroupMembersReq {
+	req := &PatchUserGroupMembersReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
 
-type OAPIQueryDepartmentReq struct {
+type QueryDepartmentReq struct {
 	apiReq *core.APIReq
 }
-type OAPIQueryDepartmentReqBody struct {
+type QueryDepartmentReqBody struct {
 
     Scopes  []string `json:"scopes,omitempty"`
 
@@ -413,7 +386,7 @@ type OAPIQueryDepartmentReqBody struct {
 
 }
 
-type OAPIQueryDepartmentResp struct {
+type QueryDepartmentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 	DepartmentMeegoKey       *string         `json:"department_meego_key"`
@@ -434,46 +407,46 @@ type OAPIQueryDepartmentResp struct {
 	
 }
 
-type OAPIQueryDepartmentReqBuilder struct {
+type QueryDepartmentReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPIQueryDepartmentReqBuilder() *OAPIQueryDepartmentReqBuilder {
-	builder := &OAPIQueryDepartmentReqBuilder{}
+func NewQueryDepartmentReqBuilder() *QueryDepartmentReqBuilder {
+	builder := &QueryDepartmentReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPIQueryDepartmentReqBody{},
+		Body:        &QueryDepartmentReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPIQueryDepartmentReqBuilder) Scopes(scopes []string) *OAPIQueryDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryDepartmentReqBody).Scopes = scopes
+func (builder *QueryDepartmentReqBuilder) Scopes(scopes []string) *QueryDepartmentReqBuilder {
+	builder.apiReq.Body.(*QueryDepartmentReqBody).Scopes = scopes
 	return builder
 }
 
-func (builder *OAPIQueryDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *OAPIQueryDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
+func (builder *QueryDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *QueryDepartmentReqBuilder {
+	builder.apiReq.Body.(*QueryDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
 	return builder
 }
 
-func (builder *OAPIQueryDepartmentReqBuilder) Build() *OAPIQueryDepartmentReq {
-	req := &OAPIQueryDepartmentReq{}
+func (builder *QueryDepartmentReqBuilder) Build() *QueryDepartmentReq {
+	req := &QueryDepartmentReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
 
-type OAPIQueryTenantReq struct {
+type QueryTenantReq struct {
 	apiReq *core.APIReq
 }
-type OAPIQueryTenantReqBody struct {
+type QueryTenantReqBody struct {
 
     Scopes  []string `json:"scopes,omitempty"`
 
 }
 
-type OAPIQueryTenantResp struct {
+type QueryTenantResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 	TenantMeegoKey       *string         `json:"tenant_meego_key"`
@@ -494,283 +467,26 @@ type OAPIQueryTenantResp struct {
 	
 }
 
-type OAPIQueryTenantReqBuilder struct {
+type QueryTenantReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPIQueryTenantReqBuilder() *OAPIQueryTenantReqBuilder {
-	builder := &OAPIQueryTenantReqBuilder{}
+func NewQueryTenantReqBuilder() *QueryTenantReqBuilder {
+	builder := &QueryTenantReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
-		Body:        &OAPIQueryTenantReqBody{},
+		Body:        &QueryTenantReqBody{},
 	}
 	return builder
 }
 
-func (builder *OAPIQueryTenantReqBuilder) Scopes(scopes []string) *OAPIQueryTenantReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryTenantReqBody).Scopes = scopes
+func (builder *QueryTenantReqBuilder) Scopes(scopes []string) *QueryTenantReqBuilder {
+	builder.apiReq.Body.(*QueryTenantReqBody).Scopes = scopes
 	return builder
 }
-func (builder *OAPIQueryTenantReqBuilder) Build() *OAPIQueryTenantReq {
-	req := &OAPIQueryTenantReq{}
-	req.apiReq = builder.apiReq
-	return req
-}
-
-type OAPIQueryUsersForTenantPluginReq struct {
-	apiReq *core.APIReq
-}
-type OAPIQueryUsersForTenantPluginReqBody struct {
-
-    UserKeys  []string `json:"user_keys,omitempty"`
-
-    Emails  []string `json:"emails,omitempty"`
-
-    OutUsers  []OutUserInfo `json:"out_users,omitempty"`
-
-}
-
-type OAPIQueryUsersForTenantPluginResp struct {
-	*core.APIResp `json:"-"`
-	core.CodeError
-	Data       []UserBasicInfo         `json:"data"`
-	
-}
-
-type OAPIQueryUsersForTenantPluginReqBuilder struct {
-	apiReq *core.APIReq
-}
-
-func NewOAPIQueryUsersForTenantPluginReqBuilder() *OAPIQueryUsersForTenantPluginReqBuilder {
-	builder := &OAPIQueryUsersForTenantPluginReqBuilder{}
-	builder.apiReq = &core.APIReq{
-		PathParams:  core.PathParams{},
-		QueryParams: core.QueryParams{},
-		Body:        &OAPIQueryUsersForTenantPluginReqBody{},
-	}
-	return builder
-}
-
-func (builder *OAPIQueryUsersForTenantPluginReqBuilder) UserKeys(userKeys []string) *OAPIQueryUsersForTenantPluginReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryUsersForTenantPluginReqBody).UserKeys = userKeys
-	return builder
-}
-
-func (builder *OAPIQueryUsersForTenantPluginReqBuilder) Emails(emails []string) *OAPIQueryUsersForTenantPluginReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryUsersForTenantPluginReqBody).Emails = emails
-	return builder
-}
-
-func (builder *OAPIQueryUsersForTenantPluginReqBuilder) OutUsers(outUsers []OutUserInfo) *OAPIQueryUsersForTenantPluginReqBuilder {
-	builder.apiReq.Body.(*OAPIQueryUsersForTenantPluginReqBody).OutUsers = outUsers
-	return builder
-}
-func (builder *OAPIQueryUsersForTenantPluginReqBuilder) Build() *OAPIQueryUsersForTenantPluginReq {
-	req := &OAPIQueryUsersForTenantPluginReq{}
-	req.apiReq = builder.apiReq
-	return req
-}
-
-type OAPISearchUserByWordReq struct {
-	apiReq *core.APIReq
-}
-type OAPISearchUserByWordReqBody struct {
-
-    Query  *string `json:"query,omitempty"`
-
-    ProjectKey  *string `json:"project_key,omitempty"`
-
-}
-
-type OAPISearchUserByWordResp struct {
-	*core.APIResp `json:"-"`
-	core.CodeError
-	Data       []UserBasicInfo         `json:"data"`
-	
-}
-
-type OAPISearchUserByWordReqBuilder struct {
-	apiReq *core.APIReq
-}
-
-func NewOAPISearchUserByWordReqBuilder() *OAPISearchUserByWordReqBuilder {
-	builder := &OAPISearchUserByWordReqBuilder{}
-	builder.apiReq = &core.APIReq{
-		PathParams:  core.PathParams{},
-		QueryParams: core.QueryParams{},
-		Body:        &OAPISearchUserByWordReqBody{},
-	}
-	return builder
-}
-
-func (builder *OAPISearchUserByWordReqBuilder) Query(query string) *OAPISearchUserByWordReqBuilder {
-	builder.apiReq.Body.(*OAPISearchUserByWordReqBody).Query = &query
-	return builder
-}
-
-
-func (builder *OAPISearchUserByWordReqBuilder) ProjectKey(projectKey string) *OAPISearchUserByWordReqBuilder {
-	builder.apiReq.Body.(*OAPISearchUserByWordReqBody).ProjectKey = &projectKey
-	return builder
-}
-
-func (builder *OAPISearchUserByWordReqBuilder) Build() *OAPISearchUserByWordReq {
-	req := &OAPISearchUserByWordReq{}
-	req.apiReq = builder.apiReq
-	return req
-}
-
-type OAPIStopAccountReq struct {
-	apiReq *core.APIReq
-}
-type OAPIStopAccountReqBody struct {
-
-    UserMeegoKey  *string `json:"user_meego_key,omitempty"`
-
-}
-
-type OAPIStopAccountResp struct {
-	*core.APIResp `json:"-"`
-	core.CodeError
-}
-
-type OAPIStopAccountReqBuilder struct {
-	apiReq *core.APIReq
-}
-
-func NewOAPIStopAccountReqBuilder() *OAPIStopAccountReqBuilder {
-	builder := &OAPIStopAccountReqBuilder{}
-	builder.apiReq = &core.APIReq{
-		PathParams:  core.PathParams{},
-		QueryParams: core.QueryParams{},
-		Body:        &OAPIStopAccountReqBody{},
-	}
-	return builder
-}
-
-func (builder *OAPIStopAccountReqBuilder) UserMeegoKey(userMeegoKey string) *OAPIStopAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIStopAccountReqBody).UserMeegoKey = &userMeegoKey
-	return builder
-}
-
-func (builder *OAPIStopAccountReqBuilder) Build() *OAPIStopAccountReq {
-	req := &OAPIStopAccountReq{}
-	req.apiReq = builder.apiReq
-	return req
-}
-
-type OAPIUpdateAccountReq struct {
-	apiReq *core.APIReq
-}
-type OAPIUpdateAccountReqBody struct {
-
-    UserMeegoKey  *string `json:"user_meego_key,omitempty"`
-
-    Name  map[string]string `json:"name,omitempty"`
-
-    AvatarUrl  *string `json:"avatar_url,omitempty"`
-
-    DepartmentMeegoKeys  []string `json:"department_meego_keys,omitempty"`
-
-}
-
-type OAPIUpdateAccountResp struct {
-	*core.APIResp `json:"-"`
-	core.CodeError
-}
-
-type OAPIUpdateAccountReqBuilder struct {
-	apiReq *core.APIReq
-}
-
-func NewOAPIUpdateAccountReqBuilder() *OAPIUpdateAccountReqBuilder {
-	builder := &OAPIUpdateAccountReqBuilder{}
-	builder.apiReq = &core.APIReq{
-		PathParams:  core.PathParams{},
-		QueryParams: core.QueryParams{},
-		Body:        &OAPIUpdateAccountReqBody{},
-	}
-	return builder
-}
-
-func (builder *OAPIUpdateAccountReqBuilder) UserMeegoKey(userMeegoKey string) *OAPIUpdateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).UserMeegoKey = &userMeegoKey
-	return builder
-}
-
-
-func (builder *OAPIUpdateAccountReqBuilder) Name(name map[string]string) *OAPIUpdateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).Name = name
-	return builder
-}
-
-func (builder *OAPIUpdateAccountReqBuilder) AvatarUrl(avatarUrl string) *OAPIUpdateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).AvatarUrl = &avatarUrl
-	return builder
-}
-
-
-func (builder *OAPIUpdateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys []string) *OAPIUpdateAccountReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateAccountReqBody).DepartmentMeegoKeys = departmentMeegoKeys
-	return builder
-}
-func (builder *OAPIUpdateAccountReqBuilder) Build() *OAPIUpdateAccountReq {
-	req := &OAPIUpdateAccountReq{}
-	req.apiReq = builder.apiReq
-	return req
-}
-
-type OAPIUpdateDepartmentReq struct {
-	apiReq *core.APIReq
-}
-type OAPIUpdateDepartmentReqBody struct {
-
-    DepartmentMeegoKey  *string `json:"department_meego_key,omitempty"`
-
-    Name  map[string]string `json:"name,omitempty"`
-
-    ParentDepartmentMeegoKey  *string `json:"parent_department_meego_key,omitempty"`
-
-}
-
-type OAPIUpdateDepartmentResp struct {
-	*core.APIResp `json:"-"`
-	core.CodeError
-}
-
-type OAPIUpdateDepartmentReqBuilder struct {
-	apiReq *core.APIReq
-}
-
-func NewOAPIUpdateDepartmentReqBuilder() *OAPIUpdateDepartmentReqBuilder {
-	builder := &OAPIUpdateDepartmentReqBuilder{}
-	builder.apiReq = &core.APIReq{
-		PathParams:  core.PathParams{},
-		QueryParams: core.QueryParams{},
-		Body:        &OAPIUpdateDepartmentReqBody{},
-	}
-	return builder
-}
-
-func (builder *OAPIUpdateDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *OAPIUpdateDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
-	return builder
-}
-
-
-func (builder *OAPIUpdateDepartmentReqBuilder) Name(name map[string]string) *OAPIUpdateDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateDepartmentReqBody).Name = name
-	return builder
-}
-
-func (builder *OAPIUpdateDepartmentReqBuilder) ParentDepartmentMeegoKey(parentDepartmentMeegoKey string) *OAPIUpdateDepartmentReqBuilder {
-	builder.apiReq.Body.(*OAPIUpdateDepartmentReqBody).ParentDepartmentMeegoKey = &parentDepartmentMeegoKey
-	return builder
-}
-
-func (builder *OAPIUpdateDepartmentReqBuilder) Build() *OAPIUpdateDepartmentReq {
-	req := &OAPIUpdateDepartmentReq{}
+func (builder *QueryTenantReqBuilder) Build() *QueryTenantReq {
+	req := &QueryTenantReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
@@ -833,6 +549,335 @@ func (builder *QueryUserDetailReqBuilder) TenantKey(tenantKey string) *QueryUser
 
 func (builder *QueryUserDetailReqBuilder) Build() *QueryUserDetailReq {
 	req := &QueryUserDetailReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type QueryUsersForTenantPluginReq struct {
+	apiReq *core.APIReq
+}
+type QueryUsersForTenantPluginReqBody struct {
+
+    UserKeys  []string `json:"user_keys,omitempty"`
+
+    Emails  []string `json:"emails,omitempty"`
+
+    OutUsers  []OutUserInfo `json:"out_users,omitempty"`
+
+}
+
+type QueryUsersForTenantPluginResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       []UserBasicInfo         `json:"data"`
+	
+}
+
+type QueryUsersForTenantPluginReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewQueryUsersForTenantPluginReqBuilder() *QueryUsersForTenantPluginReqBuilder {
+	builder := &QueryUsersForTenantPluginReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &QueryUsersForTenantPluginReqBody{},
+	}
+	return builder
+}
+
+func (builder *QueryUsersForTenantPluginReqBuilder) UserKeys(userKeys []string) *QueryUsersForTenantPluginReqBuilder {
+	builder.apiReq.Body.(*QueryUsersForTenantPluginReqBody).UserKeys = userKeys
+	return builder
+}
+
+func (builder *QueryUsersForTenantPluginReqBuilder) Emails(emails []string) *QueryUsersForTenantPluginReqBuilder {
+	builder.apiReq.Body.(*QueryUsersForTenantPluginReqBody).Emails = emails
+	return builder
+}
+
+func (builder *QueryUsersForTenantPluginReqBuilder) OutUsers(outUsers []OutUserInfo) *QueryUsersForTenantPluginReqBuilder {
+	builder.apiReq.Body.(*QueryUsersForTenantPluginReqBody).OutUsers = outUsers
+	return builder
+}
+func (builder *QueryUsersForTenantPluginReqBuilder) Build() *QueryUsersForTenantPluginReq {
+	req := &QueryUsersForTenantPluginReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type SearchUserByWordReq struct {
+	apiReq *core.APIReq
+}
+type SearchUserByWordReqBody struct {
+
+    Query  *string `json:"query,omitempty"`
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+}
+
+type SearchUserByWordResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       []UserBasicInfo         `json:"data"`
+	
+}
+
+type SearchUserByWordReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewSearchUserByWordReqBuilder() *SearchUserByWordReqBuilder {
+	builder := &SearchUserByWordReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &SearchUserByWordReqBody{},
+	}
+	return builder
+}
+
+func (builder *SearchUserByWordReqBuilder) Query(query string) *SearchUserByWordReqBuilder {
+	builder.apiReq.Body.(*SearchUserByWordReqBody).Query = &query
+	return builder
+}
+
+
+func (builder *SearchUserByWordReqBuilder) ProjectKey(projectKey string) *SearchUserByWordReqBuilder {
+	builder.apiReq.Body.(*SearchUserByWordReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+func (builder *SearchUserByWordReqBuilder) Build() *SearchUserByWordReq {
+	req := &SearchUserByWordReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type StopAccountReq struct {
+	apiReq *core.APIReq
+}
+type StopAccountReqBody struct {
+
+    UserMeegoKey  *string `json:"user_meego_key,omitempty"`
+
+}
+
+type StopAccountResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type StopAccountReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewStopAccountReqBuilder() *StopAccountReqBuilder {
+	builder := &StopAccountReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &StopAccountReqBody{},
+	}
+	return builder
+}
+
+func (builder *StopAccountReqBuilder) UserMeegoKey(userMeegoKey string) *StopAccountReqBuilder {
+	builder.apiReq.Body.(*StopAccountReqBody).UserMeegoKey = &userMeegoKey
+	return builder
+}
+
+func (builder *StopAccountReqBuilder) Build() *StopAccountReq {
+	req := &StopAccountReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type UpdateAccountReq struct {
+	apiReq *core.APIReq
+}
+type UpdateAccountReqBody struct {
+
+    UserMeegoKey  *string `json:"user_meego_key,omitempty"`
+
+    Name  map[string]string `json:"name,omitempty"`
+
+    AvatarUrl  *string `json:"avatar_url,omitempty"`
+
+    DepartmentMeegoKeys  []string `json:"department_meego_keys,omitempty"`
+
+}
+
+type UpdateAccountResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateAccountReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUpdateAccountReqBuilder() *UpdateAccountReqBuilder {
+	builder := &UpdateAccountReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UpdateAccountReqBody{},
+	}
+	return builder
+}
+
+func (builder *UpdateAccountReqBuilder) UserMeegoKey(userMeegoKey string) *UpdateAccountReqBuilder {
+	builder.apiReq.Body.(*UpdateAccountReqBody).UserMeegoKey = &userMeegoKey
+	return builder
+}
+
+
+func (builder *UpdateAccountReqBuilder) Name(name map[string]string) *UpdateAccountReqBuilder {
+	builder.apiReq.Body.(*UpdateAccountReqBody).Name = name
+	return builder
+}
+
+func (builder *UpdateAccountReqBuilder) AvatarUrl(avatarUrl string) *UpdateAccountReqBuilder {
+	builder.apiReq.Body.(*UpdateAccountReqBody).AvatarUrl = &avatarUrl
+	return builder
+}
+
+
+func (builder *UpdateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys []string) *UpdateAccountReqBuilder {
+	builder.apiReq.Body.(*UpdateAccountReqBody).DepartmentMeegoKeys = departmentMeegoKeys
+	return builder
+}
+func (builder *UpdateAccountReqBuilder) Build() *UpdateAccountReq {
+	req := &UpdateAccountReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type UpdateDepartmentReq struct {
+	apiReq *core.APIReq
+}
+type UpdateDepartmentReqBody struct {
+
+    DepartmentMeegoKey  *string `json:"department_meego_key,omitempty"`
+
+    Name  map[string]string `json:"name,omitempty"`
+
+    ParentDepartmentMeegoKey  *string `json:"parent_department_meego_key,omitempty"`
+
+}
+
+type UpdateDepartmentResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateDepartmentReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUpdateDepartmentReqBuilder() *UpdateDepartmentReqBuilder {
+	builder := &UpdateDepartmentReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UpdateDepartmentReqBody{},
+	}
+	return builder
+}
+
+func (builder *UpdateDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey string) *UpdateDepartmentReqBuilder {
+	builder.apiReq.Body.(*UpdateDepartmentReqBody).DepartmentMeegoKey = &departmentMeegoKey
+	return builder
+}
+
+
+func (builder *UpdateDepartmentReqBuilder) Name(name map[string]string) *UpdateDepartmentReqBuilder {
+	builder.apiReq.Body.(*UpdateDepartmentReqBody).Name = name
+	return builder
+}
+
+func (builder *UpdateDepartmentReqBuilder) ParentDepartmentMeegoKey(parentDepartmentMeegoKey string) *UpdateDepartmentReqBuilder {
+	builder.apiReq.Body.(*UpdateDepartmentReqBody).ParentDepartmentMeegoKey = &parentDepartmentMeegoKey
+	return builder
+}
+
+func (builder *UpdateDepartmentReqBuilder) Build() *UpdateDepartmentReq {
+	req := &UpdateDepartmentReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type UserGroupMembersPageReq struct {
+	apiReq *core.APIReq
+}
+type UserGroupMembersPageReqBody struct {
+
+    UserGroupType  *string `json:"user_group_type,omitempty"`
+
+    UserGroupIDs  []string `json:"user_group_ids,omitempty"`
+
+    PageNum  *int64 `json:"page_num,omitempty"`
+
+    PageSize  *int64 `json:"page_size,omitempty"`
+
+}
+
+type UserGroupMembersPageResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	List       []UserGroupDetail         `json:"list"`
+	
+	Pagination       *Pagination         `json:"pagination"`
+	
+}
+
+type UserGroupMembersPageReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUserGroupMembersPageReqBuilder() *UserGroupMembersPageReqBuilder {
+	builder := &UserGroupMembersPageReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UserGroupMembersPageReqBody{},
+	}
+	return builder
+}
+
+func (builder *UserGroupMembersPageReqBuilder) ProjectKey(projectKey string) *UserGroupMembersPageReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+
+
+func (builder *UserGroupMembersPageReqBuilder) UserGroupType(userGroupType string) *UserGroupMembersPageReqBuilder {
+	builder.apiReq.Body.(*UserGroupMembersPageReqBody).UserGroupType = &userGroupType
+	return builder
+}
+
+
+func (builder *UserGroupMembersPageReqBuilder) UserGroupIDs(userGroupIDs []string) *UserGroupMembersPageReqBuilder {
+	builder.apiReq.Body.(*UserGroupMembersPageReqBody).UserGroupIDs = userGroupIDs
+	return builder
+}
+
+func (builder *UserGroupMembersPageReqBuilder) PageNum(pageNum int64) *UserGroupMembersPageReqBuilder {
+	builder.apiReq.Body.(*UserGroupMembersPageReqBody).PageNum = &pageNum
+	return builder
+}
+
+
+func (builder *UserGroupMembersPageReqBuilder) PageSize(pageSize int64) *UserGroupMembersPageReqBuilder {
+	builder.apiReq.Body.(*UserGroupMembersPageReqBody).PageSize = &pageSize
+	return builder
+}
+
+func (builder *UserGroupMembersPageReqBuilder) Build() *UserGroupMembersPageReq {
+	req := &UserGroupMembersPageReq{}
 	req.apiReq = builder.apiReq
 	return req
 }

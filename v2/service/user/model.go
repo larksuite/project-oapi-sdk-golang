@@ -71,6 +71,18 @@ type Pagination struct {
 
 }
 
+type Team struct {
+
+    TeamID  *int64 `json:"team_id,omitempty"`
+
+    TeamName  *string `json:"team_name,omitempty"`
+
+    UserKeys  []string `json:"user_keys,omitempty"`
+
+    Administrators  []string `json:"administrators,omitempty"`
+
+}
+
 type UserBasicInfo struct {
 
     UserID  *int64 `json:"user_id,omitempty"`

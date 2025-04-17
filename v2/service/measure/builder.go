@@ -7,23 +7,23 @@ import (
 )
 
 
-type OAPIGetChartDataReq struct {
+type GetChartDataReq struct {
 	apiReq *core.APIReq
 }
 
-type OAPIGetChartDataResp struct {
+type GetChartDataResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
 	Data       *OAPIChartData         `json:"data"`
 	
 }
 
-type OAPIGetChartDataReqBuilder struct {
+type GetChartDataReqBuilder struct {
 	apiReq *core.APIReq
 }
 
-func NewOAPIGetChartDataReqBuilder() *OAPIGetChartDataReqBuilder {
-	builder := &OAPIGetChartDataReqBuilder{}
+func NewGetChartDataReqBuilder() *GetChartDataReqBuilder {
+	builder := &GetChartDataReqBuilder{}
 	builder.apiReq = &core.APIReq{
 		PathParams:  core.PathParams{},
 		QueryParams: core.QueryParams{},
@@ -31,19 +31,19 @@ func NewOAPIGetChartDataReqBuilder() *OAPIGetChartDataReqBuilder {
 	return builder
 }
 
-func (builder *OAPIGetChartDataReqBuilder) ProjectKey(projectKey string) *OAPIGetChartDataReqBuilder {
+func (builder *GetChartDataReqBuilder) ProjectKey(projectKey string) *GetChartDataReqBuilder {
 	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
 }
 
 
-func (builder *OAPIGetChartDataReqBuilder) ChartID(chartID string) *OAPIGetChartDataReqBuilder {
+func (builder *GetChartDataReqBuilder) ChartID(chartID string) *GetChartDataReqBuilder {
 	builder.apiReq.PathParams.Set("chart_id", fmt.Sprint(chartID))
 	return builder
 }
 
-func (builder *OAPIGetChartDataReqBuilder) Build() *OAPIGetChartDataReq {
-	req := &OAPIGetChartDataReq{}
+func (builder *GetChartDataReqBuilder) Build() *GetChartDataReq {
+	req := &GetChartDataReq{}
 	req.apiReq = builder.apiReq
 	return req
 }

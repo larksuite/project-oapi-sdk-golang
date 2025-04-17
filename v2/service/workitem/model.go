@@ -9,6 +9,16 @@ type ActualTimeInfo struct {
 
 }
 
+type BotJoinChatInfo struct {
+
+    ChatID  *string `json:"chat_id,omitempty"`
+
+    SuccessMembers  []string `json:"success_members,omitempty"`
+
+    FailedMembers  []string `json:"failed_members,omitempty"`
+
+}
+
 type Business struct {
 
     ID  *string `json:"id,omitempty"`
@@ -81,19 +91,19 @@ type CompInfo struct {
 
 type Condition struct {
 
-    Field  *string `json:"field,omitempty"`
-
-    FieldType  *string `json:"field_type,omitempty"`
-
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    FieldItem  *FieldItem `json:"field_item,omitempty"`
 
     Operator  *string `json:"operator,omitempty"`
 
-    ValueList  []string `json:"value_list,omitempty"`
+    OriginalValue  *string `json:"original_value,omitempty"`
 
-    Params  map[string]string `json:"params,omitempty"`
+    Formula  *string `json:"formula,omitempty"`
 
     Version  *string `json:"version,omitempty"`
+
+    PreOperator  *string `json:"pre_operator,omitempty"`
+
+    ValueGroup  *Filter `json:"value_group,omitempty"`
 
 }
 
@@ -611,6 +621,70 @@ type OAPIFinishedOpinionOwnersResultItem struct {
 
 }
 
+type OAPIOperationRecord struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    OperationType  *string `json:"operation_type,omitempty"`
+
+    OperationTime  *int64 `json:"operation_time,omitempty"`
+
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
+    OperatorType  *string `json:"operator_type,omitempty"`
+
+    Operator  *string `json:"operator,omitempty"`
+
+    OpRecordModule  *string `json:"op_record_module,omitempty"`
+
+    SourceType  *string `json:"source_type,omitempty"`
+
+    Source  *string `json:"source,omitempty"`
+
+    RecordContents  []OAPIRecordContent `json:"record_contents,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+}
+
+type OAPIRecordContent struct {
+
+    Object  *OpRecordObject `json:"object,omitempty"`
+
+    ObjectProperty  *string `json:"object_property,omitempty"`
+
+    Old  []string `json:"old,omitempty"`
+
+    New  []string `json:"new,omitempty"`
+
+    Add  []string `json:"add,omitempty"`
+
+    Delete  []string `json:"delete,omitempty"`
+
+    StatusValues  []ObjectStatusValue `json:"status_values,omitempty"`
+
+    BelongObject  []OpRecordObject `json:"belong_object,omitempty"`
+
+}
+
+type ObjectStatusValue struct {
+
+    ObjectType  *string `json:"object_type,omitempty"`
+
+    ObjectProperty  *string `json:"object_property,omitempty"`
+
+    Values  []string `json:"values,omitempty"`
+
+}
+
+type OpRecordObject struct {
+
+    ObjectType  *string `json:"object_type,omitempty"`
+
+    ObjectValue  *string `json:"object_value,omitempty"`
+
+}
+
 type Operation struct {
 
     UUID  *string `json:"uuid,omitempty"`
@@ -931,6 +1005,14 @@ type RoleConfDetail struct {
 
     Key  *string `json:"key,omitempty"`
 
+    AllowDelete  *bool `json:"allow_delete,omitempty"`
+
+    AuthorizationRoleKeys  []string `json:"authorization_role_keys,omitempty"`
+
+    IsMemberMulti  *bool `json:"is_member_multi,omitempty"`
+
+    IsRequired  *int32 `json:"is_required,omitempty"`
+
 }
 
 type RoleOwner struct {
@@ -1037,9 +1119,15 @@ type SimpleRoleConf struct {
 
 type Sort struct {
 
-    FieldItem  *FieldItem `json:"field_item,omitempty"`
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldType  *string `json:"field_type,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
     Order  *string `json:"order,omitempty"`
+
+    Params  map[string]string `json:"params,omitempty"`
 
 }
 
@@ -1242,6 +1330,22 @@ type TaskElement struct {
     ElementKey  *string `json:"element_key,omitempty"`
 
     Name  *string `json:"name,omitempty"`
+
+}
+
+type TeamDataScope struct {
+
+    TeamID  *string `json:"team_id,omitempty"`
+
+    Cascade  *bool `json:"cascade,omitempty"`
+
+}
+
+type TeamOption struct {
+
+    TeamDataScopes  []TeamDataScope `json:"team_data_scopes,omitempty"`
+
+    TeamMode  *string `json:"team_mode,omitempty"`
 
 }
 
@@ -1672,6 +1776,8 @@ type WorkItemTypeInfo struct {
     ActualWorkTimeFieldName  *string `json:"actual_work_time_field_name,omitempty"`
 
     BelongRoles  []SimpleRoleConf `json:"belong_roles,omitempty"`
+
+    ActualWorkTimeSwitch  *bool `json:"actual_work_time_switch,omitempty"`
 
 }
 

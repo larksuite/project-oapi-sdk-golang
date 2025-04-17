@@ -45,13 +45,13 @@ func NewSearchSubtaskReqBuilder() *SearchSubtaskReqBuilder {
 	return builder
 }
 
-func (builder *SearchSubtaskReqBuilder) PageSize(pageSize *int64) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).PageSize = pageSize
+func (builder *SearchSubtaskReqBuilder) PageSize(pageSize int64) *SearchSubtaskReqBuilder {
+	builder.apiReq.Body.(*SearchSubtaskReqBody).PageSize = &pageSize
 	return builder
 }
 
-func (builder *SearchSubtaskReqBuilder) PageNum(pageNum *int64) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).PageNum = pageNum
+func (builder *SearchSubtaskReqBuilder) PageNum(pageNum int64) *SearchSubtaskReqBuilder {
+	builder.apiReq.Body.(*SearchSubtaskReqBody).PageNum = &pageNum
 	return builder
 }
 
@@ -65,8 +65,8 @@ func (builder *SearchSubtaskReqBuilder) UserKeys(userKeys []string) *SearchSubta
 	return builder
 }
 
-func (builder *SearchSubtaskReqBuilder) Status(status *int32) *SearchSubtaskReqBuilder {
-	builder.apiReq.Body.(*SearchSubtaskReqBody).Status = status
+func (builder *SearchSubtaskReqBuilder) Status(status int32) *SearchSubtaskReqBuilder {
+	builder.apiReq.Body.(*SearchSubtaskReqBody).Status = &status
 	return builder
 }
 

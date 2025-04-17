@@ -19,11 +19,9 @@ package sdk
 import (
 	"github.com/larksuite/project-oapi-sdk-golang/core"
 	"github.com/larksuite/project-oapi-sdk-golang/v2/service/attachment"
+	"github.com/larksuite/project-oapi-sdk-golang/v2/service/comment"
 	"github.com/larksuite/project-oapi-sdk-golang/v2/service/measure"
-	"github.com/larksuite/project-oapi-sdk-golang/v2/service/meego_integration"
-	"github.com/larksuite/project-oapi-sdk-golang/v2/service/open_api"
 	"github.com/larksuite/project-oapi-sdk-golang/v2/service/project"
-	"github.com/larksuite/project-oapi-sdk-golang/v2/service/search"
 	"github.com/larksuite/project-oapi-sdk-golang/v2/service/task"
 	"github.com/larksuite/project-oapi-sdk-golang/v2/service/user"
 	"github.com/larksuite/project-oapi-sdk-golang/v2/service/view"
@@ -31,17 +29,15 @@ import (
 )
 
 type ClientV2 struct {
-	config           *core.Config                  // sdk配置
-	Measure          *measure.MeasureService       // 度量
-	Attachment       *attachment.AttachmentService // 附件
-	MeegoIntegration *meego_integration.MeegoIntegrationService
-	OpenAPI          *open_api.OpenAPIService
-	Project          *project.ProjectService
-	Search           *search.SearchService
-	Task             *task.TaskService
-	User             *user.UserService
-	WorkItem         *workitem.WorkItemService
-	View             *view.ViewService
+	config     *core.Config                  // sdk配置
+	Measure    *measure.MeasureService       // 度量
+	Attachment *attachment.AttachmentService // 附件
+	Project    *project.ProjectService
+	Task       *task.TaskService
+	User       *user.UserService
+	WorkItem   *workitem.WorkItemService
+	View       *view.ViewService
+	Comment    *comment.CommentService
 }
 
 func NewClientV2(appId, appSecret string, options ...ClientOptionFunc) *ClientV2 {
@@ -81,4 +77,5 @@ func initServiceV2(client *ClientV2, config *core.Config) {
 	client.View = view.NewService(config)
 	client.Attachment = attachment.NewService(config)
 	client.Measure = measure.NewService(config)
+	client.Comment = comment.NewService(config)
 }

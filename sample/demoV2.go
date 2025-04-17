@@ -31,7 +31,7 @@ func createWorkItemV2(client *sdk.ClientV2) {
 	project_key := "662e151cd7fd734ae1874213"
 	work_item_type_key := "story"
 	name := "generator1"
-	resp, err := client.WorkItem.OAPICreateWorkItem(context.Background(), workitem.NewOAPICreateWorkItemReqBuilder().
+	resp, err := client.WorkItem.CreateWorkItem(context.Background(), workitem.NewCreateWorkItemReqBuilder().
 		ProjectKey(project_key).
 		WorkItemTypeKey(work_item_type_key).
 		Name(name).
@@ -60,7 +60,7 @@ func createWorkItemV2(client *sdk.ClientV2) {
 func updateWorkItemV2(client *sdk.ClientV2) {
 	project_key := "662e151cd7fd734ae1874213"
 	work_item_type_key := "story"
-	var work_item_id int64 = 6092143382
+	var work_item_id int64 = 6533113666
 	fieldKey := "name"
 	fieldValue := "generator-update"
 	fieldValuePairs := []workitem.FieldValuePair{
@@ -69,10 +69,10 @@ func updateWorkItemV2(client *sdk.ClientV2) {
 			FieldValue: &fieldValue,
 		},
 	}
-	resp, err := client.WorkItem.OAPIUpdateWorkItem(context.Background(), workitem.NewOAPIUpdateWorkItemReqBuilder().
+	resp, err := client.WorkItem.UpdateWorkItem(context.Background(), workitem.NewUpdateWorkItemReqBuilder().
 		ProjectKey(project_key).
 		WorkItemTypeKey(work_item_type_key).
-		WorkItemID(&work_item_id).
+		WorkItemID(work_item_id).
 		UpdateFields(fieldValuePairs).
 		Build(),
 		sdkcore.WithUserKey("7356795280408297476"),

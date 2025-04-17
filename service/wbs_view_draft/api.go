@@ -27,6 +27,8 @@ const APIPathWbsCollaborationPublish = "/open_api/:project_key/wbs_view_draft/pu
 
 const APIPathSwitchBackToWbsViewDraft = "/open_api/:project_key/wbs_view_draft/switch"
 
+const APIWBSUpdateDraftFrozenRows = "/open_api/:project_key/wbs_view_draft/update/frozen_rows"
+
 func NewService(config *core.Config) *WbsViewDraftService {
 	a := &WbsViewDraftService{config: config}
 	return a
@@ -69,6 +71,30 @@ func (a *WbsViewDraftService) SwitchBackToWbsViewDraft(ctx context.Context, req 
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[SwitchBackToWbsViewDraft] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIWBSUpdateDraftFrozenRows
+ * @desc: 更新草稿的冻结行
+ */
+func (a *WbsViewDraftService) OAPIWBSUpdateDraftFrozenRows(ctx context.Context, req *OAPIWBSUpdateDraftFrozenRowsReq, options ...core.RequestOptionFunc) (*OAPIWBSUpdateDraftFrozenRowsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIWBSUpdateDraftFrozenRows
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIWBSUpdateDraftFrozenRows] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &OAPIWBSUpdateDraftFrozenRowsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIWBSUpdateDraftFrozenRows] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

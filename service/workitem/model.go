@@ -404,7 +404,7 @@ type WBSWorkItem struct {
 
 	UnionDeliverable UnionDeliverable `json:"union_deliverable"`
 
-	IsScheduleAggItem bool `json:"is_schedule_agg_item"`
+	IsScheduleAggItem *bool `json:"is_schedule_agg_item,omitempty"`
 }
 
 type WbsViewResponse struct {

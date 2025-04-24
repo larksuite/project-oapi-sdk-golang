@@ -120,6 +120,8 @@ const APIPath_ResourceCreateWorkItem = "/open_api/work_item/resource/create_work
 
 const APIPath_SearchByParams = "/open_api/:project_key/work_item/:work_item_type_key/search/params"
 
+const APIPath_SearchSubtask = "/open_api/work_item/subtask/search"
+
 const APIPath_SearchWorkItemsRelation = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/search_by_relation"
 
 const APIPath_SubTaskModify = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/subtask/modify"
@@ -1505,6 +1507,30 @@ func (a *WorkItemService) SearchByParams(ctx context.Context, req *SearchByParam
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchByParams] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: openapi获取指定的子任务列表（跨空间）
+ * @desc: openapi获取指定的子任务列表（跨空间）
+ */
+func (a *WorkItemService) SearchSubtask(ctx context.Context, req *SearchSubtaskReq, options ...core.RequestOptionFunc) (*SearchSubtaskResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_SearchSubtask
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchSubtask] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchSubtaskResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[SearchSubtask] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

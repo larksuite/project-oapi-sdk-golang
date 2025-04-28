@@ -91,19 +91,19 @@ type CompInfo struct {
 
 type Condition struct {
 
-    Field  *string `json:"field,omitempty"`
-
-    FieldType  *string `json:"field_type,omitempty"`
-
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    FieldItem  *FieldItem `json:"field_item,omitempty"`
 
     Operator  *string `json:"operator,omitempty"`
 
-    ValueList  []string `json:"value_list,omitempty"`
+    OriginalValue  *string `json:"original_value,omitempty"`
 
-    Params  map[string]string `json:"params,omitempty"`
+    Formula  *string `json:"formula,omitempty"`
 
     Version  *string `json:"version,omitempty"`
+
+    PreOperator  *string `json:"pre_operator,omitempty"`
+
+    ValueGroup  *Filter `json:"value_group,omitempty"`
 
 }
 
@@ -1147,9 +1147,15 @@ type SimpleRoleConf struct {
 
 type Sort struct {
 
-    FieldItem  *FieldItem `json:"field_item,omitempty"`
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldType  *string `json:"field_type,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
     Order  *string `json:"order,omitempty"`
+
+    Params  map[string]string `json:"params,omitempty"`
 
 }
 
@@ -1405,19 +1411,19 @@ type TemplateConf struct {
 
 type TemplateDetail struct {
 
-    TargetStateKey  []WorkflowConfInfo `json:"target_state_key,omitempty"`
+    WorkflowConfs  []WorkflowConfInfo `json:"workflow_confs,omitempty"`
 
-    TargetStateKey  []StateFlowConfInfo `json:"target_state_key,omitempty"`
+    StateFlowConfs  []StateFlowConfInfo `json:"state_flow_confs,omitempty"`
 
-    TargetStateKey  []Connection `json:"target_state_key,omitempty"`
+    Connections  []Connection `json:"connections,omitempty"`
 
-    TargetStateKey  *int64 `json:"target_state_key,omitempty"`
+    TemplateID  *int64 `json:"template_id,omitempty"`
 
-    TargetStateKey  *string `json:"target_state_key,omitempty"`
+    TemplateName  *string `json:"template_name,omitempty"`
 
-    TargetStateKey  *int64 `json:"target_state_key,omitempty"`
+    Version  *int64 `json:"version,omitempty"`
 
-    TargetStateKey  *int64 `json:"target_state_key,omitempty"`
+    IsDisabled  *int64 `json:"is_disabled,omitempty"`
 
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 

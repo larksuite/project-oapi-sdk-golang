@@ -53,7 +53,7 @@ func createWorkItemV2(client *sdk.ClientV2) {
 	fmt.Println(sdkcore.Prettify(resp.Data))
 }
 
-// 创建工作项类型
+// 更新工作项类型
 func updateWorkItemV2(client *sdk.ClientV2) {
 	project_key := "project_key"
 	work_item_type_key := "work_item_type_key"

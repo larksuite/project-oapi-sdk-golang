@@ -302,32 +302,32 @@ sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
 func main() {
-// 创建 client
-client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
-header := make(http.Header)
-header.Add("k1", "v1")
-// 发起请求
-resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
-ProjectKey("project_key").
-Build(),
-sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
-sdkcore.WithHeaders(header), //设置head
+    // 创建 client
+    client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
+    header := make(http.Header)
+    header.Add("k1", "v1")
+    // 发起请求
+    resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
+    ProjectKey("project_key").
+    Build(),
+    sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
+    sdkcore.WithHeaders(header), //设置head
 )
 
-//处理错误
-if err != nil {
-// 处理err
-return
-}
+  //处理错误
+  if err != nil {
+  // 处理err
+  return
+  }
 
-// 服务端错误处理
-if !resp.Success() {
-fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
-return
-}
+  // 服务端错误处理
+  if !resp.Success() {
+  fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
+  return
+  }
 
-// 业务数据处理
-fmt.Println(sdkcore.Prettify(resp.Data))
+  // 业务数据处理
+  fmt.Println(sdkcore.Prettify(resp.Data))
 }
 ```
 
@@ -405,7 +405,7 @@ fmt.Println(sdkcore.Prettify(resp.Data))
 
 ## 错误自查
 
-[查看错误码](https://bytedance.feishu.cn/docs/doccn3CyRRA52nL9HiYR2v9XC8K)
+[查看错误码](https://project.feishu.cn/b/helpcenter/1p8d7djs/5aueo3jr)
 
 ## FAQ
 

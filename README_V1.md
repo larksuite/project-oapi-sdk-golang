@@ -402,7 +402,7 @@ fmt.Println(sdkcore.Prettify(resp.Data))
 
 ## 错误自查
 
-[查看错误码](https://bytedance.feishu.cn/docs/doccn3CyRRA52nL9HiYR2v9XC8K)
+[查看错误码](https://project.feishu.cn/b/helpcenter/1p8d7djs/5aueo3jr)
 
 ## FAQ
 

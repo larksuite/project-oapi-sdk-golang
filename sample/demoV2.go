@@ -78,7 +78,7 @@ func updateWorkItemV2(client *sdk.ClientV2) {
 	//处理错误
 	if err != nil {
 		// 处理err
-		fmt.Printf("error creating work item: %v\n", err)
+		fmt.Printf("error UpdateWorkItem work item: %v\n", err)
 		return
 	}
 

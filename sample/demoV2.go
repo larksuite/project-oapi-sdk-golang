@@ -18,25 +18,22 @@ package sample
 import (
 	"context"
 	"fmt"
-	"github.com/larksuite/project-oapi-sdk-golang/v2/service/workitem"
-	"net/http"
-	"time"
-
 	sdk "github.com/larksuite/project-oapi-sdk-golang"
 	sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
+	"github.com/larksuite/project-oapi-sdk-golang/v2/service/workitem"
 )
 
 // 创建工作项类型
 func createWorkItemV2(client *sdk.ClientV2) {
-	project_key := "662e151cd7fd734ae1874213"
-	work_item_type_key := "story"
-	name := "generator1"
+	project_key := "project_key"
+	work_item_type_key := "work_item_type_key"
+	name := "name"
 	resp, err := client.WorkItem.CreateWorkItem(context.Background(), workitem.NewCreateWorkItemReqBuilder().
 		ProjectKey(project_key).
 		WorkItemTypeKey(work_item_type_key).
 		Name(name).
 		Build(),
-		sdkcore.WithUserKey("7356795280408297476"),
+		sdkcore.WithUserKey("user_key"),
 	)
 
 	//处理错误
@@ -58,11 +55,11 @@ func createWorkItemV2(client *sdk.ClientV2) {
 
 // 创建工作项类型
 func updateWorkItemV2(client *sdk.ClientV2) {
-	project_key := "662e151cd7fd734ae1874213"
-	work_item_type_key := "story"
-	var work_item_id int64 = 6533113666
+	project_key := "project_key"
+	work_item_type_key := "work_item_type_key"
+	var work_item_id int64 = 0
 	fieldKey := "name"
-	fieldValue := "generator-update"
+	fieldValue := "fieldValue"
 	fieldValuePairs := []workitem.FieldValuePair{
 		workitem.FieldValuePair{
 			FieldKey:   &fieldKey,
@@ -75,7 +72,7 @@ func updateWorkItemV2(client *sdk.ClientV2) {
 		WorkItemID(work_item_id).
 		UpdateFields(fieldValuePairs).
 		Build(),
-		sdkcore.WithUserKey("7356795280408297476"),
+		sdkcore.WithUserKey("user_key"),
 	)
 
 	//处理错误
@@ -93,14 +90,4 @@ func updateWorkItemV2(client *sdk.ClientV2) {
 
 	// 业务数据处理
 	fmt.Println(sdkcore.Prettify(resp.String()))
-}
-
-func main() {
-	var client = sdk.NewClientV2("MII_661E3D92B64A4004", "40F8C24AD263B9B12ECF55AF49C5AF45",
-		sdk.WithOpenBaseUrl("https://meego.larkoffice.com/"),
-		sdk.WithReqTimeout(3*time.Second),
-		sdk.WithEnableTokenCache(true),
-		sdk.WithHttpClient(http.DefaultClient))
-	//createWorkItemV2(client)
-	updateWorkItemV2(client)
 }

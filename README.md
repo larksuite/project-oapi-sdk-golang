@@ -44,7 +44,8 @@ var client = sdk.NewClient("PluginID", "PluginSecret") //默认插件身份凭�
 ```go
 import sdk "github.com/larksuite/project-oapi-sdk-golang"
 
-var client = sdk.NewClient("PluginID", "PluginSecret",
+var client = sdk.NewClientV2("PluginID", "PluginSecret",
+sdk.WithOpenBaseUrl("https://project.feishu.cn"),
 sdk.WithLogLevel(core.LogLevelDebug),
 sdk.WithReqTimeout(3*time.Second),
 sdk.WithEnableTokenCache(true),
@@ -250,31 +251,33 @@ import (
 
 	sdk "github.com/larksuite/project-oapi-sdk-golang"
 	sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
-	"github.com/larksuite/project-oapi-sdk-golang/service/project"
+	"github.com/larksuite/project-oapi-sdk-golang/v2/service/workitem"
 )
 
 
 func main() {
 	// 创建 client
-	client := sdk.NewClient("PluginID", "PluginSecret")
-
+	client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
+	header := make(http.Header)
+	header.Add("k1", "v1")
 	// 发起请求
-	resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
+	resp, err := client.WorkItem.QueryAWorkItemTypes(context.Background(), workitem.NewQueryAWorkItemTypesReqBuilder().
 		ProjectKey("project_key").
 		Build(),
-		sdkcore.WithUserKey("user_key"),
+		sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
+		sdkcore.WithHeaders(header), //设置head
 	)
 
 	//处理错误
 	if err != nil {
-           // 处理err
-           return
+		// 处理err
+		return
 	}
 
 	// 服务端错误处理
 	if !resp.Success() {
-           fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
-	   return 
+		fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
+		return
 	}
 
 	// 业务数据处理
@@ -282,7 +285,7 @@ func main() {
 }
 ```
 
-更多 API 调用示例：[./sample/demo.go](./sample/demo.go)
+更多 API 调用示例：[./sample/demoV2.go](./sample/demoV2.go)
 
 ### 设置请求选项
 
@@ -295,12 +298,12 @@ import (
 
 sdk "github.com/larksuite/project-oapi-sdk-golang"
 sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
-"github.com/larksuite/project-oapi-sdk-golang/service/project"
+"github.com/larksuite/project-oapi-sdk-golang/v2/service/workitem"
 )
 
 func main() {
 // 创建 client
-client := sdk.NewClient("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
+client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
 header := make(http.Header)
 header.Add("k1", "v1")
 // 发起请求

@@ -34,7 +34,7 @@ go get -u github.com/larksuite/project-oapi-sdk-golang
 ```go
 import sdk "github.com/larksuite/project-oapi-sdk-golang"
 
-var client = sdk.NewClient("PluginID", "PluginSecret") //默认插件身份凭证
+var client = sdk.NewClientV2("PluginID", "PluginSecret") //默认插件身份凭证
 ```
 
 ### 配置API Client

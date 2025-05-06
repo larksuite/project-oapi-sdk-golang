@@ -1744,6 +1744,7 @@ func (builder *UpdateWorkingHourRecordReqBuilder) Build() *UpdateWorkingHourReco
 type WbsViewReq struct {
 	apiReq *core.APIReq
 }
+
 type WbsViewReqBody struct {
 	Expand *Expand `json:"expand"`
 }

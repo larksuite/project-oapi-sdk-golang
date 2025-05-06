@@ -111,3 +111,58 @@ func CreateSubTask(client *sdk.Client) {
 	// 业务数据处理
 	//fmt.Println(sdkcore.Prettify(resp.Data))
 }
+
+// 创建子任务
+func QueryWorkItem(client *sdk.Client) {
+	resp, err := client.WorkItem.QueryWorkItemDetail(context.Background(), workitem.NewQueryWorkItemDetailReqBuilder().
+		ProjectKey("project_key").
+		WorkItemTypeKey("work_item_type_key").
+		WorkItemIDs([]int64{0}).
+		Expand(&workitem.Expand{
+			NeedMultiText: true,
+		}).
+		Build(),
+		sdkcore.WithUserKey("user_key"),
+	)
+
+	//处理错误
+	if err != nil {
+		// 处理err
+		return
+	}
+
+	// 服务端错误处理
+	if !resp.Success() {
+		//fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
+		return
+	}
+
+	// 业务数据处理
+	//fmt.Println(sdkcore.Prettify(resp.Data))
+}
+
+// 获取指定工作项（但空间）
+func FilterWorkItem(client *sdk.Client) {
+	resp, err := client.WorkItem.Filter(context.Background(), workitem.NewFilterReqBuilder().
+		ProjectKey("project_key").
+		WorkItemTypeKeys([]string{}).
+		SearchID("").
+		Build(),
+		sdkcore.WithUserKey("user_key"),
+	)
+
+	//处理错误
+	if err != nil {
+		// 处理err
+		return
+	}
+
+	// 服务端错误处理
+	if !resp.Success() {
+		//fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
+		return
+	}
+
+	// 业务数据处理
+	//fmt.Println(sdkcore.Prettify(resp.Data))
+}

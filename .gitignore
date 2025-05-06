@@ -1,4 +1,5 @@
 output
+main
 *.pyc
 *.sw?
 .idea

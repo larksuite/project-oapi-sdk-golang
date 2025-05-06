@@ -1,6 +1,6 @@
 # 飞书项目开放接口SDK
 
-旨在让开发者便捷的调用飞书项目OPEN API
+V1版本不再做后续功能升级，建议参照并使用最新版本[ClientV2](./README.md)
 
 ## 目录
 
@@ -34,7 +34,7 @@ go get -u github.com/larksuite/project-oapi-sdk-golang
 ```go
 import sdk "github.com/larksuite/project-oapi-sdk-golang"
 
-var client = sdk.NewClientV2("PluginID", "PluginSecret") //默认插件身份凭证
+var client = sdk.NewClient("PluginID", "PluginSecret") //默认插件身份凭证
 ```
 
 ### 配置API Client
@@ -44,8 +44,7 @@ var client = sdk.NewClientV2("PluginID", "PluginSecret") //默认插件身份凭
 ```go
 import sdk "github.com/larksuite/project-oapi-sdk-golang"
 
-var client = sdk.NewClientV2("PluginID", "PluginSecret",
-sdk.WithOpenBaseUrl("https://project.feishu.cn"),
+var client = sdk.NewClient("PluginID", "PluginSecret",
 sdk.WithLogLevel(core.LogLevelDebug),
 sdk.WithReqTimeout(3*time.Second),
 sdk.WithEnableTokenCache(true),
@@ -251,33 +250,31 @@ import (
 
 	sdk "github.com/larksuite/project-oapi-sdk-golang"
 	sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
-	"github.com/larksuite/project-oapi-sdk-golang/v2/service/workitem"
+	"github.com/larksuite/project-oapi-sdk-golang/service/project"
 )
 
 
 func main() {
 	// 创建 client
-	client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
-	header := make(http.Header)
-	header.Add("k1", "v1")
+	client := sdk.NewClient("PluginID", "PluginSecret")
+
 	// 发起请求
-	resp, err := client.WorkItem.QueryAWorkItemTypes(context.Background(), workitem.NewQueryAWorkItemTypesReqBuilder().
+	resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
 		ProjectKey("project_key").
 		Build(),
-		sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
-		sdkcore.WithHeaders(header), //设置head
+		sdkcore.WithUserKey("user_key"),
 	)
 
 	//处理错误
 	if err != nil {
-		// 处理err
-		return
+           // 处理err
+           return
 	}
 
 	// 服务端错误处理
 	if !resp.Success() {
-		fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
-		return
+           fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
+	   return 
 	}
 
 	// 业务数据处理
@@ -285,7 +282,7 @@ func main() {
 }
 ```
 
-更多 API 调用示例：[./sample/demoV2.go](./sample/demoV2.go)
+更多 API 调用示例：[./sample/demo.go](./sample/demo.go)
 
 ### 设置请求选项
 
@@ -298,36 +295,36 @@ import (
 
 sdk "github.com/larksuite/project-oapi-sdk-golang"
 sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
-"github.com/larksuite/project-oapi-sdk-golang/v2/service/workitem"
+"github.com/larksuite/project-oapi-sdk-golang/service/project"
 )
 
 func main() {
-    // 创建 client
-    client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
-    header := make(http.Header)
-    header.Add("k1", "v1")
-    // 发起请求
-    resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
-    ProjectKey("project_key").
-    Build(),
-    sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
-    sdkcore.WithHeaders(header), //设置head
+// 创建 client
+client := sdk.NewClient("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
+header := make(http.Header)
+header.Add("k1", "v1")
+// 发起请求
+resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
+ProjectKey("project_key").
+Build(),
+sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
+sdkcore.WithHeaders(header), //设置head
 )
 
-  //处理错误
-  if err != nil {
-  // 处理err
-  return
-  }
+//处理错误
+if err != nil {
+// 处理err
+return
+}
 
-  // 服务端错误处理
-  if !resp.Success() {
-  fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
-  return
-  }
+// 服务端错误处理
+if !resp.Success() {
+fmt.Println(resp.Code(), resp.ErrMsg, resp.RequestId())
+return
+}
 
-  // 业务数据处理
-  fmt.Println(sdkcore.Prettify(resp.Data))
+// 业务数据处理
+fmt.Println(sdkcore.Prettify(resp.Data))
 }
 ```
 

@@ -91,3 +91,30 @@ func updateWorkItemV2(client *sdk.ClientV2) {
 	// 业务数据处理
 	fmt.Println(sdkcore.Prettify(resp.String()))
 }
+
+// 获取工作项操作记录
+func GetWorkItemOpRecordV2(client *sdk.ClientV2) {
+	project_key := "project_key"
+	resp, err := client.WorkItem.GetWorkItemOpRecord(context.Background(), workitem.NewGetWorkItemOpRecordReqBuilder().
+		ProjectKey(project_key).
+		WorkItemIDs([]int64{0}).
+		Build(),
+		sdkcore.WithUserKey("user_key"),
+	)
+
+	//处理错误
+	if err != nil {
+		// 处理err
+		fmt.Printf("error GetWorkItemOpRecordV2 work item: %v\n", err)
+		return
+	}
+
+	// 服务端错误处理
+	if !resp.Success() {
+		fmt.Println(resp.ErrCode, resp.ErrMsg, resp.RequestId())
+		return
+	}
+
+	// 业务数据处理
+	fmt.Println(sdkcore.Prettify(resp.Data))
+}

@@ -11,13 +11,9 @@ type CreateCommentReq struct {
 	apiReq *core.APIReq
 }
 type CreateCommentReqBody struct {
-
     Content  *string `json:"content,omitempty"`
-
     RichText  interface{} `json:"rich_text,omitempty"`
-
 }
-
 type CreateCommentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -76,10 +72,13 @@ func (builder *CreateCommentReqBuilder) Build() *CreateCommentReq {
 type DeleteCommentReq struct {
 	apiReq *core.APIReq
 }
-
 type DeleteCommentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
+	Data      *DeleteCommentRespData        `json:"data,omitempty"`
+}
+
+type DeleteCommentRespData struct {
 }
 
 type DeleteCommentReqBuilder struct {
@@ -127,7 +126,6 @@ func (builder *DeleteCommentReqBuilder) Build() *DeleteCommentReq {
 type ListCommentsReq struct {
 	apiReq *core.APIReq
 }
-
 type ListCommentsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -189,16 +187,16 @@ type UpdateCommentReq struct {
 	apiReq *core.APIReq
 }
 type UpdateCommentReqBody struct {
-
     Content  *string `json:"content,omitempty"`
-
     RichText  interface{} `json:"rich_text,omitempty"`
-
 }
-
 type UpdateCommentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
+	Data      *UpdateCommentRespData        `json:"data,omitempty"`
+}
+
+type UpdateCommentRespData struct {
 }
 
 type UpdateCommentReqBuilder struct {

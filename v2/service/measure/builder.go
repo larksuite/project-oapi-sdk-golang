@@ -10,7 +10,6 @@ import (
 type GetChartDataReq struct {
 	apiReq *core.APIReq
 }
-
 type GetChartDataResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError

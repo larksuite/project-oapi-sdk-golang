@@ -91,19 +91,19 @@ type CompInfo struct {
 
 type Condition struct {
 
-    Field  *string `json:"field,omitempty"`
-
-    FieldType  *string `json:"field_type,omitempty"`
-
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    FieldItem  *FieldItem `json:"field_item,omitempty"`
 
     Operator  *string `json:"operator,omitempty"`
 
-    ValueList  []string `json:"value_list,omitempty"`
+    OriginalValue  *string `json:"original_value,omitempty"`
 
-    Params  map[string]string `json:"params,omitempty"`
+    Formula  *string `json:"formula,omitempty"`
 
     Version  *string `json:"version,omitempty"`
+
+    PreOperator  *string `json:"pre_operator,omitempty"`
+
+    ValueGroup  *Filter `json:"value_group,omitempty"`
 
 }
 
@@ -147,7 +147,7 @@ type DataSource struct {
 
     ProjectKey  *string `json:"project_key,omitempty"`
 
-    WorkItemTypeKeys  *string `json:"work_item_type_keys,omitempty"`
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
 }
 
@@ -1009,14 +1009,6 @@ type RoleConfDetail struct {
 
     Key  *string `json:"key,omitempty"`
 
-    AllowDelete  *bool `json:"allow_delete,omitempty"`
-
-    AuthorizationRoleKeys  []string `json:"authorization_role_keys,omitempty"`
-
-    IsMemberMulti  *bool `json:"is_member_multi,omitempty"`
-
-    IsRequired  *int32 `json:"is_required,omitempty"`
-
 }
 
 type RoleOwner struct {
@@ -1123,15 +1115,9 @@ type SimpleRoleConf struct {
 
 type Sort struct {
 
-    FieldKey  *string `json:"field_key,omitempty"`
-
-    FieldType  *string `json:"field_type,omitempty"`
-
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    FieldItem  *FieldItem `json:"field_item,omitempty"`
 
     Order  *string `json:"order,omitempty"`
-
-    Params  map[string]string `json:"params,omitempty"`
 
 }
 

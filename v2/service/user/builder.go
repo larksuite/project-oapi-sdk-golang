@@ -16,10 +16,6 @@ type ActiveAccountReqBody struct {
 type ActiveAccountResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *ActiveAccountRespData        `json:"data,omitempty"`
-}
-
-type ActiveAccountRespData struct {
 }
 
 type ActiveAccountReqBuilder struct {
@@ -230,10 +226,6 @@ type DeleteDepartmentReqBody struct {
 type DeleteDepartmentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteDepartmentRespData        `json:"data,omitempty"`
-}
-
-type DeleteDepartmentRespData struct {
 }
 
 type DeleteDepartmentReqBuilder struct {
@@ -308,10 +300,6 @@ type PatchUserGroupMembersReqBody struct {
 type PatchUserGroupMembersResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *PatchUserGroupMembersRespData        `json:"data,omitempty"`
-}
-
-type PatchUserGroupMembersRespData struct {
 }
 
 type PatchUserGroupMembersReqBuilder struct {
@@ -626,10 +614,6 @@ type StopAccountReqBody struct {
 type StopAccountResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *StopAccountRespData        `json:"data,omitempty"`
-}
-
-type StopAccountRespData struct {
 }
 
 type StopAccountReqBuilder struct {
@@ -669,10 +653,6 @@ type UpdateAccountReqBody struct {
 type UpdateAccountResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateAccountRespData        `json:"data,omitempty"`
-}
-
-type UpdateAccountRespData struct {
 }
 
 type UpdateAccountReqBuilder struct {
@@ -727,10 +707,6 @@ type UpdateDepartmentReqBody struct {
 type UpdateDepartmentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateDepartmentRespData        `json:"data,omitempty"`
-}
-
-type UpdateDepartmentRespData struct {
 }
 
 type UpdateDepartmentReqBuilder struct {

@@ -18,10 +18,6 @@ type AbortWorkItemReqBody struct {
 type AbortWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *AbortWorkItemRespData        `json:"data,omitempty"`
-}
-
-type AbortWorkItemRespData struct {
 }
 
 type AbortWorkItemReqBuilder struct {
@@ -91,10 +87,6 @@ type ActualTimeUpdateReqBody struct {
 type ActualTimeUpdateResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *ActualTimeUpdateRespData        `json:"data,omitempty"`
-}
-
-type ActualTimeUpdateRespData struct {
 }
 
 type ActualTimeUpdateReqBuilder struct {
@@ -610,10 +602,6 @@ type CreateProjectRelationInstancesReqBody struct {
 type CreateProjectRelationInstancesResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *CreateProjectRelationInstancesRespData        `json:"data,omitempty"`
-}
-
-type CreateProjectRelationInstancesRespData struct {
 }
 
 type CreateProjectRelationInstancesReqBuilder struct {
@@ -1078,10 +1066,6 @@ type DeleteFileReqBody struct {
 type DeleteFileResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteFileRespData        `json:"data,omitempty"`
-}
-
-type DeleteFileRespData struct {
 }
 
 type DeleteFileReqBuilder struct {
@@ -1142,10 +1126,6 @@ type DeleteProjectRelationInstanceReqBody struct {
 type DeleteProjectRelationInstanceResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteProjectRelationInstanceRespData        `json:"data,omitempty"`
-}
-
-type DeleteProjectRelationInstanceRespData struct {
 }
 
 type DeleteProjectRelationInstanceReqBuilder struct {
@@ -1203,10 +1183,6 @@ type DeleteTemplateDetailReq struct {
 type DeleteTemplateDetailResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteTemplateDetailRespData        `json:"data,omitempty"`
-}
-
-type DeleteTemplateDetailRespData struct {
 }
 
 type DeleteTemplateDetailReqBuilder struct {
@@ -1245,10 +1221,6 @@ type DeleteWorkItemReq struct {
 type DeleteWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteWorkItemRespData        `json:"data,omitempty"`
-}
-
-type DeleteWorkItemRespData struct {
 }
 
 type DeleteWorkItemReqBuilder struct {
@@ -1338,10 +1310,6 @@ type DeleteWorkItemSubTaskReq struct {
 type DeleteWorkItemSubTaskResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteWorkItemSubTaskRespData        `json:"data,omitempty"`
-}
-
-type DeleteWorkItemSubTaskRespData struct {
 }
 
 type DeleteWorkItemSubTaskReqBuilder struct {
@@ -1395,10 +1363,6 @@ type DeleteWorkingHourRecordReqBody struct {
 type DeleteWorkingHourRecordResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteWorkingHourRecordRespData        `json:"data,omitempty"`
-}
-
-type DeleteWorkingHourRecordRespData struct {
 }
 
 type DeleteWorkingHourRecordReqBuilder struct {
@@ -1859,10 +1823,6 @@ type FreezeWorkItemReqBody struct {
 type FreezeWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *FreezeWorkItemRespData        `json:"data,omitempty"`
-}
-
-type FreezeWorkItemRespData struct {
 }
 
 type FreezeWorkItemReqBuilder struct {
@@ -2602,10 +2562,6 @@ type PublishWBSViewDraftReqBody struct {
 type PublishWBSViewDraftResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *PublishWBSViewDraftRespData        `json:"data,omitempty"`
-}
-
-type PublishWBSViewDraftRespData struct {
 }
 
 type PublishWBSViewDraftReqBuilder struct {
@@ -3647,10 +3603,6 @@ type SubTaskModifyReqBody struct {
 type SubTaskModifyResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *SubTaskModifyRespData        `json:"data,omitempty"`
-}
-
-type SubTaskModifyRespData struct {
 }
 
 type SubTaskModifyReqBuilder struct {
@@ -3892,10 +3844,6 @@ type UpdateFieldReqBody struct {
 type UpdateFieldResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateFieldRespData        `json:"data,omitempty"`
-}
-
-type UpdateFieldRespData struct {
 }
 
 type UpdateFieldReqBuilder struct {
@@ -4005,10 +3953,6 @@ type UpdateFinishedReqBody struct {
 type UpdateFinishedResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateFinishedRespData        `json:"data,omitempty"`
-}
-
-type UpdateFinishedRespData struct {
 }
 
 type UpdateFinishedReqBuilder struct {
@@ -4163,10 +4107,6 @@ type UpdateNodeStateReqBody struct {
 type UpdateNodeStateResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateNodeStateRespData        `json:"data,omitempty"`
-}
-
-type UpdateNodeStateRespData struct {
 }
 
 type UpdateNodeStateReqBuilder struct {
@@ -4260,10 +4200,6 @@ type UpdateStateFlowReqBody struct {
 type UpdateStateFlowResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateStateFlowRespData        `json:"data,omitempty"`
-}
-
-type UpdateStateFlowRespData struct {
 }
 
 type UpdateStateFlowReqBuilder struct {
@@ -4331,10 +4267,6 @@ type UpdateTemplateDetailReqBody struct {
 type UpdateTemplateDetailResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateTemplateDetailRespData        `json:"data,omitempty"`
-}
-
-type UpdateTemplateDetailRespData struct {
 }
 
 type UpdateTemplateDetailReqBuilder struct {
@@ -4387,10 +4319,6 @@ type UpdateWorkItemReqBody struct {
 type UpdateWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateWorkItemRespData        `json:"data,omitempty"`
-}
-
-type UpdateWorkItemRespData struct {
 }
 
 type UpdateWorkItemReqBuilder struct {
@@ -4448,10 +4376,6 @@ type UpdateWorkItemRelationReqBody struct {
 type UpdateWorkItemRelationResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateWorkItemRelationRespData        `json:"data,omitempty"`
-}
-
-type UpdateWorkItemRelationRespData struct {
 }
 
 type UpdateWorkItemRelationReqBuilder struct {
@@ -4517,10 +4441,6 @@ type UpdateWorkItemSubTaskReqBody struct {
 type UpdateWorkItemSubTaskResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateWorkItemSubTaskRespData        `json:"data,omitempty"`
-}
-
-type UpdateWorkItemSubTaskRespData struct {
 }
 
 type UpdateWorkItemSubTaskReqBuilder struct {
@@ -4626,10 +4546,6 @@ type UpdateWorkItemTypeInfoReqBody struct {
 type UpdateWorkItemTypeInfoResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateWorkItemTypeInfoRespData        `json:"data,omitempty"`
-}
-
-type UpdateWorkItemTypeInfoRespData struct {
 }
 
 type UpdateWorkItemTypeInfoReqBuilder struct {
@@ -4729,10 +4645,6 @@ type UpdateWorkflowNodeReqBody struct {
 type UpdateWorkflowNodeResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateWorkflowNodeRespData        `json:"data,omitempty"`
-}
-
-type UpdateWorkflowNodeRespData struct {
 }
 
 type UpdateWorkflowNodeReqBuilder struct {
@@ -4812,10 +4724,6 @@ type UpdateWorkingHourRecordReqBody struct {
 type UpdateWorkingHourRecordResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateWorkingHourRecordRespData        `json:"data,omitempty"`
-}
-
-type UpdateWorkingHourRecordRespData struct {
 }
 
 type UpdateWorkingHourRecordReqBuilder struct {
@@ -4872,10 +4780,6 @@ type WBSUpdateDraftFrozenRowsReqBody struct {
 type WBSUpdateDraftFrozenRowsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *WBSUpdateDraftFrozenRowsRespData        `json:"data,omitempty"`
-}
-
-type WBSUpdateDraftFrozenRowsRespData struct {
 }
 
 type WBSUpdateDraftFrozenRowsReqBuilder struct {

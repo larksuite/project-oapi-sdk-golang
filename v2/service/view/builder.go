@@ -182,10 +182,6 @@ type DeleteFixViewReq struct {
 type DeleteFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteFixViewRespData        `json:"data,omitempty"`
-}
-
-type DeleteFixViewRespData struct {
 }
 
 type DeleteFixViewReqBuilder struct {
@@ -300,10 +296,6 @@ type UpdateConditionViewReqBody struct {
 type UpdateConditionViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateConditionViewRespData        `json:"data,omitempty"`
-}
-
-type UpdateConditionViewRespData struct {
 }
 
 type UpdateConditionViewReqBuilder struct {

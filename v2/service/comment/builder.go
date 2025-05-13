@@ -75,10 +75,6 @@ type DeleteCommentReq struct {
 type DeleteCommentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *DeleteCommentRespData        `json:"data,omitempty"`
-}
-
-type DeleteCommentRespData struct {
 }
 
 type DeleteCommentReqBuilder struct {
@@ -193,10 +189,6 @@ type UpdateCommentReqBody struct {
 type UpdateCommentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UpdateCommentRespData        `json:"data,omitempty"`
-}
-
-type UpdateCommentRespData struct {
 }
 
 type UpdateCommentReqBuilder struct {

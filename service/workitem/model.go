@@ -89,6 +89,8 @@ type Expand struct {
 	NeedUserDetail bool `json:"need_user_detail"`
 
 	NeedSubTaskParent bool `json:"need_sub_task_parent"`
+
+	NeedUnionDeliverable bool `json:"need_union_deliverable"`
 }
 
 type FieldConf struct {
@@ -230,7 +232,7 @@ type RelationFieldDetail struct {
 }
 
 type Schedule struct {
-	Points *float64 `json:"points"`
+	Points *float64 `json:"points,omitempty"`
 
 	EstimateStartDate *int64 `json:"estimate_start_date,omitempty"`
 
@@ -238,9 +240,9 @@ type Schedule struct {
 
 	Owners []string `json:"owners"`
 
-	IsAuto *bool `json:"is_auto,omitempty"`
-
 	ActualWorkTime *float64 `json:"actual_work_time,omitempty"`
+
+	IsAuto *bool `json:"is_auto,omitempty"`
 }
 
 type SearchGroup struct {
@@ -399,6 +401,8 @@ type WBSWorkItem struct {
 	WorkItemTypeKey string `json:"work_item_type_key"`
 
 	Milestone bool `json:"milestone"`
+
+	UnionDeliverable UnionDeliverable `json:"union_deliverable"`
 }
 
 type WbsViewResponse struct {
@@ -491,6 +495,8 @@ type WorkItemRelation struct {
 	WorkItemTypeName string `json:"work_item_type_name"`
 
 	RelationDetails []*RelationDetail `json:"relation_details"`
+
+	RelationType int64 `json:"relation_type"`
 }
 
 type WorkItemStatus struct {
@@ -571,4 +577,64 @@ type WorkflowNode struct {
 	Milestone bool `json:"milestone"`
 
 	Participants []string `json:"participants"`
+}
+
+type UnionDeliverable struct {
+	FieldDeliverables []FieldDeliverableItem `json:"field_deliverables"`
+
+	InstanceDeliverables []InstanceDeliverableItem `json:"instance_deliverables"`
+}
+
+type FieldDeliverableItem struct {
+	FieldInfo field.FieldValuePair `json:"field_info"`
+
+	Placeholder string `json:"placeholder"`
+
+	Remark string `json:"remark"`
+
+	Status int64 `json:"status"`
+}
+
+type InstanceDeliverableItem struct {
+	Name string `json:"name"`
+
+	WorkItemID int64 `json:"work_item_id"`
+
+	Deletable bool `json:"deletable"`
+
+	MustComplete bool `json:"must_complete"`
+
+	StateKey string `json:"state_key"`
+
+	StateName string `json:"state_name"`
+
+	Owners []string `json:"owners"`
+
+	Remark string `json:"remark"`
+}
+
+type DataSource struct {
+	ProjectKey *string `json:"project_key,omitempty"`
+
+	WorkItemTypeKeys *string `json:"work_item_type_keys,omitempty"`
+}
+
+type Sort struct {
+	FieldKey *string `json:"field_key,omitempty"`
+
+	FieldType *string `json:"field_type,omitempty"`
+
+	WorkItemTypeKey *string `json:"work_item_type_key,omitempty"`
+
+	Order *string `json:"order,omitempty"`
+
+	Params map[string]string `json:"params,omitempty"`
+}
+
+type Pagination struct {
+	PageNum *int64 `json:"page_num,omitempty"`
+
+	PageSize *int64 `json:"page_size,omitempty"`
+
+	Total *int64 `json:"total,omitempty"`
 }

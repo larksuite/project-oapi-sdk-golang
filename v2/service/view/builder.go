@@ -11,30 +11,23 @@ type CreateConditionViewReq struct {
 	apiReq *core.APIReq
 }
 type CreateConditionViewReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-
     CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
-
 }
-
 type CreateConditionViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	ViewID       *string         `json:"view_id"`
-	
+	Data      *CreateConditionViewRespData        `json:"data,omitempty"`
+}
+
+type CreateConditionViewRespData struct {
+	ViewID       *string         `json:"view_id,omitempty"`
 }
 
 type CreateConditionViewReqBuilder struct {
@@ -104,21 +97,13 @@ type CreateFixViewReq struct {
 	apiReq *core.APIReq
 }
 type CreateFixViewReqBody struct {
-
     WorkItemIDList  []int64 `json:"work_item_id_list,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
     CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
-
 }
-
 type CreateFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -194,7 +179,6 @@ func (builder *CreateFixViewReqBuilder) Build() *CreateFixViewReq {
 type DeleteFixViewReq struct {
 	apiReq *core.APIReq
 }
-
 type DeleteFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -234,15 +218,10 @@ type QueryWorkItemDetailsByViewIDReq struct {
 	apiReq *core.APIReq
 }
 type QueryWorkItemDetailsByViewIDReqBody struct {
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     Expand  *Expand `json:"expand,omitempty"`
-
 }
-
 type QueryWorkItemDetailsByViewIDResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -304,27 +283,16 @@ type UpdateConditionViewReq struct {
 	apiReq *core.APIReq
 }
 type UpdateConditionViewReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-
     CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
     ViewID  *string `json:"view_id,omitempty"`
-
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
-
 }
-
 type UpdateConditionViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -403,21 +371,13 @@ type UpdateFixViewReq struct {
 	apiReq *core.APIReq
 }
 type UpdateFixViewReqBody struct {
-
     AddWorkItemIDs  []int64 `json:"add_work_item_ids,omitempty"`
-
     RemoveWorkItemIDs  []int64 `json:"remove_work_item_ids,omitempty"`
-
     CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
-
 }
-
 type UpdateFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -499,23 +459,14 @@ type ViewListReq struct {
 	apiReq *core.APIReq
 }
 type ViewListReqBody struct {
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     ViewIDs  []string `json:"view_ids,omitempty"`
-
     CreatedBy  *string `json:"created_by,omitempty"`
-
     CreatedAt  *TimeInterval `json:"created_at,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     ViewName  *string `json:"view_name,omitempty"`
-
 }
-
 type ViewListResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -593,7 +544,6 @@ func (builder *ViewListReqBuilder) Build() *ViewListReq {
 type WorkItemListReq struct {
 	apiReq *core.APIReq
 }
-
 type WorkItemListResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError

@@ -11,15 +11,10 @@ type AbortWorkItemReq struct {
 	apiReq *core.APIReq
 }
 type AbortWorkItemReqBody struct {
-
     IsAborted  *bool `json:"is_aborted,omitempty"`
-
     Reason  *string `json:"reason,omitempty"`
-
     ReasonOption  *string `json:"reason_option,omitempty"`
-
 }
-
 type AbortWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -84,17 +79,11 @@ type ActualTimeUpdateReq struct {
 	apiReq *core.APIReq
 }
 type ActualTimeUpdateReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     NodeID  *string `json:"node_id,omitempty"`
-
     ActualTimeInfo  *ActualTimeInfo `json:"actual_time_info,omitempty"`
-
 }
-
 type ActualTimeUpdateResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -146,15 +135,10 @@ type BatchQueryConclusionOptionReq struct {
 	apiReq *core.APIReq
 }
 type BatchQueryConclusionOptionReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     NodeIDs  []string `json:"node_ids,omitempty"`
-
 }
-
 type BatchQueryConclusionOptionResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -202,13 +186,9 @@ type BatchQueryDeliverableReq struct {
 	apiReq *core.APIReq
 }
 type BatchQueryDeliverableReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
-
 }
-
 type BatchQueryDeliverableResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -250,24 +230,20 @@ type BatchQueryFinishedReq struct {
 	apiReq *core.APIReq
 }
 type BatchQueryFinishedReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     NodeIDs  []string `json:"node_ids,omitempty"`
-
 }
-
 type BatchQueryFinishedResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	ProjectKey       *string         `json:"project_key"`
-	
-	WorkItemID       *int64         `json:"work_item_id"`
-	
-	FinishedInfos       []OAPIFinishedInfoItem         `json:"finished_infos"`
-	
+	Data      *BatchQueryFinishedRespData        `json:"data,omitempty"`
+}
+
+type BatchQueryFinishedRespData struct {
+	ProjectKey       *string         `json:"project_key,omitempty"`
+	WorkItemID       *int64         `json:"work_item_id,omitempty"`
+	FinishedInfos       []OAPIFinishedInfoItem         `json:"finished_infos,omitempty"`
 }
 
 type BatchQueryFinishedReqBuilder struct {
@@ -310,28 +286,22 @@ type BatchUpdateBasicWorkItemReq struct {
 	apiReq *core.APIReq
 }
 type BatchUpdateBasicWorkItemReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
-
     UpdateMode  *string `json:"update_mode,omitempty"`
-
     FieldKey  *string `json:"field_key,omitempty"`
-
     BeforeFieldValue  interface{} `json:"before_field_value,omitempty"`
-
     AfterFieldValue  interface{} `json:"after_field_value,omitempty"`
-
 }
-
 type BatchUpdateBasicWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	TaskID       *string         `json:"task_id"`
-	
+	Data      *BatchUpdateBasicWorkItemRespData        `json:"data,omitempty"`
+}
+
+type BatchUpdateBasicWorkItemRespData struct {
+	TaskID       *string         `json:"task_id,omitempty"`
 }
 
 type BatchUpdateBasicWorkItemReqBuilder struct {
@@ -396,21 +366,13 @@ type CompositiveSearchReq struct {
 	apiReq *core.APIReq
 }
 type CompositiveSearchReqBody struct {
-
     QueryType  *string `json:"query_type,omitempty"`
-
     Query  *string `json:"query,omitempty"`
-
     QuerySubType  []string `json:"query_sub_type,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     SimpleNames  []string `json:"simple_names,omitempty"`
-
 }
-
 type CompositiveSearchResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -477,41 +439,24 @@ type CreateFieldReq struct {
 	apiReq *core.APIReq
 }
 type CreateFieldReqBody struct {
-
     FieldName  *string `json:"field_name,omitempty"`
-
     FieldTypeKey  *string `json:"field_type_key,omitempty"`
-
     ValueType  *int64 `json:"value_type,omitempty"`
-
     ReferenceWorkItemTypeKey  *string `json:"reference_work_item_type_key,omitempty"`
-
     ReferenceFieldKey  *string `json:"reference_field_key,omitempty"`
-
     FieldValue  interface{} `json:"field_value,omitempty"`
-
     FreeAdd  *int64 `json:"free_add,omitempty"`
-
     WorkItemRelationUUID  *string `json:"work_item_relation_uuid,omitempty"`
-
     DefaultValue  interface{} `json:"default_value,omitempty"`
-
     FieldAlias  *string `json:"field_alias,omitempty"`
-
     HelpDescription  *string `json:"help_description,omitempty"`
-
     AuthorizedRoles  []string `json:"authorized_roles,omitempty"`
-
     IsMulti  *bool `json:"is_multi,omitempty"`
-
     Format  *bool `json:"format,omitempty"`
-
     RelatedFieldExtraDisplayInfos  []RelatedFieldExtraDisplayInfo `json:"related_field_extra_display_infos,omitempty"`
-
     TeamOption  *TeamOption `json:"team_option,omitempty"`
-
+    ParentFieldKey  *string `json:"parent_field_key,omitempty"`
 }
-
 type CreateFieldResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -635,6 +580,12 @@ func (builder *CreateFieldReqBuilder) TeamOption(teamOption *TeamOption) *Create
 	builder.apiReq.Body.(*CreateFieldReqBody).TeamOption = teamOption
 	return builder
 }
+
+func (builder *CreateFieldReqBuilder) ParentFieldKey(parentFieldKey string) *CreateFieldReqBuilder {
+	builder.apiReq.Body.(*CreateFieldReqBody).ParentFieldKey = &parentFieldKey
+	return builder
+}
+
 func (builder *CreateFieldReqBuilder) Build() *CreateFieldReq {
 	req := &CreateFieldReq{}
 	req.apiReq = builder.apiReq
@@ -645,13 +596,9 @@ type CreateProjectRelationInstancesReq struct {
 	apiReq *core.APIReq
 }
 type CreateProjectRelationInstancesReqBody struct {
-
     RelationRuleID  *string `json:"relation_rule_id,omitempty"`
-
     Instances  []RelationBindInstance `json:"instances,omitempty"`
-
 }
-
 type CreateProjectRelationInstancesResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -709,11 +656,8 @@ type CreateStoryRelationsReq struct {
 	apiReq *core.APIReq
 }
 type CreateStoryRelationsReqBody struct {
-
     StoryRelations  []StoryRelationEntity `json:"story_relations,omitempty"`
-
 }
-
 type CreateStoryRelationsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -755,17 +699,11 @@ type CreateTemplateDetailReq struct {
 	apiReq *core.APIReq
 }
 type CreateTemplateDetailReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     TemplateName  *string `json:"template_name,omitempty"`
-
     CopyTemplateID  *int64 `json:"copy_template_id,omitempty"`
-
 }
-
 type CreateTemplateDetailResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -820,17 +758,11 @@ type CreateWorkItemReq struct {
 	apiReq *core.APIReq
 }
 type CreateWorkItemReqBody struct {
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     FieldValuePairs  []FieldValuePair `json:"field_value_pairs,omitempty"`
-
     TemplateID  *int64 `json:"template_id,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
 }
-
 type CreateWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -890,17 +822,11 @@ type CreateWorkItemRelationReq struct {
 	apiReq *core.APIReq
 }
 type CreateWorkItemRelationReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
     RelationDetails  []RelationDetail `json:"relation_details,omitempty"`
-
 }
-
 type CreateWorkItemRelationResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -954,25 +880,15 @@ type CreateWorkItemSubTaskReq struct {
 	apiReq *core.APIReq
 }
 type CreateWorkItemSubTaskReqBody struct {
-
     NodeID  *string `json:"node_id,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
     AliasKey  *string `json:"alias_key,omitempty"`
-
     Assignee  []string `json:"assignee,omitempty"`
-
     RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
-
     Schedule  *Schedule `json:"schedule,omitempty"`
-
     Note  *string `json:"note,omitempty"`
-
     FieldValuePairs  []FieldValuePair `json:"field_value_pairs,omitempty"`
-
 }
-
 type CreateWorkItemSubTaskResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1065,17 +981,11 @@ type CreateWorkingHourRecordReq struct {
 	apiReq *core.APIReq
 }
 type CreateWorkingHourRecordReqBody struct {
-
     WorkBeginDate  *int64 `json:"work_begin_date,omitempty"`
-
     WorkEndDate  *int64 `json:"work_end_date,omitempty"`
-
     IncludeHolidays  *bool `json:"include_holidays,omitempty"`
-
     WorkingHourRecords  []CreateWorkingHourRecord `json:"working_hour_records,omitempty"`
-
 }
-
 type CreateWorkingHourRecordResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1147,19 +1057,12 @@ type DeleteFileReq struct {
 	apiReq *core.APIReq
 }
 type DeleteFileReqBody struct {
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     FieldKey  *string `json:"field_key,omitempty"`
-
     FieldAlias  *string `json:"field_alias,omitempty"`
-
     Uuids  []string `json:"uuids,omitempty"`
-
 }
-
 type DeleteFileResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1217,13 +1120,9 @@ type DeleteProjectRelationInstanceReq struct {
 	apiReq *core.APIReq
 }
 type DeleteProjectRelationInstanceReqBody struct {
-
     RelationRuleID  *string `json:"relation_rule_id,omitempty"`
-
     RelationWorkItemID  *int64 `json:"relation_work_item_id,omitempty"`
-
 }
-
 type DeleteProjectRelationInstanceResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1281,7 +1180,6 @@ func (builder *DeleteProjectRelationInstanceReqBuilder) Build() *DeleteProjectRe
 type DeleteTemplateDetailReq struct {
 	apiReq *core.APIReq
 }
-
 type DeleteTemplateDetailResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1320,7 +1218,6 @@ func (builder *DeleteTemplateDetailReqBuilder) Build() *DeleteTemplateDetailReq 
 type DeleteWorkItemReq struct {
 	apiReq *core.APIReq
 }
-
 type DeleteWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1366,13 +1263,9 @@ type DeleteWorkItemRelationReq struct {
 	apiReq *core.APIReq
 }
 type DeleteWorkItemRelationReqBody struct {
-
     RelationID  *string `json:"relation_id,omitempty"`
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
 }
-
 type DeleteWorkItemRelationResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1414,7 +1307,6 @@ func (builder *DeleteWorkItemRelationReqBuilder) Build() *DeleteWorkItemRelation
 type DeleteWorkItemSubTaskReq struct {
 	apiReq *core.APIReq
 }
-
 type DeleteWorkItemSubTaskResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1466,11 +1358,8 @@ type DeleteWorkingHourRecordReq struct {
 	apiReq *core.APIReq
 }
 type DeleteWorkingHourRecordReqBody struct {
-
     WorkingHourRecordIDs  []int64 `json:"working_hour_record_ids,omitempty"`
-
 }
-
 type DeleteWorkingHourRecordResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1522,24 +1411,20 @@ type ElementTemplateCreateReq struct {
 	apiReq *core.APIReq
 }
 type ElementTemplateCreateReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     ElementType  *string `json:"element_type,omitempty"`
-
     NodeElement  *NodeElement `json:"node_element,omitempty"`
-
     TaskElement  *TaskElement `json:"task_element,omitempty"`
-
 }
-
 type ElementTemplateCreateResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	ElementKey       *string         `json:"element_key"`
-	
+	Data      *ElementTemplateCreateRespData        `json:"data,omitempty"`
+}
+
+type ElementTemplateCreateRespData struct {
+	ElementKey       *string         `json:"element_key,omitempty"`
 }
 
 type ElementTemplateCreateReqBuilder struct {
@@ -1593,28 +1478,22 @@ type ElementTemplateQueryReq struct {
 	apiReq *core.APIReq
 }
 type ElementTemplateQueryReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     ElementType  *string `json:"element_type,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
 }
-
 type ElementTemplateQueryResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	NodeElements       []NodeElement         `json:"node_elements"`
-	
-	TaskElements       []TaskElement         `json:"task_elements"`
-	
-	Total       *int64         `json:"total"`
-	
+	Data      *ElementTemplateQueryRespData        `json:"data,omitempty"`
+}
+
+type ElementTemplateQueryRespData struct {
+	NodeElements       []NodeElement         `json:"node_elements,omitempty"`
+	TaskElements       []TaskElement         `json:"task_elements,omitempty"`
+	Total       *int64         `json:"total,omitempty"`
 }
 
 type ElementTemplateQueryReqBuilder struct {
@@ -1670,39 +1549,22 @@ type FilterReq struct {
 	apiReq *core.APIReq
 }
 type FilterReqBody struct {
-
     WorkItemName  *string `json:"work_item_name,omitempty"`
-
     UserKeys  []string `json:"user_keys,omitempty"`
-
     WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
-
     WorkItemTypeKeys  []string `json:"work_item_type_keys,omitempty"`
-
     CreatedAt  *TimeInterval `json:"created_at,omitempty"`
-
     UpdatedAt  *TimeInterval `json:"updated_at,omitempty"`
-
     SubStages  []string `json:"sub_stages,omitempty"`
-
     Businesses  []string `json:"businesses,omitempty"`
-
     Priorities  []string `json:"priorities,omitempty"`
-
     Tags  []string `json:"tags,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     WorkItemStatus  []WorkItemStatus `json:"work_item_status,omitempty"`
-
     Expand  *Expand `json:"expand,omitempty"`
-
     SearchID  *string `json:"search_id,omitempty"`
-
 }
-
 type FilterResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1820,41 +1682,23 @@ type FilterAcrossProjectReq struct {
 	apiReq *core.APIReq
 }
 type FilterAcrossProjectReqBody struct {
-
     SearchUser  *SearchUser `json:"search_user,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     CreatedAt  *TimeInterval `json:"created_at,omitempty"`
-
     UpdatedAt  *TimeInterval `json:"updated_at,omitempty"`
-
     WorkItemStatus  []WorkItemStatus `json:"work_item_status,omitempty"`
-
     WorkItemName  *string `json:"work_item_name,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     TenantGroupID  *int64 `json:"tenant_group_id,omitempty"`
-
     WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
-
     Businesses  []string `json:"businesses,omitempty"`
-
     Priorities  []string `json:"priorities,omitempty"`
-
     Tags  []string `json:"tags,omitempty"`
-
     SimpleNames  []string `json:"simple_names,omitempty"`
-
     TemplateIDs  []int64 `json:"template_ids,omitempty"`
-
     Expand  *Expand `json:"expand,omitempty"`
-
 }
-
 type FilterAcrossProjectResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -1972,15 +1816,10 @@ type FreezeWorkItemReq struct {
 	apiReq *core.APIReq
 }
 type FreezeWorkItemReqBody struct {
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     IsFrozen  *bool `json:"is_frozen,omitempty"`
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
 }
-
 type FreezeWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2027,11 +1866,8 @@ type GetWBSInfoReq struct {
 	apiReq *core.APIReq
 }
 type GetWBSInfoReqBody struct {
-
     Expand  *Expand `json:"expand,omitempty"`
-
 }
-
 type GetWBSInfoResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2090,12 +1926,14 @@ func (builder *GetWBSInfoReqBuilder) Build() *GetWBSInfoReq {
 type GetWBSViewSubWorkItemConfReq struct {
 	apiReq *core.APIReq
 }
-
 type GetWBSViewSubWorkItemConfResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	DraftViewSubWorkItemConfs       []DraftViewSubWorkItemConf         `json:"draft_view_sub_work_item_confs"`
-	
+	Data      *GetWBSViewSubWorkItemConfRespData        `json:"data,omitempty"`
+}
+
+type GetWBSViewSubWorkItemConfRespData struct {
+	DraftViewSubWorkItemConfs       []DraftViewSubWorkItemConf         `json:"draft_view_sub_work_item_confs,omitempty"`
 }
 
 type GetWBSViewSubWorkItemConfReqBuilder struct {
@@ -2144,15 +1982,10 @@ type GetWorkFlowReq struct {
 	apiReq *core.APIReq
 }
 type GetWorkFlowReqBody struct {
-
     Fields  []string `json:"fields,omitempty"`
-
     FlowType  *int64 `json:"flow_type,omitempty"`
-
     Expand  *Expand `json:"expand,omitempty"`
-
 }
-
 type GetWorkFlowResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2217,19 +2050,12 @@ type GetWorkItemManHourRecordsReq struct {
 	apiReq *core.APIReq
 }
 type GetWorkItemManHourRecordsReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
 }
-
 type GetWorkItemManHourRecordsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2292,44 +2118,30 @@ type GetWorkItemOpRecordReq struct {
 	apiReq *core.APIReq
 }
 type GetWorkItemOpRecordReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
-
     StartFrom  *string `json:"start_from,omitempty"`
-
     Operator  []string `json:"operator,omitempty"`
-
     OperatorType  []string `json:"operator_type,omitempty"`
-
     SourceType  []string `json:"source_type,omitempty"`
-
     Source  []string `json:"source,omitempty"`
-
     OperationType  []string `json:"operation_type,omitempty"`
-
     Start  *int64 `json:"start,omitempty"`
-
     End  *int64 `json:"end,omitempty"`
-
     OpRecordModule  []string `json:"op_record_module,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
 }
-
 type GetWorkItemOpRecordResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	HasMore       *bool         `json:"has_more"`
-	
-	StartFrom       *string         `json:"start_from"`
-	
-	OpRecords       []OAPIOperationRecord         `json:"op_records"`
-	
-	Total       *int64         `json:"total"`
-	
+	Data      *GetWorkItemOpRecordRespData        `json:"data,omitempty"`
+}
+
+type GetWorkItemOpRecordRespData struct {
+	HasMore       *bool         `json:"has_more,omitempty"`
+	StartFrom       *string         `json:"start_from,omitempty"`
+	OpRecords       []OAPIOperationRecord         `json:"op_records,omitempty"`
+	Total       *int64         `json:"total,omitempty"`
 }
 
 type GetWorkItemOpRecordReqBuilder struct {
@@ -2419,7 +2231,6 @@ func (builder *GetWorkItemOpRecordReqBuilder) Build() *GetWorkItemOpRecordReq {
 type GetWorkItemTypeInfoByKeyReq struct {
 	apiReq *core.APIReq
 }
-
 type GetWorkItemTypeInfoByKeyResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2461,15 +2272,10 @@ type GetWorkItemsByIdsReq struct {
 	apiReq *core.APIReq
 }
 type GetWorkItemsByIdsReqBody struct {
-
     WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
-
     Fields  []string `json:"fields,omitempty"`
-
     Expand  *Expand `json:"expand,omitempty"`
-
 }
-
 type GetWorkItemsByIdsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2527,21 +2333,13 @@ type IntegrateSearchReq struct {
 	apiReq *core.APIReq
 }
 type IntegrateSearchReqBody struct {
-
     Query  *Query `json:"query,omitempty"`
-
     SearchID  *string `json:"search_id,omitempty"`
-
     ViewID  *string `json:"view_id,omitempty"`
-
     FieldSelected  []string `json:"field_selected,omitempty"`
-
     Features  map[string]string `json:"features,omitempty"`
-
     DataSources  []DataSource `json:"data_sources,omitempty"`
-
 }
-
 type IntegrateSearchResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2608,13 +2406,9 @@ type InviteBotJoinChatReq struct {
 	apiReq *core.APIReq
 }
 type InviteBotJoinChatReqBody struct {
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     AppIDs  []string `json:"app_ids,omitempty"`
-
 }
-
 type InviteBotJoinChatResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2667,7 +2461,6 @@ func (builder *InviteBotJoinChatReqBuilder) Build() *InviteBotJoinChatReq {
 type ListTemplateConfReq struct {
 	apiReq *core.APIReq
 }
-
 type ListTemplateConfResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2709,20 +2502,18 @@ type PatchWBSViewDraftReq struct {
 	apiReq *core.APIReq
 }
 type PatchWBSViewDraftReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     DraftID  *string `json:"draft_id,omitempty"`
-
     Operations  []Operation `json:"operations,omitempty"`
-
 }
-
 type PatchWBSViewDraftResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	RelationValues       []Operation         `json:"relation_values"`
-	
+	Data      *PatchWBSViewDraftRespData        `json:"data,omitempty"`
+}
+
+type PatchWBSViewDraftRespData struct {
+	RelationValues       []Operation         `json:"relation_values,omitempty"`
 }
 
 type PatchWBSViewDraftReqBuilder struct {
@@ -2765,13 +2556,9 @@ type PublishWBSViewDraftReq struct {
 	apiReq *core.APIReq
 }
 type PublishWBSViewDraftReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     DraftID  *string `json:"draft_id,omitempty"`
-
 }
-
 type PublishWBSViewDraftResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2811,7 +2598,6 @@ func (builder *PublishWBSViewDraftReqBuilder) Build() *PublishWBSViewDraftReq {
 type QueryAWorkItemTypesReq struct {
 	apiReq *core.APIReq
 }
-
 type QueryAWorkItemTypesResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2846,7 +2632,6 @@ func (builder *QueryAWorkItemTypesReqBuilder) Build() *QueryAWorkItemTypesReq {
 type QueryBusinessesReq struct {
 	apiReq *core.APIReq
 }
-
 type QueryBusinessesResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2882,11 +2667,8 @@ type QueryProjectFieldsReq struct {
 	apiReq *core.APIReq
 }
 type QueryProjectFieldsReqBody struct {
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
 }
-
 type QueryProjectFieldsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2929,11 +2711,8 @@ type QueryProjectRelationReq struct {
 	apiReq *core.APIReq
 }
 type QueryProjectRelationReqBody struct {
-
     RemoteProjects  []string `json:"remote_projects,omitempty"`
-
 }
-
 type QueryProjectRelationResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -2975,17 +2754,11 @@ type QueryProjectRelationInstanceReq struct {
 	apiReq *core.APIReq
 }
 type QueryProjectRelationInstanceReqBody struct {
-
     RelationRuleID  *string `json:"relation_rule_id,omitempty"`
-
     RelationWorkItemID  *int64 `json:"relation_work_item_id,omitempty"`
-
     RelationWorkItemTypeKey  *string `json:"relation_work_item_type_key,omitempty"`
-
     RelationProjectKey  *string `json:"relation_project_key,omitempty"`
-
 }
-
 type QueryProjectRelationInstanceResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3057,7 +2830,6 @@ func (builder *QueryProjectRelationInstanceReqBuilder) Build() *QueryProjectRela
 type QueryRoleConfDetailsReq struct {
 	apiReq *core.APIReq
 }
-
 type QueryRoleConfDetailsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3099,11 +2871,8 @@ type QueryStoryRelationsReq struct {
 	apiReq *core.APIReq
 }
 type QueryStoryRelationsReqBody struct {
-
     WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
-
 }
-
 type QueryStoryRelationsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3144,26 +2913,21 @@ func (builder *QueryStoryRelationsReqBuilder) Build() *QueryStoryRelationsReq {
 type QueryTaskResultReq struct {
 	apiReq *core.APIReq
 }
-
 type QueryTaskResultResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	TaskID       *string         `json:"task_id"`
-	
-	TaskStatus       *string         `json:"task_status"`
-	
-	Total       *int64         `json:"total"`
-	
-	SuccessTotal       *int64         `json:"success_total"`
-	
-	ErrorTotal       *int64         `json:"error_total"`
-	
-	SuccessSubTaskList       []string         `json:"success_sub_task_list"`
-	
-	FailSubTaskList       []string         `json:"fail_sub_task_list"`
-	
-	ErrorScenes       []string         `json:"error_scenes"`
-	
+	Data      *QueryTaskResultRespData        `json:"data,omitempty"`
+}
+
+type QueryTaskResultRespData struct {
+	TaskID       *string         `json:"task_id,omitempty"`
+	TaskStatus       *string         `json:"task_status,omitempty"`
+	Total       *int64         `json:"total,omitempty"`
+	SuccessTotal       *int64         `json:"success_total,omitempty"`
+	ErrorTotal       *int64         `json:"error_total,omitempty"`
+	SuccessSubTaskList       []string         `json:"success_sub_task_list,omitempty"`
+	FailSubTaskList       []string         `json:"fail_sub_task_list,omitempty"`
+	ErrorScenes       []string         `json:"error_scenes,omitempty"`
 }
 
 type QueryTaskResultReqBuilder struct {
@@ -3193,7 +2957,6 @@ func (builder *QueryTaskResultReqBuilder) Build() *QueryTaskResultReq {
 type QueryTemplateDetailReq struct {
 	apiReq *core.APIReq
 }
-
 type QueryTemplateDetailResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3235,22 +2998,19 @@ type QueryWBSViewDraftReq struct {
 	apiReq *core.APIReq
 }
 type QueryWBSViewDraftReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     NeedInit  *bool `json:"need_init,omitempty"`
-
 }
-
 type QueryWBSViewDraftResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	WbsDraft       *WbsDraft         `json:"wbs_draft"`
-	
+	Data      *QueryWBSViewDraftRespData        `json:"data,omitempty"`
+}
+
+type QueryWBSViewDraftRespData struct {
+	WbsDraft       *WbsDraft         `json:"wbs_draft,omitempty"`
 }
 
 type QueryWBSViewDraftReqBuilder struct {
@@ -3300,11 +3060,8 @@ type QueryWbsTemplateConfReq struct {
 	apiReq *core.APIReq
 }
 type QueryWbsTemplateConfReqBody struct {
-
     TemplateKey  *string `json:"template_key,omitempty"`
-
 }
-
 type QueryWbsTemplateConfResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3346,7 +3103,6 @@ func (builder *QueryWbsTemplateConfReqBuilder) Build() *QueryWbsTemplateConfReq 
 type QueryWorkItemMetaDataReq struct {
 	apiReq *core.APIReq
 }
-
 type QueryWorkItemMetaDataResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3387,7 +3143,6 @@ func (builder *QueryWorkItemMetaDataReqBuilder) Build() *QueryWorkItemMetaDataRe
 type QueryWorkItemRelationReq struct {
 	apiReq *core.APIReq
 }
-
 type QueryWorkItemRelationResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3422,7 +3177,6 @@ func (builder *QueryWorkItemRelationReqBuilder) Build() *QueryWorkItemRelationRe
 type QueryWorkItemSubTaskReq struct {
 	apiReq *core.APIReq
 }
-
 type QueryWorkItemSubTaskResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3476,20 +3230,18 @@ type ResetWBSViewDraftReq struct {
 	apiReq *core.APIReq
 }
 type ResetWBSViewDraftReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
 }
-
 type ResetWBSViewDraftResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	WbsDraft       *WbsDraft         `json:"wbs_draft"`
-	
+	Data      *ResetWBSViewDraftRespData        `json:"data,omitempty"`
+}
+
+type ResetWBSViewDraftRespData struct {
+	WbsDraft       *WbsDraft         `json:"wbs_draft,omitempty"`
 }
 
 type ResetWBSViewDraftReqBuilder struct {
@@ -3533,17 +3285,11 @@ type ResourceCreateWorkItemReq struct {
 	apiReq *core.APIReq
 }
 type ResourceCreateWorkItemReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     TemplateID  *int64 `json:"template_id,omitempty"`
-
     FieldValuePairs  []FieldValuePair `json:"field_value_pairs,omitempty"`
-
 }
-
 type ResourceCreateWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3597,19 +3343,12 @@ type SearchByParamsReq struct {
 	apiReq *core.APIReq
 }
 type SearchByParamsReqBody struct {
-
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     Fields  []string `json:"fields,omitempty"`
-
     Expand  *Expand `json:"expand,omitempty"`
-
 }
-
 type SearchByParamsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3681,23 +3420,14 @@ type SearchSubtaskReq struct {
 	apiReq *core.APIReq
 }
 type SearchSubtaskReqBody struct {
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
     UserKeys  []string `json:"user_keys,omitempty"`
-
     Status  *int32 `json:"status,omitempty"`
-
     CreatedAt  *TimeInterval `json:"created_at,omitempty"`
-
     SimpleNames  []string `json:"simple_names,omitempty"`
-
 }
-
 type SearchSubtaskResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3769,21 +3499,13 @@ type SearchWorkItemsRelationReq struct {
 	apiReq *core.APIReq
 }
 type SearchWorkItemsRelationReqBody struct {
-
     RelationWorkItemTypeKey  *string `json:"relation_work_item_type_key,omitempty"`
-
     RelationKey  *string `json:"relation_key,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     RelationType  *int32 `json:"relation_type,omitempty"`
-
     Expand  *Expand `json:"expand,omitempty"`
-
 }
-
 type SearchWorkItemsRelationResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3869,25 +3591,15 @@ type SubTaskModifyReq struct {
 	apiReq *core.APIReq
 }
 type SubTaskModifyReqBody struct {
-
     NodeID  *string `json:"node_id,omitempty"`
-
     TaskID  *int64 `json:"task_id,omitempty"`
-
     Action  *string `json:"action,omitempty"`
-
     Assignee  []string `json:"assignee,omitempty"`
-
     RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
-
     Schedules  []Schedule `json:"schedules,omitempty"`
-
     Deliverable  []FieldValuePair `json:"deliverable,omitempty"`
-
     Note  *string `json:"note,omitempty"`
-
 }
-
 type SubTaskModifyResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -3978,20 +3690,18 @@ type SwitchBackToWbsViewDraftReq struct {
 	apiReq *core.APIReq
 }
 type SwitchBackToWbsViewDraftReqBody struct {
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     DraftID  *string `json:"draft_id,omitempty"`
-
     CommitID  *string `json:"commit_id,omitempty"`
-
 }
-
 type SwitchBackToWbsViewDraftResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Success       *bool         `json:"success"`
-	
+	Data      *SwitchBackToWbsViewDraftRespData        `json:"data,omitempty"`
+}
+
+type SwitchBackToWbsViewDraftRespData struct {
+	Success       *bool         `json:"success,omitempty"`
 }
 
 type SwitchBackToWbsViewDraftReqBuilder struct {
@@ -4041,23 +3751,14 @@ type UniversalSearchReq struct {
 	apiReq *core.APIReq
 }
 type UniversalSearchReqBody struct {
-
     DataSources  []DataSource `json:"data_sources,omitempty"`
-
     UserKey  *string `json:"user_key,omitempty"`
-
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-
     Sort  *Sort `json:"sort,omitempty"`
-
     Pagination  *Pagination `json:"pagination,omitempty"`
-
     FieldSelected  []string `json:"field_selected,omitempty"`
-
     Features  map[string]string `json:"features,omitempty"`
-
 }
-
 type UniversalSearchResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4128,29 +3829,18 @@ type UpdateFieldReq struct {
 	apiReq *core.APIReq
 }
 type UpdateFieldReqBody struct {
-
     FieldName  *string `json:"field_name,omitempty"`
-
     FieldKey  *string `json:"field_key,omitempty"`
-
     FieldValue  interface{} `json:"field_value,omitempty"`
-
     FreeAdd  *int64 `json:"free_add,omitempty"`
-
     WorkItemRelationUUID  *string `json:"work_item_relation_uuid,omitempty"`
-
     DefaultValue  interface{} `json:"default_value,omitempty"`
-
     FieldAlias  *string `json:"field_alias,omitempty"`
-
     HelpDescription  *string `json:"help_description,omitempty"`
-
     AuthorizedRoles  []string `json:"authorized_roles,omitempty"`
-
     RelatedFieldExtraDisplayInfos  []RelatedFieldExtraDisplayInfo `json:"related_field_extra_display_infos,omitempty"`
-
+    TeamOption  *TeamOption `json:"team_option,omitempty"`
 }
-
 type UpdateFieldResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4237,6 +3927,11 @@ func (builder *UpdateFieldReqBuilder) RelatedFieldExtraDisplayInfos(relatedField
 	builder.apiReq.Body.(*UpdateFieldReqBody).RelatedFieldExtraDisplayInfos = relatedFieldExtraDisplayInfos
 	return builder
 }
+
+func (builder *UpdateFieldReqBuilder) TeamOption(teamOption *TeamOption) *UpdateFieldReqBuilder {
+	builder.apiReq.Body.(*UpdateFieldReqBody).TeamOption = teamOption
+	return builder
+}
 func (builder *UpdateFieldReqBuilder) Build() *UpdateFieldReq {
 	req := &UpdateFieldReq{}
 	req.apiReq = builder.apiReq
@@ -4247,23 +3942,14 @@ type UpdateFinishedReq struct {
 	apiReq *core.APIReq
 }
 type UpdateFinishedReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     NodeID  *string `json:"node_id,omitempty"`
-
     Opinion  *string `json:"opinion,omitempty"`
-
     FinishedConclusionOptionKey  *string `json:"finished_conclusion_option_key,omitempty"`
-
     OperationType  *string `json:"operation_type,omitempty"`
-
     Reset  *bool `json:"reset,omitempty"`
-
 }
-
 type UpdateFinishedResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4334,17 +4020,11 @@ type UpdateMultiSignalReq struct {
 	apiReq *core.APIReq
 }
 type UpdateMultiSignalReqBody struct {
-
     FieldKey  *string `json:"field_key,omitempty"`
-
     FieldAlias  *string `json:"field_alias,omitempty"`
-
     Details  []MultiSignalDetail `json:"details,omitempty"`
-
     UpdateType  *string `json:"update_type,omitempty"`
-
 }
-
 type UpdateMultiSignalResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4416,23 +4096,14 @@ type UpdateNodeStateReq struct {
 	apiReq *core.APIReq
 }
 type UpdateNodeStateReqBody struct {
-
     Action  *string `json:"action,omitempty"`
-
     RollbackReason  *string `json:"rollback_reason,omitempty"`
-
     NodeOwners  []string `json:"node_owners,omitempty"`
-
     NodeSchedule  *Schedule `json:"node_schedule,omitempty"`
-
     Schedules  []Schedule `json:"schedules,omitempty"`
-
     Fields  []FieldValuePair `json:"fields,omitempty"`
-
     RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
-
 }
-
 type UpdateNodeStateResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4522,15 +4193,10 @@ type UpdateStateFlowReq struct {
 	apiReq *core.APIReq
 }
 type UpdateStateFlowReqBody struct {
-
     TransitionID  *int64 `json:"transition_id,omitempty"`
-
     Fields  []FieldValuePair `json:"fields,omitempty"`
-
     RoleOwners  []RoleOwner `json:"role_owners,omitempty"`
-
 }
-
 type UpdateStateFlowResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4593,17 +4259,11 @@ type UpdateTemplateDetailReq struct {
 	apiReq *core.APIReq
 }
 type UpdateTemplateDetailReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     TemplateID  *int64 `json:"template_id,omitempty"`
-
     WorkflowConfs  []WorkflowConfInfo `json:"workflow_confs,omitempty"`
-
     StateFlowConfs  []StateFlowConfInfo `json:"state_flow_confs,omitempty"`
-
 }
-
 type UpdateTemplateDetailResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4654,11 +4314,8 @@ type UpdateWorkItemReq struct {
 	apiReq *core.APIReq
 }
 type UpdateWorkItemReqBody struct {
-
     UpdateFields  []FieldValuePair `json:"update_fields,omitempty"`
-
 }
-
 type UpdateWorkItemResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4710,19 +4367,12 @@ type UpdateWorkItemRelationReq struct {
 	apiReq *core.APIReq
 }
 type UpdateWorkItemRelationReqBody struct {
-
     RelationID  *string `json:"relation_id,omitempty"`
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
     RelationDetails  []RelationDetail `json:"relation_details,omitempty"`
-
 }
-
 type UpdateWorkItemRelationResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4780,23 +4430,14 @@ type UpdateWorkItemSubTaskReq struct {
 	apiReq *core.APIReq
 }
 type UpdateWorkItemSubTaskReqBody struct {
-
     Name  *string `json:"name,omitempty"`
-
     Assignee  []string `json:"assignee,omitempty"`
-
     RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
-
     Schedule  *Schedule `json:"schedule,omitempty"`
-
     Note  *string `json:"note,omitempty"`
-
     Deliverable  []FieldValuePair `json:"deliverable,omitempty"`
-
     UpdateFields  []FieldValuePair `json:"update_fields,omitempty"`
-
 }
-
 type UpdateWorkItemSubTaskResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -4892,27 +4533,16 @@ type UpdateWorkItemTypeInfoReq struct {
 	apiReq *core.APIReq
 }
 type UpdateWorkItemTypeInfoReqBody struct {
-
     Description  *string `json:"description,omitempty"`
-
     IsDisabled  *bool `json:"is_disabled,omitempty"`
-
     IsPinned  *bool `json:"is_pinned,omitempty"`
-
     EnableSchedule  *bool `json:"enable_schedule,omitempty"`
-
     ScheduleFieldKey  *string `json:"schedule_field_key,omitempty"`
-
     EstimatePointFieldKey  *string `json:"estimate_point_field_key,omitempty"`
-
     ActualWorkTimeFieldKey  *string `json:"actual_work_time_field_key,omitempty"`
-
     BelongRoleKeys  []string `json:"belong_role_keys,omitempty"`
-
     ActualWorkTimeSwitch  *bool `json:"actual_work_time_switch,omitempty"`
-
 }
-
 type UpdateWorkItemTypeInfoResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -5006,19 +4636,12 @@ type UpdateWorkflowNodeReq struct {
 	apiReq *core.APIReq
 }
 type UpdateWorkflowNodeReqBody struct {
-
     NodeOwners  []string `json:"node_owners,omitempty"`
-
     NodeSchedule  *Schedule `json:"node_schedule,omitempty"`
-
     Schedules  []Schedule `json:"schedules,omitempty"`
-
     Fields  []FieldValuePair `json:"fields,omitempty"`
-
     RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
-
 }
-
 type UpdateWorkflowNodeResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -5096,11 +4719,8 @@ type UpdateWorkingHourRecordReq struct {
 	apiReq *core.APIReq
 }
 type UpdateWorkingHourRecordReqBody struct {
-
     WorkingHourRecords  []UpdateWorkingHourRecord `json:"working_hour_records,omitempty"`
-
 }
-
 type UpdateWorkingHourRecordResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -5152,17 +4772,11 @@ type WBSUpdateDraftFrozenRowsReq struct {
 	apiReq *core.APIReq
 }
 type WBSUpdateDraftFrozenRowsReqBody struct {
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     DraftID  *string `json:"draft_id,omitempty"`
-
     UpdateType  *int32 `json:"update_type,omitempty"`
-
     CommitID  *string `json:"commit_id,omitempty"`
-
 }
-
 type WBSUpdateDraftFrozenRowsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -5221,20 +4835,18 @@ type WbsCollaborationPublishReq struct {
 	apiReq *core.APIReq
 }
 type WbsCollaborationPublishReqBody struct {
-
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
     DraftID  *string `json:"draft_id,omitempty"`
-
     CommitID  *string `json:"commit_id,omitempty"`
-
 }
-
 type WbsCollaborationPublishResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Success       *bool         `json:"success"`
-	
+	Data      *WbsCollaborationPublishRespData        `json:"data,omitempty"`
+}
+
+type WbsCollaborationPublishRespData struct {
+	Success       *bool         `json:"success,omitempty"`
 }
 
 type WbsCollaborationPublishReqBuilder struct {

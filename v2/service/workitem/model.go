@@ -123,8 +123,6 @@ type Connection struct {
 
     TransitionID  *int64 `json:"transition_id,omitempty"`
 
-    Fields  []FieldConf `json:"fields,omitempty"`
-
 }
 
 type CreateWorkItemRelationData struct {
@@ -149,7 +147,7 @@ type DataSource struct {
 
     ProjectKey  *string `json:"project_key,omitempty"`
 
-    WorkItemTypeKeys  *string `json:"work_item_type_keys,omitempty"`
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
 }
 
@@ -214,12 +212,6 @@ type Expand struct {
     NeedUserDetail  *bool `json:"need_user_detail,omitempty"`
 
     NeedSubTaskParent  *bool `json:"need_sub_task_parent,omitempty"`
-
-    NeedUnionDeliverable  *bool `json:"need_union_deliverable,omitempty"`
-
-    NeedWbsRelationChainEntity  *bool `json:"need_wbs_relation_chain_entity,omitempty"`
-
-    NeedWbsRelationChainPath  *bool `json:"need_wbs_relation_chain_path,omitempty"`
 
 }
 
@@ -501,12 +493,6 @@ type NodeTask struct {
 
     SubTasks  []SubTask `json:"sub_tasks,omitempty"`
 
-    NodeName  *string `json:"node_name,omitempty"`
-
-    TemplateID  *int64 `json:"template_id,omitempty"`
-
-    Version  *int64 `json:"version,omitempty"`
-
 }
 
 type NodeWBSRoleOwners struct {
@@ -532,10 +518,6 @@ type NodesConnections struct {
     StateFlowNodes  []StateFlowNode `json:"state_flow_nodes,omitempty"`
 
     UserDetails  []UserDetail `json:"user_details,omitempty"`
-
-    TemplateID  *int64 `json:"template_id,omitempty"`
-
-    Version  *int64 `json:"version,omitempty"`
 
 }
 
@@ -776,6 +758,10 @@ type Option struct {
     Children  []Option `json:"children,omitempty"`
 
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    Order  *int64 `json:"order,omitempty"`
+
+    Color  *string `json:"color,omitempty"`
 
 }
 
@@ -1023,14 +1009,6 @@ type RoleConfDetail struct {
 
     Key  *string `json:"key,omitempty"`
 
-    AllowDelete  *bool `json:"allow_delete,omitempty"`
-
-    AuthorizationRoleKeys  []string `json:"authorization_role_keys,omitempty"`
-
-    IsMemberMulti  *bool `json:"is_member_multi,omitempty"`
-
-    IsRequired  *int32 `json:"is_required,omitempty"`
-
 }
 
 type RoleOwner struct {
@@ -1040,10 +1018,6 @@ type RoleOwner struct {
     Name  *string `json:"name,omitempty"`
 
     Owners  []string `json:"owners,omitempty"`
-
-    Exist  *bool `json:"exist,omitempty"`
-
-    IsMemberMulti  *bool `json:"is_member_multi,omitempty"`
 
 }
 
@@ -1058,10 +1032,6 @@ type Schedule struct {
     Owners  []string `json:"owners,omitempty"`
 
     ActualWorkTime  *float64 `json:"actual_work_time,omitempty"`
-
-    IsAuto  *bool `json:"is_auto,omitempty"`
-
-    PlannedConstructionPeriod  *int32 `json:"planned_construction_period,omitempty"`
 
 }
 
@@ -1131,8 +1101,6 @@ type SimpleField struct {
 
     ValueGenerateMode  *string `json:"value_generate_mode,omitempty"`
 
-    RelationID  *string `json:"relation_id,omitempty"`
-
 }
 
 type SimpleRoleConf struct {
@@ -1147,15 +1115,9 @@ type SimpleRoleConf struct {
 
 type Sort struct {
 
-    FieldKey  *string `json:"field_key,omitempty"`
-
-    FieldType  *string `json:"field_type,omitempty"`
-
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    FieldItem  *FieldItem `json:"field_item,omitempty"`
 
     Order  *string `json:"order,omitempty"`
-
-    Params  map[string]string `json:"params,omitempty"`
 
 }
 
@@ -1298,10 +1260,6 @@ type SubTask struct {
     RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
 
     Deliverable  []FieldValuePair `json:"deliverable,omitempty"`
-
-    OwnerRoles  []string `json:"owner_roles,omitempty"`
-
-    OwnerUsageMode  *int64 `json:"owner_usage_mode,omitempty"`
 
     Fields  []FieldValuePair `json:"fields,omitempty"`
 
@@ -1741,8 +1699,6 @@ type WorkItemInfo struct {
 
     SubTaskParentInfo  *SubTaskParentInfo `json:"sub_task_parent_info,omitempty"`
 
-    CompoundFieldExtra  []FieldValuePair `json:"compound_field_extra,omitempty"`
-
 }
 
 type WorkItemKeyType struct {
@@ -1822,8 +1778,6 @@ type WorkItemTypeInfo struct {
     ActualWorkTimeFieldName  *string `json:"actual_work_time_field_name,omitempty"`
 
     BelongRoles  []SimpleRoleConf `json:"belong_roles,omitempty"`
-
-    ActualWorkTimeSwitch  *bool `json:"actual_work_time_switch,omitempty"`
 
 }
 
@@ -1928,9 +1882,5 @@ type WorkflowNode struct {
     Milestone  *bool `json:"milestone,omitempty"`
 
     Participants  []string `json:"participants,omitempty"`
-
-    OwnerRoles  []string `json:"owner_roles,omitempty"`
-
-    OwnerUsageMode  *int64 `json:"owner_usage_mode,omitempty"`
 
 }

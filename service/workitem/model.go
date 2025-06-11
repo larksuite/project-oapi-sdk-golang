@@ -632,9 +632,11 @@ type Sort struct {
 }
 
 type Pagination struct {
-	PageNum *int64 `json:"page_num,omitempty"`
-
 	PageSize *int64 `json:"page_size,omitempty"`
+
+	SearchAfter *string `json:"search_after,omitempty"`
+
+	Pit *string `json:"pit,omitempty"`
 
 	Total *int64 `json:"total,omitempty"`
 }

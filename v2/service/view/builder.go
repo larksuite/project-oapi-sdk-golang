@@ -221,6 +221,7 @@ type QueryWorkItemDetailsByViewIDReqBody struct {
     PageSize  *int64 `json:"page_size,omitempty"`
     PageNum  *int64 `json:"page_num,omitempty"`
     Expand  *Expand `json:"expand,omitempty"`
+    QuickFilterID  *string `json:"quick_filter_id,omitempty"`
 }
 type QueryWorkItemDetailsByViewIDResp struct {
 	*core.APIResp `json:"-"`
@@ -273,6 +274,12 @@ func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Expand(expand *Expand) *Q
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).Expand = expand
 	return builder
 }
+
+func (builder *QueryWorkItemDetailsByViewIDReqBuilder) QuickFilterID(quickFilterID string) *QueryWorkItemDetailsByViewIDReqBuilder {
+	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).QuickFilterID = &quickFilterID
+	return builder
+}
+
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Build() *QueryWorkItemDetailsByViewIDReq {
 	req := &QueryWorkItemDetailsByViewIDReq{}
 	req.apiReq = builder.apiReq
@@ -466,6 +473,7 @@ type ViewListReqBody struct {
     PageSize  *int64 `json:"page_size,omitempty"`
     PageNum  *int64 `json:"page_num,omitempty"`
     ViewName  *string `json:"view_name,omitempty"`
+    IsQueryQuickFilter  *bool `json:"is_query_quick_filter,omitempty"`
 }
 type ViewListResp struct {
 	*core.APIResp `json:"-"`
@@ -535,6 +543,12 @@ func (builder *ViewListReqBuilder) ViewName(viewName string) *ViewListReqBuilder
 	return builder
 }
 
+
+func (builder *ViewListReqBuilder) IsQueryQuickFilter(isQueryQuickFilter bool) *ViewListReqBuilder {
+	builder.apiReq.Body.(*ViewListReqBody).IsQueryQuickFilter = &isQueryQuickFilter
+	return builder
+}
+
 func (builder *ViewListReqBuilder) Build() *ViewListReq {
 	req := &ViewListReq{}
 	req.apiReq = builder.apiReq
@@ -586,6 +600,12 @@ func (builder *WorkItemListReqBuilder) PageSize(pageSize int64) *WorkItemListReq
 
 func (builder *WorkItemListReqBuilder) PageNum(pageNum int64) *WorkItemListReqBuilder {
 	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(pageNum))
+	return builder
+}
+
+
+func (builder *WorkItemListReqBuilder) QuickFilterID(quickFilterID string) *WorkItemListReqBuilder {
+	builder.apiReq.QueryParams.Set("quick_filter_id", fmt.Sprint(quickFilterID))
 	return builder
 }
 

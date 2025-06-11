@@ -456,6 +456,7 @@ type CreateFieldReqBody struct {
     RelatedFieldExtraDisplayInfos  []RelatedFieldExtraDisplayInfo `json:"related_field_extra_display_infos,omitempty"`
     TeamOption  *TeamOption `json:"team_option,omitempty"`
     ParentFieldKey  *string `json:"parent_field_key,omitempty"`
+    NumberConfig  *NumberConfig `json:"number_config,omitempty"`
 }
 type CreateFieldResp struct {
 	*core.APIResp `json:"-"`
@@ -586,6 +587,11 @@ func (builder *CreateFieldReqBuilder) ParentFieldKey(parentFieldKey string) *Cre
 	return builder
 }
 
+
+func (builder *CreateFieldReqBuilder) NumberConfig(numberConfig *NumberConfig) *CreateFieldReqBuilder {
+	builder.apiReq.Body.(*CreateFieldReqBody).NumberConfig = numberConfig
+	return builder
+}
 func (builder *CreateFieldReqBuilder) Build() *CreateFieldReq {
 	req := &CreateFieldReq{}
 	req.apiReq = builder.apiReq
@@ -2228,6 +2234,72 @@ func (builder *GetWorkItemOpRecordReqBuilder) Build() *GetWorkItemOpRecordReq {
 	return req
 }
 
+type GetWorkItemTransRequiredItemReq struct {
+	apiReq *core.APIReq
+}
+type GetWorkItemTransRequiredItemReqBody struct {
+    ProjectKey  *string `json:"project_key,omitempty"`
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+    StateKey  *string `json:"state_key,omitempty"`
+    Mode  *string `json:"mode,omitempty"`
+}
+type GetWorkItemTransRequiredItemResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       *NodeRequiredItemRes         `json:"data"`
+	
+}
+
+type GetWorkItemTransRequiredItemReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewGetWorkItemTransRequiredItemReqBuilder() *GetWorkItemTransRequiredItemReqBuilder {
+	builder := &GetWorkItemTransRequiredItemReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &GetWorkItemTransRequiredItemReqBody{},
+	}
+	return builder
+}
+
+func (builder *GetWorkItemTransRequiredItemReqBuilder) ProjectKey(projectKey string) *GetWorkItemTransRequiredItemReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemTransRequiredItemReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *GetWorkItemTransRequiredItemReqBuilder) WorkItemTypeKey(workItemTypeKey string) *GetWorkItemTransRequiredItemReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemTransRequiredItemReqBody).WorkItemTypeKey = &workItemTypeKey
+	return builder
+}
+
+
+func (builder *GetWorkItemTransRequiredItemReqBuilder) WorkItemID(workItemID int64) *GetWorkItemTransRequiredItemReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemTransRequiredItemReqBody).WorkItemID = &workItemID
+	return builder
+}
+
+
+func (builder *GetWorkItemTransRequiredItemReqBuilder) StateKey(stateKey string) *GetWorkItemTransRequiredItemReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemTransRequiredItemReqBody).StateKey = &stateKey
+	return builder
+}
+
+
+func (builder *GetWorkItemTransRequiredItemReqBuilder) Mode(mode string) *GetWorkItemTransRequiredItemReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemTransRequiredItemReqBody).Mode = &mode
+	return builder
+}
+
+func (builder *GetWorkItemTransRequiredItemReqBuilder) Build() *GetWorkItemTransRequiredItemReq {
+	req := &GetWorkItemTransRequiredItemReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type GetWorkItemTypeInfoByKeyReq struct {
 	apiReq *core.APIReq
 }
@@ -3840,6 +3912,7 @@ type UpdateFieldReqBody struct {
     AuthorizedRoles  []string `json:"authorized_roles,omitempty"`
     RelatedFieldExtraDisplayInfos  []RelatedFieldExtraDisplayInfo `json:"related_field_extra_display_infos,omitempty"`
     TeamOption  *TeamOption `json:"team_option,omitempty"`
+    NumberConfig  *NumberConfig `json:"number_config,omitempty"`
 }
 type UpdateFieldResp struct {
 	*core.APIResp `json:"-"`
@@ -3930,6 +4003,11 @@ func (builder *UpdateFieldReqBuilder) RelatedFieldExtraDisplayInfos(relatedField
 
 func (builder *UpdateFieldReqBuilder) TeamOption(teamOption *TeamOption) *UpdateFieldReqBuilder {
 	builder.apiReq.Body.(*UpdateFieldReqBody).TeamOption = teamOption
+	return builder
+}
+
+func (builder *UpdateFieldReqBuilder) NumberConfig(numberConfig *NumberConfig) *UpdateFieldReqBuilder {
+	builder.apiReq.Body.(*UpdateFieldReqBody).NumberConfig = numberConfig
 	return builder
 }
 func (builder *UpdateFieldReqBuilder) Build() *UpdateFieldReq {
@@ -4103,6 +4181,8 @@ type UpdateNodeStateReqBody struct {
     Schedules  []Schedule `json:"schedules,omitempty"`
     Fields  []FieldValuePair `json:"fields,omitempty"`
     RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
+    NodeFields  []NodeField `json:"node_fields,omitempty"`
+    FinishedInfos  *FinishedInfo `json:"finished_infos,omitempty"`
 }
 type UpdateNodeStateResp struct {
 	*core.APIResp `json:"-"`
@@ -4181,6 +4261,16 @@ func (builder *UpdateNodeStateReqBuilder) Fields(fields []FieldValuePair) *Updat
 
 func (builder *UpdateNodeStateReqBuilder) RoleAssignee(roleAssignee []RoleOwner) *UpdateNodeStateReqBuilder {
 	builder.apiReq.Body.(*UpdateNodeStateReqBody).RoleAssignee = roleAssignee
+	return builder
+}
+
+func (builder *UpdateNodeStateReqBuilder) NodeFields(nodeFields []NodeField) *UpdateNodeStateReqBuilder {
+	builder.apiReq.Body.(*UpdateNodeStateReqBody).NodeFields = nodeFields
+	return builder
+}
+
+func (builder *UpdateNodeStateReqBuilder) FinishedInfos(finishedInfos *FinishedInfo) *UpdateNodeStateReqBuilder {
+	builder.apiReq.Body.(*UpdateNodeStateReqBody).FinishedInfos = finishedInfos
 	return builder
 }
 func (builder *UpdateNodeStateReqBuilder) Build() *UpdateNodeStateReq {

@@ -72,13 +72,15 @@ const APIPath_GetWorkItemManHourRecords = "/open_api/work_item/man_hour/records"
 
 const APIPath_GetWorkItemOpRecord = "/open_api/op_record/work_item/list"
 
+const APIPath_GetWorkItemTransRequiredItem = "/open_api/work_item/transition_required_info/get"
+
 const APIPath_GetWorkItemTypeInfoByKey = "/open_api/:project_key/work_item/type/:work_item_type_key"
 
 const APIPath_GetWorkItemsByIds = "/open_api/:project_key/work_item/:work_item_type_key/query"
 
 const APIPath_IntegrateSearch = "/open_api/view_search/integrate_search"
 
-const APIPath_InviteBotJoinChat = "/open_api/:project_key/work_item/:work_item_type_key/bot_join_chat"
+const APIPath_InviteBotJoinChat = "/open_api/:project_key/work_item/:work_item_id/bot_join_chat"
 
 const APIPath_ListTemplateConf = "/open_api/:project_key/template_list/:work_item_type_key"
 
@@ -931,6 +933,30 @@ func (a *WorkItemService) GetWorkItemOpRecord(ctx context.Context, req *GetWorkI
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemOpRecord] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIGetWorkItemTransRequiredItem
+ * @desc: 获取节点/状态流转所需的必填信息
+ */
+func (a *WorkItemService) GetWorkItemTransRequiredItem(ctx context.Context, req *GetWorkItemTransRequiredItemReq, options ...core.RequestOptionFunc) (*GetWorkItemTransRequiredItemResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_GetWorkItemTransRequiredItem
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemTransRequiredItem] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetWorkItemTransRequiredItemResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemTransRequiredItem] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

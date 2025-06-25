@@ -403,6 +403,10 @@ type WBSWorkItem struct {
 	Milestone bool `json:"milestone"`
 
 	UnionDeliverable UnionDeliverable `json:"union_deliverable"`
+
+	StartTime int64 `json:"start_time,omitempty"`
+
+	FinishTime int64 `json:"finish_time,omitempty"`
 }
 
 type WbsViewResponse struct {

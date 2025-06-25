@@ -1785,6 +1785,10 @@ func (builder *WbsViewReqBuilder) Expand(expand *Expand) *WbsViewReqBuilder {
 	builder.body.Expand = expand
 	return builder
 }
+func (builder *WbsViewReqBuilder) NeedUnionDeliverable(needUnionDeliverable bool) *WbsViewReqBuilder {
+	builder.apiReq.QueryParams.Set("need_union_deliverable", fmt.Sprint(needUnionDeliverable))
+	return builder
+}
 func (builder *WbsViewReqBuilder) Build() *WbsViewReq {
 	req := &WbsViewReq{}
 	req.apiReq = builder.apiReq

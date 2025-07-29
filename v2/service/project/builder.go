@@ -8,6 +8,7 @@ type BatchQueryProjectInfoReq struct {
 	apiReq *core.APIReq
 }
 type BatchQueryProjectInfoReqBody struct {
+	ProjectKeys   []string `json:"project_keys,omitempty"`
 	UserKey       *string  `json:"user_key,omitempty"`
 	SimpleNames   []string `json:"simple_names,omitempty"`
 	TenantGroupID *int64   `json:"tenant_group_id,omitempty"`
@@ -29,6 +30,11 @@ func NewBatchQueryProjectInfoReqBuilder() *BatchQueryProjectInfoReqBuilder {
 		QueryParams: core.QueryParams{},
 		Body:        &BatchQueryProjectInfoReqBody{},
 	}
+	return builder
+}
+
+func (builder *BatchQueryProjectInfoReqBuilder) ProjectKeys(projectKeys []string) *BatchQueryProjectInfoReqBuilder {
+	builder.apiReq.Body.(*BatchQueryProjectInfoReqBody).ProjectKeys = projectKeys
 	return builder
 }
 

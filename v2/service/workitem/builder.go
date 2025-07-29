@@ -366,6 +366,7 @@ type CompositiveSearchReq struct {
 	apiReq *core.APIReq
 }
 type CompositiveSearchReqBody struct {
+    ProjectKeys  []string `json:"project_keys,omitempty"`
     QueryType  *string `json:"query_type,omitempty"`
     Query  *string `json:"query,omitempty"`
     QuerySubType  []string `json:"query_sub_type,omitempty"`
@@ -393,6 +394,11 @@ func NewCompositiveSearchReqBuilder() *CompositiveSearchReqBuilder {
 		QueryParams: core.QueryParams{},
 		Body:        &CompositiveSearchReqBody{},
 	}
+	return builder
+}
+
+func (builder *CompositiveSearchReqBuilder) ProjectKeys(projectKeys []string) *CompositiveSearchReqBuilder {
+	builder.apiReq.Body.(*CompositiveSearchReqBody).ProjectKeys = projectKeys
 	return builder
 }
 
@@ -598,6 +604,55 @@ func (builder *CreateFieldReqBuilder) Build() *CreateFieldReq {
 	return req
 }
 
+type CreateFlowRoleReq struct {
+	apiReq *core.APIReq
+}
+type CreateFlowRoleReqBody struct {
+    Role  *RoleConfCreate `json:"role,omitempty"`
+}
+type CreateFlowRoleResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       *string         `json:"data"`
+	
+}
+
+type CreateFlowRoleReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewCreateFlowRoleReqBuilder() *CreateFlowRoleReqBuilder {
+	builder := &CreateFlowRoleReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &CreateFlowRoleReqBody{},
+	}
+	return builder
+}
+
+func (builder *CreateFlowRoleReqBuilder) ProjectKey(projectKey string) *CreateFlowRoleReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+
+
+func (builder *CreateFlowRoleReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateFlowRoleReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+
+
+func (builder *CreateFlowRoleReqBuilder) Role(role *RoleConfCreate) *CreateFlowRoleReqBuilder {
+	builder.apiReq.Body.(*CreateFlowRoleReqBody).Role = role
+	return builder
+}
+func (builder *CreateFlowRoleReqBuilder) Build() *CreateFlowRoleReq {
+	req := &CreateFlowRoleReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type CreateProjectRelationInstancesReq struct {
 	apiReq *core.APIReq
 }
@@ -765,7 +820,7 @@ type CreateWorkItemReq struct {
 }
 type CreateWorkItemReqBody struct {
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-    FieldValuePairs  []FieldValuePair `json:"field_value_pairs,omitempty"`
+    FieldValuePairs  []WorkItem_work_item_FieldValuePair `json:"field_value_pairs,omitempty"`
     TemplateID  *int64 `json:"template_id,omitempty"`
     Name  *string `json:"name,omitempty"`
 }
@@ -802,7 +857,7 @@ func (builder *CreateWorkItemReqBuilder) WorkItemTypeKey(workItemTypeKey string)
 }
 
 
-func (builder *CreateWorkItemReqBuilder) FieldValuePairs(fieldValuePairs []FieldValuePair) *CreateWorkItemReqBuilder {
+func (builder *CreateWorkItemReqBuilder) FieldValuePairs(fieldValuePairs []WorkItem_work_item_FieldValuePair) *CreateWorkItemReqBuilder {
 	builder.apiReq.Body.(*CreateWorkItemReqBody).FieldValuePairs = fieldValuePairs
 	return builder
 }
@@ -890,10 +945,10 @@ type CreateWorkItemSubTaskReqBody struct {
     Name  *string `json:"name,omitempty"`
     AliasKey  *string `json:"alias_key,omitempty"`
     Assignee  []string `json:"assignee,omitempty"`
-    RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
-    Schedule  *Schedule `json:"schedule,omitempty"`
+    RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
+    Schedule  *WorkItem_work_item_Schedule `json:"schedule,omitempty"`
     Note  *string `json:"note,omitempty"`
-    FieldValuePairs  []FieldValuePair `json:"field_value_pairs,omitempty"`
+    FieldValuePairs  []WorkItem_work_item_FieldValuePair `json:"field_value_pairs,omitempty"`
 }
 type CreateWorkItemSubTaskResp struct {
 	*core.APIResp `json:"-"`
@@ -951,12 +1006,12 @@ func (builder *CreateWorkItemSubTaskReqBuilder) Assignee(assignee []string) *Cre
 	return builder
 }
 
-func (builder *CreateWorkItemSubTaskReqBuilder) RoleAssignee(roleAssignee []RoleOwner) *CreateWorkItemSubTaskReqBuilder {
+func (builder *CreateWorkItemSubTaskReqBuilder) RoleAssignee(roleAssignee []WorkItem_work_item_RoleOwner) *CreateWorkItemSubTaskReqBuilder {
 	builder.apiReq.Body.(*CreateWorkItemSubTaskReqBody).RoleAssignee = roleAssignee
 	return builder
 }
 
-func (builder *CreateWorkItemSubTaskReqBuilder) Schedule(schedule *Schedule) *CreateWorkItemSubTaskReqBuilder {
+func (builder *CreateWorkItemSubTaskReqBuilder) Schedule(schedule *WorkItem_work_item_Schedule) *CreateWorkItemSubTaskReqBuilder {
 	builder.apiReq.Body.(*CreateWorkItemSubTaskReqBody).Schedule = schedule
 	return builder
 }
@@ -973,7 +1028,7 @@ func (builder *CreateWorkItemSubTaskReqBuilder) WorkItemTypeKey(workItemTypeKey 
 }
 
 
-func (builder *CreateWorkItemSubTaskReqBuilder) FieldValuePairs(fieldValuePairs []FieldValuePair) *CreateWorkItemSubTaskReqBuilder {
+func (builder *CreateWorkItemSubTaskReqBuilder) FieldValuePairs(fieldValuePairs []WorkItem_work_item_FieldValuePair) *CreateWorkItemSubTaskReqBuilder {
 	builder.apiReq.Body.(*CreateWorkItemSubTaskReqBody).FieldValuePairs = fieldValuePairs
 	return builder
 }
@@ -1118,6 +1173,61 @@ func (builder *DeleteFileReqBuilder) Uuids(uuids []string) *DeleteFileReqBuilder
 }
 func (builder *DeleteFileReqBuilder) Build() *DeleteFileReq {
 	req := &DeleteFileReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type DeleteFlowRoleReq struct {
+	apiReq *core.APIReq
+}
+type DeleteFlowRoleReqBody struct {
+    RoleID  *string `json:"role_id,omitempty"`
+    RoleAlias  *string `json:"role_alias,omitempty"`
+}
+type DeleteFlowRoleResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type DeleteFlowRoleReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewDeleteFlowRoleReqBuilder() *DeleteFlowRoleReqBuilder {
+	builder := &DeleteFlowRoleReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &DeleteFlowRoleReqBody{},
+	}
+	return builder
+}
+
+func (builder *DeleteFlowRoleReqBuilder) ProjectKey(projectKey string) *DeleteFlowRoleReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+
+
+func (builder *DeleteFlowRoleReqBuilder) WorkItemTypeKey(workItemTypeKey string) *DeleteFlowRoleReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+
+
+func (builder *DeleteFlowRoleReqBuilder) RoleID(roleID string) *DeleteFlowRoleReqBuilder {
+	builder.apiReq.Body.(*DeleteFlowRoleReqBody).RoleID = &roleID
+	return builder
+}
+
+
+func (builder *DeleteFlowRoleReqBuilder) RoleAlias(roleAlias string) *DeleteFlowRoleReqBuilder {
+	builder.apiReq.Body.(*DeleteFlowRoleReqBody).RoleAlias = &roleAlias
+	return builder
+}
+
+func (builder *DeleteFlowRoleReqBuilder) Build() *DeleteFlowRoleReq {
+	req := &DeleteFlowRoleReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
@@ -1688,6 +1798,7 @@ type FilterAcrossProjectReq struct {
 	apiReq *core.APIReq
 }
 type FilterAcrossProjectReqBody struct {
+    ProjectKeys  []string `json:"project_keys,omitempty"`
     SearchUser  *SearchUser `json:"search_user,omitempty"`
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
     CreatedAt  *TimeInterval `json:"created_at,omitempty"`
@@ -1725,6 +1836,11 @@ func NewFilterAcrossProjectReqBuilder() *FilterAcrossProjectReqBuilder {
 		QueryParams: core.QueryParams{},
 		Body:        &FilterAcrossProjectReqBody{},
 	}
+	return builder
+}
+
+func (builder *FilterAcrossProjectReqBuilder) ProjectKeys(projectKeys []string) *FilterAcrossProjectReqBuilder {
+	builder.apiReq.Body.(*FilterAcrossProjectReqBody).ProjectKeys = projectKeys
 	return builder
 }
 
@@ -1868,11 +1984,74 @@ func (builder *FreezeWorkItemReqBuilder) Build() *FreezeWorkItemReq {
 	return req
 }
 
+type GetResourceWorkItemsByIdsReq struct {
+	apiReq *core.APIReq
+}
+type GetResourceWorkItemsByIdsReqBody struct {
+    ProjectKey  *string `json:"project_key,omitempty"`
+    WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
+    Fields  []string `json:"fields,omitempty"`
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    Expand  *WorkItem_work_item_Expand `json:"expand,omitempty"`
+}
+type GetResourceWorkItemsByIdsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       []WorkItem_work_item_ResourceWorkItemInfo         `json:"data"`
+	
+}
+
+type GetResourceWorkItemsByIdsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewGetResourceWorkItemsByIdsReqBuilder() *GetResourceWorkItemsByIdsReqBuilder {
+	builder := &GetResourceWorkItemsByIdsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &GetResourceWorkItemsByIdsReqBody{},
+	}
+	return builder
+}
+
+func (builder *GetResourceWorkItemsByIdsReqBuilder) ProjectKey(projectKey string) *GetResourceWorkItemsByIdsReqBuilder {
+	builder.apiReq.Body.(*GetResourceWorkItemsByIdsReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *GetResourceWorkItemsByIdsReqBuilder) WorkItemIDs(workItemIDs []int64) *GetResourceWorkItemsByIdsReqBuilder {
+	builder.apiReq.Body.(*GetResourceWorkItemsByIdsReqBody).WorkItemIDs = workItemIDs
+	return builder
+}
+
+func (builder *GetResourceWorkItemsByIdsReqBuilder) Fields(fields []string) *GetResourceWorkItemsByIdsReqBuilder {
+	builder.apiReq.Body.(*GetResourceWorkItemsByIdsReqBody).Fields = fields
+	return builder
+}
+
+func (builder *GetResourceWorkItemsByIdsReqBuilder) WorkItemTypeKey(workItemTypeKey string) *GetResourceWorkItemsByIdsReqBuilder {
+	builder.apiReq.Body.(*GetResourceWorkItemsByIdsReqBody).WorkItemTypeKey = &workItemTypeKey
+	return builder
+}
+
+
+func (builder *GetResourceWorkItemsByIdsReqBuilder) Expand(expand *WorkItem_work_item_Expand) *GetResourceWorkItemsByIdsReqBuilder {
+	builder.apiReq.Body.(*GetResourceWorkItemsByIdsReqBody).Expand = expand
+	return builder
+}
+func (builder *GetResourceWorkItemsByIdsReqBuilder) Build() *GetResourceWorkItemsByIdsReq {
+	req := &GetResourceWorkItemsByIdsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type GetWBSInfoReq struct {
 	apiReq *core.APIReq
 }
 type GetWBSInfoReqBody struct {
-    Expand  *Expand `json:"expand,omitempty"`
+    Expand  *WorkItem_work_item_Expand `json:"expand,omitempty"`
 }
 type GetWBSInfoResp struct {
 	*core.APIResp `json:"-"`
@@ -1913,7 +2092,7 @@ func (builder *GetWBSInfoReqBuilder) WorkItemTypeKey(workItemTypeKey string) *Ge
 }
 
 
-func (builder *GetWBSInfoReqBuilder) Expand(expand *Expand) *GetWBSInfoReqBuilder {
+func (builder *GetWBSInfoReqBuilder) Expand(expand *WorkItem_work_item_Expand) *GetWBSInfoReqBuilder {
 	builder.apiReq.Body.(*GetWBSInfoReqBody).Expand = expand
 	return builder
 }
@@ -1990,12 +2169,12 @@ type GetWorkFlowReq struct {
 type GetWorkFlowReqBody struct {
     Fields  []string `json:"fields,omitempty"`
     FlowType  *int64 `json:"flow_type,omitempty"`
-    Expand  *Expand `json:"expand,omitempty"`
+    Expand  *WorkItem_work_item_Expand `json:"expand,omitempty"`
 }
 type GetWorkFlowResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       *NodesConnections         `json:"data"`
+	Data       *WorkItem_work_item_NodesConnections         `json:"data"`
 	
 }
 
@@ -2042,7 +2221,7 @@ func (builder *GetWorkFlowReqBuilder) WorkItemTypeKey(workItemTypeKey string) *G
 }
 
 
-func (builder *GetWorkFlowReqBuilder) Expand(expand *Expand) *GetWorkFlowReqBuilder {
+func (builder *GetWorkFlowReqBuilder) Expand(expand *WorkItem_work_item_Expand) *GetWorkFlowReqBuilder {
 	builder.apiReq.Body.(*GetWorkFlowReqBody).Expand = expand
 	return builder
 }
@@ -2067,7 +2246,7 @@ type GetWorkItemManHourRecordsResp struct {
 	core.CodeError
 	Data       []ManHourRecord         `json:"data"`
 	
-	Pagination       *Pagination         `json:"pagination"`
+	Pagination       *WorkItem_common_Pagination         `json:"pagination"`
 	
 }
 
@@ -2346,12 +2525,12 @@ type GetWorkItemsByIdsReq struct {
 type GetWorkItemsByIdsReqBody struct {
     WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
     Fields  []string `json:"fields,omitempty"`
-    Expand  *Expand `json:"expand,omitempty"`
+    Expand  *WorkItem_work_item_Expand `json:"expand,omitempty"`
 }
 type GetWorkItemsByIdsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []WorkItemInfo         `json:"data"`
+	Data       []WorkItem_work_item_WorkItemInfo         `json:"data"`
 	
 }
 
@@ -2391,7 +2570,7 @@ func (builder *GetWorkItemsByIdsReqBuilder) WorkItemTypeKey(workItemTypeKey stri
 }
 
 
-func (builder *GetWorkItemsByIdsReqBuilder) Expand(expand *Expand) *GetWorkItemsByIdsReqBuilder {
+func (builder *GetWorkItemsByIdsReqBuilder) Expand(expand *WorkItem_work_item_Expand) *GetWorkItemsByIdsReqBuilder {
 	builder.apiReq.Body.(*GetWorkItemsByIdsReqBody).Expand = expand
 	return builder
 }
@@ -2417,7 +2596,7 @@ type IntegrateSearchResp struct {
 	core.CodeError
 	Data       *string         `json:"data"`
 	
-	Pagination       *Pagination         `json:"pagination"`
+	Pagination       *Search_concisesearch_Pagination         `json:"pagination"`
 	
 	ExtraInfo       map[string]string         `json:"extra_info"`
 	
@@ -2566,6 +2745,83 @@ func (builder *ListTemplateConfReqBuilder) WorkItemTypeKey(workItemTypeKey strin
 
 func (builder *ListTemplateConfReqBuilder) Build() *ListTemplateConfReq {
 	req := &ListTemplateConfReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type OAPIUpdateCompoundFieldValueReq struct {
+	apiReq *core.APIReq
+}
+type OAPIUpdateCompoundFieldValueReqBody struct {
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+    ProjectKey  *string `json:"project_key,omitempty"`
+    FieldKey  *string `json:"field_key,omitempty"`
+    FieldAlias  *string `json:"field_alias,omitempty"`
+    GroupUUID  *string `json:"group_uuid,omitempty"`
+    Action  *string `json:"action,omitempty"`
+    Fields  [][]WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+}
+type OAPIUpdateCompoundFieldValueResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type OAPIUpdateCompoundFieldValueReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewOAPIUpdateCompoundFieldValueReqBuilder() *OAPIUpdateCompoundFieldValueReqBuilder {
+	builder := &OAPIUpdateCompoundFieldValueReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &OAPIUpdateCompoundFieldValueReqBody{},
+	}
+	return builder
+}
+
+func (builder *OAPIUpdateCompoundFieldValueReqBuilder) WorkItemID(workItemID int64) *OAPIUpdateCompoundFieldValueReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateCompoundFieldValueReqBody).WorkItemID = &workItemID
+	return builder
+}
+
+
+func (builder *OAPIUpdateCompoundFieldValueReqBuilder) ProjectKey(projectKey string) *OAPIUpdateCompoundFieldValueReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateCompoundFieldValueReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *OAPIUpdateCompoundFieldValueReqBuilder) FieldKey(fieldKey string) *OAPIUpdateCompoundFieldValueReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateCompoundFieldValueReqBody).FieldKey = &fieldKey
+	return builder
+}
+
+
+func (builder *OAPIUpdateCompoundFieldValueReqBuilder) FieldAlias(fieldAlias string) *OAPIUpdateCompoundFieldValueReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateCompoundFieldValueReqBody).FieldAlias = &fieldAlias
+	return builder
+}
+
+
+func (builder *OAPIUpdateCompoundFieldValueReqBuilder) GroupUUID(groupUUID string) *OAPIUpdateCompoundFieldValueReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateCompoundFieldValueReqBody).GroupUUID = &groupUUID
+	return builder
+}
+
+
+func (builder *OAPIUpdateCompoundFieldValueReqBuilder) Action(action string) *OAPIUpdateCompoundFieldValueReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateCompoundFieldValueReqBody).Action = &action
+	return builder
+}
+
+
+func (builder *OAPIUpdateCompoundFieldValueReqBuilder) Fields(fields [][]WorkItem_work_item_FieldValuePair) *OAPIUpdateCompoundFieldValueReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateCompoundFieldValueReqBody).Fields = fields
+	return builder
+}
+func (builder *OAPIUpdateCompoundFieldValueReqBuilder) Build() *OAPIUpdateCompoundFieldValueReq {
+	req := &OAPIUpdateCompoundFieldValueReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
@@ -3360,7 +3616,7 @@ type ResourceCreateWorkItemReqBody struct {
     ProjectKey  *string `json:"project_key,omitempty"`
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
     TemplateID  *int64 `json:"template_id,omitempty"`
-    FieldValuePairs  []FieldValuePair `json:"field_value_pairs,omitempty"`
+    FieldValuePairs  []WorkItem_work_item_FieldValuePair `json:"field_value_pairs,omitempty"`
 }
 type ResourceCreateWorkItemResp struct {
 	*core.APIResp `json:"-"`
@@ -3401,7 +3657,7 @@ func (builder *ResourceCreateWorkItemReqBuilder) TemplateID(templateID int64) *R
 }
 
 
-func (builder *ResourceCreateWorkItemReqBuilder) FieldValuePairs(fieldValuePairs []FieldValuePair) *ResourceCreateWorkItemReqBuilder {
+func (builder *ResourceCreateWorkItemReqBuilder) FieldValuePairs(fieldValuePairs []WorkItem_work_item_FieldValuePair) *ResourceCreateWorkItemReqBuilder {
 	builder.apiReq.Body.(*ResourceCreateWorkItemReqBody).FieldValuePairs = fieldValuePairs
 	return builder
 }
@@ -3411,11 +3667,74 @@ func (builder *ResourceCreateWorkItemReqBuilder) Build() *ResourceCreateWorkItem
 	return req
 }
 
+type ResourceSearchByParamsReq struct {
+	apiReq *core.APIReq
+}
+type ResourceSearchByParamsReqBody struct {
+    DataSources  []DataSource `json:"data_sources,omitempty"`
+    SearchGroup  *SearchGroup `json:"search_group,omitempty"`
+    Pagination  *Search_concisesearch_Pagination `json:"pagination,omitempty"`
+    FieldSelected  []string `json:"field_selected,omitempty"`
+    Features  map[string]string `json:"features,omitempty"`
+}
+type ResourceSearchByParamsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       []ResourceWorkItemInfo         `json:"data"`
+	
+	Pagination       *Search_concisesearch_Pagination         `json:"pagination"`
+	
+}
+
+type ResourceSearchByParamsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewResourceSearchByParamsReqBuilder() *ResourceSearchByParamsReqBuilder {
+	builder := &ResourceSearchByParamsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &ResourceSearchByParamsReqBody{},
+	}
+	return builder
+}
+
+func (builder *ResourceSearchByParamsReqBuilder) DataSources(dataSources []DataSource) *ResourceSearchByParamsReqBuilder {
+	builder.apiReq.Body.(*ResourceSearchByParamsReqBody).DataSources = dataSources
+	return builder
+}
+
+func (builder *ResourceSearchByParamsReqBuilder) SearchGroup(searchGroup *SearchGroup) *ResourceSearchByParamsReqBuilder {
+	builder.apiReq.Body.(*ResourceSearchByParamsReqBody).SearchGroup = searchGroup
+	return builder
+}
+
+func (builder *ResourceSearchByParamsReqBuilder) Pagination(pagination *Search_concisesearch_Pagination) *ResourceSearchByParamsReqBuilder {
+	builder.apiReq.Body.(*ResourceSearchByParamsReqBody).Pagination = pagination
+	return builder
+}
+
+func (builder *ResourceSearchByParamsReqBuilder) FieldSelected(fieldSelected []string) *ResourceSearchByParamsReqBuilder {
+	builder.apiReq.Body.(*ResourceSearchByParamsReqBody).FieldSelected = fieldSelected
+	return builder
+}
+
+func (builder *ResourceSearchByParamsReqBuilder) Features(features map[string]string) *ResourceSearchByParamsReqBuilder {
+	builder.apiReq.Body.(*ResourceSearchByParamsReqBody).Features = features
+	return builder
+}
+func (builder *ResourceSearchByParamsReqBuilder) Build() *ResourceSearchByParamsReq {
+	req := &ResourceSearchByParamsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type SearchByParamsReq struct {
 	apiReq *core.APIReq
 }
 type SearchByParamsReqBody struct {
-    SearchGroup  *SearchGroup `json:"search_group,omitempty"`
+    SearchGroup  *Search_SearchGroup `json:"search_group,omitempty"`
     PageNum  *int64 `json:"page_num,omitempty"`
     PageSize  *int64 `json:"page_size,omitempty"`
     Fields  []string `json:"fields,omitempty"`
@@ -3450,7 +3769,7 @@ func (builder *SearchByParamsReqBuilder) ProjectKey(projectKey string) *SearchBy
 }
 
 
-func (builder *SearchByParamsReqBuilder) SearchGroup(searchGroup *SearchGroup) *SearchByParamsReqBuilder {
+func (builder *SearchByParamsReqBuilder) SearchGroup(searchGroup *Search_SearchGroup) *SearchByParamsReqBuilder {
 	builder.apiReq.Body.(*SearchByParamsReqBody).SearchGroup = searchGroup
 	return builder
 }
@@ -3492,6 +3811,7 @@ type SearchSubtaskReq struct {
 	apiReq *core.APIReq
 }
 type SearchSubtaskReqBody struct {
+    ProjectKeys  []string `json:"project_keys,omitempty"`
     PageSize  *int64 `json:"page_size,omitempty"`
     PageNum  *int64 `json:"page_num,omitempty"`
     Name  *string `json:"name,omitempty"`
@@ -3520,6 +3840,11 @@ func NewSearchSubtaskReqBuilder() *SearchSubtaskReqBuilder {
 		QueryParams: core.QueryParams{},
 		Body:        &SearchSubtaskReqBody{},
 	}
+	return builder
+}
+
+func (builder *SearchSubtaskReqBuilder) ProjectKeys(projectKeys []string) *SearchSubtaskReqBuilder {
+	builder.apiReq.Body.(*SearchSubtaskReqBody).ProjectKeys = projectKeys
 	return builder
 }
 
@@ -3576,14 +3901,14 @@ type SearchWorkItemsRelationReqBody struct {
     PageNum  *int64 `json:"page_num,omitempty"`
     PageSize  *int64 `json:"page_size,omitempty"`
     RelationType  *int32 `json:"relation_type,omitempty"`
-    Expand  *Expand `json:"expand,omitempty"`
+    Expand  *WorkItem_work_item_Expand `json:"expand,omitempty"`
 }
 type SearchWorkItemsRelationResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []WorkItemInfo         `json:"data"`
+	Data       []WorkItem_work_item_WorkItemInfo         `json:"data"`
 	
-	Pagination       *Pagination         `json:"pagination"`
+	Pagination       *WorkItem_common_Pagination         `json:"pagination"`
 	
 }
 
@@ -3649,7 +3974,7 @@ func (builder *SearchWorkItemsRelationReqBuilder) RelationType(relationType int3
 }
 
 
-func (builder *SearchWorkItemsRelationReqBuilder) Expand(expand *Expand) *SearchWorkItemsRelationReqBuilder {
+func (builder *SearchWorkItemsRelationReqBuilder) Expand(expand *WorkItem_work_item_Expand) *SearchWorkItemsRelationReqBuilder {
 	builder.apiReq.Body.(*SearchWorkItemsRelationReqBody).Expand = expand
 	return builder
 }
@@ -3667,9 +3992,9 @@ type SubTaskModifyReqBody struct {
     TaskID  *int64 `json:"task_id,omitempty"`
     Action  *string `json:"action,omitempty"`
     Assignee  []string `json:"assignee,omitempty"`
-    RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
-    Schedules  []Schedule `json:"schedules,omitempty"`
-    Deliverable  []FieldValuePair `json:"deliverable,omitempty"`
+    RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
+    Schedules  []WorkItem_work_item_Schedule `json:"schedules,omitempty"`
+    Deliverable  []WorkItem_work_item_FieldValuePair `json:"deliverable,omitempty"`
     Note  *string `json:"note,omitempty"`
 }
 type SubTaskModifyResp struct {
@@ -3714,17 +4039,17 @@ func (builder *SubTaskModifyReqBuilder) Assignee(assignee []string) *SubTaskModi
 	return builder
 }
 
-func (builder *SubTaskModifyReqBuilder) RoleAssignee(roleAssignee []RoleOwner) *SubTaskModifyReqBuilder {
+func (builder *SubTaskModifyReqBuilder) RoleAssignee(roleAssignee []WorkItem_work_item_RoleOwner) *SubTaskModifyReqBuilder {
 	builder.apiReq.Body.(*SubTaskModifyReqBody).RoleAssignee = roleAssignee
 	return builder
 }
 
-func (builder *SubTaskModifyReqBuilder) Schedules(schedules []Schedule) *SubTaskModifyReqBuilder {
+func (builder *SubTaskModifyReqBuilder) Schedules(schedules []WorkItem_work_item_Schedule) *SubTaskModifyReqBuilder {
 	builder.apiReq.Body.(*SubTaskModifyReqBody).Schedules = schedules
 	return builder
 }
 
-func (builder *SubTaskModifyReqBuilder) Deliverable(deliverable []FieldValuePair) *SubTaskModifyReqBuilder {
+func (builder *SubTaskModifyReqBuilder) Deliverable(deliverable []WorkItem_work_item_FieldValuePair) *SubTaskModifyReqBuilder {
 	builder.apiReq.Body.(*SubTaskModifyReqBody).Deliverable = deliverable
 	return builder
 }
@@ -3826,8 +4151,8 @@ type UniversalSearchReqBody struct {
     DataSources  []DataSource `json:"data_sources,omitempty"`
     UserKey  *string `json:"user_key,omitempty"`
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-    Sort  *Sort `json:"sort,omitempty"`
-    Pagination  *Pagination `json:"pagination,omitempty"`
+    Sort  *Search_concisesearch_Sort `json:"sort,omitempty"`
+    Pagination  *Search_concisesearch_Pagination `json:"pagination,omitempty"`
     FieldSelected  []string `json:"field_selected,omitempty"`
     Features  map[string]string `json:"features,omitempty"`
 }
@@ -3836,7 +4161,7 @@ type UniversalSearchResp struct {
 	core.CodeError
 	Data       *string         `json:"data"`
 	
-	Pagination       *Pagination         `json:"pagination"`
+	Pagination       *Search_concisesearch_Pagination         `json:"pagination"`
 	
 	ExtraInfo       map[string]string         `json:"extra_info"`
 	
@@ -3872,12 +4197,12 @@ func (builder *UniversalSearchReqBuilder) SearchGroup(searchGroup *SearchGroup) 
 	return builder
 }
 
-func (builder *UniversalSearchReqBuilder) Sort(sort *Sort) *UniversalSearchReqBuilder {
+func (builder *UniversalSearchReqBuilder) Sort(sort *Search_concisesearch_Sort) *UniversalSearchReqBuilder {
 	builder.apiReq.Body.(*UniversalSearchReqBody).Sort = sort
 	return builder
 }
 
-func (builder *UniversalSearchReqBuilder) Pagination(pagination *Pagination) *UniversalSearchReqBuilder {
+func (builder *UniversalSearchReqBuilder) Pagination(pagination *Search_concisesearch_Pagination) *UniversalSearchReqBuilder {
 	builder.apiReq.Body.(*UniversalSearchReqBody).Pagination = pagination
 	return builder
 }
@@ -4094,6 +4419,67 @@ func (builder *UpdateFinishedReqBuilder) Build() *UpdateFinishedReq {
 	return req
 }
 
+type UpdateFlowRoleReq struct {
+	apiReq *core.APIReq
+}
+type UpdateFlowRoleReqBody struct {
+    RoleID  *string `json:"role_id,omitempty"`
+    RoleAlias  *string `json:"role_alias,omitempty"`
+    Role  *RoleConfUpdate `json:"role,omitempty"`
+}
+type UpdateFlowRoleResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateFlowRoleReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUpdateFlowRoleReqBuilder() *UpdateFlowRoleReqBuilder {
+	builder := &UpdateFlowRoleReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UpdateFlowRoleReqBody{},
+	}
+	return builder
+}
+
+func (builder *UpdateFlowRoleReqBuilder) ProjectKey(projectKey string) *UpdateFlowRoleReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+
+
+func (builder *UpdateFlowRoleReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UpdateFlowRoleReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+
+
+func (builder *UpdateFlowRoleReqBuilder) RoleID(roleID string) *UpdateFlowRoleReqBuilder {
+	builder.apiReq.Body.(*UpdateFlowRoleReqBody).RoleID = &roleID
+	return builder
+}
+
+
+func (builder *UpdateFlowRoleReqBuilder) RoleAlias(roleAlias string) *UpdateFlowRoleReqBuilder {
+	builder.apiReq.Body.(*UpdateFlowRoleReqBody).RoleAlias = &roleAlias
+	return builder
+}
+
+
+func (builder *UpdateFlowRoleReqBuilder) Role(role *RoleConfUpdate) *UpdateFlowRoleReqBuilder {
+	builder.apiReq.Body.(*UpdateFlowRoleReqBody).Role = role
+	return builder
+}
+func (builder *UpdateFlowRoleReqBuilder) Build() *UpdateFlowRoleReq {
+	req := &UpdateFlowRoleReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type UpdateMultiSignalReq struct {
 	apiReq *core.APIReq
 }
@@ -4177,10 +4563,10 @@ type UpdateNodeStateReqBody struct {
     Action  *string `json:"action,omitempty"`
     RollbackReason  *string `json:"rollback_reason,omitempty"`
     NodeOwners  []string `json:"node_owners,omitempty"`
-    NodeSchedule  *Schedule `json:"node_schedule,omitempty"`
-    Schedules  []Schedule `json:"schedules,omitempty"`
-    Fields  []FieldValuePair `json:"fields,omitempty"`
-    RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
+    NodeSchedule  *WorkItem_work_item_Schedule `json:"node_schedule,omitempty"`
+    Schedules  []WorkItem_work_item_Schedule `json:"schedules,omitempty"`
+    Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+    RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
     NodeFields  []NodeField `json:"node_fields,omitempty"`
     FinishedInfos  *FinishedInfo `json:"finished_infos,omitempty"`
 }
@@ -4244,22 +4630,22 @@ func (builder *UpdateNodeStateReqBuilder) NodeOwners(nodeOwners []string) *Updat
 	return builder
 }
 
-func (builder *UpdateNodeStateReqBuilder) NodeSchedule(nodeSchedule *Schedule) *UpdateNodeStateReqBuilder {
+func (builder *UpdateNodeStateReqBuilder) NodeSchedule(nodeSchedule *WorkItem_work_item_Schedule) *UpdateNodeStateReqBuilder {
 	builder.apiReq.Body.(*UpdateNodeStateReqBody).NodeSchedule = nodeSchedule
 	return builder
 }
 
-func (builder *UpdateNodeStateReqBuilder) Schedules(schedules []Schedule) *UpdateNodeStateReqBuilder {
+func (builder *UpdateNodeStateReqBuilder) Schedules(schedules []WorkItem_work_item_Schedule) *UpdateNodeStateReqBuilder {
 	builder.apiReq.Body.(*UpdateNodeStateReqBody).Schedules = schedules
 	return builder
 }
 
-func (builder *UpdateNodeStateReqBuilder) Fields(fields []FieldValuePair) *UpdateNodeStateReqBuilder {
+func (builder *UpdateNodeStateReqBuilder) Fields(fields []WorkItem_work_item_FieldValuePair) *UpdateNodeStateReqBuilder {
 	builder.apiReq.Body.(*UpdateNodeStateReqBody).Fields = fields
 	return builder
 }
 
-func (builder *UpdateNodeStateReqBuilder) RoleAssignee(roleAssignee []RoleOwner) *UpdateNodeStateReqBuilder {
+func (builder *UpdateNodeStateReqBuilder) RoleAssignee(roleAssignee []WorkItem_work_item_RoleOwner) *UpdateNodeStateReqBuilder {
 	builder.apiReq.Body.(*UpdateNodeStateReqBody).RoleAssignee = roleAssignee
 	return builder
 }
@@ -4279,13 +4665,69 @@ func (builder *UpdateNodeStateReqBuilder) Build() *UpdateNodeStateReq {
 	return req
 }
 
+type UpdateResourceWorkItemReq struct {
+	apiReq *core.APIReq
+}
+type UpdateResourceWorkItemReqBody struct {
+    ProjectKey  *string `json:"project_key,omitempty"`
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+    UpdateFields  []WorkItem_work_item_FieldValuePair `json:"update_fields,omitempty"`
+}
+type UpdateResourceWorkItemResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateResourceWorkItemReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUpdateResourceWorkItemReqBuilder() *UpdateResourceWorkItemReqBuilder {
+	builder := &UpdateResourceWorkItemReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UpdateResourceWorkItemReqBody{},
+	}
+	return builder
+}
+
+func (builder *UpdateResourceWorkItemReqBuilder) ProjectKey(projectKey string) *UpdateResourceWorkItemReqBuilder {
+	builder.apiReq.Body.(*UpdateResourceWorkItemReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *UpdateResourceWorkItemReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UpdateResourceWorkItemReqBuilder {
+	builder.apiReq.Body.(*UpdateResourceWorkItemReqBody).WorkItemTypeKey = &workItemTypeKey
+	return builder
+}
+
+
+func (builder *UpdateResourceWorkItemReqBuilder) WorkItemID(workItemID int64) *UpdateResourceWorkItemReqBuilder {
+	builder.apiReq.Body.(*UpdateResourceWorkItemReqBody).WorkItemID = &workItemID
+	return builder
+}
+
+
+func (builder *UpdateResourceWorkItemReqBuilder) UpdateFields(updateFields []WorkItem_work_item_FieldValuePair) *UpdateResourceWorkItemReqBuilder {
+	builder.apiReq.Body.(*UpdateResourceWorkItemReqBody).UpdateFields = updateFields
+	return builder
+}
+func (builder *UpdateResourceWorkItemReqBuilder) Build() *UpdateResourceWorkItemReq {
+	req := &UpdateResourceWorkItemReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type UpdateStateFlowReq struct {
 	apiReq *core.APIReq
 }
 type UpdateStateFlowReqBody struct {
     TransitionID  *int64 `json:"transition_id,omitempty"`
-    Fields  []FieldValuePair `json:"fields,omitempty"`
-    RoleOwners  []RoleOwner `json:"role_owners,omitempty"`
+    Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+    RoleOwners  []WorkItem_work_item_RoleOwner `json:"role_owners,omitempty"`
 }
 type UpdateStateFlowResp struct {
 	*core.APIResp `json:"-"`
@@ -4330,12 +4772,12 @@ func (builder *UpdateStateFlowReqBuilder) TransitionID(transitionID int64) *Upda
 }
 
 
-func (builder *UpdateStateFlowReqBuilder) Fields(fields []FieldValuePair) *UpdateStateFlowReqBuilder {
+func (builder *UpdateStateFlowReqBuilder) Fields(fields []WorkItem_work_item_FieldValuePair) *UpdateStateFlowReqBuilder {
 	builder.apiReq.Body.(*UpdateStateFlowReqBody).Fields = fields
 	return builder
 }
 
-func (builder *UpdateStateFlowReqBuilder) RoleOwners(roleOwners []RoleOwner) *UpdateStateFlowReqBuilder {
+func (builder *UpdateStateFlowReqBuilder) RoleOwners(roleOwners []WorkItem_work_item_RoleOwner) *UpdateStateFlowReqBuilder {
 	builder.apiReq.Body.(*UpdateStateFlowReqBody).RoleOwners = roleOwners
 	return builder
 }
@@ -4404,7 +4846,7 @@ type UpdateWorkItemReq struct {
 	apiReq *core.APIReq
 }
 type UpdateWorkItemReqBody struct {
-    UpdateFields  []FieldValuePair `json:"update_fields,omitempty"`
+    UpdateFields  []WorkItem_work_item_FieldValuePair `json:"update_fields,omitempty"`
 }
 type UpdateWorkItemResp struct {
 	*core.APIResp `json:"-"`
@@ -4437,7 +4879,7 @@ func (builder *UpdateWorkItemReqBuilder) WorkItemTypeKey(workItemTypeKey string)
 }
 
 
-func (builder *UpdateWorkItemReqBuilder) UpdateFields(updateFields []FieldValuePair) *UpdateWorkItemReqBuilder {
+func (builder *UpdateWorkItemReqBuilder) UpdateFields(updateFields []WorkItem_work_item_FieldValuePair) *UpdateWorkItemReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkItemReqBody).UpdateFields = updateFields
 	return builder
 }
@@ -4522,11 +4964,11 @@ type UpdateWorkItemSubTaskReq struct {
 type UpdateWorkItemSubTaskReqBody struct {
     Name  *string `json:"name,omitempty"`
     Assignee  []string `json:"assignee,omitempty"`
-    RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
-    Schedule  *Schedule `json:"schedule,omitempty"`
+    RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
+    Schedule  *WorkItem_work_item_Schedule `json:"schedule,omitempty"`
     Note  *string `json:"note,omitempty"`
-    Deliverable  []FieldValuePair `json:"deliverable,omitempty"`
-    UpdateFields  []FieldValuePair `json:"update_fields,omitempty"`
+    Deliverable  []WorkItem_work_item_FieldValuePair `json:"deliverable,omitempty"`
+    UpdateFields  []WorkItem_work_item_FieldValuePair `json:"update_fields,omitempty"`
 }
 type UpdateWorkItemSubTaskResp struct {
 	*core.APIResp `json:"-"`
@@ -4588,12 +5030,12 @@ func (builder *UpdateWorkItemSubTaskReqBuilder) Assignee(assignee []string) *Upd
 	return builder
 }
 
-func (builder *UpdateWorkItemSubTaskReqBuilder) RoleAssignee(roleAssignee []RoleOwner) *UpdateWorkItemSubTaskReqBuilder {
+func (builder *UpdateWorkItemSubTaskReqBuilder) RoleAssignee(roleAssignee []WorkItem_work_item_RoleOwner) *UpdateWorkItemSubTaskReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkItemSubTaskReqBody).RoleAssignee = roleAssignee
 	return builder
 }
 
-func (builder *UpdateWorkItemSubTaskReqBuilder) Schedule(schedule *Schedule) *UpdateWorkItemSubTaskReqBuilder {
+func (builder *UpdateWorkItemSubTaskReqBuilder) Schedule(schedule *WorkItem_work_item_Schedule) *UpdateWorkItemSubTaskReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkItemSubTaskReqBody).Schedule = schedule
 	return builder
 }
@@ -4604,12 +5046,12 @@ func (builder *UpdateWorkItemSubTaskReqBuilder) Note(note string) *UpdateWorkIte
 }
 
 
-func (builder *UpdateWorkItemSubTaskReqBuilder) Deliverable(deliverable []FieldValuePair) *UpdateWorkItemSubTaskReqBuilder {
+func (builder *UpdateWorkItemSubTaskReqBuilder) Deliverable(deliverable []WorkItem_work_item_FieldValuePair) *UpdateWorkItemSubTaskReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkItemSubTaskReqBody).Deliverable = deliverable
 	return builder
 }
 
-func (builder *UpdateWorkItemSubTaskReqBuilder) UpdateFields(updateFields []FieldValuePair) *UpdateWorkItemSubTaskReqBuilder {
+func (builder *UpdateWorkItemSubTaskReqBuilder) UpdateFields(updateFields []WorkItem_work_item_FieldValuePair) *UpdateWorkItemSubTaskReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkItemSubTaskReqBody).UpdateFields = updateFields
 	return builder
 }
@@ -4727,10 +5169,10 @@ type UpdateWorkflowNodeReq struct {
 }
 type UpdateWorkflowNodeReqBody struct {
     NodeOwners  []string `json:"node_owners,omitempty"`
-    NodeSchedule  *Schedule `json:"node_schedule,omitempty"`
-    Schedules  []Schedule `json:"schedules,omitempty"`
-    Fields  []FieldValuePair `json:"fields,omitempty"`
-    RoleAssignee  []RoleOwner `json:"role_assignee,omitempty"`
+    NodeSchedule  *WorkItem_work_item_Schedule `json:"node_schedule,omitempty"`
+    Schedules  []WorkItem_work_item_Schedule `json:"schedules,omitempty"`
+    Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+    RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
 }
 type UpdateWorkflowNodeResp struct {
 	*core.APIResp `json:"-"`
@@ -4780,22 +5222,22 @@ func (builder *UpdateWorkflowNodeReqBuilder) NodeOwners(nodeOwners []string) *Up
 	return builder
 }
 
-func (builder *UpdateWorkflowNodeReqBuilder) NodeSchedule(nodeSchedule *Schedule) *UpdateWorkflowNodeReqBuilder {
+func (builder *UpdateWorkflowNodeReqBuilder) NodeSchedule(nodeSchedule *WorkItem_work_item_Schedule) *UpdateWorkflowNodeReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkflowNodeReqBody).NodeSchedule = nodeSchedule
 	return builder
 }
 
-func (builder *UpdateWorkflowNodeReqBuilder) Schedules(schedules []Schedule) *UpdateWorkflowNodeReqBuilder {
+func (builder *UpdateWorkflowNodeReqBuilder) Schedules(schedules []WorkItem_work_item_Schedule) *UpdateWorkflowNodeReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkflowNodeReqBody).Schedules = schedules
 	return builder
 }
 
-func (builder *UpdateWorkflowNodeReqBuilder) Fields(fields []FieldValuePair) *UpdateWorkflowNodeReqBuilder {
+func (builder *UpdateWorkflowNodeReqBuilder) Fields(fields []WorkItem_work_item_FieldValuePair) *UpdateWorkflowNodeReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkflowNodeReqBody).Fields = fields
 	return builder
 }
 
-func (builder *UpdateWorkflowNodeReqBuilder) RoleAssignee(roleAssignee []RoleOwner) *UpdateWorkflowNodeReqBuilder {
+func (builder *UpdateWorkflowNodeReqBuilder) RoleAssignee(roleAssignee []WorkItem_work_item_RoleOwner) *UpdateWorkflowNodeReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkflowNodeReqBody).RoleAssignee = roleAssignee
 	return builder
 }

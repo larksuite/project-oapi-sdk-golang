@@ -2283,6 +2283,8 @@ type WorkItem_work_item_Expand struct {
 
     NeedWbsRelationChainPath  *bool `json:"need_wbs_relation_chain_path,omitempty"`
 
+    NeedGroupUUIDForCompound  *bool `json:"need_group_uuid_for_compound,omitempty"`
+
 }
 
 type WorkItem_work_item_FieldDetail struct {

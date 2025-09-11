@@ -7,7 +7,6 @@ import (
 	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
-
 const APIPath_AbortWorkItem = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/abort"
 
 const APIPath_ActualTimeUpdate = "/open_api/work_item/actual_time/update"
@@ -90,7 +89,7 @@ const APIPath_InviteBotJoinChat = "/open_api/:project_key/work_item/:work_item_i
 
 const APIPath_ListTemplateConf = "/open_api/:project_key/template_list/:work_item_type_key"
 
-const APIPath_OAPIUpdateCompoundFieldValue = "/open_api/work_item/field_value/update_compound_field"
+const APIPath_UpdateCompoundFieldValue = "/open_api/work_item/field_value/update_compound_field"
 
 const APIPath_PatchWBSViewDraft = "/open_api/work_item/wbs_view_draft/patch"
 
@@ -174,7 +173,6 @@ const APIPath_WBSUpdateDraftFrozenRows = "/open_api/:project_key/wbs_view_draft/
 
 const APIPath_WbsCollaborationPublish = "/open_api/:project_key/wbs_view_draft/publish"
 
-
 func NewService(config *core.Config) *WorkItemService {
 	a := &WorkItemService{config: config}
 	return a
@@ -183,7 +181,6 @@ func NewService(config *core.Config) *WorkItemService {
 type WorkItemService struct {
 	config *core.Config
 }
-
 
 /*
  * @name: OAPIAbortWorkItem
@@ -258,7 +255,7 @@ func (a *WorkItemService) BatchQueryConclusionOption(ctx context.Context, req *B
 }
 
 /*
- * 
+ *
  */
 func (a *WorkItemService) BatchQueryDeliverable(ctx context.Context, req *BatchQueryDeliverableReq, options ...core.RequestOptionFunc) (*BatchQueryDeliverableResp, error) {
 	// 发起请求
@@ -1169,24 +1166,24 @@ func (a *WorkItemService) ListTemplateConf(ctx context.Context, req *ListTemplat
 }
 
 /*
- * @name: OAPIUpdateCompoundFieldValue
+ * @name: UpdateCompoundFieldValue
  * @desc: 增量更新复合字段
  */
-func (a *WorkItemService) OAPIUpdateCompoundFieldValue(ctx context.Context, req *OAPIUpdateCompoundFieldValueReq, options ...core.RequestOptionFunc) (*OAPIUpdateCompoundFieldValueResp, error) {
+func (a *WorkItemService) UpdateCompoundFieldValue(ctx context.Context, req *UpdateCompoundFieldValueReq, options ...core.RequestOptionFunc) (*UpdateCompoundFieldValueResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_OAPIUpdateCompoundFieldValue
+	apiReq.ApiPath = APIPath_UpdateCompoundFieldValue
 	apiReq.HttpMethod = "POST"
 	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
 	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIUpdateCompoundFieldValue] fail to invoke api, error: %v", err.Error()))
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateCompoundFieldValue] fail to invoke api, error: %v", err.Error()))
 		return nil, err
 	}
 	// 反序列响应结果
-	resp := &OAPIUpdateCompoundFieldValueResp{APIResp: apiResp}
+	resp := &UpdateCompoundFieldValueResp{APIResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIUpdateCompoundFieldValue] fail to unmarshal response body, error: %v", err.Error()))
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateCompoundFieldValue] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -2175,4 +2172,3 @@ func (a *WorkItemService) WbsCollaborationPublish(ctx context.Context, req *WbsC
 	}
 	return resp, err
 }
-

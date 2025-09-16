@@ -35,6 +35,8 @@ type AbortWorkItemReqBody struct {
 	IsAborted bool `json:"is_aborted"`
 
 	Reason string `json:"reason"`
+
+	ReasonOption string `json:"reason_option"`
 }
 
 type AbortWorkItemResp struct {
@@ -56,6 +58,7 @@ func NewAbortWorkItemReqBuilder() *AbortWorkItemReqBuilder {
 	builder.body = &AbortWorkItemReqBody{}
 	return builder
 }
+
 func (builder *AbortWorkItemReqBuilder) ProjectKey(projectKey string) *AbortWorkItemReqBuilder {
 	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
 	return builder
@@ -72,10 +75,17 @@ func (builder *AbortWorkItemReqBuilder) IsAborted(isAborted bool) *AbortWorkItem
 	builder.body.IsAborted = isAborted
 	return builder
 }
+
 func (builder *AbortWorkItemReqBuilder) Reason(reason string) *AbortWorkItemReqBuilder {
 	builder.body.Reason = reason
 	return builder
 }
+
+func (builder *AbortWorkItemReqBuilder) ReasonOption(reasonOption string) *AbortWorkItemReqBuilder {
+	builder.body.ReasonOption = reasonOption
+	return builder
+}
+
 func (builder *AbortWorkItemReqBuilder) Build() *AbortWorkItemReq {
 	req := &AbortWorkItemReq{}
 	req.apiReq = builder.apiReq
@@ -1595,11 +1605,11 @@ type UpdateWorkItemTypeInfoReq struct {
 type UpdateWorkItemTypeInfoReqBody struct {
 	Description string `json:"description"`
 
-	IsDisabled bool `json:"is_disabled"`
+	IsDisabled *bool `json:"is_disabled,omitempty"`
 
-	IsPinned bool `json:"is_pinned"`
+	IsPinned *bool `json:"is_pinned,omitempty"`
 
-	EnableSchedule bool `json:"enable_schedule"`
+	EnableSchedule *bool `json:"enable_schedule,omitempty"`
 
 	ScheduleFieldKey string `json:"schedule_field_key"`
 
@@ -1609,7 +1619,7 @@ type UpdateWorkItemTypeInfoReqBody struct {
 
 	BelongRoleKeys []string `json:"belong_role_keys"`
 
-	ActualWorkTimeSwitch bool `json:"actual_work_time_switch"`
+	ActualWorkTimeSwitch *bool `json:"actual_work_time_switch,omitempty"`
 }
 
 type UpdateWorkItemTypeInfoResp struct {
@@ -1644,15 +1654,15 @@ func (builder *UpdateWorkItemTypeInfoReqBuilder) Description(description string)
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) IsDisabled(isDisabled bool) *UpdateWorkItemTypeInfoReqBuilder {
-	builder.body.IsDisabled = isDisabled
+	builder.body.IsDisabled = &isDisabled
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) IsPinned(isPinned bool) *UpdateWorkItemTypeInfoReqBuilder {
-	builder.body.IsPinned = isPinned
+	builder.body.IsPinned = &isPinned
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) EnableSchedule(enableSchedule bool) *UpdateWorkItemTypeInfoReqBuilder {
-	builder.body.EnableSchedule = enableSchedule
+	builder.body.EnableSchedule = &enableSchedule
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) ScheduleFieldKey(scheduleFieldKey string) *UpdateWorkItemTypeInfoReqBuilder {
@@ -1672,7 +1682,7 @@ func (builder *UpdateWorkItemTypeInfoReqBuilder) BelongRoleKeys(belongRoleKeys [
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) ActualWorkTimeSwitch(actualWorkTimeSwitch bool) *UpdateWorkItemTypeInfoReqBuilder {
-	builder.body.ActualWorkTimeSwitch = actualWorkTimeSwitch
+	builder.body.ActualWorkTimeSwitch = &actualWorkTimeSwitch
 	return builder
 }
 func (builder *UpdateWorkItemTypeInfoReqBuilder) Build() *UpdateWorkItemTypeInfoReq {
@@ -1775,9 +1785,89 @@ func (builder *WbsViewReqBuilder) Expand(expand *Expand) *WbsViewReqBuilder {
 	builder.body.Expand = expand
 	return builder
 }
+func (builder *WbsViewReqBuilder) NeedUnionDeliverable(needUnionDeliverable bool) *WbsViewReqBuilder {
+	builder.apiReq.QueryParams.Set("need_union_deliverable", fmt.Sprint(needUnionDeliverable))
+	return builder
+}
 func (builder *WbsViewReqBuilder) Build() *WbsViewReq {
 	req := &WbsViewReq{}
 	req.apiReq = builder.apiReq
 	req.apiReq.Body = builder.body
+	return req
+}
+
+type UniversalSearchReq struct {
+	apiReq *core.APIReq
+}
+type UniversalSearchReqBody struct {
+	DataSources []DataSource `json:"data_sources,omitempty"`
+
+	UserKey *string `json:"user_key,omitempty"`
+
+	SearchGroup *SearchGroup `json:"search_group,omitempty"`
+
+	Sort *Sort `json:"sort,omitempty"`
+
+	Pagination *Pagination `json:"pagination,omitempty"`
+
+	FieldSelected []string `json:"field_selected,omitempty"`
+
+	Features map[string]string `json:"features,omitempty"`
+}
+
+type UniversalSearchResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data *string `json:"data,omitempty"`
+
+	Pagination *Pagination `json:"pagination,omitempty"`
+
+	ExtraInfo map[string]string `json:"extra_info,omitempty"`
+}
+
+type UniversalSearchReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUniversalSearchReqBuilder() *UniversalSearchReqBuilder {
+	builder := &UniversalSearchReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UniversalSearchReqBody{},
+	}
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) DataSources(dataSources []DataSource) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).DataSources = dataSources
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) UserKey(userKey *string) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).UserKey = userKey
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) SearchGroup(searchGroup *SearchGroup) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).SearchGroup = searchGroup
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) Sort(sort *Sort) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).Sort = sort
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) Pagination(pagination *Pagination) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).Pagination = pagination
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) FieldSelected(fieldSelected []string) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).FieldSelected = fieldSelected
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) Features(features map[string]string) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).Features = features
+	return builder
+}
+func (builder *UniversalSearchReqBuilder) Build() *UniversalSearchReq {
+	req := &UniversalSearchReq{}
+	req.apiReq = builder.apiReq
 	return req
 }

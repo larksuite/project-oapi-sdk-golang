@@ -137,6 +137,14 @@ type Pagination struct {
 
 }
 
+type QuickFilter struct {
+
+    QuickFilterID  *string `json:"quick_filter_id,omitempty"`
+
+    QuickFilterName  *string `json:"quick_filter_name,omitempty"`
+
+}
+
 type RelationFieldDetail struct {
 
     FieldKey  *string `json:"field_key,omitempty"`
@@ -326,6 +334,8 @@ type ViewConf struct {
     CreatedAt  *int64 `json:"created_at,omitempty"`
 
     CreatedBy  *string `json:"created_by,omitempty"`
+
+    QuickFilters  []QuickFilter `json:"quick_filters,omitempty"`
 
 }
 

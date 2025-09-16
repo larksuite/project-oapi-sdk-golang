@@ -60,8 +60,8 @@ func updateWorkItemV2(client *sdk.ClientV2) {
 	var work_item_id int64 = 0
 	fieldKey := "name"
 	fieldValue := "fieldValue"
-	fieldValuePairs := []workitem.FieldValuePair{
-		workitem.FieldValuePair{
+	fieldValuePairs := []workitem.WorkItem_work_item_FieldValuePair{
+		workitem.WorkItem_work_item_FieldValuePair{
 			FieldKey:   &fieldKey,
 			FieldValue: &fieldValue,
 		},

@@ -18,6 +18,7 @@ type CreateConditionViewReqBody struct {
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
     Name  *string `json:"name,omitempty"`
+    MeegoUserKey  *string `json:"meego_user_key,omitempty"`
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
 }
 type CreateConditionViewResp struct {
@@ -79,6 +80,12 @@ func (builder *CreateConditionViewReqBuilder) CooperationTeamIDs(cooperationTeam
 
 func (builder *CreateConditionViewReqBuilder) Name(name string) *CreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*CreateConditionViewReqBody).Name = &name
+	return builder
+}
+
+
+func (builder *CreateConditionViewReqBuilder) MeegoUserKey(meegoUserKey string) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).MeegoUserKey = &meegoUserKey
 	return builder
 }
 
@@ -297,6 +304,7 @@ type UpdateConditionViewReqBody struct {
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
     Name  *string `json:"name,omitempty"`
+    MeegoUserKey  *string `json:"meego_user_key,omitempty"`
     ViewID  *string `json:"view_id,omitempty"`
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
 }
@@ -354,6 +362,12 @@ func (builder *UpdateConditionViewReqBuilder) CooperationTeamIDs(cooperationTeam
 
 func (builder *UpdateConditionViewReqBuilder) Name(name string) *UpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).Name = &name
+	return builder
+}
+
+
+func (builder *UpdateConditionViewReqBuilder) MeegoUserKey(meegoUserKey string) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).MeegoUserKey = &meegoUserKey
 	return builder
 }
 

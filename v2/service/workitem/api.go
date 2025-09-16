@@ -7,7 +7,6 @@ import (
 	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
-
 const APIPath_AbortWorkItem = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/abort"
 
 const APIPath_ActualTimeUpdate = "/open_api/work_item/actual_time/update"
@@ -24,6 +23,8 @@ const APIPath_CompositiveSearch = "/open_api/compositive_search"
 
 const APIPath_CreateField = "/open_api/:project_key/field/:work_item_type_key/create"
 
+const APIPath_CreateFlowRole = "/open_api/:project_key/flow_roles/:work_item_type_key/create_role"
+
 const APIPath_CreateProjectRelationInstances = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id/batch_bind"
 
 const APIPath_CreateStoryRelations = "/open_api/:project_key/story_relations/create"
@@ -39,6 +40,8 @@ const APIPath_CreateWorkItemSubTask = "/open_api/:project_key/work_item/:work_it
 const APIPath_CreateWorkingHourRecord = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/work_hour_record"
 
 const APIPath_DeleteFile = "/open_api/file/delete"
+
+const APIPath_DeleteFlowRole = "/open_api/:project_key/flow_roles/:work_item_type_key/delete_role"
 
 const APIPath_DeleteProjectRelationInstance = "/open_api/:project_key/relation/:work_item_type_key/:work_item_id"
 
@@ -62,6 +65,8 @@ const APIPath_FilterAcrossProject = "/open_api/work_items/filter_across_project"
 
 const APIPath_FreezeWorkItem = "/open_api/work_item/freeze"
 
+const APIPath_GetResourceWorkItemsByIds = "/open_api/work_item/resource/query"
+
 const APIPath_GetWBSInfo = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/wbs_view"
 
 const APIPath_GetWBSViewSubWorkItemConf = "/open_api/work_item/wbs_view_draft/sub_work_item_conf"
@@ -83,6 +88,8 @@ const APIPath_IntegrateSearch = "/open_api/view_search/integrate_search"
 const APIPath_InviteBotJoinChat = "/open_api/:project_key/work_item/:work_item_id/bot_join_chat"
 
 const APIPath_ListTemplateConf = "/open_api/:project_key/template_list/:work_item_type_key"
+
+const APIPath_UpdateCompoundFieldValue = "/open_api/work_item/field_value/update_compound_field"
 
 const APIPath_PatchWBSViewDraft = "/open_api/work_item/wbs_view_draft/patch"
 
@@ -120,6 +127,8 @@ const APIPath_ResetWBSViewDraft = "/open_api/work_item/wbs_view_draft/reset"
 
 const APIPath_ResourceCreateWorkItem = "/open_api/work_item/resource/create_work_item"
 
+const APIPath_ResourceSearchByParams = "/open_api/work_item/resource/search/params"
+
 const APIPath_SearchByParams = "/open_api/:project_key/work_item/:work_item_type_key/search/params"
 
 const APIPath_SearchSubtask = "/open_api/work_item/subtask/search"
@@ -136,9 +145,13 @@ const APIPath_UpdateField = "/open_api/:project_key/field/:work_item_type_key"
 
 const APIPath_UpdateFinished = "/open_api/work_item/finished/update"
 
+const APIPath_UpdateFlowRole = "/open_api/:project_key/flow_roles/:work_item_type_key/update_role"
+
 const APIPath_UpdateMultiSignal = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/update/multi_signal"
 
 const APIPath_UpdateNodeState = "/open_api/:project_key/workflow/:work_item_type_key/:work_item_id/node/:node_id/operate"
+
+const APIPath_UpdateResourceWorkItem = "/open_api/work_item/resource/update"
 
 const APIPath_UpdateStateFlow = "/open_api/:project_key/workflow/:work_item_type_key/:work_item_id/node/state_change"
 
@@ -160,7 +173,6 @@ const APIPath_WBSUpdateDraftFrozenRows = "/open_api/:project_key/wbs_view_draft/
 
 const APIPath_WbsCollaborationPublish = "/open_api/:project_key/wbs_view_draft/publish"
 
-
 func NewService(config *core.Config) *WorkItemService {
 	a := &WorkItemService{config: config}
 	return a
@@ -169,7 +181,6 @@ func NewService(config *core.Config) *WorkItemService {
 type WorkItemService struct {
 	config *core.Config
 }
-
 
 /*
  * @name: OAPIAbortWorkItem
@@ -244,7 +255,7 @@ func (a *WorkItemService) BatchQueryConclusionOption(ctx context.Context, req *B
 }
 
 /*
- * 
+ *
  */
 func (a *WorkItemService) BatchQueryDeliverable(ctx context.Context, req *BatchQueryDeliverableReq, options ...core.RequestOptionFunc) (*BatchQueryDeliverableResp, error) {
 	// 发起请求
@@ -357,6 +368,30 @@ func (a *WorkItemService) CreateField(ctx context.Context, req *CreateFieldReq, 
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateField] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPICreateFlowRole
+ * @desc: 创建流程角色
+ */
+func (a *WorkItemService) CreateFlowRole(ctx context.Context, req *CreateFlowRoleReq, options ...core.RequestOptionFunc) (*CreateFlowRoleResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_CreateFlowRole
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateFlowRole] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateFlowRoleResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateFlowRole] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -549,6 +584,30 @@ func (a *WorkItemService) DeleteFile(ctx context.Context, req *DeleteFileReq, op
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteFile] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIDeleteFlowRole
+ * @desc: 删除流程角色
+ */
+func (a *WorkItemService) DeleteFlowRole(ctx context.Context, req *DeleteFlowRoleReq, options ...core.RequestOptionFunc) (*DeleteFlowRoleResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_DeleteFlowRole
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteFlowRole] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteFlowRoleResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteFlowRole] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -819,6 +878,30 @@ func (a *WorkItemService) FreezeWorkItem(ctx context.Context, req *FreezeWorkIte
 }
 
 /*
+ * @name: OAPIGetWorkItemsByIds
+ * @desc: 批量查询工作项
+ */
+func (a *WorkItemService) GetResourceWorkItemsByIds(ctx context.Context, req *GetResourceWorkItemsByIdsReq, options ...core.RequestOptionFunc) (*GetResourceWorkItemsByIdsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_GetResourceWorkItemsByIds
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetResourceWorkItemsByIds] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetResourceWorkItemsByIdsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetResourceWorkItemsByIds] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
  * @name: OAPIGetWBSInfo
  * @desc: 获取WBS
  */
@@ -1077,6 +1160,30 @@ func (a *WorkItemService) ListTemplateConf(ctx context.Context, req *ListTemplat
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ListTemplateConf] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: UpdateCompoundFieldValue
+ * @desc: 增量更新复合字段
+ */
+func (a *WorkItemService) UpdateCompoundFieldValue(ctx context.Context, req *UpdateCompoundFieldValueReq, options ...core.RequestOptionFunc) (*UpdateCompoundFieldValueResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_UpdateCompoundFieldValue
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateCompoundFieldValue] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateCompoundFieldValueResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateCompoundFieldValue] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -1515,6 +1622,30 @@ func (a *WorkItemService) ResourceCreateWorkItem(ctx context.Context, req *Resou
 }
 
 /*
+ * @name: openapi获取指定的资源工作项列表（单空间 | 复杂传参）
+ * @desc: openapi获取指定的资源工作项列表（单空间 | 复杂传参）
+ */
+func (a *WorkItemService) ResourceSearchByParams(ctx context.Context, req *ResourceSearchByParamsReq, options ...core.RequestOptionFunc) (*ResourceSearchByParamsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_ResourceSearchByParams
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[ResourceSearchByParams] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ResourceSearchByParamsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[ResourceSearchByParams] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
  * @name: openapi获取指定的工作项列表（单空间 | 复杂传参）
  * @desc: openapi获取指定的工作项列表（单空间 | 复杂传参）
  */
@@ -1707,6 +1838,30 @@ func (a *WorkItemService) UpdateFinished(ctx context.Context, req *UpdateFinishe
 }
 
 /*
+ * @name: OAPIUpdateFlowRole
+ * @desc: 更新流程角色
+ */
+func (a *WorkItemService) UpdateFlowRole(ctx context.Context, req *UpdateFlowRoleReq, options ...core.RequestOptionFunc) (*UpdateFlowRoleResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_UpdateFlowRole
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateFlowRole] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateFlowRoleResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateFlowRole] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
  * @name: OAPIUpdateMultiSignal
  * @desc: 更新多值系统外信号
  */
@@ -1749,6 +1904,30 @@ func (a *WorkItemService) UpdateNodeState(ctx context.Context, req *UpdateNodeSt
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateNodeState] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIUpdateResourceWorkItem
+ * @desc: 更新资源实例工作项
+ */
+func (a *WorkItemService) UpdateResourceWorkItem(ctx context.Context, req *UpdateResourceWorkItemReq, options ...core.RequestOptionFunc) (*UpdateResourceWorkItemResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_UpdateResourceWorkItem
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateResourceWorkItem] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateResourceWorkItemResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateResourceWorkItem] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -1993,4 +2172,3 @@ func (a *WorkItemService) WbsCollaborationPublish(ctx context.Context, req *WbsC
 	}
 	return resp, err
 }
-

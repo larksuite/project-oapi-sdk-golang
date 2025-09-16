@@ -29,7 +29,7 @@ type Business struct {
 
     Labels  []string `json:"labels,omitempty"`
 
-    RoleOwners  map[string]RoleOwner `json:"role_owners,omitempty"`
+    RoleOwners  map[string]WorkItem_work_item_RoleOwner `json:"role_owners,omitempty"`
 
     Watchers  []string `json:"watchers,omitempty"`
 
@@ -64,6 +64,16 @@ type ChildOrder struct {
     UUID  *string `json:"uuid,omitempty"`
 
     OrderIndex  *int64 `json:"order_index,omitempty"`
+
+}
+
+type Common_RoleOwner struct {
+
+    Role  *string `json:"role,omitempty"`
+
+    RoleKey  *string `json:"role_key,omitempty"`
+
+    Owners  []UserDetail `json:"owners,omitempty"`
 
 }
 
@@ -123,8 +133,6 @@ type Connection struct {
 
     TransitionID  *int64 `json:"transition_id,omitempty"`
 
-    Fields  []FieldConf `json:"fields,omitempty"`
-
 }
 
 type CreateWorkItemRelationData struct {
@@ -181,6 +189,28 @@ type DeliveryRelatedInfoItem struct {
 
 }
 
+type Department struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    EnName  *string `json:"en_name,omitempty"`
+
+}
+
+type DependencyInfo struct {
+
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
+    StateKey  *string `json:"state_key,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    Type  *string `json:"type,omitempty"`
+
+}
+
 type DraftViewSubWorkItemConf struct {
 
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
@@ -203,6 +233,14 @@ type DraftViewSubWorkItemConfRelation struct {
 
 }
 
+type EditablePersonnelScope struct {
+
+    EditablePersonnelRangeType  *string `json:"editable_personnel_range_type,omitempty"`
+
+    EditableRoles  []string `json:"editable_roles,omitempty"`
+
+}
+
 type Expand struct {
 
     NeedWorkflow  *bool `json:"need_workflow,omitempty"`
@@ -214,12 +252,6 @@ type Expand struct {
     NeedUserDetail  *bool `json:"need_user_detail,omitempty"`
 
     NeedSubTaskParent  *bool `json:"need_sub_task_parent,omitempty"`
-
-    NeedUnionDeliverable  *bool `json:"need_union_deliverable,omitempty"`
-
-    NeedWbsRelationChainEntity  *bool `json:"need_wbs_relation_chain_entity,omitempty"`
-
-    NeedWbsRelationChainPath  *bool `json:"need_wbs_relation_chain_path,omitempty"`
 
 }
 
@@ -261,11 +293,13 @@ type FieldConf struct {
 
     SubTypeLevelClass  *int64 `json:"sub_type_level_class,omitempty"`
 
+    EditablePersonnelScope  *EditablePersonnelScope `json:"editable_personnel_scope,omitempty"`
+
 }
 
 type FieldDeliverableItem struct {
 
-    FieldInfo  *FieldValuePair `json:"field_info,omitempty"`
+    FieldInfo  *WorkItem_work_item_FieldValuePair `json:"field_info,omitempty"`
 
     Placeholder  *string `json:"placeholder,omitempty"`
 
@@ -307,6 +341,8 @@ type FieldItem struct {
 
     ParentFieldType  *string `json:"parent_field_type,omitempty"`
 
+    EntityScope  *string `json:"entity_scope,omitempty"`
+
 }
 
 type FieldValuePair struct {
@@ -332,6 +368,16 @@ type Filter struct {
     Conditions  []Condition `json:"conditions,omitempty"`
 
     Groups  []Filter `json:"groups,omitempty"`
+
+}
+
+type FinishedInfo struct {
+
+    SummaryMode  *string `json:"summary_mode,omitempty"`
+
+    Conclusion  *NodeFinishedConclusion `json:"conclusion,omitempty"`
+
+    Opinion  *NodeFinishedOpinion `json:"opinion,omitempty"`
 
 }
 
@@ -362,6 +408,20 @@ type InstanceDeliverableItem struct {
     Owners  []string `json:"owners,omitempty"`
 
     Remark  *string `json:"remark,omitempty"`
+
+}
+
+type Leader struct {
+
+    Email  *string `json:"email,omitempty"`
+
+    EmployeeNumber  *string `json:"employee_number,omitempty"`
+
+    ID  *string `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    UName  *string `json:"u_name,omitempty"`
 
 }
 
@@ -493,13 +553,79 @@ type NodeElement struct {
 
 }
 
+type NodeField struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldValue  interface{} `json:"field_value,omitempty"`
+
+    FieldAlias  *string `json:"field_alias,omitempty"`
+
+    FieldTypeKey  *string `json:"field_type_key,omitempty"`
+
+}
+
+type NodeFinishedConclusion struct {
+
+    FinishedConclusionResult  *NodeFinishedConclusionOption `json:"finished_conclusion_result,omitempty"`
+
+    OwnersFinishedConclusionResult  []NodeOwnerFinishedConclusion `json:"owners_finished_conclusion_result,omitempty"`
+
+}
+
+type NodeFinishedConclusionOption struct {
+
+    Key  *string `json:"key,omitempty"`
+
+    Label  *string `json:"label,omitempty"`
+
+    OriginalLabel  *string `json:"original_label,omitempty"`
+
+}
+
+type NodeFinishedOpinion struct {
+
+    FinishedOpinionResult  *string `json:"finished_opinion_result,omitempty"`
+
+    OwnersFinishedOpinionResult  []NodeOwnerFinishedOpinion `json:"owners_finished_opinion_result,omitempty"`
+
+}
+
+type NodeOwnerFinishedConclusion struct {
+
+    Owner  *Owner `json:"owner,omitempty"`
+
+    FinishedConclusionResult  *NodeFinishedConclusionOption `json:"finished_conclusion_result,omitempty"`
+
+}
+
+type NodeOwnerFinishedOpinion struct {
+
+    Owner  *Owner `json:"owner,omitempty"`
+
+    FinishedOpinionResult  *string `json:"finished_opinion_result,omitempty"`
+
+}
+
+type NodeRequiredItemRes struct {
+
+    FormItems  []RequiredFormItem `json:"form_items,omitempty"`
+
+    Tasks  []RequiredTask `json:"tasks,omitempty"`
+
+    Deliverables  []RequiredDeliverable `json:"deliverables,omitempty"`
+
+    NodeFields  []RequiredField `json:"node_fields,omitempty"`
+
+}
+
 type NodeTask struct {
 
     ID  *string `json:"id,omitempty"`
 
     StateKey  *string `json:"state_key,omitempty"`
 
-    SubTasks  []SubTask `json:"sub_tasks,omitempty"`
+    SubTasks  []WorkItem_work_item_SubTask `json:"sub_tasks,omitempty"`
 
     NodeName  *string `json:"node_name,omitempty"`
 
@@ -517,7 +643,7 @@ type NodeWBSRoleOwners struct {
 
     Name  *string `json:"name,omitempty"`
 
-    RoleOwners  []RoleOwner `json:"role_owners,omitempty"`
+    RoleOwners  []WorkItem_work_item_RoleOwner `json:"role_owners,omitempty"`
 
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
@@ -533,9 +659,17 @@ type NodesConnections struct {
 
     UserDetails  []UserDetail `json:"user_details,omitempty"`
 
-    TemplateID  *int64 `json:"template_id,omitempty"`
+}
 
-    Version  *int64 `json:"version,omitempty"`
+type NumberConfig struct {
+
+    ScalingRatio  *string `json:"scaling_ratio,omitempty"`
+
+    DisplayDigits  *int64 `json:"display_digits,omitempty"`
+
+    SymbolSetting  *SymbolSetting `json:"symbol_setting,omitempty"`
+
+    Thousandth  *bool `json:"thousandth,omitempty"`
 
 }
 
@@ -683,6 +817,8 @@ type OAPIRecordContent struct {
 
     BelongObject  []OpRecordObject `json:"belong_object,omitempty"`
 
+    Extra  map[string][]string `json:"extra,omitempty"`
+
 }
 
 type ObjectStatusValue struct {
@@ -735,7 +871,7 @@ type OperationValue struct {
 
     Name  *string `json:"name,omitempty"`
 
-    RoleOwners  []RoleOwner `json:"role_owners,omitempty"`
+    RoleOwners  []WorkItem_work_item_RoleOwner `json:"role_owners,omitempty"`
 
     OperationCreate  *OperationCreate `json:"operation_create,omitempty"`
 
@@ -747,13 +883,13 @@ type OperationValue struct {
 
     Reason  *string `json:"reason,omitempty"`
 
-    Schedule  *Schedule `json:"schedule,omitempty"`
+    Schedule  *WorkItem_work_item_Schedule `json:"schedule,omitempty"`
 
-    Schedules  []Schedule `json:"schedules,omitempty"`
+    Schedules  []WorkItem_work_item_Schedule `json:"schedules,omitempty"`
 
     WbsWorkItem  *WBSWorkItem `json:"wbs_work_item,omitempty"`
 
-    Connections  []Connection `json:"connections,omitempty"`
+    Connections  []WorkItem_work_item_Connection `json:"connections,omitempty"`
 
     RestoreUuids  []string `json:"restore_uuids,omitempty"`
 
@@ -776,6 +912,14 @@ type Option struct {
     Children  []Option `json:"children,omitempty"`
 
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    Order  *int64 `json:"order,omitempty"`
+
+    Color  *string `json:"color,omitempty"`
+
+    IsVisibility  *int64 `json:"is_visibility,omitempty"`
+
+    IsDisabled  *int64 `json:"is_disabled,omitempty"`
 
 }
 
@@ -800,6 +944,34 @@ type OrderInfo struct {
     Vaule  *string `json:"vaule,omitempty"`
 
     Path  *string `json:"path,omitempty"`
+
+}
+
+type Owner struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    Username  *string `json:"username,omitempty"`
+
+    EmployeeId  *string `json:"employeeId,omitempty"`
+
+    Email  *string `json:"email,omitempty"`
+
+    Nickname  *string `json:"nickname,omitempty"`
+
+    Avatar  *string `json:"avatar,omitempty"`
+
+    AvatarUrl  *string `json:"avatar_url,omitempty"`
+
+    EnName  *string `json:"en_name,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    LarkOpenId  *string `json:"larkOpenId,omitempty"`
+
+    Department  *Department `json:"department,omitempty"`
+
+    Leader  *Leader `json:"leader,omitempty"`
 
 }
 
@@ -843,7 +1015,7 @@ type Query struct {
 
     QueryType  *int32 `json:"query_type,omitempty"`
 
-    Pagination  *Pagination `json:"pagination,omitempty"`
+    Pagination  *Search_apicommon_Pagination `json:"pagination,omitempty"`
 
     Projection  map[string]int64 `json:"projection,omitempty"`
 
@@ -987,6 +1159,100 @@ type RelationRule struct {
 
 }
 
+type RequiredDeliverable struct {
+
+    DeliverableID  *int64 `json:"deliverable_id,omitempty"`
+
+    Finished  *bool `json:"finished,omitempty"`
+
+}
+
+type RequiredField struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldTypeKey  *string `json:"field_type_key,omitempty"`
+
+    Finished  *bool `json:"finished,omitempty"`
+
+    NotFinishedOwner  []string `json:"not_finished_owner,omitempty"`
+
+    SubField  []RequiredField `json:"sub_field,omitempty"`
+
+}
+
+type RequiredFormItem struct {
+
+    Class  *string `json:"class,omitempty"`
+
+    Key  *string `json:"key,omitempty"`
+
+    Finished  *bool `json:"finished,omitempty"`
+
+    FieldTypeKey  *string `json:"field_type_key,omitempty"`
+
+    NotFinishedOwner  []string `json:"not_finished_owner,omitempty"`
+
+    SubField  []RequiredField `json:"sub_field,omitempty"`
+
+    StateInfo  *RequiredStateInfo `json:"state_info,omitempty"`
+
+}
+
+type RequiredStateInfo struct {
+
+    StateKey  *string `json:"state_key,omitempty"`
+
+    NodeFields  []RequiredField `json:"node_fields,omitempty"`
+
+}
+
+type RequiredTask struct {
+
+    TaskID  *int64 `json:"task_id,omitempty"`
+
+    Finished  *bool `json:"finished,omitempty"`
+
+}
+
+type ResourceLibSetting struct {
+
+    EnableFields  []SimpleField `json:"enable_fields,omitempty"`
+
+    EnableRoles  []SimpleRoleConf `json:"enable_roles,omitempty"`
+
+}
+
+type ResourceWorkItemInfo struct {
+
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    TemplateType  *string `json:"template_type,omitempty"`
+
+    CreatedBy  *UserDetail `json:"created_by,omitempty"`
+
+    UpdatedBy  *UserDetail `json:"updated_by,omitempty"`
+
+    CreatedAt  *int64 `json:"created_at,omitempty"`
+
+    UpdatedAt  *int64 `json:"updated_at,omitempty"`
+
+    Owner  *UserDetail `json:"owner,omitempty"`
+
+    RoleOwners  []Common_RoleOwner `json:"role_owners,omitempty"`
+
+    TemplateVersion  *int64 `json:"template_version,omitempty"`
+
+    Template  *Template `json:"template,omitempty"`
+
+}
+
 type RoleAssign struct {
 
     Role  *string `json:"role,omitempty"`
@@ -1000,6 +1266,28 @@ type RoleAssign struct {
     MemberAssign  *int32 `json:"member_assign,omitempty"`
 
     Members  []string `json:"members,omitempty"`
+
+}
+
+type RoleConfCreate struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    IsOwner  *bool `json:"is_owner,omitempty"`
+
+    AutoEnterGroup  *bool `json:"auto_enter_group,omitempty"`
+
+    MemberAssignMode  *int32 `json:"member_assign_mode,omitempty"`
+
+    Members  []string `json:"members,omitempty"`
+
+    IsMemberMulti  *bool `json:"is_member_multi,omitempty"`
+
+    RoleAlias  *string `json:"role_alias,omitempty"`
+
+    LockScope  []string `json:"lock_scope,omitempty"`
 
 }
 
@@ -1031,6 +1319,32 @@ type RoleConfDetail struct {
 
     IsRequired  *int32 `json:"is_required,omitempty"`
 
+    RoleAlias  *string `json:"role_alias,omitempty"`
+
+    LockAppID  *string `json:"lock_app_id,omitempty"`
+
+    LockScope  []string `json:"lock_scope,omitempty"`
+
+}
+
+type RoleConfUpdate struct {
+
+    Name  *string `json:"name,omitempty"`
+
+    IsOwner  *bool `json:"is_owner,omitempty"`
+
+    AutoEnterGroup  *bool `json:"auto_enter_group,omitempty"`
+
+    MemberAssignMode  *int32 `json:"member_assign_mode,omitempty"`
+
+    Members  []string `json:"members,omitempty"`
+
+    IsMemberMulti  *bool `json:"is_member_multi,omitempty"`
+
+    RoleAlias  *string `json:"role_alias,omitempty"`
+
+    LockScope  []string `json:"lock_scope,omitempty"`
+
 }
 
 type RoleOwner struct {
@@ -1040,10 +1354,6 @@ type RoleOwner struct {
     Name  *string `json:"name,omitempty"`
 
     Owners  []string `json:"owners,omitempty"`
-
-    Exist  *bool `json:"exist,omitempty"`
-
-    IsMemberMulti  *bool `json:"is_member_multi,omitempty"`
 
 }
 
@@ -1059,9 +1369,17 @@ type Schedule struct {
 
     ActualWorkTime  *float64 `json:"actual_work_time,omitempty"`
 
-    IsAuto  *bool `json:"is_auto,omitempty"`
+}
 
-    PlannedConstructionPeriod  *int32 `json:"planned_construction_period,omitempty"`
+type ScheduleReferenceValue struct {
+
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
+    StateKey  *string `json:"state_key,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    Type  *string `json:"type,omitempty"`
 
 }
 
@@ -1099,6 +1417,68 @@ type SearchUser struct {
 
 }
 
+type Search_SearchGroup struct {
+
+    SearchParams  []Search_SearchParam `json:"search_params,omitempty"`
+
+    Conjunction  *string `json:"conjunction,omitempty"`
+
+    SearchGroups  []Search_SearchGroup `json:"search_groups,omitempty"`
+
+}
+
+type Search_SearchParam struct {
+
+    ParamKey  *string `json:"param_key,omitempty"`
+
+    Value  interface{} `json:"value,omitempty"`
+
+    Operator  *string `json:"operator,omitempty"`
+
+    PreOperator  *string `json:"pre_operator,omitempty"`
+
+    ValueSearchGroups  *Search_SearchGroup `json:"value_search_groups,omitempty"`
+
+}
+
+type Search_apicommon_Pagination struct {
+
+    PageNum  *int64 `json:"page_num,omitempty"`
+
+    PageSize  *int64 `json:"page_size,omitempty"`
+
+    SearchAfter  *string `json:"search_after,omitempty"`
+
+    Pit  *string `json:"pit,omitempty"`
+
+}
+
+type Search_concisesearch_Pagination struct {
+
+    PageSize  *int64 `json:"page_size,omitempty"`
+
+    SearchAfter  *string `json:"search_after,omitempty"`
+
+    Pit  *string `json:"pit,omitempty"`
+
+    Total  *int64 `json:"total,omitempty"`
+
+}
+
+type Search_concisesearch_Sort struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldType  *string `json:"field_type,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    Order  *string `json:"order,omitempty"`
+
+    Params  map[string]string `json:"params,omitempty"`
+
+}
+
 type SeqOrderInfo struct {
 
     Pre  []OrderInfo `json:"pre,omitempty"`
@@ -1133,6 +1513,10 @@ type SimpleField struct {
 
     RelationID  *string `json:"relation_id,omitempty"`
 
+    EditablePersonnelScope  *EditablePersonnelScope `json:"editable_personnel_scope,omitempty"`
+
+    NumberConfig  *NumberConfig `json:"number_config,omitempty"`
+
 }
 
 type SimpleRoleConf struct {
@@ -1147,15 +1531,9 @@ type SimpleRoleConf struct {
 
 type Sort struct {
 
-    FieldKey  *string `json:"field_key,omitempty"`
-
-    FieldType  *string `json:"field_type,omitempty"`
-
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    FieldItem  *FieldItem `json:"field_item,omitempty"`
 
     Order  *string `json:"order,omitempty"`
-
-    Params  map[string]string `json:"params,omitempty"`
 
 }
 
@@ -1245,7 +1623,7 @@ type SubInstanceCreate struct {
 
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
-    FieldValues  []FieldValuePair `json:"field_values,omitempty"`
+    FieldValues  []WorkItem_work_item_FieldValuePair `json:"field_values,omitempty"`
 
     RelationCase  *RelationCaseDetailForUpdate `json:"relation_case,omitempty"`
 
@@ -1299,10 +1677,6 @@ type SubTask struct {
 
     Deliverable  []FieldValuePair `json:"deliverable,omitempty"`
 
-    OwnerRoles  []string `json:"owner_roles,omitempty"`
-
-    OwnerUsageMode  *int64 `json:"owner_usage_mode,omitempty"`
-
     Fields  []FieldValuePair `json:"fields,omitempty"`
 
 }
@@ -1330,6 +1704,16 @@ type SubWorkItemConfInfo struct {
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
     WorkItemTypeName  *string `json:"work_item_type_name,omitempty"`
+
+}
+
+type SymbolSetting struct {
+
+    Display  *string `json:"display,omitempty"`
+
+    Value  *string `json:"value,omitempty"`
+
+    Layout  *string `json:"layout,omitempty"`
 
 }
 
@@ -1393,6 +1777,16 @@ type TeamOption struct {
 
 }
 
+type Template struct {
+
+    ID  *int64 `json:"id,omitempty"`
+
+    StateFlowKey  *string `json:"state_flow_key,omitempty"`
+
+    WorkFlowKey  *string `json:"work_flow_key,omitempty"`
+
+}
+
 type TemplateConf struct {
 
     TemplateID  *string `json:"template_id,omitempty"`
@@ -1415,7 +1809,7 @@ type TemplateDetail struct {
 
     StateFlowConfs  []StateFlowConfInfo `json:"state_flow_confs,omitempty"`
 
-    Connections  []Connection `json:"connections,omitempty"`
+    Connections  []WorkItem_work_item_Connection `json:"connections,omitempty"`
 
     TemplateID  *int64 `json:"template_id,omitempty"`
 
@@ -1483,9 +1877,9 @@ type WBSInfo struct {
 
     RelatedParentWorkItem  *WBSParentWorkItem `json:"related_parent_work_item,omitempty"`
 
-    UserDetails  []UserDetail `json:"user_details,omitempty"`
+    UserDetails  []WorkItem_work_item_UserDetail `json:"user_details,omitempty"`
 
-    Connections  []Connection `json:"connections,omitempty"`
+    Connections  []WorkItem_work_item_Connection `json:"connections,omitempty"`
 
     RelationChainPath  *WBSRelationChainPath `json:"relation_chain_path,omitempty"`
 
@@ -1593,21 +1987,21 @@ type WBSWorkItem struct {
 
     Name  *string `json:"name,omitempty"`
 
-    Deliverable  []FieldValuePair `json:"deliverable,omitempty"`
+    Deliverable  []WorkItem_work_item_FieldValuePair `json:"deliverable,omitempty"`
 
-    Schedule  *Schedule `json:"schedule,omitempty"`
+    Schedule  *WorkItem_work_item_Schedule `json:"schedule,omitempty"`
 
-    Schedules  []Schedule `json:"schedules,omitempty"`
+    Schedules  []WorkItem_work_item_Schedule `json:"schedules,omitempty"`
 
     Points  *float64 `json:"points,omitempty"`
 
-    RoleOwners  []RoleOwner `json:"role_owners,omitempty"`
+    RoleOwners  []WorkItem_work_item_RoleOwner `json:"role_owners,omitempty"`
 
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
     Milestone  *bool `json:"milestone,omitempty"`
 
-    Connections  []Connection `json:"connections,omitempty"`
+    Connections  []WorkItem_work_item_Connection `json:"connections,omitempty"`
 
     StateKey  *string `json:"state_key,omitempty"`
 
@@ -1633,6 +2027,14 @@ type WBSWorkItem struct {
 
     DismantleMode  *int64 `json:"dismantle_mode,omitempty"`
 
+    Status  *int64 `json:"status,omitempty"`
+
+    Dependencies  []DependencyInfo `json:"dependencies,omitempty"`
+
+    RelativeScheduleV2  []ScheduleReferenceValue `json:"relative_schedule_v2,omitempty"`
+
+    IsScheduleAggItem  *bool `json:"is_schedule_agg_item,omitempty"`
+
 }
 
 type WbsDraft struct {
@@ -1645,15 +2047,15 @@ type WbsDraft struct {
 
     RelatedSubWorkItems  []WBSWorkItem `json:"related_sub_work_items,omitempty"`
 
-    Connections  []Connection `json:"connections,omitempty"`
+    Connections  []WorkItem_work_item_Connection `json:"connections,omitempty"`
 
     DraftID  *string `json:"draft_id,omitempty"`
 
     DeleteUuids  []string `json:"delete_uuids,omitempty"`
 
-    RoleOwners  map[int64][]RoleOwner `json:"role_owners,omitempty"`
+    RoleOwners  map[int64][]WorkItem_work_item_RoleOwner `json:"role_owners,omitempty"`
 
-    UserDetails  []UserDetail `json:"user_details,omitempty"`
+    UserDetails  []WorkItem_work_item_UserDetail `json:"user_details,omitempty"`
 
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
 
@@ -1741,8 +2143,6 @@ type WorkItemInfo struct {
 
     SubTaskParentInfo  *SubTaskParentInfo `json:"sub_task_parent_info,omitempty"`
 
-    CompoundFieldExtra  []FieldValuePair `json:"compound_field_extra,omitempty"`
-
 }
 
 type WorkItemKeyType struct {
@@ -1754,6 +2154,8 @@ type WorkItemKeyType struct {
     IsDisable  *int32 `json:"is_disable,omitempty"`
 
     APIName  *string `json:"api_name,omitempty"`
+
+    EnableModelResourceLib  *bool `json:"enable_model_resource_lib,omitempty"`
 
 }
 
@@ -1825,6 +2227,432 @@ type WorkItemTypeInfo struct {
 
     ActualWorkTimeSwitch  *bool `json:"actual_work_time_switch,omitempty"`
 
+    EnableModelResourceLib  *bool `json:"enable_model_resource_lib,omitempty"`
+
+    ResourceLibSetting  *ResourceLibSetting `json:"resource_lib_setting,omitempty"`
+
+}
+
+type WorkItem_common_Pagination struct {
+
+    PageNum  *int64 `json:"page_num,omitempty"`
+
+    PageSize  *int64 `json:"page_size,omitempty"`
+
+    Total  *int64 `json:"total,omitempty"`
+
+}
+
+type WorkItem_work_item_Checker struct {
+
+    CheckedTime  *int64 `json:"checked_time,omitempty"`
+
+    Owner  *string `json:"owner,omitempty"`
+
+    Status  *int32 `json:"status,omitempty"`
+
+}
+
+type WorkItem_work_item_Connection struct {
+
+    SourceStateKey  *string `json:"source_state_key,omitempty"`
+
+    TargetStateKey  *string `json:"target_state_key,omitempty"`
+
+    TransitionID  *int64 `json:"transition_id,omitempty"`
+
+    Fields  []FieldConf `json:"fields,omitempty"`
+
+}
+
+type WorkItem_work_item_Expand struct {
+
+    NeedWorkflow  *bool `json:"need_workflow,omitempty"`
+
+    RelationFieldsDetail  *bool `json:"relation_fields_detail,omitempty"`
+
+    NeedMultiText  *bool `json:"need_multi_text,omitempty"`
+
+    NeedUserDetail  *bool `json:"need_user_detail,omitempty"`
+
+    NeedSubTaskParent  *bool `json:"need_sub_task_parent,omitempty"`
+
+    NeedUnionDeliverable  *bool `json:"need_union_deliverable,omitempty"`
+
+    NeedWbsRelationChainEntity  *bool `json:"need_wbs_relation_chain_entity,omitempty"`
+
+    NeedWbsRelationChainPath  *bool `json:"need_wbs_relation_chain_path,omitempty"`
+
+    NeedGroupUUIDForCompound  *bool `json:"need_group_uuid_for_compound,omitempty"`
+
+}
+
+type WorkItem_work_item_FieldDetail struct {
+
+    StoryID  *int64 `json:"story_id,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+}
+
+type WorkItem_work_item_FieldValuePair struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldValue  interface{} `json:"field_value,omitempty"`
+
+    TargetState  *WorkItem_work_item_TargetState `json:"target_state,omitempty"`
+
+    FieldTypeKey  *string `json:"field_type_key,omitempty"`
+
+    FieldAlias  *string `json:"field_alias,omitempty"`
+
+    HelpDescription  *string `json:"help_description,omitempty"`
+
+    UpdateMode  *int32 `json:"update_mode,omitempty"`
+
+}
+
+type WorkItem_work_item_MultiText struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldValue  *WorkItem_work_item_MultiTextDetail `json:"field_value,omitempty"`
+
+}
+
+type WorkItem_work_item_MultiTextDetail struct {
+
+    Doc  *string `json:"doc,omitempty"`
+
+    DocText  *string `json:"doc_text,omitempty"`
+
+    IsEmpty  *bool `json:"is_empty,omitempty"`
+
+    NotifyUserList  []string `json:"notify_user_list,omitempty"`
+
+    NotifyUserType  *string `json:"notify_user_type,omitempty"`
+
+    DocHTML  *string `json:"doc_html,omitempty"`
+
+}
+
+type WorkItem_work_item_NodeBasicInfo struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    Owners  []string `json:"owners,omitempty"`
+
+    Milestone  *bool `json:"milestone,omitempty"`
+
+}
+
+type WorkItem_work_item_NodesConnections struct {
+
+    WorkflowNodes  []WorkItem_work_item_WorkflowNode `json:"workflow_nodes,omitempty"`
+
+    Connections  []WorkItem_work_item_Connection `json:"connections,omitempty"`
+
+    StateFlowNodes  []WorkItem_work_item_StateFlowNode `json:"state_flow_nodes,omitempty"`
+
+    UserDetails  []WorkItem_work_item_UserDetail `json:"user_details,omitempty"`
+
+    TemplateID  *int64 `json:"template_id,omitempty"`
+
+    Version  *int64 `json:"version,omitempty"`
+
+}
+
+type WorkItem_work_item_RelationFieldDetail struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    Detail  []WorkItem_work_item_FieldDetail `json:"detail,omitempty"`
+
+}
+
+type WorkItem_work_item_ResourceWorkItemInfo struct {
+
+    ID  *int64 `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    TemplateType  *string `json:"template_type,omitempty"`
+
+    CreatedBy  *string `json:"created_by,omitempty"`
+
+    UpdatedBy  *string `json:"updated_by,omitempty"`
+
+    CreatedAt  *int64 `json:"created_at,omitempty"`
+
+    UpdatedAt  *int64 `json:"updated_at,omitempty"`
+
+    Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+
+    SimpleName  *string `json:"simple_name,omitempty"`
+
+    TemplateID  *int64 `json:"template_id,omitempty"`
+
+    MultiTexts  []WorkItem_work_item_MultiText `json:"multi_texts,omitempty"`
+
+    RelationFieldsDetail  []WorkItem_work_item_RelationFieldDetail `json:"relation_fields_detail,omitempty"`
+
+    UserDetails  []WorkItem_work_item_UserDetail `json:"user_details,omitempty"`
+
+}
+
+type WorkItem_work_item_RoleOwner struct {
+
+    Role  *string `json:"role,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    Owners  []string `json:"owners,omitempty"`
+
+    Exist  *bool `json:"exist,omitempty"`
+
+    IsMemberMulti  *bool `json:"is_member_multi,omitempty"`
+
+}
+
+type WorkItem_work_item_Schedule struct {
+
+    Points  *float64 `json:"points,omitempty"`
+
+    EstimateStartDate  *int64 `json:"estimate_start_date,omitempty"`
+
+    EstimateEndDate  *int64 `json:"estimate_end_date,omitempty"`
+
+    Owners  []string `json:"owners,omitempty"`
+
+    ActualWorkTime  *float64 `json:"actual_work_time,omitempty"`
+
+    IsAuto  *bool `json:"is_auto,omitempty"`
+
+    PlannedConstructionPeriod  *int32 `json:"planned_construction_period,omitempty"`
+
+}
+
+type WorkItem_work_item_StateFlowNode struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    RoleOwners  []WorkItem_work_item_RoleOwner `json:"role_owners,omitempty"`
+
+    Status  *int32 `json:"status,omitempty"`
+
+    ActualBeginTime  *string `json:"actual_begin_time,omitempty"`
+
+    ActualFinishTime  *string `json:"actual_finish_time,omitempty"`
+
+    Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+
+}
+
+type WorkItem_work_item_StateTime struct {
+
+    StateKey  *string `json:"state_key,omitempty"`
+
+    StartTime  *int64 `json:"start_time,omitempty"`
+
+    EndTime  *int64 `json:"end_time,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+}
+
+type WorkItem_work_item_SubTask struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    Schedules  []WorkItem_work_item_Schedule `json:"schedules,omitempty"`
+
+    Order  *float64 `json:"order,omitempty"`
+
+    Details  *string `json:"details,omitempty"`
+
+    Passed  *bool `json:"passed,omitempty"`
+
+    Owners  []string `json:"owners,omitempty"`
+
+    Note  *string `json:"note,omitempty"`
+
+    ActualBeginTime  *string `json:"actual_begin_time,omitempty"`
+
+    ActualFinishTime  *string `json:"actual_finish_time,omitempty"`
+
+    Assignee  []string `json:"assignee,omitempty"`
+
+    RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
+
+    Deliverable  []WorkItem_work_item_FieldValuePair `json:"deliverable,omitempty"`
+
+    OwnerRoles  []string `json:"owner_roles,omitempty"`
+
+    OwnerUsageMode  *int64 `json:"owner_usage_mode,omitempty"`
+
+    Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+
+}
+
+type WorkItem_work_item_SubTaskParentInfo struct {
+
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
+    WorkItemName  *string `json:"work_item_name,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    NodeID  *string `json:"node_id,omitempty"`
+
+}
+
+type WorkItem_work_item_TargetState struct {
+
+    StateKey  *string `json:"state_key,omitempty"`
+
+    TransitionID  *int64 `json:"transition_id,omitempty"`
+
+}
+
+type WorkItem_work_item_UserDetail struct {
+
+    UserKey  *string `json:"user_key,omitempty"`
+
+    Username  *string `json:"username,omitempty"`
+
+    Email  *string `json:"email,omitempty"`
+
+    NameCn  *string `json:"name_cn,omitempty"`
+
+    NameEn  *string `json:"name_en,omitempty"`
+
+}
+
+type WorkItem_work_item_WorkItemInfo struct {
+
+    ID  *int64 `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    TemplateType  *string `json:"template_type,omitempty"`
+
+    Pattern  *string `json:"pattern,omitempty"`
+
+    SubStage  *string `json:"sub_stage,omitempty"`
+
+    CurrentNodes  []WorkItem_work_item_NodeBasicInfo `json:"current_nodes,omitempty"`
+
+    CreatedBy  *string `json:"created_by,omitempty"`
+
+    UpdatedBy  *string `json:"updated_by,omitempty"`
+
+    CreatedAt  *int64 `json:"created_at,omitempty"`
+
+    UpdatedAt  *int64 `json:"updated_at,omitempty"`
+
+    Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+
+    WorkItemStatus  *WorkItem_work_item_WorkItemStatus `json:"work_item_status,omitempty"`
+
+    DeletedBy  *string `json:"deleted_by,omitempty"`
+
+    DeletedAt  *int64 `json:"deleted_at,omitempty"`
+
+    SimpleName  *string `json:"simple_name,omitempty"`
+
+    TemplateID  *int64 `json:"template_id,omitempty"`
+
+    WorkflowInfos  *WorkItem_work_item_NodesConnections `json:"workflow_infos,omitempty"`
+
+    StateTimes  []WorkItem_work_item_StateTime `json:"state_times,omitempty"`
+
+    MultiTexts  []WorkItem_work_item_MultiText `json:"multi_texts,omitempty"`
+
+    RelationFieldsDetail  []WorkItem_work_item_RelationFieldDetail `json:"relation_fields_detail,omitempty"`
+
+    UserDetails  []WorkItem_work_item_UserDetail `json:"user_details,omitempty"`
+
+    SubTaskParentInfo  *WorkItem_work_item_SubTaskParentInfo `json:"sub_task_parent_info,omitempty"`
+
+    CompoundFieldExtra  []WorkItem_work_item_FieldValuePair `json:"compound_field_extra,omitempty"`
+
+}
+
+type WorkItem_work_item_WorkItemStatus struct {
+
+    StateKey  *string `json:"state_key,omitempty"`
+
+    IsArchivedState  *bool `json:"is_archived_state,omitempty"`
+
+    IsInitState  *bool `json:"is_init_state,omitempty"`
+
+    UpdatedAt  *int64 `json:"updated_at,omitempty"`
+
+    UpdatedBy  *string `json:"updated_by,omitempty"`
+
+    History  []WorkItem_work_item_WorkItemStatus `json:"history,omitempty"`
+
+}
+
+type WorkItem_work_item_WorkflowNode struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    StateKey  *string `json:"state_key,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    Status  *int32 `json:"status,omitempty"`
+
+    Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
+
+    Owners  []string `json:"owners,omitempty"`
+
+    NodeSchedule  *WorkItem_work_item_Schedule `json:"node_schedule,omitempty"`
+
+    Schedules  []WorkItem_work_item_Schedule `json:"schedules,omitempty"`
+
+    SubTasks  []WorkItem_work_item_SubTask `json:"sub_tasks,omitempty"`
+
+    ActualBeginTime  *string `json:"actual_begin_time,omitempty"`
+
+    ActualFinishTime  *string `json:"actual_finish_time,omitempty"`
+
+    RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
+
+    DifferentSchedule  *bool `json:"different_schedule,omitempty"`
+
+    SubStatus  []WorkItem_work_item_Checker `json:"sub_status,omitempty"`
+
+    Milestone  *bool `json:"milestone,omitempty"`
+
+    Participants  []string `json:"participants,omitempty"`
+
+    OwnerRoles  []string `json:"owner_roles,omitempty"`
+
+    OwnerUsageMode  *int64 `json:"owner_usage_mode,omitempty"`
+
+    NodeFields  []NodeField `json:"node_fields,omitempty"`
+
+    FinishedInfos  *FinishedInfo `json:"finished_infos,omitempty"`
+
 }
 
 type WorkflowConf struct {
@@ -1833,7 +2661,7 @@ type WorkflowConf struct {
 
     NodeInfos  []NodeConf `json:"node_infos,omitempty"`
 
-    Connections  []Connection `json:"connections,omitempty"`
+    Connections  []WorkItem_work_item_Connection `json:"connections,omitempty"`
 
 }
 
@@ -1928,9 +2756,5 @@ type WorkflowNode struct {
     Milestone  *bool `json:"milestone,omitempty"`
 
     Participants  []string `json:"participants,omitempty"`
-
-    OwnerRoles  []string `json:"owner_roles,omitempty"`
-
-    OwnerUsageMode  *int64 `json:"owner_usage_mode,omitempty"`
 
 }

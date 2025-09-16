@@ -8,13 +8,11 @@ type BatchQueryProjectInfoReq struct {
 	apiReq *core.APIReq
 }
 type BatchQueryProjectInfoReqBody struct {
-	UserKey *string `json:"user_key,omitempty"`
-
-	SimpleNames []string `json:"simple_names,omitempty"`
-
-	TenantGroupID *int64 `json:"tenant_group_id,omitempty"`
+	ProjectKeys   []string `json:"project_keys,omitempty"`
+	UserKey       *string  `json:"user_key,omitempty"`
+	SimpleNames   []string `json:"simple_names,omitempty"`
+	TenantGroupID *int64   `json:"tenant_group_id,omitempty"`
 }
-
 type BatchQueryProjectInfoResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -32,6 +30,11 @@ func NewBatchQueryProjectInfoReqBuilder() *BatchQueryProjectInfoReqBuilder {
 		QueryParams: core.QueryParams{},
 		Body:        &BatchQueryProjectInfoReqBody{},
 	}
+	return builder
+}
+
+func (builder *BatchQueryProjectInfoReqBuilder) ProjectKeys(projectKeys []string) *BatchQueryProjectInfoReqBuilder {
+	builder.apiReq.Body.(*BatchQueryProjectInfoReqBody).ProjectKeys = projectKeys
 	return builder
 }
 
@@ -60,15 +63,11 @@ type QueryProjectsReq struct {
 	apiReq *core.APIReq
 }
 type QueryProjectsReqBody struct {
-	UserKey *string `json:"user_key,omitempty"`
-
-	TenantGroupID *int64 `json:"tenant_group_id,omitempty"`
-
-	AssetKey *string `json:"asset_key,omitempty"`
-
-	Order []string `json:"order,omitempty"`
+	UserKey       *string  `json:"user_key,omitempty"`
+	TenantGroupID *int64   `json:"tenant_group_id,omitempty"`
+	AssetKey      *string  `json:"asset_key,omitempty"`
+	Order         []string `json:"order,omitempty"`
 }
-
 type QueryProjectsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError

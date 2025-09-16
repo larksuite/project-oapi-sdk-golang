@@ -11,30 +11,24 @@ type CreateConditionViewReq struct {
 	apiReq *core.APIReq
 }
 type CreateConditionViewReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-
     CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
+    MeegoUserKey  *string `json:"meego_user_key,omitempty"`
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
-
 }
-
 type CreateConditionViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	ViewID       *string         `json:"view_id"`
-	
+	Data      *CreateConditionViewRespData        `json:"data,omitempty"`
+}
+
+type CreateConditionViewRespData struct {
+	ViewID       *string         `json:"view_id,omitempty"`
 }
 
 type CreateConditionViewReqBuilder struct {
@@ -90,6 +84,12 @@ func (builder *CreateConditionViewReqBuilder) Name(name string) *CreateCondition
 }
 
 
+func (builder *CreateConditionViewReqBuilder) MeegoUserKey(meegoUserKey string) *CreateConditionViewReqBuilder {
+	builder.apiReq.Body.(*CreateConditionViewReqBody).MeegoUserKey = &meegoUserKey
+	return builder
+}
+
+
 func (builder *CreateConditionViewReqBuilder) CooperationTeams(cooperationTeams []Team) *CreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*CreateConditionViewReqBody).CooperationTeams = cooperationTeams
 	return builder
@@ -104,21 +104,13 @@ type CreateFixViewReq struct {
 	apiReq *core.APIReq
 }
 type CreateFixViewReqBody struct {
-
     WorkItemIDList  []int64 `json:"work_item_id_list,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
     CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
-
 }
-
 type CreateFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -194,7 +186,6 @@ func (builder *CreateFixViewReqBuilder) Build() *CreateFixViewReq {
 type DeleteFixViewReq struct {
 	apiReq *core.APIReq
 }
-
 type DeleteFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -234,15 +225,11 @@ type QueryWorkItemDetailsByViewIDReq struct {
 	apiReq *core.APIReq
 }
 type QueryWorkItemDetailsByViewIDReqBody struct {
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     Expand  *Expand `json:"expand,omitempty"`
-
+    QuickFilterID  *string `json:"quick_filter_id,omitempty"`
 }
-
 type QueryWorkItemDetailsByViewIDResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -294,6 +281,12 @@ func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Expand(expand *Expand) *Q
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).Expand = expand
 	return builder
 }
+
+func (builder *QueryWorkItemDetailsByViewIDReqBuilder) QuickFilterID(quickFilterID string) *QueryWorkItemDetailsByViewIDReqBuilder {
+	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).QuickFilterID = &quickFilterID
+	return builder
+}
+
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Build() *QueryWorkItemDetailsByViewIDReq {
 	req := &QueryWorkItemDetailsByViewIDReq{}
 	req.apiReq = builder.apiReq
@@ -304,27 +297,17 @@ type UpdateConditionViewReq struct {
 	apiReq *core.APIReq
 }
 type UpdateConditionViewReqBody struct {
-
     ProjectKey  *string `json:"project_key,omitempty"`
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-
     CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-
     Name  *string `json:"name,omitempty"`
-
+    MeegoUserKey  *string `json:"meego_user_key,omitempty"`
     ViewID  *string `json:"view_id,omitempty"`
-
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
-
 }
-
 type UpdateConditionViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -383,6 +366,12 @@ func (builder *UpdateConditionViewReqBuilder) Name(name string) *UpdateCondition
 }
 
 
+func (builder *UpdateConditionViewReqBuilder) MeegoUserKey(meegoUserKey string) *UpdateConditionViewReqBuilder {
+	builder.apiReq.Body.(*UpdateConditionViewReqBody).MeegoUserKey = &meegoUserKey
+	return builder
+}
+
+
 func (builder *UpdateConditionViewReqBuilder) ViewID(viewID string) *UpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).ViewID = &viewID
 	return builder
@@ -403,21 +392,13 @@ type UpdateFixViewReq struct {
 	apiReq *core.APIReq
 }
 type UpdateFixViewReqBody struct {
-
     AddWorkItemIDs  []int64 `json:"add_work_item_ids,omitempty"`
-
     RemoveWorkItemIDs  []int64 `json:"remove_work_item_ids,omitempty"`
-
     CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-
     CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-
     CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-
     CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
-
 }
-
 type UpdateFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -499,23 +480,15 @@ type ViewListReq struct {
 	apiReq *core.APIReq
 }
 type ViewListReqBody struct {
-
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
     ViewIDs  []string `json:"view_ids,omitempty"`
-
     CreatedBy  *string `json:"created_by,omitempty"`
-
     CreatedAt  *TimeInterval `json:"created_at,omitempty"`
-
     PageSize  *int64 `json:"page_size,omitempty"`
-
     PageNum  *int64 `json:"page_num,omitempty"`
-
     ViewName  *string `json:"view_name,omitempty"`
-
+    IsQueryQuickFilter  *bool `json:"is_query_quick_filter,omitempty"`
 }
-
 type ViewListResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -584,6 +557,12 @@ func (builder *ViewListReqBuilder) ViewName(viewName string) *ViewListReqBuilder
 	return builder
 }
 
+
+func (builder *ViewListReqBuilder) IsQueryQuickFilter(isQueryQuickFilter bool) *ViewListReqBuilder {
+	builder.apiReq.Body.(*ViewListReqBody).IsQueryQuickFilter = &isQueryQuickFilter
+	return builder
+}
+
 func (builder *ViewListReqBuilder) Build() *ViewListReq {
 	req := &ViewListReq{}
 	req.apiReq = builder.apiReq
@@ -593,7 +572,6 @@ func (builder *ViewListReqBuilder) Build() *ViewListReq {
 type WorkItemListReq struct {
 	apiReq *core.APIReq
 }
-
 type WorkItemListResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
@@ -636,6 +614,12 @@ func (builder *WorkItemListReqBuilder) PageSize(pageSize int64) *WorkItemListReq
 
 func (builder *WorkItemListReqBuilder) PageNum(pageNum int64) *WorkItemListReqBuilder {
 	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(pageNum))
+	return builder
+}
+
+
+func (builder *WorkItemListReqBuilder) QuickFilterID(quickFilterID string) *WorkItemListReqBuilder {
+	builder.apiReq.QueryParams.Set("quick_filter_id", fmt.Sprint(quickFilterID))
 	return builder
 }
 

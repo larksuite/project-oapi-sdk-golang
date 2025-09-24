@@ -407,6 +407,8 @@ type WBSWorkItem struct {
 	StartTime int64 `json:"start_time,omitempty"`
 
 	FinishTime int64 `json:"finish_time,omitempty"`
+
+	IsScheduleAggItem *bool `json:"is_schedule_agg_item,omitempty"`
 }
 
 type WbsViewResponse struct {

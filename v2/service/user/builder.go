@@ -1,17 +1,15 @@
 package user
 
 import (
-    "fmt"
-   "github.com/larksuite/project-oapi-sdk-golang/core"
-    
+	"fmt"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
-
 
 type ActiveAccountReq struct {
 	apiReq *core.APIReq
 }
 type ActiveAccountReqBody struct {
-    UserMeegoKey  *string `json:"user_meego_key,omitempty"`
+	UserMeegoKey *string `json:"user_meego_key,omitempty"`
 }
 type ActiveAccountResp struct {
 	*core.APIResp `json:"-"`
@@ -47,21 +45,22 @@ type CreateAccountReq struct {
 	apiReq *core.APIReq
 }
 type CreateAccountReqBody struct {
-    OutUserID  *string `json:"out_user_id,omitempty"`
-    Name  map[string]string `json:"name,omitempty"`
-    LoginPlatformType  *string `json:"login_platform_type,omitempty"`
-    AvatarUrl  *string `json:"avatar_url,omitempty"`
-    DepartmentMeegoKeys  []string `json:"department_meego_keys,omitempty"`
-    Email  *string `json:"email,omitempty"`
+	OutUserID           *string           `json:"out_user_id,omitempty"`
+	Name                map[string]string `json:"name,omitempty"`
+	LoginPlatformType   *string           `json:"login_platform_type,omitempty"`
+	AvatarUrl           *string           `json:"avatar_url,omitempty"`
+	DepartmentMeegoKeys []string          `json:"department_meego_keys,omitempty"`
+	Email               *string           `json:"email,omitempty"`
+	Mobile              *string           `json:"mobile,omitempty"`
 }
 type CreateAccountResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *CreateAccountRespData        `json:"data,omitempty"`
+	Data *CreateAccountRespData `json:"data,omitempty"`
 }
 
 type CreateAccountRespData struct {
-	UserMeegoKey       *string         `json:"user_meego_key,omitempty"`
+	UserMeegoKey *string `json:"user_meego_key,omitempty"`
 }
 
 type CreateAccountReqBuilder struct {
@@ -83,7 +82,6 @@ func (builder *CreateAccountReqBuilder) OutUserID(outUserID string) *CreateAccou
 	return builder
 }
 
-
 func (builder *CreateAccountReqBuilder) Name(name map[string]string) *CreateAccountReqBuilder {
 	builder.apiReq.Body.(*CreateAccountReqBody).Name = name
 	return builder
@@ -94,12 +92,10 @@ func (builder *CreateAccountReqBuilder) LoginPlatformType(loginPlatformType stri
 	return builder
 }
 
-
 func (builder *CreateAccountReqBuilder) AvatarUrl(avatarUrl string) *CreateAccountReqBuilder {
 	builder.apiReq.Body.(*CreateAccountReqBody).AvatarUrl = &avatarUrl
 	return builder
 }
-
 
 func (builder *CreateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys []string) *CreateAccountReqBuilder {
 	builder.apiReq.Body.(*CreateAccountReqBody).DepartmentMeegoKeys = departmentMeegoKeys
@@ -108,6 +104,11 @@ func (builder *CreateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys 
 
 func (builder *CreateAccountReqBuilder) Email(email string) *CreateAccountReqBuilder {
 	builder.apiReq.Body.(*CreateAccountReqBody).Email = &email
+	return builder
+}
+
+func (builder *CreateAccountReqBuilder) Mobile(mobile string) *CreateAccountReqBuilder {
+	builder.apiReq.Body.(*CreateAccountReqBody).Mobile = &mobile
 	return builder
 }
 
@@ -121,17 +122,17 @@ type CreateDepartmentReq struct {
 	apiReq *core.APIReq
 }
 type CreateDepartmentReqBody struct {
-    Name  map[string]string `json:"name,omitempty"`
-    ParentDepartmentMeegoKey  *string `json:"parent_department_meego_key,omitempty"`
+	Name                     map[string]string `json:"name,omitempty"`
+	ParentDepartmentMeegoKey *string           `json:"parent_department_meego_key,omitempty"`
 }
 type CreateDepartmentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *CreateDepartmentRespData        `json:"data,omitempty"`
+	Data *CreateDepartmentRespData `json:"data,omitempty"`
 }
 
 type CreateDepartmentRespData struct {
-	DepartmentMeegoKey       *string         `json:"department_meego_key,omitempty"`
+	DepartmentMeegoKey *string `json:"department_meego_key,omitempty"`
 }
 
 type CreateDepartmentReqBuilder struct {
@@ -168,17 +169,17 @@ type CreateUserGroupReq struct {
 	apiReq *core.APIReq
 }
 type CreateUserGroupReqBody struct {
-    Name  *string `json:"name,omitempty"`
-    Users  []string `json:"users,omitempty"`
+	Name  *string  `json:"name,omitempty"`
+	Users []string `json:"users,omitempty"`
 }
 type CreateUserGroupResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *CreateUserGroupRespData        `json:"data,omitempty"`
+	Data *CreateUserGroupRespData `json:"data,omitempty"`
 }
 
 type CreateUserGroupRespData struct {
-	ID       *string         `json:"id,omitempty"`
+	ID *string `json:"id,omitempty"`
 }
 
 type CreateUserGroupReqBuilder struct {
@@ -200,12 +201,10 @@ func (builder *CreateUserGroupReqBuilder) ProjectKey(projectKey string) *CreateU
 	return builder
 }
 
-
 func (builder *CreateUserGroupReqBuilder) Name(name string) *CreateUserGroupReqBuilder {
 	builder.apiReq.Body.(*CreateUserGroupReqBody).Name = &name
 	return builder
 }
-
 
 func (builder *CreateUserGroupReqBuilder) Users(users []string) *CreateUserGroupReqBuilder {
 	builder.apiReq.Body.(*CreateUserGroupReqBody).Users = users
@@ -221,7 +220,7 @@ type DeleteDepartmentReq struct {
 	apiReq *core.APIReq
 }
 type DeleteDepartmentReqBody struct {
-    DepartmentMeegoKey  *string `json:"department_meego_key,omitempty"`
+	DepartmentMeegoKey *string `json:"department_meego_key,omitempty"`
 }
 type DeleteDepartmentResp struct {
 	*core.APIResp `json:"-"`
@@ -259,8 +258,7 @@ type ListProjectTeamReq struct {
 type ListProjectTeamResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []Team         `json:"data"`
-	
+	Data []Team `json:"data"`
 }
 
 type ListProjectTeamReqBuilder struct {
@@ -291,11 +289,11 @@ type PatchUserGroupMembersReq struct {
 	apiReq *core.APIReq
 }
 type PatchUserGroupMembersReqBody struct {
-    UserGroupType  *string `json:"user_group_type,omitempty"`
-    UserGroupID  *string `json:"user_group_id,omitempty"`
-    AddUsers  []string `json:"add_users,omitempty"`
-    DeleteUsers  []string `json:"delete_users,omitempty"`
-    ReplaceUsers  []string `json:"replace_users,omitempty"`
+	UserGroupType *string  `json:"user_group_type,omitempty"`
+	UserGroupID   *string  `json:"user_group_id,omitempty"`
+	AddUsers      []string `json:"add_users,omitempty"`
+	DeleteUsers   []string `json:"delete_users,omitempty"`
+	ReplaceUsers  []string `json:"replace_users,omitempty"`
 }
 type PatchUserGroupMembersResp struct {
 	*core.APIResp `json:"-"`
@@ -321,18 +319,15 @@ func (builder *PatchUserGroupMembersReqBuilder) ProjectKey(projectKey string) *P
 	return builder
 }
 
-
 func (builder *PatchUserGroupMembersReqBuilder) UserGroupType(userGroupType string) *PatchUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*PatchUserGroupMembersReqBody).UserGroupType = &userGroupType
 	return builder
 }
 
-
 func (builder *PatchUserGroupMembersReqBuilder) UserGroupID(userGroupID string) *PatchUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*PatchUserGroupMembersReqBody).UserGroupID = &userGroupID
 	return builder
 }
-
 
 func (builder *PatchUserGroupMembersReqBuilder) AddUsers(addUsers []string) *PatchUserGroupMembersReqBuilder {
 	builder.apiReq.Body.(*PatchUserGroupMembersReqBody).AddUsers = addUsers
@@ -358,23 +353,23 @@ type QueryDepartmentReq struct {
 	apiReq *core.APIReq
 }
 type QueryDepartmentReqBody struct {
-    Scopes  []string `json:"scopes,omitempty"`
-    DepartmentMeegoKey  *string `json:"department_meego_key,omitempty"`
+	Scopes             []string `json:"scopes,omitempty"`
+	DepartmentMeegoKey *string  `json:"department_meego_key,omitempty"`
 }
 type QueryDepartmentResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *QueryDepartmentRespData        `json:"data,omitempty"`
+	Data *QueryDepartmentRespData `json:"data,omitempty"`
 }
 
 type QueryDepartmentRespData struct {
-	DepartmentMeegoKey       *string         `json:"department_meego_key,omitempty"`
-	Name       map[string]string         `json:"name,omitempty"`
-	ExternalIDs       map[string]string         `json:"external_ids,omitempty"`
-	OrgLevel       *string         `json:"org_level,omitempty"`
-	Parent       *DepartmentBasicInfo         `json:"parent,omitempty"`
-	AllChildren       []DepartmentBasicInfo         `json:"all_children,omitempty"`
-	DirectEmployees       []AccountInfo         `json:"direct_employees,omitempty"`
+	DepartmentMeegoKey *string               `json:"department_meego_key,omitempty"`
+	Name               map[string]string     `json:"name,omitempty"`
+	ExternalIDs        map[string]string     `json:"external_ids,omitempty"`
+	OrgLevel           *string               `json:"org_level,omitempty"`
+	Parent             *DepartmentBasicInfo  `json:"parent,omitempty"`
+	AllChildren        []DepartmentBasicInfo `json:"all_children,omitempty"`
+	DirectEmployees    []AccountInfo         `json:"direct_employees,omitempty"`
 	AllEmployees       []AccountInfo         `json:"all_employees,omitempty"`
 }
 
@@ -412,23 +407,23 @@ type QueryTenantReq struct {
 	apiReq *core.APIReq
 }
 type QueryTenantReqBody struct {
-    Scopes  []string `json:"scopes,omitempty"`
+	Scopes []string `json:"scopes,omitempty"`
 }
 type QueryTenantResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *QueryTenantRespData        `json:"data,omitempty"`
+	Data *QueryTenantRespData `json:"data,omitempty"`
 }
 
 type QueryTenantRespData struct {
-	TenantMeegoKey       *string         `json:"tenant_meego_key,omitempty"`
-	Name       *string         `json:"name,omitempty"`
-	ExternalIDs       map[string]string         `json:"external_ids,omitempty"`
-	Icon       *string         `json:"icon,omitempty"`
-	Status       *string         `json:"status,omitempty"`
-	PlatformType       *string         `json:"platform_type,omitempty"`
-	Departments       []DepartmentInfo         `json:"departments,omitempty"`
-	Accounts       []AccountInfo         `json:"accounts,omitempty"`
+	TenantMeegoKey *string           `json:"tenant_meego_key,omitempty"`
+	Name           *string           `json:"name,omitempty"`
+	ExternalIDs    map[string]string `json:"external_ids,omitempty"`
+	Icon           *string           `json:"icon,omitempty"`
+	Status         *string           `json:"status,omitempty"`
+	PlatformType   *string           `json:"platform_type,omitempty"`
+	Departments    []DepartmentInfo  `json:"departments,omitempty"`
+	Accounts       []AccountInfo     `json:"accounts,omitempty"`
 }
 
 type QueryTenantReqBuilder struct {
@@ -459,16 +454,15 @@ type QueryUserDetailReq struct {
 	apiReq *core.APIReq
 }
 type QueryUserDetailReqBody struct {
-    UserKeys  []string `json:"user_keys,omitempty"`
-    OutIDs  []string `json:"out_ids,omitempty"`
-    Emails  []string `json:"emails,omitempty"`
-    TenantKey  *string `json:"tenant_key,omitempty"`
+	UserKeys  []string `json:"user_keys,omitempty"`
+	OutIDs    []string `json:"out_ids,omitempty"`
+	Emails    []string `json:"emails,omitempty"`
+	TenantKey *string  `json:"tenant_key,omitempty"`
 }
 type QueryUserDetailResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []UserBasicInfo         `json:"data"`
-	
+	Data []UserBasicInfo `json:"data"`
 }
 
 type QueryUserDetailReqBuilder struct {
@@ -515,15 +509,14 @@ type QueryUsersForTenantPluginReq struct {
 	apiReq *core.APIReq
 }
 type QueryUsersForTenantPluginReqBody struct {
-    UserKeys  []string `json:"user_keys,omitempty"`
-    Emails  []string `json:"emails,omitempty"`
-    OutUsers  []OutUserInfo `json:"out_users,omitempty"`
+	UserKeys []string      `json:"user_keys,omitempty"`
+	Emails   []string      `json:"emails,omitempty"`
+	OutUsers []OutUserInfo `json:"out_users,omitempty"`
 }
 type QueryUsersForTenantPluginResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []UserBasicInfo         `json:"data"`
-	
+	Data []UserBasicInfo `json:"data"`
 }
 
 type QueryUsersForTenantPluginReqBuilder struct {
@@ -564,14 +557,13 @@ type SearchUserByWordReq struct {
 	apiReq *core.APIReq
 }
 type SearchUserByWordReqBody struct {
-    Query  *string `json:"query,omitempty"`
-    ProjectKey  *string `json:"project_key,omitempty"`
+	Query      *string `json:"query,omitempty"`
+	ProjectKey *string `json:"project_key,omitempty"`
 }
 type SearchUserByWordResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []UserBasicInfo         `json:"data"`
-	
+	Data []UserBasicInfo `json:"data"`
 }
 
 type SearchUserByWordReqBuilder struct {
@@ -593,7 +585,6 @@ func (builder *SearchUserByWordReqBuilder) Query(query string) *SearchUserByWord
 	return builder
 }
 
-
 func (builder *SearchUserByWordReqBuilder) ProjectKey(projectKey string) *SearchUserByWordReqBuilder {
 	builder.apiReq.Body.(*SearchUserByWordReqBody).ProjectKey = &projectKey
 	return builder
@@ -609,7 +600,7 @@ type StopAccountReq struct {
 	apiReq *core.APIReq
 }
 type StopAccountReqBody struct {
-    UserMeegoKey  *string `json:"user_meego_key,omitempty"`
+	UserMeegoKey *string `json:"user_meego_key,omitempty"`
 }
 type StopAccountResp struct {
 	*core.APIResp `json:"-"`
@@ -645,10 +636,10 @@ type UpdateAccountReq struct {
 	apiReq *core.APIReq
 }
 type UpdateAccountReqBody struct {
-    UserMeegoKey  *string `json:"user_meego_key,omitempty"`
-    Name  map[string]string `json:"name,omitempty"`
-    AvatarUrl  *string `json:"avatar_url,omitempty"`
-    DepartmentMeegoKeys  []string `json:"department_meego_keys,omitempty"`
+	UserMeegoKey        *string           `json:"user_meego_key,omitempty"`
+	Name                map[string]string `json:"name,omitempty"`
+	AvatarUrl           *string           `json:"avatar_url,omitempty"`
+	DepartmentMeegoKeys []string          `json:"department_meego_keys,omitempty"`
 }
 type UpdateAccountResp struct {
 	*core.APIResp `json:"-"`
@@ -674,7 +665,6 @@ func (builder *UpdateAccountReqBuilder) UserMeegoKey(userMeegoKey string) *Updat
 	return builder
 }
 
-
 func (builder *UpdateAccountReqBuilder) Name(name map[string]string) *UpdateAccountReqBuilder {
 	builder.apiReq.Body.(*UpdateAccountReqBody).Name = name
 	return builder
@@ -684,7 +674,6 @@ func (builder *UpdateAccountReqBuilder) AvatarUrl(avatarUrl string) *UpdateAccou
 	builder.apiReq.Body.(*UpdateAccountReqBody).AvatarUrl = &avatarUrl
 	return builder
 }
-
 
 func (builder *UpdateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys []string) *UpdateAccountReqBuilder {
 	builder.apiReq.Body.(*UpdateAccountReqBody).DepartmentMeegoKeys = departmentMeegoKeys
@@ -700,9 +689,9 @@ type UpdateDepartmentReq struct {
 	apiReq *core.APIReq
 }
 type UpdateDepartmentReqBody struct {
-    DepartmentMeegoKey  *string `json:"department_meego_key,omitempty"`
-    Name  map[string]string `json:"name,omitempty"`
-    ParentDepartmentMeegoKey  *string `json:"parent_department_meego_key,omitempty"`
+	DepartmentMeegoKey       *string           `json:"department_meego_key,omitempty"`
+	Name                     map[string]string `json:"name,omitempty"`
+	ParentDepartmentMeegoKey *string           `json:"parent_department_meego_key,omitempty"`
 }
 type UpdateDepartmentResp struct {
 	*core.APIResp `json:"-"`
@@ -728,7 +717,6 @@ func (builder *UpdateDepartmentReqBuilder) DepartmentMeegoKey(departmentMeegoKey
 	return builder
 }
 
-
 func (builder *UpdateDepartmentReqBuilder) Name(name map[string]string) *UpdateDepartmentReqBuilder {
 	builder.apiReq.Body.(*UpdateDepartmentReqBody).Name = name
 	return builder
@@ -749,20 +737,20 @@ type UserGroupMembersPageReq struct {
 	apiReq *core.APIReq
 }
 type UserGroupMembersPageReqBody struct {
-    UserGroupType  *string `json:"user_group_type,omitempty"`
-    UserGroupIDs  []string `json:"user_group_ids,omitempty"`
-    PageNum  *int64 `json:"page_num,omitempty"`
-    PageSize  *int64 `json:"page_size,omitempty"`
+	UserGroupType *string  `json:"user_group_type,omitempty"`
+	UserGroupIDs  []string `json:"user_group_ids,omitempty"`
+	PageNum       *int64   `json:"page_num,omitempty"`
+	PageSize      *int64   `json:"page_size,omitempty"`
 }
 type UserGroupMembersPageResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *UserGroupMembersPageRespData        `json:"data,omitempty"`
+	Data *UserGroupMembersPageRespData `json:"data,omitempty"`
 }
 
 type UserGroupMembersPageRespData struct {
-	List       []UserGroupDetail         `json:"list,omitempty"`
-	Pagination       *Pagination         `json:"pagination,omitempty"`
+	List       []UserGroupDetail `json:"list,omitempty"`
+	Pagination *Pagination       `json:"pagination,omitempty"`
 }
 
 type UserGroupMembersPageReqBuilder struct {
@@ -784,12 +772,10 @@ func (builder *UserGroupMembersPageReqBuilder) ProjectKey(projectKey string) *Us
 	return builder
 }
 
-
 func (builder *UserGroupMembersPageReqBuilder) UserGroupType(userGroupType string) *UserGroupMembersPageReqBuilder {
 	builder.apiReq.Body.(*UserGroupMembersPageReqBody).UserGroupType = &userGroupType
 	return builder
 }
-
 
 func (builder *UserGroupMembersPageReqBuilder) UserGroupIDs(userGroupIDs []string) *UserGroupMembersPageReqBuilder {
 	builder.apiReq.Body.(*UserGroupMembersPageReqBody).UserGroupIDs = userGroupIDs
@@ -801,7 +787,6 @@ func (builder *UserGroupMembersPageReqBuilder) PageNum(pageNum int64) *UserGroup
 	return builder
 }
 
-
 func (builder *UserGroupMembersPageReqBuilder) PageSize(pageSize int64) *UserGroupMembersPageReqBuilder {
 	builder.apiReq.Body.(*UserGroupMembersPageReqBody).PageSize = &pageSize
 	return builder
@@ -812,4 +797,3 @@ func (builder *UserGroupMembersPageReqBuilder) Build() *UserGroupMembersPageReq 
 	req.apiReq = builder.apiReq
 	return req
 }
-

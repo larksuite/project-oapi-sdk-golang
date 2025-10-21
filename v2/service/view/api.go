@@ -7,12 +7,13 @@ import (
 	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
-
 const APIPath_CreateConditionView = "/open_api/view/v1/create_condition_view"
 
 const APIPath_CreateFixView = "/open_api/:project_key/:work_item_type_key/fix_view"
 
 const APIPath_DeleteFixView = "/open_api/:project_key/fix_view/:view_id"
+
+const APIPath_QuerySpaceUIAggFields = "/open_api/view_search/space_agg_fields/query_ui"
 
 const APIPath_QueryWorkItemDetailsByViewID = "/open_api/:project_key/view/:view_id"
 
@@ -24,7 +25,6 @@ const APIPath_ViewList = "/open_api/:project_key/view_conf/list"
 
 const APIPath_WorkItemList = "/open_api/:project_key/fix_view/:view_id"
 
-
 func NewService(config *core.Config) *ViewService {
 	a := &ViewService{config: config}
 	return a
@@ -33,7 +33,6 @@ func NewService(config *core.Config) *ViewService {
 type ViewService struct {
 	config *core.Config
 }
-
 
 /*
  * @name: openapi创建条件视图
@@ -102,6 +101,30 @@ func (a *ViewService) DeleteFixView(ctx context.Context, req *DeleteFixViewReq, 
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteFixView] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: openapi获取空间级别聚合字段
+ * @desc: openapi获取空间级别聚合字段
+ */
+func (a *ViewService) QuerySpaceUIAggFields(ctx context.Context, req *QuerySpaceUIAggFieldsReq, options ...core.RequestOptionFunc) (*QuerySpaceUIAggFieldsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_QuerySpaceUIAggFields
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[QuerySpaceUIAggFields] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QuerySpaceUIAggFieldsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[QuerySpaceUIAggFields] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -226,4 +249,3 @@ func (a *ViewService) WorkItemList(ctx context.Context, req *WorkItemListReq, op
 	}
 	return resp, err
 }
-

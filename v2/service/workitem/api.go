@@ -89,8 +89,6 @@ const APIPath_InviteBotJoinChat = "/open_api/:project_key/work_item/:work_item_i
 
 const APIPath_ListTemplateConf = "/open_api/:project_key/template_list/:work_item_type_key"
 
-const APIPath_UpdateCompoundFieldValue = "/open_api/work_item/field_value/update_compound_field"
-
 const APIPath_PatchWBSViewDraft = "/open_api/work_item/wbs_view_draft/patch"
 
 const APIPath_PublishWBSViewDraft = "/open_api/work_item/wbs_view_draft/publish"
@@ -125,6 +123,8 @@ const APIPath_QueryWorkItemSubTask = "/open_api/:project_key/work_item/:work_ite
 
 const APIPath_ResetWBSViewDraft = "/open_api/work_item/wbs_view_draft/reset"
 
+const APIPath_ResourceCreateInstance = "/open_api/work_item/resource/:project_key/:work_item_id/create_instance"
+
 const APIPath_ResourceCreateWorkItem = "/open_api/work_item/resource/create_work_item"
 
 const APIPath_ResourceSearchByParams = "/open_api/work_item/resource/search/params"
@@ -140,6 +140,8 @@ const APIPath_SubTaskModify = "/open_api/:project_key/work_item/:work_item_type_
 const APIPath_SwitchBackToWbsViewDraft = "/open_api/:project_key/wbs_view_draft/switch"
 
 const APIPath_UniversalSearch = "/open_api/view_search/universal_search"
+
+const APIPath_UpdateCompoundFieldValue = "/open_api/work_item/field_value/update_compound_field"
 
 const APIPath_UpdateField = "/open_api/:project_key/field/:work_item_type_key"
 
@@ -1166,30 +1168,6 @@ func (a *WorkItemService) ListTemplateConf(ctx context.Context, req *ListTemplat
 }
 
 /*
- * @name: UpdateCompoundFieldValue
- * @desc: 增量更新复合字段
- */
-func (a *WorkItemService) UpdateCompoundFieldValue(ctx context.Context, req *UpdateCompoundFieldValueReq, options ...core.RequestOptionFunc) (*UpdateCompoundFieldValueResp, error) {
-	// 发起请求
-	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_UpdateCompoundFieldValue
-	apiReq.HttpMethod = "POST"
-	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
-	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateCompoundFieldValue] fail to invoke api, error: %v", err.Error()))
-		return nil, err
-	}
-	// 反序列响应结果
-	resp := &UpdateCompoundFieldValueResp{APIResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp, a.config)
-	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateCompoundFieldValue] fail to unmarshal response body, error: %v", err.Error()))
-		return nil, err
-	}
-	return resp, err
-}
-
-/*
  * @name: wbs草稿态编辑
  * @desc: wbs草稿态编辑
  */
@@ -1598,6 +1576,30 @@ func (a *WorkItemService) ResetWBSViewDraft(ctx context.Context, req *ResetWBSVi
 }
 
 /*
+ * @name: OAPIUpdateCompoundFieldValue
+ * @desc: 增量更新复合字段
+ */
+func (a *WorkItemService) ResourceCreateInstance(ctx context.Context, req *ResourceCreateInstanceReq, options ...core.RequestOptionFunc) (*ResourceCreateInstanceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_ResourceCreateInstance
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[ResourceCreateInstance] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ResourceCreateInstanceResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[ResourceCreateInstance] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
  * @name: OAPIResourceCreateWorkItem
  * @desc: 创建工作项资源库
  */
@@ -1784,6 +1786,30 @@ func (a *WorkItemService) UniversalSearch(ctx context.Context, req *UniversalSea
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UniversalSearch] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIUpdateCompoundFieldValue
+ * @desc: 增量更新复合字段
+ */
+func (a *WorkItemService) UpdateCompoundFieldValue(ctx context.Context, req *UpdateCompoundFieldValueReq, options ...core.RequestOptionFunc) (*UpdateCompoundFieldValueResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_UpdateCompoundFieldValue
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateCompoundFieldValue] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateCompoundFieldValueResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateCompoundFieldValue] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

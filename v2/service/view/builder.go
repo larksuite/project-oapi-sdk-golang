@@ -1,34 +1,32 @@
 package view
 
 import (
-    "fmt"
-   "github.com/larksuite/project-oapi-sdk-golang/core"
-    
+	"fmt"
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
-
 
 type CreateConditionViewReq struct {
 	apiReq *core.APIReq
 }
 type CreateConditionViewReqBody struct {
-    ProjectKey  *string `json:"project_key,omitempty"`
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-    SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-    CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-    CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-    CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-    Name  *string `json:"name,omitempty"`
-    MeegoUserKey  *string `json:"meego_user_key,omitempty"`
-    CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
+	ProjectKey          *string      `json:"project_key,omitempty"`
+	WorkItemTypeKey     *string      `json:"work_item_type_key,omitempty"`
+	SearchGroup         *SearchGroup `json:"search_group,omitempty"`
+	CooperationMode     *int64       `json:"cooperation_mode,omitempty"`
+	CooperationUserKeys []string     `json:"cooperation_user_keys,omitempty"`
+	CooperationTeamIDs  []int64      `json:"cooperation_team_ids,omitempty"`
+	Name                *string      `json:"name,omitempty"`
+	MeegoUserKey        *string      `json:"meego_user_key,omitempty"`
+	CooperationTeams    []Team       `json:"cooperation_teams,omitempty"`
 }
 type CreateConditionViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data      *CreateConditionViewRespData        `json:"data,omitempty"`
+	Data *CreateConditionViewRespData `json:"data,omitempty"`
 }
 
 type CreateConditionViewRespData struct {
-	ViewID       *string         `json:"view_id,omitempty"`
+	ViewID *string `json:"view_id,omitempty"`
 }
 
 type CreateConditionViewReqBuilder struct {
@@ -50,12 +48,10 @@ func (builder *CreateConditionViewReqBuilder) ProjectKey(projectKey string) *Cre
 	return builder
 }
 
-
 func (builder *CreateConditionViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*CreateConditionViewReqBody).WorkItemTypeKey = &workItemTypeKey
 	return builder
 }
-
 
 func (builder *CreateConditionViewReqBuilder) SearchGroup(searchGroup *SearchGroup) *CreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*CreateConditionViewReqBody).SearchGroup = searchGroup
@@ -66,7 +62,6 @@ func (builder *CreateConditionViewReqBuilder) CooperationMode(cooperationMode in
 	builder.apiReq.Body.(*CreateConditionViewReqBody).CooperationMode = &cooperationMode
 	return builder
 }
-
 
 func (builder *CreateConditionViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *CreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*CreateConditionViewReqBody).CooperationUserKeys = cooperationUserKeys
@@ -83,12 +78,10 @@ func (builder *CreateConditionViewReqBuilder) Name(name string) *CreateCondition
 	return builder
 }
 
-
 func (builder *CreateConditionViewReqBuilder) MeegoUserKey(meegoUserKey string) *CreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*CreateConditionViewReqBody).MeegoUserKey = &meegoUserKey
 	return builder
 }
-
 
 func (builder *CreateConditionViewReqBuilder) CooperationTeams(cooperationTeams []Team) *CreateConditionViewReqBuilder {
 	builder.apiReq.Body.(*CreateConditionViewReqBody).CooperationTeams = cooperationTeams
@@ -104,20 +97,19 @@ type CreateFixViewReq struct {
 	apiReq *core.APIReq
 }
 type CreateFixViewReqBody struct {
-    WorkItemIDList  []int64 `json:"work_item_id_list,omitempty"`
-    Name  *string `json:"name,omitempty"`
-    CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-    CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-    CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-    CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
+	WorkItemIDList      []int64  `json:"work_item_id_list,omitempty"`
+	Name                *string  `json:"name,omitempty"`
+	CooperationMode     *int64   `json:"cooperation_mode,omitempty"`
+	CooperationUserKeys []string `json:"cooperation_user_keys,omitempty"`
+	CooperationTeamIDs  []int64  `json:"cooperation_team_ids,omitempty"`
+	CooperationTeams    []Team   `json:"cooperation_teams,omitempty"`
 }
 type CreateFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       *FixView         `json:"data"`
-	
-	Pagination       *Pagination         `json:"pagination"`
-	
+	Data *FixView `json:"data"`
+
+	Pagination *Pagination `json:"pagination"`
 }
 
 type CreateFixViewReqBuilder struct {
@@ -139,7 +131,6 @@ func (builder *CreateFixViewReqBuilder) ProjectKey(projectKey string) *CreateFix
 	return builder
 }
 
-
 func (builder *CreateFixViewReqBuilder) WorkItemIDList(workItemIDList []int64) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).WorkItemIDList = workItemIDList
 	return builder
@@ -150,18 +141,15 @@ func (builder *CreateFixViewReqBuilder) Name(name string) *CreateFixViewReqBuild
 	return builder
 }
 
-
 func (builder *CreateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateFixViewReqBuilder {
 	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
 	return builder
 }
 
-
 func (builder *CreateFixViewReqBuilder) CooperationMode(cooperationMode int64) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationMode = &cooperationMode
 	return builder
 }
-
 
 func (builder *CreateFixViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *CreateFixViewReqBuilder {
 	builder.apiReq.Body.(*CreateFixViewReqBody).CooperationUserKeys = cooperationUserKeys
@@ -209,7 +197,6 @@ func (builder *DeleteFixViewReqBuilder) ProjectKey(projectKey string) *DeleteFix
 	return builder
 }
 
-
 func (builder *DeleteFixViewReqBuilder) ViewID(viewID string) *DeleteFixViewReqBuilder {
 	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewID))
 	return builder
@@ -221,22 +208,62 @@ func (builder *DeleteFixViewReqBuilder) Build() *DeleteFixViewReq {
 	return req
 }
 
+type QuerySpaceUIAggFieldsReq struct {
+	apiReq *core.APIReq
+}
+type QuerySpaceUIAggFieldsReqBody struct {
+	ProjectKey *string `json:"project_key,omitempty"`
+}
+type QuerySpaceUIAggFieldsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data *QuerySpaceUIAggFieldsRespData `json:"data,omitempty"`
+}
+
+type QuerySpaceUIAggFieldsRespData struct {
+	AggResourceItems []ResourceItem `json:"agg_resource_items,omitempty"`
+}
+
+type QuerySpaceUIAggFieldsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewQuerySpaceUIAggFieldsReqBuilder() *QuerySpaceUIAggFieldsReqBuilder {
+	builder := &QuerySpaceUIAggFieldsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &QuerySpaceUIAggFieldsReqBody{},
+	}
+	return builder
+}
+
+func (builder *QuerySpaceUIAggFieldsReqBuilder) ProjectKey(projectKey string) *QuerySpaceUIAggFieldsReqBuilder {
+	builder.apiReq.Body.(*QuerySpaceUIAggFieldsReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+func (builder *QuerySpaceUIAggFieldsReqBuilder) Build() *QuerySpaceUIAggFieldsReq {
+	req := &QuerySpaceUIAggFieldsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type QueryWorkItemDetailsByViewIDReq struct {
 	apiReq *core.APIReq
 }
 type QueryWorkItemDetailsByViewIDReqBody struct {
-    PageSize  *int64 `json:"page_size,omitempty"`
-    PageNum  *int64 `json:"page_num,omitempty"`
-    Expand  *Expand `json:"expand,omitempty"`
-    QuickFilterID  *string `json:"quick_filter_id,omitempty"`
+	PageSize      *int64  `json:"page_size,omitempty"`
+	PageNum       *int64  `json:"page_num,omitempty"`
+	Expand        *Expand `json:"expand,omitempty"`
+	QuickFilterID *string `json:"quick_filter_id,omitempty"`
 }
 type QueryWorkItemDetailsByViewIDResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []WorkItemInfo         `json:"data"`
-	
-	Pagination       *Pagination         `json:"pagination"`
-	
+	Data []WorkItemInfo `json:"data"`
+
+	Pagination *Pagination `json:"pagination"`
 }
 
 type QueryWorkItemDetailsByViewIDReqBuilder struct {
@@ -258,24 +285,20 @@ func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ProjectKey(projectKey str
 	return builder
 }
 
-
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) ViewID(viewID string) *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewID))
 	return builder
 }
-
 
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageSize(pageSize int64) *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageSize = &pageSize
 	return builder
 }
 
-
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) PageNum(pageNum int64) *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).PageNum = &pageNum
 	return builder
 }
-
 
 func (builder *QueryWorkItemDetailsByViewIDReqBuilder) Expand(expand *Expand) *QueryWorkItemDetailsByViewIDReqBuilder {
 	builder.apiReq.Body.(*QueryWorkItemDetailsByViewIDReqBody).Expand = expand
@@ -297,16 +320,16 @@ type UpdateConditionViewReq struct {
 	apiReq *core.APIReq
 }
 type UpdateConditionViewReqBody struct {
-    ProjectKey  *string `json:"project_key,omitempty"`
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-    SearchGroup  *SearchGroup `json:"search_group,omitempty"`
-    CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-    CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-    CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-    Name  *string `json:"name,omitempty"`
-    MeegoUserKey  *string `json:"meego_user_key,omitempty"`
-    ViewID  *string `json:"view_id,omitempty"`
-    CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
+	ProjectKey          *string      `json:"project_key,omitempty"`
+	WorkItemTypeKey     *string      `json:"work_item_type_key,omitempty"`
+	SearchGroup         *SearchGroup `json:"search_group,omitempty"`
+	CooperationMode     *int64       `json:"cooperation_mode,omitempty"`
+	CooperationUserKeys []string     `json:"cooperation_user_keys,omitempty"`
+	CooperationTeamIDs  []int64      `json:"cooperation_team_ids,omitempty"`
+	Name                *string      `json:"name,omitempty"`
+	MeegoUserKey        *string      `json:"meego_user_key,omitempty"`
+	ViewID              *string      `json:"view_id,omitempty"`
+	CooperationTeams    []Team       `json:"cooperation_teams,omitempty"`
 }
 type UpdateConditionViewResp struct {
 	*core.APIResp `json:"-"`
@@ -332,12 +355,10 @@ func (builder *UpdateConditionViewReqBuilder) ProjectKey(projectKey string) *Upd
 	return builder
 }
 
-
 func (builder *UpdateConditionViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).WorkItemTypeKey = &workItemTypeKey
 	return builder
 }
-
 
 func (builder *UpdateConditionViewReqBuilder) SearchGroup(searchGroup *SearchGroup) *UpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).SearchGroup = searchGroup
@@ -348,7 +369,6 @@ func (builder *UpdateConditionViewReqBuilder) CooperationMode(cooperationMode in
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).CooperationMode = &cooperationMode
 	return builder
 }
-
 
 func (builder *UpdateConditionViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *UpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).CooperationUserKeys = cooperationUserKeys
@@ -365,18 +385,15 @@ func (builder *UpdateConditionViewReqBuilder) Name(name string) *UpdateCondition
 	return builder
 }
 
-
 func (builder *UpdateConditionViewReqBuilder) MeegoUserKey(meegoUserKey string) *UpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).MeegoUserKey = &meegoUserKey
 	return builder
 }
 
-
 func (builder *UpdateConditionViewReqBuilder) ViewID(viewID string) *UpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).ViewID = &viewID
 	return builder
 }
-
 
 func (builder *UpdateConditionViewReqBuilder) CooperationTeams(cooperationTeams []Team) *UpdateConditionViewReqBuilder {
 	builder.apiReq.Body.(*UpdateConditionViewReqBody).CooperationTeams = cooperationTeams
@@ -392,20 +409,19 @@ type UpdateFixViewReq struct {
 	apiReq *core.APIReq
 }
 type UpdateFixViewReqBody struct {
-    AddWorkItemIDs  []int64 `json:"add_work_item_ids,omitempty"`
-    RemoveWorkItemIDs  []int64 `json:"remove_work_item_ids,omitempty"`
-    CooperationMode  *int64 `json:"cooperation_mode,omitempty"`
-    CooperationUserKeys  []string `json:"cooperation_user_keys,omitempty"`
-    CooperationTeamIDs  []int64 `json:"cooperation_team_ids,omitempty"`
-    CooperationTeams  []Team `json:"cooperation_teams,omitempty"`
+	AddWorkItemIDs      []int64  `json:"add_work_item_ids,omitempty"`
+	RemoveWorkItemIDs   []int64  `json:"remove_work_item_ids,omitempty"`
+	CooperationMode     *int64   `json:"cooperation_mode,omitempty"`
+	CooperationUserKeys []string `json:"cooperation_user_keys,omitempty"`
+	CooperationTeamIDs  []int64  `json:"cooperation_team_ids,omitempty"`
+	CooperationTeams    []Team   `json:"cooperation_teams,omitempty"`
 }
 type UpdateFixViewResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       *FixView         `json:"data"`
-	
-	Pagination       *Pagination         `json:"pagination"`
-	
+	Data *FixView `json:"data"`
+
+	Pagination *Pagination `json:"pagination"`
 }
 
 type UpdateFixViewReqBuilder struct {
@@ -427,12 +443,10 @@ func (builder *UpdateFixViewReqBuilder) ProjectKey(projectKey string) *UpdateFix
 	return builder
 }
 
-
 func (builder *UpdateFixViewReqBuilder) ViewID(viewID string) *UpdateFixViewReqBuilder {
 	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewID))
 	return builder
 }
-
 
 func (builder *UpdateFixViewReqBuilder) AddWorkItemIDs(addWorkItemIDs []int64) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).AddWorkItemIDs = addWorkItemIDs
@@ -449,12 +463,10 @@ func (builder *UpdateFixViewReqBuilder) WorkItemTypeKey(workItemTypeKey string) 
 	return builder
 }
 
-
 func (builder *UpdateFixViewReqBuilder) CooperationMode(cooperationMode int64) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationMode = &cooperationMode
 	return builder
 }
-
 
 func (builder *UpdateFixViewReqBuilder) CooperationUserKeys(cooperationUserKeys []string) *UpdateFixViewReqBuilder {
 	builder.apiReq.Body.(*UpdateFixViewReqBody).CooperationUserKeys = cooperationUserKeys
@@ -480,22 +492,21 @@ type ViewListReq struct {
 	apiReq *core.APIReq
 }
 type ViewListReqBody struct {
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-    ViewIDs  []string `json:"view_ids,omitempty"`
-    CreatedBy  *string `json:"created_by,omitempty"`
-    CreatedAt  *TimeInterval `json:"created_at,omitempty"`
-    PageSize  *int64 `json:"page_size,omitempty"`
-    PageNum  *int64 `json:"page_num,omitempty"`
-    ViewName  *string `json:"view_name,omitempty"`
-    IsQueryQuickFilter  *bool `json:"is_query_quick_filter,omitempty"`
+	WorkItemTypeKey    *string       `json:"work_item_type_key,omitempty"`
+	ViewIDs            []string      `json:"view_ids,omitempty"`
+	CreatedBy          *string       `json:"created_by,omitempty"`
+	CreatedAt          *TimeInterval `json:"created_at,omitempty"`
+	PageSize           *int64        `json:"page_size,omitempty"`
+	PageNum            *int64        `json:"page_num,omitempty"`
+	ViewName           *string       `json:"view_name,omitempty"`
+	IsQueryQuickFilter *bool         `json:"is_query_quick_filter,omitempty"`
 }
 type ViewListResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []ViewConf         `json:"data"`
-	
-	Pagination       *Pagination         `json:"pagination"`
-	
+	Data []ViewConf `json:"data"`
+
+	Pagination *Pagination `json:"pagination"`
 }
 
 type ViewListReqBuilder struct {
@@ -517,12 +528,10 @@ func (builder *ViewListReqBuilder) ProjectKey(projectKey string) *ViewListReqBui
 	return builder
 }
 
-
 func (builder *ViewListReqBuilder) WorkItemTypeKey(workItemTypeKey string) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).WorkItemTypeKey = &workItemTypeKey
 	return builder
 }
-
 
 func (builder *ViewListReqBuilder) ViewIDs(viewIDs []string) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).ViewIDs = viewIDs
@@ -534,7 +543,6 @@ func (builder *ViewListReqBuilder) CreatedBy(createdBy string) *ViewListReqBuild
 	return builder
 }
 
-
 func (builder *ViewListReqBuilder) CreatedAt(createdAt *TimeInterval) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).CreatedAt = createdAt
 	return builder
@@ -545,18 +553,15 @@ func (builder *ViewListReqBuilder) PageSize(pageSize int64) *ViewListReqBuilder 
 	return builder
 }
 
-
 func (builder *ViewListReqBuilder) PageNum(pageNum int64) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).PageNum = &pageNum
 	return builder
 }
 
-
 func (builder *ViewListReqBuilder) ViewName(viewName string) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).ViewName = &viewName
 	return builder
 }
-
 
 func (builder *ViewListReqBuilder) IsQueryQuickFilter(isQueryQuickFilter bool) *ViewListReqBuilder {
 	builder.apiReq.Body.(*ViewListReqBody).IsQueryQuickFilter = &isQueryQuickFilter
@@ -575,10 +580,9 @@ type WorkItemListReq struct {
 type WorkItemListResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       *FixView         `json:"data"`
-	
-	Pagination       *Pagination         `json:"pagination"`
-	
+	Data *FixView `json:"data"`
+
+	Pagination *Pagination `json:"pagination"`
 }
 
 type WorkItemListReqBuilder struct {
@@ -599,24 +603,20 @@ func (builder *WorkItemListReqBuilder) ProjectKey(projectKey string) *WorkItemLi
 	return builder
 }
 
-
 func (builder *WorkItemListReqBuilder) ViewID(viewID string) *WorkItemListReqBuilder {
 	builder.apiReq.PathParams.Set("view_id", fmt.Sprint(viewID))
 	return builder
 }
-
 
 func (builder *WorkItemListReqBuilder) PageSize(pageSize int64) *WorkItemListReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
 	return builder
 }
 
-
 func (builder *WorkItemListReqBuilder) PageNum(pageNum int64) *WorkItemListReqBuilder {
 	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(pageNum))
 	return builder
 }
-
 
 func (builder *WorkItemListReqBuilder) QuickFilterID(quickFilterID string) *WorkItemListReqBuilder {
 	builder.apiReq.QueryParams.Set("quick_filter_id", fmt.Sprint(quickFilterID))
@@ -628,4 +628,3 @@ func (builder *WorkItemListReqBuilder) Build() *WorkItemListReq {
 	req.apiReq = builder.apiReq
 	return req
 }
-

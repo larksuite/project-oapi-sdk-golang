@@ -10,9 +10,13 @@ import (
 
 const APIPath_CreateComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/create"
 
+const APIPath_CreateFileComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file_comment/create"
+
 const APIPath_DeleteComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/:comment_id"
 
 const APIPath_ListComments = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comments"
+
+const APIPath_ListFileComments = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/file_comments"
 
 const APIPath_UpdateComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/:comment_id"
 
@@ -47,6 +51,30 @@ func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentRe
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateComment] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name:OAPICreateFileComment
+ * @desc:OpenAPI，创建附件评论接口
+ */
+func (a *CommentService) CreateFileComment(ctx context.Context, req *CreateFileCommentReq, options ...core.RequestOptionFunc) (*CreateFileCommentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_CreateFileComment
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateFileComment] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateFileCommentResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CreateFileComment] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -95,6 +123,30 @@ func (a *CommentService) ListComments(ctx context.Context, req *ListCommentsReq,
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[ListComments] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name:OAPIListFileComments
+ * @desc:OpenAPI，分页查询附件评论接口
+ */
+func (a *CommentService) ListFileComments(ctx context.Context, req *ListFileCommentsReq, options ...core.RequestOptionFunc) (*ListFileCommentsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_ListFileComments
+	apiReq.HttpMethod = "GET"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[ListFileComments] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListFileCommentsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[ListFileComments] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

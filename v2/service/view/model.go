@@ -21,6 +21,14 @@ type Connection struct {
 
 }
 
+type Error struct {
+
+    ErrorCode  *int32 `json:"error_code,omitempty"`
+
+    ErrorInfo  *string `json:"error_info,omitempty"`
+
+}
+
 type Expand struct {
 
     NeedWorkflow  *bool `json:"need_workflow,omitempty"`
@@ -76,6 +84,18 @@ type FixView struct {
     WorkItemIDList  []int64 `json:"work_item_id_list,omitempty"`
 
     Editable  *bool `json:"editable,omitempty"`
+
+}
+
+type I18nTranslation struct {
+
+    SyncStatus  *string `json:"sync_status,omitempty"`
+
+    Translated  *bool `json:"translated,omitempty"`
+
+    Language  *string `json:"language,omitempty"`
+
+    Translation  *string `json:"translation,omitempty"`
 
 }
 
@@ -153,6 +173,84 @@ type RelationFieldDetail struct {
 
 }
 
+type ResourceAuth struct {
+
+    Usable  *bool `json:"usable,omitempty"`
+
+    Editable  *bool `json:"editable,omitempty"`
+
+    Deletable  *bool `json:"deletable,omitempty"`
+
+    Creatable  *bool `json:"creatable,omitempty"`
+
+    BatchEditable  *bool `json:"batch_editable,omitempty"`
+
+}
+
+type ResourceItem struct {
+
+    Key  *string `json:"key,omitempty"`
+
+    Ruuid  *string `json:"ruuid,omitempty"`
+
+    Type  *string `json:"type,omitempty"`
+
+    Class  *string `json:"class,omitempty"`
+
+    ParentKey  *string `json:"parent_key,omitempty"`
+
+    CustomKey  *string `json:"custom_key,omitempty"`
+
+    Label  *string `json:"label,omitempty"`
+
+    DefaultLabel  *string `json:"default_label,omitempty"`
+
+    Icon  *string `json:"icon,omitempty"`
+
+    Description  *string `json:"description,omitempty"`
+
+    Auth  *ResourceAuth `json:"auth,omitempty"`
+
+    Params  *string `json:"params,omitempty"`
+
+    Available  []string `json:"available,omitempty"`
+
+    Unavailable  []string `json:"unavailable,omitempty"`
+
+    UsingFeaturePoints  []string `json:"using_feature_points,omitempty"`
+
+    ResourceItems  []ResourceItem `json:"resource_items,omitempty"`
+
+    ErrorMessage  *Error `json:"error_message,omitempty"`
+
+    IsPreset  *bool `json:"is_preset,omitempty"`
+
+    BelongsTo  *string `json:"belongs_to,omitempty"`
+
+    LabelUniqueKey  *string `json:"label_unique_key,omitempty"`
+
+    LabelOrigin  *string `json:"label_origin,omitempty"`
+
+    LabelTranslations  []I18nTranslation `json:"label_translations,omitempty"`
+
+    ResourceKey  *string `json:"resource_key,omitempty"`
+
+    Scope  *Scope `json:"scope,omitempty"`
+
+    Status  *string `json:"status,omitempty"`
+
+    RelationRuuid  *string `json:"relation_ruuid,omitempty"`
+
+    ParentLabel  *string `json:"parent_label,omitempty"`
+
+    UiDescription  *UIDescription `json:"ui_description,omitempty"`
+
+    GroupLabel  *string `json:"group_label,omitempty"`
+
+    IsMultiTarget  *bool `json:"is_multi_target,omitempty"`
+
+}
+
 type RoleOwner struct {
 
     Role  *string `json:"role,omitempty"`
@@ -174,6 +272,14 @@ type Schedule struct {
     Owners  []string `json:"owners,omitempty"`
 
     ActualWorkTime  *float64 `json:"actual_work_time,omitempty"`
+
+}
+
+type Scope struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
 }
 
@@ -298,6 +404,24 @@ type TimeInterval struct {
     Start  *int64 `json:"start,omitempty"`
 
     End  *int64 `json:"end,omitempty"`
+
+}
+
+type UIDescription struct {
+
+    UiType  *string `json:"ui_type,omitempty"`
+
+    UUID  *string `json:"uuid,omitempty"`
+
+    IsMulti  *bool `json:"is_multi,omitempty"`
+
+    DateType  *int8 `json:"dateType,omitempty"`
+
+    DateFormat  *string `json:"dateFormat,omitempty"`
+
+    SubType  *int32 `json:"subType,omitempty"`
+
+    SubTypeLevel  *int64 `json:"subTypeLevel,omitempty"`
 
 }
 

@@ -221,6 +221,47 @@ func (builder *DeleteFixViewReqBuilder) Build() *DeleteFixViewReq {
 	return req
 }
 
+type QuerySpaceUIAggFieldsReq struct {
+	apiReq *core.APIReq
+}
+type QuerySpaceUIAggFieldsReqBody struct {
+    ProjectKey  *string `json:"project_key,omitempty"`
+}
+type QuerySpaceUIAggFieldsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data      *QuerySpaceUIAggFieldsRespData        `json:"data,omitempty"`
+}
+
+type QuerySpaceUIAggFieldsRespData struct {
+	AggResourceItems       []ResourceItem         `json:"agg_resource_items,omitempty"`
+}
+
+type QuerySpaceUIAggFieldsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewQuerySpaceUIAggFieldsReqBuilder() *QuerySpaceUIAggFieldsReqBuilder {
+	builder := &QuerySpaceUIAggFieldsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &QuerySpaceUIAggFieldsReqBody{},
+	}
+	return builder
+}
+
+func (builder *QuerySpaceUIAggFieldsReqBuilder) ProjectKey(projectKey string) *QuerySpaceUIAggFieldsReqBuilder {
+	builder.apiReq.Body.(*QuerySpaceUIAggFieldsReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+func (builder *QuerySpaceUIAggFieldsReqBuilder) Build() *QuerySpaceUIAggFieldsReq {
+	req := &QuerySpaceUIAggFieldsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type QueryWorkItemDetailsByViewIDReq struct {
 	apiReq *core.APIReq
 }

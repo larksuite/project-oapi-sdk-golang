@@ -13,6 +13,7 @@ type CreateCommentReq struct {
 type CreateCommentReqBody struct {
     Content  *string `json:"content,omitempty"`
     RichText  interface{} `json:"rich_text,omitempty"`
+    DocRichText  *DocTypeRichText `json:"doc_rich_text,omitempty"`
 }
 type CreateCommentResp struct {
 	*core.APIResp `json:"-"`
@@ -63,8 +64,69 @@ func (builder *CreateCommentReqBuilder) RichText(richText interface{}) *CreateCo
 	builder.apiReq.Body.(*CreateCommentReqBody).RichText = richText
 	return builder
 }
+
+func (builder *CreateCommentReqBuilder) DocRichText(docRichText *DocTypeRichText) *CreateCommentReqBuilder {
+	builder.apiReq.Body.(*CreateCommentReqBody).DocRichText = docRichText
+	return builder
+}
 func (builder *CreateCommentReqBuilder) Build() *CreateCommentReq {
 	req := &CreateCommentReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type CreateFileCommentReq struct {
+	apiReq *core.APIReq
+}
+type CreateFileCommentReqBody struct {
+    FileToken  *string `json:"file_token,omitempty"`
+}
+type CreateFileCommentResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       *int64         `json:"data"`
+	
+}
+
+type CreateFileCommentReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewCreateFileCommentReqBuilder() *CreateFileCommentReqBuilder {
+	builder := &CreateFileCommentReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &CreateFileCommentReqBody{},
+	}
+	return builder
+}
+
+func (builder *CreateFileCommentReqBuilder) ProjectKey(projectKey string) *CreateFileCommentReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+
+
+func (builder *CreateFileCommentReqBuilder) WorkItemID(workItemID int64) *CreateFileCommentReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(workItemID))
+	return builder
+}
+
+
+func (builder *CreateFileCommentReqBuilder) WorkItemTypeKey(workItemTypeKey string) *CreateFileCommentReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+
+
+func (builder *CreateFileCommentReqBuilder) FileToken(fileToken string) *CreateFileCommentReqBuilder {
+	builder.apiReq.Body.(*CreateFileCommentReqBody).FileToken = &fileToken
+	return builder
+}
+
+func (builder *CreateFileCommentReqBuilder) Build() *CreateFileCommentReq {
+	req := &CreateFileCommentReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
@@ -175,6 +237,66 @@ func (builder *ListCommentsReqBuilder) PageNum(pageNum int64) *ListCommentsReqBu
 
 func (builder *ListCommentsReqBuilder) Build() *ListCommentsReq {
 	req := &ListCommentsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type ListFileCommentsReq struct {
+	apiReq *core.APIReq
+}
+type ListFileCommentsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       []FileCommentForOpenAPI         `json:"data"`
+	
+	Pagination       *Pagination         `json:"pagination"`
+	
+}
+
+type ListFileCommentsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewListFileCommentsReqBuilder() *ListFileCommentsReqBuilder {
+	builder := &ListFileCommentsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+	}
+	return builder
+}
+
+func (builder *ListFileCommentsReqBuilder) ProjectKey(projectKey string) *ListFileCommentsReqBuilder {
+	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+
+
+func (builder *ListFileCommentsReqBuilder) WorkItemID(workItemID int64) *ListFileCommentsReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_id", fmt.Sprint(workItemID))
+	return builder
+}
+
+
+func (builder *ListFileCommentsReqBuilder) WorkItemTypeKey(workItemTypeKey string) *ListFileCommentsReqBuilder {
+	builder.apiReq.PathParams.Set("work_item_type_key", fmt.Sprint(workItemTypeKey))
+	return builder
+}
+
+
+func (builder *ListFileCommentsReqBuilder) PageSize(pageSize int64) *ListFileCommentsReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+
+func (builder *ListFileCommentsReqBuilder) PageNum(pageNum int64) *ListFileCommentsReqBuilder {
+	builder.apiReq.QueryParams.Set("page_num", fmt.Sprint(pageNum))
+	return builder
+}
+
+func (builder *ListFileCommentsReqBuilder) Build() *ListFileCommentsReq {
+	req := &ListFileCommentsReq{}
 	req.apiReq = builder.apiReq
 	return req
 }

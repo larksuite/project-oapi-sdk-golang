@@ -115,6 +115,8 @@ type Condition struct {
 
     ValueGroup  *Filter `json:"value_group,omitempty"`
 
+    Source  *FieldItemSource `json:"source,omitempty"`
+
 }
 
 type ConfirmForm struct {
@@ -309,6 +311,16 @@ type FieldDeliverableItem struct {
 
 }
 
+type FieldDeliveryData struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+}
+
 type FieldDetail struct {
 
     StoryID  *int64 `json:"story_id,omitempty"`
@@ -342,6 +354,14 @@ type FieldItem struct {
     ParentFieldType  *string `json:"parent_field_type,omitempty"`
 
     EntityScope  *string `json:"entity_scope,omitempty"`
+
+}
+
+type FieldItemSource struct {
+
+    Usage  *int32 `json:"usage,omitempty"`
+
+    UniqueID  *string `json:"unique_id,omitempty"`
 
 }
 
@@ -408,6 +428,16 @@ type InstanceDeliverableItem struct {
     Owners  []string `json:"owners,omitempty"`
 
     Remark  *string `json:"remark,omitempty"`
+
+}
+
+type InstanceDeliveryData struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ResourceID  *int64 `json:"resource_id,omitempty"`
 
 }
 
@@ -821,6 +851,22 @@ type OAPIRecordContent struct {
 
 }
 
+type OAPIResourceCreateInstanceResponseData struct {
+
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
+    IgnoreCreateInfo  *OAPIResourceCreateInstanceResponseDataIgnoreCreateInfo `json:"ignore_create_info,omitempty"`
+
+}
+
+type OAPIResourceCreateInstanceResponseDataIgnoreCreateInfo struct {
+
+    FieldKeys  []string `json:"field_keys,omitempty"`
+
+    RoleIDs  []string `json:"role_ids,omitempty"`
+
+}
+
 type ObjectStatusValue struct {
 
     ObjectType  *string `json:"object_type,omitempty"`
@@ -900,6 +946,8 @@ type OperationValue struct {
     SubInstanceCreate  *SubInstanceCreate `json:"sub_instance_create,omitempty"`
 
     DismantleMode  *int64 `json:"dismantle_mode,omitempty"`
+
+    UnionDeliveries  []UnionDelivery `json:"union_deliveries,omitempty"`
 
 }
 
@@ -992,6 +1040,16 @@ type Pagination struct {
     PageSize  *int64 `json:"page_size,omitempty"`
 
     Total  *int64 `json:"total,omitempty"`
+
+}
+
+type ParentWorkItem struct {
+
+    RelationUUID  *string `json:"relation_uuid,omitempty"`
+
+    ParentWorkItemID  *int64 `json:"parent_work_item_id,omitempty"`
+
+    ParentNodeKey  *string `json:"parent_node_key,omitempty"`
 
 }
 
@@ -1368,6 +1426,18 @@ type Schedule struct {
     Owners  []string `json:"owners,omitempty"`
 
     ActualWorkTime  *float64 `json:"actual_work_time,omitempty"`
+
+}
+
+type ScheduleConstraintRule struct {
+
+    SubTask  *bool `json:"sub_task,omitempty"`
+
+    Node  *bool `json:"node,omitempty"`
+
+    SubProcessNode  *bool `json:"sub_process_node,omitempty"`
+
+    WbsSubInstanceType  map[string]bool `json:"wbs_sub_instance_type,omitempty"`
 
 }
 
@@ -1839,6 +1909,16 @@ type UnionDeliverable struct {
 
 }
 
+type UnionDelivery struct {
+
+    Type  *string `json:"type,omitempty"`
+
+    FieldDelivery  *FieldDeliveryData `json:"field_delivery,omitempty"`
+
+    InstanceDelivery  *InstanceDeliveryData `json:"instance_delivery,omitempty"`
+
+}
+
 type UpdateWorkingHourRecord struct {
 
     ID  *int64 `json:"id,omitempty"`
@@ -2034,6 +2114,8 @@ type WBSWorkItem struct {
     RelativeScheduleV2  []ScheduleReferenceValue `json:"relative_schedule_v2,omitempty"`
 
     IsScheduleAggItem  *bool `json:"is_schedule_agg_item,omitempty"`
+
+    FieldValues  []WorkItem_work_item_FieldValuePair `json:"field_values,omitempty"`
 
 }
 
@@ -2285,6 +2367,8 @@ type WorkItem_work_item_Expand struct {
 
     NeedGroupUUIDForCompound  *bool `json:"need_group_uuid_for_compound,omitempty"`
 
+    NeedParentWorkItem  *bool `json:"need_parent_workitem,omitempty"`
+
 }
 
 type WorkItem_work_item_FieldDetail struct {
@@ -2406,6 +2490,8 @@ type WorkItem_work_item_ResourceWorkItemInfo struct {
     RelationFieldsDetail  []WorkItem_work_item_RelationFieldDetail `json:"relation_fields_detail,omitempty"`
 
     UserDetails  []WorkItem_work_item_UserDetail `json:"user_details,omitempty"`
+
+    ParentWorkItem  []ParentWorkItem `json:"parent_work_item,omitempty"`
 
 }
 
@@ -2593,6 +2679,8 @@ type WorkItem_work_item_WorkItemInfo struct {
 
     CompoundFieldExtra  []WorkItem_work_item_FieldValuePair `json:"compound_field_extra,omitempty"`
 
+    ParentWorkItem  []ParentWorkItem `json:"parent_work_item,omitempty"`
+
 }
 
 type WorkItem_work_item_WorkItemStatus struct {
@@ -2652,6 +2740,8 @@ type WorkItem_work_item_WorkflowNode struct {
     NodeFields  []NodeField `json:"node_fields,omitempty"`
 
     FinishedInfos  *FinishedInfo `json:"finished_infos,omitempty"`
+
+    Checker  []WorkItem_work_item_Checker `json:"checker,omitempty"`
 
 }
 

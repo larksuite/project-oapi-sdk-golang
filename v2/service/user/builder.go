@@ -53,6 +53,7 @@ type CreateAccountReqBody struct {
     AvatarUrl  *string `json:"avatar_url,omitempty"`
     DepartmentMeegoKeys  []string `json:"department_meego_keys,omitempty"`
     Email  *string `json:"email,omitempty"`
+    Mobile  *string `json:"mobile,omitempty"`
 }
 type CreateAccountResp struct {
 	*core.APIResp `json:"-"`
@@ -108,6 +109,12 @@ func (builder *CreateAccountReqBuilder) DepartmentMeegoKeys(departmentMeegoKeys 
 
 func (builder *CreateAccountReqBuilder) Email(email string) *CreateAccountReqBuilder {
 	builder.apiReq.Body.(*CreateAccountReqBody).Email = &email
+	return builder
+}
+
+
+func (builder *CreateAccountReqBuilder) Mobile(mobile string) *CreateAccountReqBuilder {
+	builder.apiReq.Body.(*CreateAccountReqBody).Mobile = &mobile
 	return builder
 }
 

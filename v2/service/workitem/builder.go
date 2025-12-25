@@ -362,6 +362,68 @@ func (builder *BatchUpdateBasicWorkItemReqBuilder) Build() *BatchUpdateBasicWork
 	return req
 }
 
+type CompleteCreateAuditDraftReq struct {
+	apiReq *core.APIReq
+}
+type CompleteCreateAuditDraftReqBody struct {
+    ProjectKey  *string `json:"project_key,omitempty"`
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+    DraftID  *string `json:"draft_id,omitempty"`
+    CommitID  *string `json:"commit_id,omitempty"`
+}
+type CompleteCreateAuditDraftResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data      *CompleteCreateAuditDraftRespData        `json:"data,omitempty"`
+}
+
+type CompleteCreateAuditDraftRespData struct {
+	Success       *bool         `json:"success,omitempty"`
+}
+
+type CompleteCreateAuditDraftReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewCompleteCreateAuditDraftReqBuilder() *CompleteCreateAuditDraftReqBuilder {
+	builder := &CompleteCreateAuditDraftReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &CompleteCreateAuditDraftReqBody{},
+	}
+	return builder
+}
+
+func (builder *CompleteCreateAuditDraftReqBuilder) ProjectKey(projectKey string) *CompleteCreateAuditDraftReqBuilder {
+	builder.apiReq.Body.(*CompleteCreateAuditDraftReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *CompleteCreateAuditDraftReqBuilder) WorkItemID(workItemID int64) *CompleteCreateAuditDraftReqBuilder {
+	builder.apiReq.Body.(*CompleteCreateAuditDraftReqBody).WorkItemID = &workItemID
+	return builder
+}
+
+
+func (builder *CompleteCreateAuditDraftReqBuilder) DraftID(draftID string) *CompleteCreateAuditDraftReqBuilder {
+	builder.apiReq.Body.(*CompleteCreateAuditDraftReqBody).DraftID = &draftID
+	return builder
+}
+
+
+func (builder *CompleteCreateAuditDraftReqBuilder) CommitID(commitID string) *CompleteCreateAuditDraftReqBuilder {
+	builder.apiReq.Body.(*CompleteCreateAuditDraftReqBody).CommitID = &commitID
+	return builder
+}
+
+func (builder *CompleteCreateAuditDraftReqBuilder) Build() *CompleteCreateAuditDraftReq {
+	req := &CompleteCreateAuditDraftReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type CompositiveSearchReq struct {
 	apiReq *core.APIReq
 }

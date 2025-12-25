@@ -625,6 +625,8 @@ type NodeOwnerFinishedConclusion struct {
 
     Owner  *Owner `json:"owner,omitempty"`
 
+    NodeOwner  *string `json:"node_owner,omitempty"`
+
     FinishedConclusionResult  *NodeFinishedConclusionOption `json:"finished_conclusion_result,omitempty"`
 
 }
@@ -632,6 +634,8 @@ type NodeOwnerFinishedConclusion struct {
 type NodeOwnerFinishedOpinion struct {
 
     Owner  *Owner `json:"owner,omitempty"`
+
+    NodeOwner  *string `json:"node_owner,omitempty"`
 
     FinishedOpinionResult  *string `json:"finished_opinion_result,omitempty"`
 
@@ -910,6 +914,8 @@ type OperationCreate struct {
     SeqOrderInfo  *SeqOrderInfo `json:"seq_order_info,omitempty"`
 
     WbsStatus  *string `json:"wbs_status,omitempty"`
+
+    Pre  *string `json:"pre,omitempty"`
 
 }
 
@@ -1702,6 +1708,8 @@ type SubInstanceCreate struct {
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
 
     LinkedResources  []LinkedResourceInfo `json:"linked_resources,omitempty"`
+
+    Pre  *string `json:"pre,omitempty"`
 
 }
 

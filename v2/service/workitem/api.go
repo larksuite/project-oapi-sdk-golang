@@ -7,7 +7,6 @@ import (
 	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
-
 const APIPath_AbortWorkItem = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/abort"
 
 const APIPath_ActualTimeUpdate = "/open_api/work_item/actual_time/update"
@@ -19,6 +18,8 @@ const APIPath_BatchQueryDeliverable = "/open_api/work_item/deliverable/batch_que
 const APIPath_BatchQueryFinished = "/open_api/work_item/finished/batch_query"
 
 const APIPath_BatchUpdateBasicWorkItem = "/open_api/work_item/batch_update"
+
+const APIPath_CompleteCreateAuditDraft = "/open_api/wbs_view_draft/complete-create-audit"
 
 const APIPath_CompositiveSearch = "/open_api/compositive_search"
 
@@ -176,7 +177,6 @@ const APIPath_WBSUpdateDraftFrozenRows = "/open_api/:project_key/wbs_view_draft/
 
 const APIPath_WbsCollaborationPublish = "/open_api/:project_key/wbs_view_draft/publish"
 
-
 func NewService(config *core.Config) *WorkItemService {
 	a := &WorkItemService{config: config}
 	return a
@@ -185,7 +185,6 @@ func NewService(config *core.Config) *WorkItemService {
 type WorkItemService struct {
 	config *core.Config
 }
-
 
 /*
  * @name: OAPIAbortWorkItem
@@ -260,7 +259,7 @@ func (a *WorkItemService) BatchQueryConclusionOption(ctx context.Context, req *B
 }
 
 /*
- * 
+ *
  */
 func (a *WorkItemService) BatchQueryDeliverable(ctx context.Context, req *BatchQueryDeliverableReq, options ...core.RequestOptionFunc) (*BatchQueryDeliverableResp, error) {
 	// 发起请求
@@ -325,6 +324,30 @@ func (a *WorkItemService) BatchUpdateBasicWorkItem(ctx context.Context, req *Bat
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[BatchUpdateBasicWorkItem] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPICompleteCreateAuditDraft
+ * @desc: 完成创建审批草稿
+ */
+func (a *WorkItemService) CompleteCreateAuditDraft(ctx context.Context, req *CompleteCreateAuditDraftReq, options ...core.RequestOptionFunc) (*CompleteCreateAuditDraftResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_CompleteCreateAuditDraft
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CompleteCreateAuditDraft] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CompleteCreateAuditDraftResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[CompleteCreateAuditDraft] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -2201,4 +2224,3 @@ func (a *WorkItemService) WbsCollaborationPublish(ctx context.Context, req *WbsC
 	}
 	return resp, err
 }
-

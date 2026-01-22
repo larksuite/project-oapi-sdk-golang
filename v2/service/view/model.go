@@ -249,6 +249,10 @@ type ResourceItem struct {
 
     IsMultiTarget  *bool `json:"is_multi_target,omitempty"`
 
+    DataSource  *Search_apiresourcelibrary_DataSource `json:"data_source,omitempty"`
+
+    RelationType  *string `json:"relation_type,omitempty"`
+
 }
 
 type RoleOwner struct {
@@ -304,6 +308,18 @@ type SearchParam struct {
     PreOperator  *string `json:"pre_operator,omitempty"`
 
     ValueSearchGroups  *SearchGroup `json:"value_search_groups,omitempty"`
+
+}
+
+type Search_apiresourcelibrary_DataSource struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ProjectName  *string `json:"project_name,omitempty"`
+
+    WorkItemTypeName  *string `json:"work_item_type_name,omitempty"`
 
 }
 

@@ -1602,7 +1602,7 @@ func (a *WorkItemService) ResetWBSViewDraft(ctx context.Context, req *ResetWBSVi
 }
 
 /*
- * @name: 0APIResourceCreateInstance
+ * @name: OAPIResourceCreateInstance
  * @desc: 通过资源创建实例
  */
 func (a *WorkItemService) ResourceCreateInstance(ctx context.Context, req *ResourceCreateInstanceReq, options ...core.RequestOptionFunc) (*ResourceCreateInstanceResp, error) {

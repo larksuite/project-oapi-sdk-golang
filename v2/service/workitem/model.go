@@ -355,6 +355,8 @@ type FieldItem struct {
 
     EntityScope  *string `json:"entity_scope,omitempty"`
 
+    TargetDataSources  []Search_apicommon_DataSource `json:"target_data_sources,omitempty"`
+
 }
 
 type FieldItemSource struct {
@@ -1517,6 +1519,14 @@ type Search_SearchParam struct {
 
 }
 
+type Search_apicommon_DataSource struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+}
+
 type Search_apicommon_Pagination struct {
 
     PageNum  *int64 `json:"page_num,omitempty"`
@@ -1526,6 +1536,18 @@ type Search_apicommon_Pagination struct {
     SearchAfter  *string `json:"search_after,omitempty"`
 
     Pit  *string `json:"pit,omitempty"`
+
+}
+
+type Search_concisesearch_FieldValuePair struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldValue  interface{} `json:"field_value,omitempty"`
+
+    FieldTypeKey  *string `json:"field_type_key,omitempty"`
+
+    FieldAlias  *string `json:"field_alias,omitempty"`
 
 }
 
@@ -1552,6 +1574,48 @@ type Search_concisesearch_Sort struct {
     Order  *string `json:"order,omitempty"`
 
     Params  map[string]string `json:"params,omitempty"`
+
+}
+
+type Search_concisesearch_WorkItemInfo struct {
+
+    ID  *int64 `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    TemplateType  *string `json:"template_type,omitempty"`
+
+    Pattern  *string `json:"pattern,omitempty"`
+
+    SubStage  *string `json:"sub_stage,omitempty"`
+
+    CurrentNodes  []NodeBasicInfo `json:"current_nodes,omitempty"`
+
+    CreatedBy  *string `json:"created_by,omitempty"`
+
+    UpdatedBy  *string `json:"updated_by,omitempty"`
+
+    CreatedAt  *int64 `json:"created_at,omitempty"`
+
+    UpdatedAt  *int64 `json:"updated_at,omitempty"`
+
+    Fields  []Search_concisesearch_FieldValuePair `json:"fields,omitempty"`
+
+    WorkItemStatus  *WorkItemStatus `json:"work_item_status,omitempty"`
+
+    DeletedBy  *string `json:"deleted_by,omitempty"`
+
+    DeletedAt  *int64 `json:"deleted_at,omitempty"`
+
+    SimpleName  *string `json:"simple_name,omitempty"`
+
+    TemplateID  *int64 `json:"template_id,omitempty"`
+
+    StateTimes  []StateTime `json:"state_times,omitempty"`
 
 }
 

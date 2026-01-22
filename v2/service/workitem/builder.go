@@ -885,6 +885,7 @@ type CreateWorkItemReqBody struct {
     FieldValuePairs  []WorkItem_work_item_FieldValuePair `json:"field_value_pairs,omitempty"`
     TemplateID  *int64 `json:"template_id,omitempty"`
     Name  *string `json:"name,omitempty"`
+    RequiredMode  *int32 `json:"required_mode,omitempty"`
 }
 type CreateWorkItemResp struct {
 	*core.APIResp `json:"-"`
@@ -932,6 +933,12 @@ func (builder *CreateWorkItemReqBuilder) TemplateID(templateID int64) *CreateWor
 
 func (builder *CreateWorkItemReqBuilder) Name(name string) *CreateWorkItemReqBuilder {
 	builder.apiReq.Body.(*CreateWorkItemReqBody).Name = &name
+	return builder
+}
+
+
+func (builder *CreateWorkItemReqBuilder) RequiredMode(requiredMode int32) *CreateWorkItemReqBuilder {
+	builder.apiReq.Body.(*CreateWorkItemReqBody).RequiredMode = &requiredMode
 	return builder
 }
 
@@ -4225,6 +4232,8 @@ type UniversalSearchResp struct {
 	Pagination       *Search_concisesearch_Pagination         `json:"pagination"`
 	
 	ExtraInfo       map[string]string         `json:"extra_info"`
+	
+	Datas       []Search_concisesearch_WorkItemInfo         `json:"datas"`
 	
 }
 

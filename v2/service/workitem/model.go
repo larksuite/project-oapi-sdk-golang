@@ -159,7 +159,7 @@ type DataSource struct {
 
     ProjectKey  *string `json:"project_key,omitempty"`
 
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    WorkItemTypeKeys  *string `json:"work_item_type_keys,omitempty"`
 
 }
 
@@ -355,7 +355,7 @@ type FieldItem struct {
 
     EntityScope  *string `json:"entity_scope,omitempty"`
 
-    TargetDataSources  []DataSource `json:"target_data_sources,omitempty"`
+    TargetDataSources  []Search_apicommon_DataSource `json:"target_data_sources,omitempty"`
 
 }
 
@@ -1519,6 +1519,14 @@ type Search_SearchParam struct {
 
 }
 
+type Search_apicommon_DataSource struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+}
+
 type Search_apicommon_Pagination struct {
 
     PageNum  *int64 `json:"page_num,omitempty"`
@@ -1528,14 +1536,6 @@ type Search_apicommon_Pagination struct {
     SearchAfter  *string `json:"search_after,omitempty"`
 
     Pit  *string `json:"pit,omitempty"`
-
-}
-
-type Search_concisesearch_DataSource struct {
-
-    ProjectKey  *string `json:"project_key,omitempty"`
-
-    WorkItemTypeKeys  *string `json:"work_item_type_keys,omitempty"`
 
 }
 

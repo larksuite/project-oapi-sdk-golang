@@ -885,6 +885,7 @@ type CreateWorkItemReqBody struct {
     FieldValuePairs  []WorkItem_work_item_FieldValuePair `json:"field_value_pairs,omitempty"`
     TemplateID  *int64 `json:"template_id,omitempty"`
     Name  *string `json:"name,omitempty"`
+    RequiredMode  *int32 `json:"required_mode,omitempty"`
 }
 type CreateWorkItemResp struct {
 	*core.APIResp `json:"-"`
@@ -932,6 +933,12 @@ func (builder *CreateWorkItemReqBuilder) TemplateID(templateID int64) *CreateWor
 
 func (builder *CreateWorkItemReqBuilder) Name(name string) *CreateWorkItemReqBuilder {
 	builder.apiReq.Body.(*CreateWorkItemReqBody).Name = &name
+	return builder
+}
+
+
+func (builder *CreateWorkItemReqBuilder) RequiredMode(requiredMode int32) *CreateWorkItemReqBuilder {
+	builder.apiReq.Body.(*CreateWorkItemReqBody).RequiredMode = &requiredMode
 	return builder
 }
 
@@ -2657,7 +2664,7 @@ type IntegrateSearchReqBody struct {
     ViewID  *string `json:"view_id,omitempty"`
     FieldSelected  []string `json:"field_selected,omitempty"`
     Features  map[string]string `json:"features,omitempty"`
-    DataSources  []DataSource `json:"data_sources,omitempty"`
+    DataSources  []Search_concisesearch_DataSource `json:"data_sources,omitempty"`
 }
 type IntegrateSearchResp struct {
 	*core.APIResp `json:"-"`
@@ -2711,7 +2718,7 @@ func (builder *IntegrateSearchReqBuilder) Features(features map[string]string) *
 	return builder
 }
 
-func (builder *IntegrateSearchReqBuilder) DataSources(dataSources []DataSource) *IntegrateSearchReqBuilder {
+func (builder *IntegrateSearchReqBuilder) DataSources(dataSources []Search_concisesearch_DataSource) *IntegrateSearchReqBuilder {
 	builder.apiReq.Body.(*IntegrateSearchReqBody).DataSources = dataSources
 	return builder
 }
@@ -3732,7 +3739,7 @@ type ResourceSearchByParamsReq struct {
 	apiReq *core.APIReq
 }
 type ResourceSearchByParamsReqBody struct {
-    DataSources  []DataSource `json:"data_sources,omitempty"`
+    DataSources  []Search_concisesearch_DataSource `json:"data_sources,omitempty"`
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
     Pagination  *Search_concisesearch_Pagination `json:"pagination,omitempty"`
     FieldSelected  []string `json:"field_selected,omitempty"`
@@ -3761,7 +3768,7 @@ func NewResourceSearchByParamsReqBuilder() *ResourceSearchByParamsReqBuilder {
 	return builder
 }
 
-func (builder *ResourceSearchByParamsReqBuilder) DataSources(dataSources []DataSource) *ResourceSearchByParamsReqBuilder {
+func (builder *ResourceSearchByParamsReqBuilder) DataSources(dataSources []Search_concisesearch_DataSource) *ResourceSearchByParamsReqBuilder {
 	builder.apiReq.Body.(*ResourceSearchByParamsReqBody).DataSources = dataSources
 	return builder
 }
@@ -4209,7 +4216,7 @@ type UniversalSearchReq struct {
 	apiReq *core.APIReq
 }
 type UniversalSearchReqBody struct {
-    DataSources  []DataSource `json:"data_sources,omitempty"`
+    DataSources  []Search_concisesearch_DataSource `json:"data_sources,omitempty"`
     UserKey  *string `json:"user_key,omitempty"`
     SearchGroup  *SearchGroup `json:"search_group,omitempty"`
     Sort  *Search_concisesearch_Sort `json:"sort,omitempty"`
@@ -4225,6 +4232,8 @@ type UniversalSearchResp struct {
 	Pagination       *Search_concisesearch_Pagination         `json:"pagination"`
 	
 	ExtraInfo       map[string]string         `json:"extra_info"`
+	
+	Datas       []Search_concisesearch_WorkItemInfo         `json:"datas"`
 	
 }
 
@@ -4242,7 +4251,7 @@ func NewUniversalSearchReqBuilder() *UniversalSearchReqBuilder {
 	return builder
 }
 
-func (builder *UniversalSearchReqBuilder) DataSources(dataSources []DataSource) *UniversalSearchReqBuilder {
+func (builder *UniversalSearchReqBuilder) DataSources(dataSources []Search_concisesearch_DataSource) *UniversalSearchReqBuilder {
 	builder.apiReq.Body.(*UniversalSearchReqBody).DataSources = dataSources
 	return builder
 }

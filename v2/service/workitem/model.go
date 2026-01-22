@@ -159,7 +159,7 @@ type DataSource struct {
 
     ProjectKey  *string `json:"project_key,omitempty"`
 
-    WorkItemTypeKeys  *string `json:"work_item_type_keys,omitempty"`
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
 }
 
@@ -354,6 +354,8 @@ type FieldItem struct {
     ParentFieldType  *string `json:"parent_field_type,omitempty"`
 
     EntityScope  *string `json:"entity_scope,omitempty"`
+
+    TargetDataSources  []DataSource `json:"target_data_sources,omitempty"`
 
 }
 
@@ -1529,6 +1531,26 @@ type Search_apicommon_Pagination struct {
 
 }
 
+type Search_concisesearch_DataSource struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKeys  *string `json:"work_item_type_keys,omitempty"`
+
+}
+
+type Search_concisesearch_FieldValuePair struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldValue  interface{} `json:"field_value,omitempty"`
+
+    FieldTypeKey  *string `json:"field_type_key,omitempty"`
+
+    FieldAlias  *string `json:"field_alias,omitempty"`
+
+}
+
 type Search_concisesearch_Pagination struct {
 
     PageSize  *int64 `json:"page_size,omitempty"`
@@ -1552,6 +1574,48 @@ type Search_concisesearch_Sort struct {
     Order  *string `json:"order,omitempty"`
 
     Params  map[string]string `json:"params,omitempty"`
+
+}
+
+type Search_concisesearch_WorkItemInfo struct {
+
+    ID  *int64 `json:"id,omitempty"`
+
+    Name  *string `json:"name,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    TemplateType  *string `json:"template_type,omitempty"`
+
+    Pattern  *string `json:"pattern,omitempty"`
+
+    SubStage  *string `json:"sub_stage,omitempty"`
+
+    CurrentNodes  []NodeBasicInfo `json:"current_nodes,omitempty"`
+
+    CreatedBy  *string `json:"created_by,omitempty"`
+
+    UpdatedBy  *string `json:"updated_by,omitempty"`
+
+    CreatedAt  *int64 `json:"created_at,omitempty"`
+
+    UpdatedAt  *int64 `json:"updated_at,omitempty"`
+
+    Fields  []Search_concisesearch_FieldValuePair `json:"fields,omitempty"`
+
+    WorkItemStatus  *WorkItemStatus `json:"work_item_status,omitempty"`
+
+    DeletedBy  *string `json:"deleted_by,omitempty"`
+
+    DeletedAt  *int64 `json:"deleted_at,omitempty"`
+
+    SimpleName  *string `json:"simple_name,omitempty"`
+
+    TemplateID  *int64 `json:"template_id,omitempty"`
+
+    StateTimes  []StateTime `json:"state_times,omitempty"`
 
 }
 

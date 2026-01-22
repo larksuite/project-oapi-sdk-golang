@@ -21,6 +21,18 @@ type Connection struct {
 
 }
 
+type DataSource struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    ProjectName  *string `json:"project_name,omitempty"`
+
+    WorkItemTypeName  *string `json:"work_item_type_name,omitempty"`
+
+}
+
 type Error struct {
 
     ErrorCode  *int32 `json:"error_code,omitempty"`
@@ -248,6 +260,10 @@ type ResourceItem struct {
     GroupLabel  *string `json:"group_label,omitempty"`
 
     IsMultiTarget  *bool `json:"is_multi_target,omitempty"`
+
+    DataSource  *DataSource `json:"data_source,omitempty"`
+
+    RelationType  *string `json:"relation_type,omitempty"`
 
 }
 

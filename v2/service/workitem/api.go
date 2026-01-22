@@ -7,6 +7,7 @@ import (
 	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
+
 const APIPath_AbortWorkItem = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/abort"
 
 const APIPath_ActualTimeUpdate = "/open_api/work_item/actual_time/update"
@@ -177,6 +178,7 @@ const APIPath_WBSUpdateDraftFrozenRows = "/open_api/:project_key/wbs_view_draft/
 
 const APIPath_WbsCollaborationPublish = "/open_api/:project_key/wbs_view_draft/publish"
 
+
 func NewService(config *core.Config) *WorkItemService {
 	a := &WorkItemService{config: config}
 	return a
@@ -185,6 +187,7 @@ func NewService(config *core.Config) *WorkItemService {
 type WorkItemService struct {
 	config *core.Config
 }
+
 
 /*
  * @name: OAPIAbortWorkItem
@@ -259,7 +262,7 @@ func (a *WorkItemService) BatchQueryConclusionOption(ctx context.Context, req *B
 }
 
 /*
- *
+ * 
  */
 func (a *WorkItemService) BatchQueryDeliverable(ctx context.Context, req *BatchQueryDeliverableReq, options ...core.RequestOptionFunc) (*BatchQueryDeliverableResp, error) {
 	// 发起请求
@@ -1602,8 +1605,8 @@ func (a *WorkItemService) ResetWBSViewDraft(ctx context.Context, req *ResetWBSVi
 }
 
 /*
- * @name: OAPIResourceCreateInstance
- * @desc: 通过资源创建实例
+ * @name: OAPIUpdateCompoundFieldValue
+ * @desc: 增量更新复合字段
  */
 func (a *WorkItemService) ResourceCreateInstance(ctx context.Context, req *ResourceCreateInstanceReq, options ...core.RequestOptionFunc) (*ResourceCreateInstanceResp, error) {
 	// 发起请求
@@ -2224,3 +2227,4 @@ func (a *WorkItemService) WbsCollaborationPublish(ctx context.Context, req *WbsC
 	}
 	return resp, err
 }
+

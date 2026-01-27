@@ -268,6 +268,8 @@ type ListProjectTeamResp struct {
 	core.CodeError
 	Data       []Team         `json:"data"`
 	
+	HasMore       *bool         `json:"has_more"`
+	
 }
 
 type ListProjectTeamReqBuilder struct {
@@ -285,6 +287,18 @@ func NewListProjectTeamReqBuilder() *ListProjectTeamReqBuilder {
 
 func (builder *ListProjectTeamReqBuilder) ProjectKey(projectKey string) *ListProjectTeamReqBuilder {
 	builder.apiReq.PathParams.Set("project_key", fmt.Sprint(projectKey))
+	return builder
+}
+
+
+func (builder *ListProjectTeamReqBuilder) Offset(offset int64) *ListProjectTeamReqBuilder {
+	builder.apiReq.QueryParams.Set("offset", fmt.Sprint(offset))
+	return builder
+}
+
+
+func (builder *ListProjectTeamReqBuilder) Limit(limit int64) *ListProjectTeamReqBuilder {
+	builder.apiReq.QueryParams.Set("limit", fmt.Sprint(limit))
 	return builder
 }
 

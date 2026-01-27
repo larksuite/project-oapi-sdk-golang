@@ -81,6 +81,8 @@ type Team struct {
 
     Administrators  []string `json:"administrators,omitempty"`
 
+    Members  []string `json:"members,omitempty"`
+
 }
 
 type UserBasicInfo struct {

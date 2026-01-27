@@ -1,109 +1,126 @@
 package user
 
+
 type AccountInfo struct {
-	UserMeegoKey *string `json:"user_meego_key,omitempty"`
 
-	TenantMeegoKey *string `json:"tenant_meego_key,omitempty"`
+    UserMeegoKey  *string `json:"user_meego_key,omitempty"`
 
-	Name map[string]string `json:"name,omitempty"`
+    TenantMeegoKey  *string `json:"tenant_meego_key,omitempty"`
 
-	ExternalIDs map[string]string `json:"external_ids,omitempty"`
+    Name  map[string]string `json:"name,omitempty"`
 
-	LoginPlatformType *string `json:"login_platform_type,omitempty"`
+    ExternalIDs  map[string]string `json:"external_ids,omitempty"`
 
-	Status *string `json:"status,omitempty"`
+    LoginPlatformType  *string `json:"login_platform_type,omitempty"`
 
-	AvatarUrl *string `json:"avatar_url,omitempty"`
+    Status  *string `json:"status,omitempty"`
+
+    AvatarUrl  *string `json:"avatar_url,omitempty"`
+
 }
 
 type DepartmentBasicInfo struct {
-	DepartmentMeegoKey *string `json:"department_meego_key,omitempty"`
 
-	Name map[string]string `json:"name,omitempty"`
+    DepartmentMeegoKey  *string `json:"department_meego_key,omitempty"`
 
-	ExternalIDs map[string]string `json:"external_ids,omitempty"`
+    Name  map[string]string `json:"name,omitempty"`
 
-	MemberCount *int64 `json:"memberCount,omitempty"`
+    ExternalIDs  map[string]string `json:"external_ids,omitempty"`
 
-	OrgLevel *string `json:"org_level,omitempty"`
+    MemberCount  *int64 `json:"memberCount,omitempty"`
+
+    OrgLevel  *string `json:"org_level,omitempty"`
+
 }
 
 type DepartmentInfo struct {
-	DepartmentMeegoKey *string `json:"department_meego_key,omitempty"`
 
-	Name map[string]string `json:"name,omitempty"`
+    DepartmentMeegoKey  *string `json:"department_meego_key,omitempty"`
 
-	ExternalIDs map[string]string `json:"external_ids,omitempty"`
+    Name  map[string]string `json:"name,omitempty"`
 
-	OrgLevel *string `json:"org_level,omitempty"`
+    ExternalIDs  map[string]string `json:"external_ids,omitempty"`
 
-	Parent *DepartmentBasicInfo `json:"parent,omitempty"`
+    OrgLevel  *string `json:"org_level,omitempty"`
 
-	AllChildren []DepartmentBasicInfo `json:"all_children,omitempty"`
+    Parent  *DepartmentBasicInfo `json:"parent,omitempty"`
 
-	DirectEmployees []AccountInfo `json:"direct_employees,omitempty"`
+    AllChildren  []DepartmentBasicInfo `json:"all_children,omitempty"`
 
-	AllEmployees []AccountInfo `json:"all_employees,omitempty"`
+    DirectEmployees  []AccountInfo `json:"direct_employees,omitempty"`
+
+    AllEmployees  []AccountInfo `json:"all_employees,omitempty"`
+
 }
 
 type OutUserInfo struct {
-	OutUserID *string `json:"out_user_id,omitempty"`
 
-	LoginPlatformType *string `json:"login_platform_type,omitempty"`
+    OutUserID  *string `json:"out_user_id,omitempty"`
+
+    LoginPlatformType  *string `json:"login_platform_type,omitempty"`
+
 }
 
 type Pagination struct {
-	PageNum *int64 `json:"page_num,omitempty"`
 
-	PageSize *int64 `json:"page_size,omitempty"`
+    PageNum  *int64 `json:"page_num,omitempty"`
 
-	HasMore *bool `json:"has_more,omitempty"`
+    PageSize  *int64 `json:"page_size,omitempty"`
+
+    HasMore  *bool `json:"has_more,omitempty"`
+
 }
 
 type Team struct {
-	TeamID *int64 `json:"team_id,omitempty"`
 
-	TeamName *string `json:"team_name,omitempty"`
+    TeamID  *int64 `json:"team_id,omitempty"`
 
-	UserKeys []string `json:"user_keys,omitempty"`
+    TeamName  *string `json:"team_name,omitempty"`
 
-	Administrators []string `json:"administrators,omitempty"`
+    UserKeys  []string `json:"user_keys,omitempty"`
 
-	Members []string `json:"members,omitempty"`
+    Administrators  []string `json:"administrators,omitempty"`
+
+    Members  []string `json:"members,omitempty"`
+
 }
 
 type UserBasicInfo struct {
-	UserID *int64 `json:"user_id,omitempty"`
 
-	UserKey *string `json:"user_key,omitempty"`
+    UserID  *int64 `json:"user_id,omitempty"`
 
-	Username *string `json:"username,omitempty"`
+    UserKey  *string `json:"user_key,omitempty"`
 
-	Email *string `json:"email,omitempty"`
+    Username  *string `json:"username,omitempty"`
 
-	AvatarUrl *string `json:"avatar_url,omitempty"`
+    Email  *string `json:"email,omitempty"`
 
-	NameCn *string `json:"name_cn,omitempty"`
+    AvatarUrl  *string `json:"avatar_url,omitempty"`
 
-	NameEn *string `json:"name_en,omitempty"`
+    NameCn  *string `json:"name_cn,omitempty"`
 
-	OutID *string `json:"out_id,omitempty"`
+    NameEn  *string `json:"name_en,omitempty"`
 
-	Status *string `json:"status,omitempty"`
+    OutID  *string `json:"out_id,omitempty"`
 
-	OutUser *OutUserInfo `json:"out_user,omitempty"`
+    Status  *string `json:"status,omitempty"`
 
-	Departments []DepartmentBasicInfo `json:"departments,omitempty"`
+    OutUser  *OutUserInfo `json:"out_user,omitempty"`
 
-	Name map[string]string `json:"name,omitempty"`
+    Departments  []DepartmentBasicInfo `json:"departments,omitempty"`
+
+    Name  map[string]string `json:"name,omitempty"`
+
 }
 
 type UserGroupDetail struct {
-	ID *string `json:"id,omitempty"`
 
-	Name *string `json:"name,omitempty"`
+    ID  *string `json:"id,omitempty"`
 
-	UserCount *int64 `json:"user_count,omitempty"`
+    Name  *string `json:"name,omitempty"`
 
-	UserMembers []string `json:"user_members,omitempty"`
+    UserCount  *int64 `json:"user_count,omitempty"`
+
+    UserMembers  []string `json:"user_members,omitempty"`
+
 }

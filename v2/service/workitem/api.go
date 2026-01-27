@@ -7,6 +7,7 @@ import (
 	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
+
 const APIPath_AbortWorkItem = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/abort"
 
 const APIPath_ActualTimeUpdate = "/open_api/work_item/actual_time/update"
@@ -22,6 +23,8 @@ const APIPath_BatchUpdateBasicWorkItem = "/open_api/work_item/batch_update"
 const APIPath_CompleteCreateAuditDraft = "/open_api/wbs_view_draft/complete-create-audit"
 
 const APIPath_CompositiveSearch = "/open_api/compositive_search"
+
+const APIPath_ConfirmAINode = "/open_api/ai_node/confirm"
 
 const APIPath_CreateField = "/open_api/:project_key/field/:work_item_type_key/create"
 
@@ -56,6 +59,8 @@ const APIPath_DeleteWorkItemRelation = "/open_api/work_item/relation/delete"
 const APIPath_DeleteWorkItemSubTask = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/task/:task_id"
 
 const APIPath_DeleteWorkingHourRecord = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/work_hour_record"
+
+const APIPath_EditAINode = "/open_api/ai_node/edit"
 
 const APIPath_ElementTemplateCreate = "/open_api/work_item/element_template/create"
 
@@ -94,6 +99,8 @@ const APIPath_ListTemplateConf = "/open_api/:project_key/template_list/:work_ite
 const APIPath_PatchWBSViewDraft = "/open_api/work_item/wbs_view_draft/patch"
 
 const APIPath_PublishWBSViewDraft = "/open_api/work_item/wbs_view_draft/publish"
+
+const APIPath_QueryAINode = "/open_api/ai_node/query"
 
 const APIPath_QueryAWorkItemTypes = "/open_api/:project_key/work_item/all-types"
 
@@ -177,6 +184,7 @@ const APIPath_WBSUpdateDraftFrozenRows = "/open_api/:project_key/wbs_view_draft/
 
 const APIPath_WbsCollaborationPublish = "/open_api/:project_key/wbs_view_draft/publish"
 
+
 func NewService(config *core.Config) *WorkItemService {
 	a := &WorkItemService{config: config}
 	return a
@@ -185,6 +193,7 @@ func NewService(config *core.Config) *WorkItemService {
 type WorkItemService struct {
 	config *core.Config
 }
+
 
 /*
  * @name: OAPIAbortWorkItem
@@ -259,7 +268,7 @@ func (a *WorkItemService) BatchQueryConclusionOption(ctx context.Context, req *B
 }
 
 /*
- *
+ * 
  */
 func (a *WorkItemService) BatchQueryDeliverable(ctx context.Context, req *BatchQueryDeliverableReq, options ...core.RequestOptionFunc) (*BatchQueryDeliverableResp, error) {
 	// 发起请求
@@ -372,6 +381,30 @@ func (a *WorkItemService) CompositiveSearch(ctx context.Context, req *Compositiv
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[CompositiveSearch] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIConfirmAINode
+ * @desc: 完成AI节点
+ */
+func (a *WorkItemService) ConfirmAINode(ctx context.Context, req *ConfirmAINodeReq, options ...core.RequestOptionFunc) (*ConfirmAINodeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_ConfirmAINode
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[ConfirmAINode] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ConfirmAINodeResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[ConfirmAINode] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -780,6 +813,30 @@ func (a *WorkItemService) DeleteWorkingHourRecord(ctx context.Context, req *Dele
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[DeleteWorkingHourRecord] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIEditAINode
+ * @desc: 更新AI节点属性
+ */
+func (a *WorkItemService) EditAINode(ctx context.Context, req *EditAINodeReq, options ...core.RequestOptionFunc) (*EditAINodeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_EditAINode
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[EditAINode] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &EditAINodeResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[EditAINode] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -1236,6 +1293,30 @@ func (a *WorkItemService) PublishWBSViewDraft(ctx context.Context, req *PublishW
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[PublishWBSViewDraft] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIQueryAINode
+ * @desc: 获取AI节点信息
+ */
+func (a *WorkItemService) QueryAINode(ctx context.Context, req *QueryAINodeReq, options ...core.RequestOptionFunc) (*QueryAINodeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_QueryAINode
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryAINode] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryAINodeResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[QueryAINode] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err
@@ -2224,3 +2305,4 @@ func (a *WorkItemService) WbsCollaborationPublish(ctx context.Context, req *WbsC
 	}
 	return resp, err
 }
+

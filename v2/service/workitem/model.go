@@ -1,11 +1,65 @@
 package workitem
 
 
+type AIInfo struct {
+
+    Status  *string `json:"status,omitempty"`
+
+    AppIdentity  *AppIdentity `json:"app_identity,omitempty"`
+
+    Props  []AIProp `json:"props,omitempty"`
+
+}
+
+type AINodeSubTask struct {
+
+    TaskID  *int64 `json:"task_id,omitempty"`
+
+    IsFinished  *bool `json:"is_finished,omitempty"`
+
+}
+
+type AINodeSubWorkItem struct {
+
+    RelationID  *string `json:"relation_id,omitempty"`
+
+    WorkItemType  *string `json:"work_item_type,omitempty"`
+
+    WorkItemIDs  []string `json:"workitem_ids,omitempty"`
+
+}
+
+type AIProp struct {
+
+    PropKey  *string `json:"prop_key,omitempty"`
+
+    PropType  []string `json:"prop_type,omitempty"`
+
+    PropValue  *AIPropValue `json:"prop_value,omitempty"`
+
+}
+
+type AIPropValue struct {
+
+    Field  []CommonField `json:"field,omitempty"`
+
+    NodeField  []CommonField `json:"node_field,omitempty"`
+
+}
+
 type ActualTimeInfo struct {
 
     ActualStartTime  *int64 `json:"actual_start_time,omitempty"`
 
     ActualFinishTime  *int64 `json:"actual_finish_time,omitempty"`
+
+}
+
+type AppIdentity struct {
+
+    AppKey  *string `json:"app_key,omitempty"`
+
+    PointKey  *string `json:"point_key,omitempty"`
 
 }
 
@@ -64,6 +118,16 @@ type ChildOrder struct {
     UUID  *string `json:"uuid,omitempty"`
 
     OrderIndex  *int64 `json:"order_index,omitempty"`
+
+}
+
+type CommonField struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldType  *string `json:"field_type,omitempty"`
+
+    Value  *string `json:"value,omitempty"`
 
 }
 
@@ -232,6 +296,22 @@ type DraftViewSubWorkItemConfRelation struct {
     RelationName  *string `json:"relation_name,omitempty"`
 
     RelationConfUUID  *string `json:"relation_conf_uuid,omitempty"`
+
+}
+
+type EditConformField struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    Value  *string `json:"value,omitempty"`
+
+}
+
+type EditNodeField struct {
+
+    NodeFieldKey  *string `json:"node_field_key,omitempty"`
+
+    Value  *string `json:"value,omitempty"`
 
 }
 

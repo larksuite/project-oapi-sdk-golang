@@ -152,7 +152,6 @@ Error(context.Context, ...interface{})
 
 - AccessTokenTypePlugin（插件身份凭证）
 - AccessTokenTypeVirtualPlugin（虚拟plugin_token）
-- AccessTokenTypeUserPlugin（用户身份凭证）
 
 </td>
 </tr>
@@ -257,7 +256,7 @@ import (
 
 func main() {
 	// 创建 client
-	client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
+	client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypePlugin))
 	header := make(http.Header)
 	header.Add("k1", "v1")
 	// 发起请求
@@ -303,14 +302,13 @@ sdkcore "github.com/larksuite/project-oapi-sdk-golang/core"
 
 func main() {
     // 创建 client
-    client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypeUserPlugin))
+    client := sdk.NewClientV2("PluginID", "PluginSecret", sdk.WithAccessTokenType(sdkcore.AccessTokenTypePlugin))
     header := make(http.Header)
     header.Add("k1", "v1")
     // 发起请求
     resp, err := client.Project.ListProjectWorkItemType(context.Background(), project.NewListProjectWorkItemTypeReqBuilder().
     ProjectKey("project_key").
     Build(),
-    sdkcore.WithAccessToken("user_plugin_token"), //设置用户身份凭证
     sdkcore.WithHeaders(header), //设置head
 )
 

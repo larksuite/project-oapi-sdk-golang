@@ -45,6 +45,8 @@ type AIPropValue struct {
 
     NodeField  []CommonField `json:"node_field,omitempty"`
 
+    CustomProperty  *CustomProperty `json:"custom_property,omitempty"`
+
 }
 
 type ActualTimeInfo struct {
@@ -128,6 +130,8 @@ type CommonField struct {
     FieldType  *string `json:"field_type,omitempty"`
 
     Value  *string `json:"value,omitempty"`
+
+    FieldName  *string `json:"field_name,omitempty"`
 
 }
 
@@ -216,6 +220,14 @@ type CreateWorkingHourRecord struct {
     WorkTime  *string `json:"work_time,omitempty"`
 
     WorkDescription  *string `json:"work_description,omitempty"`
+
+}
+
+type CustomProperty struct {
+
+    Value  *string `json:"value,omitempty"`
+
+    Type  *string `json:"type,omitempty"`
 
 }
 
@@ -334,6 +346,14 @@ type Expand struct {
     NeedUserDetail  *bool `json:"need_user_detail,omitempty"`
 
     NeedSubTaskParent  *bool `json:"need_sub_task_parent,omitempty"`
+
+}
+
+type FailedTasks struct {
+
+    UUID  *string `json:"uuid,omitempty"`
+
+    Reason  *string `json:"reason,omitempty"`
 
 }
 
@@ -1036,6 +1056,8 @@ type OperationValue struct {
     DismantleMode  *int64 `json:"dismantle_mode,omitempty"`
 
     UnionDeliveries  []UnionDelivery `json:"union_deliveries,omitempty"`
+
+    IsScheduleAggItem  *bool `json:"is_schedule_agg_item,omitempty"`
 
 }
 
@@ -1854,6 +1876,8 @@ type SubInstanceCreate struct {
     LinkedResources  []LinkedResourceInfo `json:"linked_resources,omitempty"`
 
     Pre  *string `json:"pre,omitempty"`
+
+    Mode  *string `json:"mode,omitempty"`
 
 }
 

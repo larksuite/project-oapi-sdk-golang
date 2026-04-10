@@ -253,6 +253,10 @@ type ResourceItem struct {
 
     RelationType  *string `json:"relation_type,omitempty"`
 
+    RoleID  *string `json:"role_id,omitempty"`
+
+    RoleKey  *string `json:"role_key,omitempty"`
+
 }
 
 type RoleOwner struct {

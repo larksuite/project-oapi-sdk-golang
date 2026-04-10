@@ -1,26 +1,22 @@
 package project
 
 import (
-    "fmt"
-   "github.com/larksuite/project-oapi-sdk-golang/core"
-    
+	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
-
 
 type BatchQueryProjectInfoReq struct {
 	apiReq *core.APIReq
 }
 type BatchQueryProjectInfoReqBody struct {
-    ProjectKeys  []string `json:"project_keys,omitempty"`
-    UserKey  *string `json:"user_key,omitempty"`
-    SimpleNames  []string `json:"simple_names,omitempty"`
-    TenantGroupID  *int64 `json:"tenant_group_id,omitempty"`
+	ProjectKeys   []string `json:"project_keys,omitempty"`
+	UserKey       *string  `json:"user_key,omitempty"`
+	SimpleNames   []string `json:"simple_names,omitempty"`
+	TenantGroupID *int64   `json:"tenant_group_id,omitempty"`
 }
 type BatchQueryProjectInfoResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       map[string]Project         `json:"data"`
-	
+	Data map[string]Project `json:"data"`
 }
 
 type BatchQueryProjectInfoReqBuilder struct {
@@ -47,7 +43,6 @@ func (builder *BatchQueryProjectInfoReqBuilder) UserKey(userKey string) *BatchQu
 	return builder
 }
 
-
 func (builder *BatchQueryProjectInfoReqBuilder) SimpleNames(simpleNames []string) *BatchQueryProjectInfoReqBuilder {
 	builder.apiReq.Body.(*BatchQueryProjectInfoReqBody).SimpleNames = simpleNames
 	return builder
@@ -68,16 +63,15 @@ type QueryProjectsReq struct {
 	apiReq *core.APIReq
 }
 type QueryProjectsReqBody struct {
-    UserKey  *string `json:"user_key,omitempty"`
-    TenantGroupID  *int64 `json:"tenant_group_id,omitempty"`
-    AssetKey  *string `json:"asset_key,omitempty"`
-    Order  []string `json:"order,omitempty"`
+	UserKey       *string  `json:"user_key,omitempty"`
+	TenantGroupID *int64   `json:"tenant_group_id,omitempty"`
+	AssetKey      *string  `json:"asset_key,omitempty"`
+	Order         []string `json:"order,omitempty"`
 }
 type QueryProjectsResp struct {
 	*core.APIResp `json:"-"`
 	core.CodeError
-	Data       []string         `json:"data"`
-	
+	Data []string `json:"data"`
 }
 
 type QueryProjectsReqBuilder struct {
@@ -99,18 +93,15 @@ func (builder *QueryProjectsReqBuilder) UserKey(userKey string) *QueryProjectsRe
 	return builder
 }
 
-
 func (builder *QueryProjectsReqBuilder) TenantGroupID(tenantGroupID int64) *QueryProjectsReqBuilder {
 	builder.apiReq.Body.(*QueryProjectsReqBody).TenantGroupID = &tenantGroupID
 	return builder
 }
 
-
 func (builder *QueryProjectsReqBuilder) AssetKey(assetKey string) *QueryProjectsReqBuilder {
 	builder.apiReq.Body.(*QueryProjectsReqBody).AssetKey = &assetKey
 	return builder
 }
-
 
 func (builder *QueryProjectsReqBuilder) Order(order []string) *QueryProjectsReqBuilder {
 	builder.apiReq.Body.(*QueryProjectsReqBody).Order = order
@@ -121,4 +112,3 @@ func (builder *QueryProjectsReqBuilder) Build() *QueryProjectsReq {
 	req.apiReq = builder.apiReq
 	return req
 }
-

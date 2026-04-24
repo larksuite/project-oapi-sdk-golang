@@ -2964,6 +2964,133 @@ func (builder *ListTemplateConfReqBuilder) Build() *ListTemplateConfReq {
 	return req
 }
 
+type OAPIDeleteFileForAIFieldReq struct {
+	apiReq *core.APIReq
+}
+type OAPIDeleteFileForAIFieldReqBody struct {
+    AiTaskID  *string `json:"ai_task_id,omitempty"`
+    Uuids  []string `json:"uuids,omitempty"`
+}
+type OAPIDeleteFileForAIFieldResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type OAPIDeleteFileForAIFieldReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewOAPIDeleteFileForAIFieldReqBuilder() *OAPIDeleteFileForAIFieldReqBuilder {
+	builder := &OAPIDeleteFileForAIFieldReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &OAPIDeleteFileForAIFieldReqBody{},
+	}
+	return builder
+}
+
+func (builder *OAPIDeleteFileForAIFieldReqBuilder) AiTaskID(aiTaskID string) *OAPIDeleteFileForAIFieldReqBuilder {
+	builder.apiReq.Body.(*OAPIDeleteFileForAIFieldReqBody).AiTaskID = &aiTaskID
+	return builder
+}
+
+
+func (builder *OAPIDeleteFileForAIFieldReqBuilder) Uuids(uuids []string) *OAPIDeleteFileForAIFieldReqBuilder {
+	builder.apiReq.Body.(*OAPIDeleteFileForAIFieldReqBody).Uuids = uuids
+	return builder
+}
+func (builder *OAPIDeleteFileForAIFieldReqBuilder) Build() *OAPIDeleteFileForAIFieldReq {
+	req := &OAPIDeleteFileForAIFieldReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type OAPIUpdateWorkItemAIFieldReq struct {
+	apiReq *core.APIReq
+}
+type OAPIUpdateWorkItemAIFieldReqBody struct {
+    AiTaskID  *string `json:"ai_task_id,omitempty"`
+    FieldValue  interface{} `json:"field_value,omitempty"`
+}
+type OAPIUpdateWorkItemAIFieldResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type OAPIUpdateWorkItemAIFieldReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewOAPIUpdateWorkItemAIFieldReqBuilder() *OAPIUpdateWorkItemAIFieldReqBuilder {
+	builder := &OAPIUpdateWorkItemAIFieldReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &OAPIUpdateWorkItemAIFieldReqBody{},
+	}
+	return builder
+}
+
+func (builder *OAPIUpdateWorkItemAIFieldReqBuilder) AiTaskID(aiTaskID string) *OAPIUpdateWorkItemAIFieldReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateWorkItemAIFieldReqBody).AiTaskID = &aiTaskID
+	return builder
+}
+
+
+func (builder *OAPIUpdateWorkItemAIFieldReqBuilder) FieldValue(fieldValue interface{}) *OAPIUpdateWorkItemAIFieldReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateWorkItemAIFieldReqBody).FieldValue = fieldValue
+	return builder
+}
+func (builder *OAPIUpdateWorkItemAIFieldReqBuilder) Build() *OAPIUpdateWorkItemAIFieldReq {
+	req := &OAPIUpdateWorkItemAIFieldReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type OAPIUploadFileForAIFieldReq struct {
+	apiReq *core.APIReq
+}
+type OAPIUploadFileForAIFieldReqBody struct {
+    AiTaskID  *string `json:"ai_task_id,omitempty"`
+    FileUUID  *string `json:"file_uuid,omitempty"`
+}
+type OAPIUploadFileForAIFieldResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type OAPIUploadFileForAIFieldReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewOAPIUploadFileForAIFieldReqBuilder() *OAPIUploadFileForAIFieldReqBuilder {
+	builder := &OAPIUploadFileForAIFieldReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &OAPIUploadFileForAIFieldReqBody{},
+	}
+	return builder
+}
+
+func (builder *OAPIUploadFileForAIFieldReqBuilder) AiTaskID(aiTaskID string) *OAPIUploadFileForAIFieldReqBuilder {
+	builder.apiReq.Body.(*OAPIUploadFileForAIFieldReqBody).AiTaskID = &aiTaskID
+	return builder
+}
+
+
+func (builder *OAPIUploadFileForAIFieldReqBuilder) FileUUID(fileUUID string) *OAPIUploadFileForAIFieldReqBuilder {
+	builder.apiReq.Body.(*OAPIUploadFileForAIFieldReqBody).FileUUID = &fileUUID
+	return builder
+}
+
+func (builder *OAPIUploadFileForAIFieldReqBuilder) Build() *OAPIUploadFileForAIFieldReq {
+	req := &OAPIUploadFileForAIFieldReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type PatchWBSViewDraftReq struct {
 	apiReq *core.APIReq
 }
@@ -2971,6 +3098,7 @@ type PatchWBSViewDraftReqBody struct {
     ProjectKey  *string `json:"project_key,omitempty"`
     DraftID  *string `json:"draft_id,omitempty"`
     Operations  []Operation `json:"operations,omitempty"`
+    ScheduleTableUUID  *string `json:"schedule_table_uuid,omitempty"`
 }
 type PatchWBSViewDraftResp struct {
 	*core.APIResp `json:"-"`
@@ -3013,6 +3141,12 @@ func (builder *PatchWBSViewDraftReqBuilder) Operations(operations []Operation) *
 	builder.apiReq.Body.(*PatchWBSViewDraftReqBody).Operations = operations
 	return builder
 }
+
+func (builder *PatchWBSViewDraftReqBuilder) ScheduleTableUUID(scheduleTableUUID string) *PatchWBSViewDraftReqBuilder {
+	builder.apiReq.Body.(*PatchWBSViewDraftReqBody).ScheduleTableUUID = &scheduleTableUUID
+	return builder
+}
+
 func (builder *PatchWBSViewDraftReqBuilder) Build() *PatchWBSViewDraftReq {
 	req := &PatchWBSViewDraftReq{}
 	req.apiReq = builder.apiReq
@@ -4932,6 +5066,7 @@ type UpdateNodeStateReqBody struct {
     RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
     NodeFields  []NodeField `json:"node_fields,omitempty"`
     FinishedInfos  *FinishedInfo `json:"finished_infos,omitempty"`
+    NodeCustomFields  []WorkItem_work_item_FieldValuePair `json:"node_custom_fields,omitempty"`
 }
 type UpdateNodeStateResp struct {
 	*core.APIResp `json:"-"`
@@ -5020,6 +5155,11 @@ func (builder *UpdateNodeStateReqBuilder) NodeFields(nodeFields []NodeField) *Up
 
 func (builder *UpdateNodeStateReqBuilder) FinishedInfos(finishedInfos *FinishedInfo) *UpdateNodeStateReqBuilder {
 	builder.apiReq.Body.(*UpdateNodeStateReqBody).FinishedInfos = finishedInfos
+	return builder
+}
+
+func (builder *UpdateNodeStateReqBuilder) NodeCustomFields(nodeCustomFields []WorkItem_work_item_FieldValuePair) *UpdateNodeStateReqBuilder {
+	builder.apiReq.Body.(*UpdateNodeStateReqBody).NodeCustomFields = nodeCustomFields
 	return builder
 }
 func (builder *UpdateNodeStateReqBuilder) Build() *UpdateNodeStateReq {
@@ -5537,6 +5677,7 @@ type UpdateWorkflowNodeReqBody struct {
     Fields  []WorkItem_work_item_FieldValuePair `json:"fields,omitempty"`
     RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
     ScheduleConstraintRule  *ScheduleConstraintRule `json:"schedule_constraint_rule,omitempty"`
+    NodeCustomFields  []WorkItem_work_item_FieldValuePair `json:"node_custom_fields,omitempty"`
 }
 type UpdateWorkflowNodeResp struct {
 	*core.APIResp `json:"-"`
@@ -5608,6 +5749,11 @@ func (builder *UpdateWorkflowNodeReqBuilder) RoleAssignee(roleAssignee []WorkIte
 
 func (builder *UpdateWorkflowNodeReqBuilder) ScheduleConstraintRule(scheduleConstraintRule *ScheduleConstraintRule) *UpdateWorkflowNodeReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkflowNodeReqBody).ScheduleConstraintRule = scheduleConstraintRule
+	return builder
+}
+
+func (builder *UpdateWorkflowNodeReqBuilder) NodeCustomFields(nodeCustomFields []WorkItem_work_item_FieldValuePair) *UpdateWorkflowNodeReqBuilder {
+	builder.apiReq.Body.(*UpdateWorkflowNodeReqBody).NodeCustomFields = nodeCustomFields
 	return builder
 }
 func (builder *UpdateWorkflowNodeReqBuilder) Build() *UpdateWorkflowNodeReq {

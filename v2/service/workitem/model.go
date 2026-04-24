@@ -2573,6 +2573,8 @@ type WorkItem_work_item_FieldValuePair struct {
 
     UpdateMode  *int32 `json:"update_mode,omitempty"`
 
+    FieldName  *string `json:"field_name,omitempty"`
+
 }
 
 type WorkItem_work_item_MultiText struct {

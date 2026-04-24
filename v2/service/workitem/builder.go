@@ -3048,49 +3048,6 @@ func (builder *OAPIUpdateWorkItemAIFieldReqBuilder) Build() *OAPIUpdateWorkItemA
 	return req
 }
 
-type OAPIUploadFileForAIFieldReq struct {
-	apiReq *core.APIReq
-}
-type OAPIUploadFileForAIFieldReqBody struct {
-    AiTaskID  *string `json:"ai_task_id,omitempty"`
-    FileUUID  *string `json:"file_uuid,omitempty"`
-}
-type OAPIUploadFileForAIFieldResp struct {
-	*core.APIResp `json:"-"`
-	core.CodeError
-}
-
-type OAPIUploadFileForAIFieldReqBuilder struct {
-	apiReq *core.APIReq
-}
-
-func NewOAPIUploadFileForAIFieldReqBuilder() *OAPIUploadFileForAIFieldReqBuilder {
-	builder := &OAPIUploadFileForAIFieldReqBuilder{}
-	builder.apiReq = &core.APIReq{
-		PathParams:  core.PathParams{},
-		QueryParams: core.QueryParams{},
-		Body:        &OAPIUploadFileForAIFieldReqBody{},
-	}
-	return builder
-}
-
-func (builder *OAPIUploadFileForAIFieldReqBuilder) AiTaskID(aiTaskID string) *OAPIUploadFileForAIFieldReqBuilder {
-	builder.apiReq.Body.(*OAPIUploadFileForAIFieldReqBody).AiTaskID = &aiTaskID
-	return builder
-}
-
-
-func (builder *OAPIUploadFileForAIFieldReqBuilder) FileUUID(fileUUID string) *OAPIUploadFileForAIFieldReqBuilder {
-	builder.apiReq.Body.(*OAPIUploadFileForAIFieldReqBody).FileUUID = &fileUUID
-	return builder
-}
-
-func (builder *OAPIUploadFileForAIFieldReqBuilder) Build() *OAPIUploadFileForAIFieldReq {
-	req := &OAPIUploadFileForAIFieldReq{}
-	req.apiReq = builder.apiReq
-	return req
-}
-
 type PatchWBSViewDraftReq struct {
 	apiReq *core.APIReq
 }

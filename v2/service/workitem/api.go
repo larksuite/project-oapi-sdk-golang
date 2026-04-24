@@ -100,8 +100,6 @@ const APIPath_OAPIDeleteFileForAIField = "/open_api/ai_application_field/file/de
 
 const APIPath_OAPIUpdateWorkItemAIField = "/open_api/ai_application_field/update"
 
-const APIPath_OAPIUploadFileForAIField = "/open_api/ai_application_field/file/upload"
-
 const APIPath_PatchWBSViewDraft = "/open_api/work_item/wbs_view_draft/patch"
 
 const APIPath_PublishWBSViewDraft = "/open_api/work_item/wbs_view_draft/publish"
@@ -1299,30 +1297,6 @@ func (a *WorkItemService) OAPIUpdateWorkItemAIField(ctx context.Context, req *OA
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIUpdateWorkItemAIField] fail to unmarshal response body, error: %v", err.Error()))
-		return nil, err
-	}
-	return resp, err
-}
-
-/*
- * @name: OAPIUploadFileForAIField
- * @desc: 上传工作项AI值文件
- */
-func (a *WorkItemService) OAPIUploadFileForAIField(ctx context.Context, req *OAPIUploadFileForAIFieldReq, options ...core.RequestOptionFunc) (*OAPIUploadFileForAIFieldResp, error) {
-	// 发起请求
-	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_OAPIUploadFileForAIField
-	apiReq.HttpMethod = "POST"
-	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
-	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIUploadFileForAIField] fail to invoke api, error: %v", err.Error()))
-		return nil, err
-	}
-	// 反序列响应结果
-	resp := &OAPIUploadFileForAIFieldResp{APIResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp, a.config)
-	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIUploadFileForAIField] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

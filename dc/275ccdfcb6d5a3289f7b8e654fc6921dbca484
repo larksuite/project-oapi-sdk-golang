@@ -1,0 +1,31 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "dc275ccdfcb6d5a3289f7b8e654fc6921dbca484",
+  "prompts": {
+    "420a5bc4b6a65a79": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a27bb1a83b5f6e495d59c37",
+        "model": "openrouter-3o__dev"
+      },
+      "human_author": "kang.zou <kang.zou@bytedance.com>",
+      "messages": [],
+      "total_additions": 28,
+      "total_deletions": 0,
+      "accepted_lines": 58,
+      "overriden_lines": 1
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {
+    "420a5bc4b6a65a79": {
+      "tool": "trae",
+      "conversation_id": "6a27bb1a83b5f6e495d59c37",
+      "session_id": "6a27bb1a83b5f6e495d59c37",
+      "status": "remote_only",
+      "message": "Remote transcript resolution is not implemented yet for TRAE prompts."
+    }
+  }
+}

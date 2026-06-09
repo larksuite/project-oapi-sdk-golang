@@ -2143,6 +2143,72 @@ func (builder *FilterAcrossProjectReqBuilder) Build() *FilterAcrossProjectReq {
 	return req
 }
 
+type FindFieldsOptionsReq struct {
+	apiReq *core.APIReq
+}
+type FindFieldsOptionsReqBody struct {
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+    ProjectKey  *string `json:"project_key,omitempty"`
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    FieldKey  *string `json:"field_key,omitempty"`
+    FirstOptionKey  *string `json:"first_option_key,omitempty"`
+}
+type FindFieldsOptionsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       *SelectField         `json:"data"`
+	
+}
+
+type FindFieldsOptionsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewFindFieldsOptionsReqBuilder() *FindFieldsOptionsReqBuilder {
+	builder := &FindFieldsOptionsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &FindFieldsOptionsReqBody{},
+	}
+	return builder
+}
+
+func (builder *FindFieldsOptionsReqBuilder) WorkItemID(workItemID int64) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).WorkItemID = &workItemID
+	return builder
+}
+
+
+func (builder *FindFieldsOptionsReqBuilder) ProjectKey(projectKey string) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *FindFieldsOptionsReqBuilder) WorkItemTypeKey(workItemTypeKey string) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).WorkItemTypeKey = &workItemTypeKey
+	return builder
+}
+
+
+func (builder *FindFieldsOptionsReqBuilder) FieldKey(fieldKey string) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).FieldKey = &fieldKey
+	return builder
+}
+
+
+func (builder *FindFieldsOptionsReqBuilder) FirstOptionKey(firstOptionKey string) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).FirstOptionKey = &firstOptionKey
+	return builder
+}
+
+func (builder *FindFieldsOptionsReqBuilder) Build() *FindFieldsOptionsReq {
+	req := &FindFieldsOptionsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type FreezeWorkItemReq struct {
 	apiReq *core.APIReq
 }
@@ -3175,6 +3241,7 @@ type QueryAINodeRespData struct {
 	ConformFields       []CommonField         `json:"conform_fields,omitempty"`
 	SubTasks       []AINodeSubTask         `json:"sub_tasks,omitempty"`
 	SubWorkitems       []AINodeSubWorkItem         `json:"sub_workitems,omitempty"`
+	EntityID       *string         `json:"entity_id,omitempty"`
 }
 
 type QueryAINodeReqBuilder struct {

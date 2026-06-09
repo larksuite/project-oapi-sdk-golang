@@ -541,6 +541,8 @@ type InstanceDeliveryData struct {
 
     ResourceID  *int64 `json:"resource_id,omitempty"`
 
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
 }
 
 type Leader struct {
@@ -1718,6 +1720,28 @@ type Search_concisesearch_WorkItemInfo struct {
     TemplateID  *int64 `json:"template_id,omitempty"`
 
     StateTimes  []StateTime `json:"state_times,omitempty"`
+
+}
+
+type SelectField struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldType  *string `json:"field_type,omitempty"`
+
+    FieldAlias  *string `json:"field_alias,omitempty"`
+
+    FieldName  *string `json:"field_name,omitempty"`
+
+    Options  []Option `json:"options,omitempty"`
+
+    FreeAdd  *bool `json:"free_add,omitempty"`
+
+    LevelMode  *string `json:"level_mode,omitempty"`
+
+    LevelClass  *string `json:"level_class,omitempty"`
+
+    HasMore  *bool `json:"has_more,omitempty"`
 
 }
 

@@ -100,10 +100,6 @@ const APIPath_ListTemplateConf = "/open_api/:project_key/template_list/:work_ite
 
 const APIPath_OAPIDeleteFileForAIField = "/open_api/ai_application_field/file/delete"
 
-const APIPath_OAPIQueryWBSPublishLogDetail = "/open_api/work_item/wbs_view/publish_log_detail/query"
-
-const APIPath_OAPIQueryWBSPublishRecords = "/open_api/work_item/wbs_view/publish_records/query"
-
 const APIPath_OAPIUpdateWorkItemAIField = "/open_api/ai_application_field/update"
 
 const APIPath_PatchWBSViewDraft = "/open_api/work_item/wbs_view_draft/patch"
@@ -1303,54 +1299,6 @@ func (a *WorkItemService) OAPIDeleteFileForAIField(ctx context.Context, req *OAP
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIDeleteFileForAIField] fail to unmarshal response body, error: %v", err.Error()))
-		return nil, err
-	}
-	return resp, err
-}
-
-/*
- * @name: OAPIQueryWBSPublishLogDetail
- * @desc: 【万行计划表】查询计划表发布记录详情
- */
-func (a *WorkItemService) OAPIQueryWBSPublishLogDetail(ctx context.Context, req *OAPIQueryWBSPublishLogDetailReq, options ...core.RequestOptionFunc) (*OAPIQueryWBSPublishLogDetailResp, error) {
-	// 发起请求
-	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_OAPIQueryWBSPublishLogDetail
-	apiReq.HttpMethod = "POST"
-	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
-	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIQueryWBSPublishLogDetail] fail to invoke api, error: %v", err.Error()))
-		return nil, err
-	}
-	// 反序列响应结果
-	resp := &OAPIQueryWBSPublishLogDetailResp{APIResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp, a.config)
-	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIQueryWBSPublishLogDetail] fail to unmarshal response body, error: %v", err.Error()))
-		return nil, err
-	}
-	return resp, err
-}
-
-/*
- * @name: OAPIQueryWBSPublishRecords
- * @desc: 【万行计划表】查询计划表发布记录列表
- */
-func (a *WorkItemService) OAPIQueryWBSPublishRecords(ctx context.Context, req *OAPIQueryWBSPublishRecordsReq, options ...core.RequestOptionFunc) (*OAPIQueryWBSPublishRecordsResp, error) {
-	// 发起请求
-	apiReq := req.apiReq
-	apiReq.ApiPath = APIPath_OAPIQueryWBSPublishRecords
-	apiReq.HttpMethod = "POST"
-	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
-	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIQueryWBSPublishRecords] fail to invoke api, error: %v", err.Error()))
-		return nil, err
-	}
-	// 反序列响应结果
-	resp := &OAPIQueryWBSPublishRecordsResp{APIResp: apiResp}
-	err = apiResp.JSONUnmarshalBody(resp, a.config)
-	if err != nil {
-		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIQueryWBSPublishRecords] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

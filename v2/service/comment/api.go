@@ -7,6 +7,7 @@ import (
 	"github.com/larksuite/project-oapi-sdk-golang/core"
 )
 
+
 const APIPath_CreateComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/create"
 
 const APIPath_DeleteComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/:comment_id"
@@ -14,6 +15,7 @@ const APIPath_DeleteComment = "/open_api/:project_key/work_item/:work_item_type_
 const APIPath_ListComments = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comments"
 
 const APIPath_UpdateComment = "/open_api/:project_key/work_item/:work_item_type_key/:work_item_id/comment/:comment_id"
+
 
 func NewService(config *core.Config) *CommentService {
 	a := &CommentService{config: config}
@@ -24,12 +26,12 @@ type CommentService struct {
 	config *core.Config
 }
 
-/*
-  - comment openapi接口
 
+/*
+ * comment openapi接口
 @name:APICreateCommentForOpen
-  - @desc:OpenAPI，创建评论接口
-*/
+ * @desc:OpenAPI，创建评论接口
+ */
 func (a *CommentService) CreateComment(ctx context.Context, req *CreateCommentReq, options ...core.RequestOptionFunc) (*CreateCommentResp, error) {
 	// 发起请求
 	apiReq := req.apiReq
@@ -121,3 +123,4 @@ func (a *CommentService) UpdateComment(ctx context.Context, req *UpdateCommentRe
 	}
 	return resp, err
 }
+

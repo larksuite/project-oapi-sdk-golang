@@ -70,6 +70,8 @@ const APIPath_Filter = "/open_api/:project_key/work_item/filter"
 
 const APIPath_FilterAcrossProject = "/open_api/work_items/filter_across_project"
 
+const APIPath_FindFieldsOptions = "/open_api/work_item/field/options"
+
 const APIPath_FreezeWorkItem = "/open_api/work_item/freeze"
 
 const APIPath_GetResourceWorkItemsByIds = "/open_api/work_item/resource/query"
@@ -97,6 +99,10 @@ const APIPath_InviteBotJoinChat = "/open_api/:project_key/work_item/:work_item_i
 const APIPath_ListTemplateConf = "/open_api/:project_key/template_list/:work_item_type_key"
 
 const APIPath_OAPIDeleteFileForAIField = "/open_api/ai_application_field/file/delete"
+
+const APIPath_OAPIQueryWBSPublishLogDetail = "/open_api/work_item/wbs_view/publish_log_detail/query"
+
+const APIPath_OAPIQueryWBSPublishRecords = "/open_api/work_item/wbs_view/publish_records/query"
 
 const APIPath_OAPIUpdateWorkItemAIField = "/open_api/ai_application_field/update"
 
@@ -943,6 +949,30 @@ func (a *WorkItemService) FilterAcrossProject(ctx context.Context, req *FilterAc
 }
 
 /*
+ * @name: OAPIFindFieldsOptions
+ * @desc: 查询指定实例选项配置
+ */
+func (a *WorkItemService) FindFieldsOptions(ctx context.Context, req *FindFieldsOptionsReq, options ...core.RequestOptionFunc) (*FindFieldsOptionsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_FindFieldsOptions
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[FindFieldsOptions] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &FindFieldsOptionsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[FindFieldsOptions] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
  * @name: OAPIFreezeWorkItem
  * @desc: 冻结/终止工作项
  */
@@ -1273,6 +1303,54 @@ func (a *WorkItemService) OAPIDeleteFileForAIField(ctx context.Context, req *OAP
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIDeleteFileForAIField] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIQueryWBSPublishLogDetail
+ * @desc: 【万行计划表】查询计划表发布记录详情
+ */
+func (a *WorkItemService) OAPIQueryWBSPublishLogDetail(ctx context.Context, req *OAPIQueryWBSPublishLogDetailReq, options ...core.RequestOptionFunc) (*OAPIQueryWBSPublishLogDetailResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_OAPIQueryWBSPublishLogDetail
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIQueryWBSPublishLogDetail] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &OAPIQueryWBSPublishLogDetailResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIQueryWBSPublishLogDetail] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIQueryWBSPublishRecords
+ * @desc: 【万行计划表】查询计划表发布记录列表
+ */
+func (a *WorkItemService) OAPIQueryWBSPublishRecords(ctx context.Context, req *OAPIQueryWBSPublishRecordsReq, options ...core.RequestOptionFunc) (*OAPIQueryWBSPublishRecordsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_OAPIQueryWBSPublishRecords
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIQueryWBSPublishRecords] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &OAPIQueryWBSPublishRecordsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[OAPIQueryWBSPublishRecords] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

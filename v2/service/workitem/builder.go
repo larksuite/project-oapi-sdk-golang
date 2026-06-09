@@ -2143,6 +2143,72 @@ func (builder *FilterAcrossProjectReqBuilder) Build() *FilterAcrossProjectReq {
 	return req
 }
 
+type FindFieldsOptionsReq struct {
+	apiReq *core.APIReq
+}
+type FindFieldsOptionsReqBody struct {
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+    ProjectKey  *string `json:"project_key,omitempty"`
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    FieldKey  *string `json:"field_key,omitempty"`
+    FirstOptionKey  *string `json:"first_option_key,omitempty"`
+}
+type FindFieldsOptionsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data       *SelectField         `json:"data"`
+	
+}
+
+type FindFieldsOptionsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewFindFieldsOptionsReqBuilder() *FindFieldsOptionsReqBuilder {
+	builder := &FindFieldsOptionsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &FindFieldsOptionsReqBody{},
+	}
+	return builder
+}
+
+func (builder *FindFieldsOptionsReqBuilder) WorkItemID(workItemID int64) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).WorkItemID = &workItemID
+	return builder
+}
+
+
+func (builder *FindFieldsOptionsReqBuilder) ProjectKey(projectKey string) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *FindFieldsOptionsReqBuilder) WorkItemTypeKey(workItemTypeKey string) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).WorkItemTypeKey = &workItemTypeKey
+	return builder
+}
+
+
+func (builder *FindFieldsOptionsReqBuilder) FieldKey(fieldKey string) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).FieldKey = &fieldKey
+	return builder
+}
+
+
+func (builder *FindFieldsOptionsReqBuilder) FirstOptionKey(firstOptionKey string) *FindFieldsOptionsReqBuilder {
+	builder.apiReq.Body.(*FindFieldsOptionsReqBody).FirstOptionKey = &firstOptionKey
+	return builder
+}
+
+func (builder *FindFieldsOptionsReqBuilder) Build() *FindFieldsOptionsReq {
+	req := &FindFieldsOptionsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type FreezeWorkItemReq struct {
 	apiReq *core.APIReq
 }
@@ -3006,6 +3072,132 @@ func (builder *OAPIDeleteFileForAIFieldReqBuilder) Build() *OAPIDeleteFileForAIF
 	return req
 }
 
+type OAPIQueryWBSPublishLogDetailReq struct {
+	apiReq *core.APIReq
+}
+type OAPIQueryWBSPublishLogDetailReqBody struct {
+    ProjectKey  *string `json:"project_key,omitempty"`
+    PublishOrderID  *string `json:"publish_order_id,omitempty"`
+    PageNum  *int64 `json:"page_num,omitempty"`
+    PageSize  *int64 `json:"page_size,omitempty"`
+}
+type OAPIQueryWBSPublishLogDetailResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data      *OAPIQueryWBSPublishLogDetailRespData        `json:"data,omitempty"`
+}
+
+type OAPIQueryWBSPublishLogDetailRespData struct {
+	Total       *int64         `json:"total,omitempty"`
+	PublishLogDetails       []PublishLogTaskDetail         `json:"publish_log_details,omitempty"`
+}
+
+type OAPIQueryWBSPublishLogDetailReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewOAPIQueryWBSPublishLogDetailReqBuilder() *OAPIQueryWBSPublishLogDetailReqBuilder {
+	builder := &OAPIQueryWBSPublishLogDetailReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &OAPIQueryWBSPublishLogDetailReqBody{},
+	}
+	return builder
+}
+
+func (builder *OAPIQueryWBSPublishLogDetailReqBuilder) ProjectKey(projectKey string) *OAPIQueryWBSPublishLogDetailReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryWBSPublishLogDetailReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *OAPIQueryWBSPublishLogDetailReqBuilder) PublishOrderID(publishOrderID string) *OAPIQueryWBSPublishLogDetailReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryWBSPublishLogDetailReqBody).PublishOrderID = &publishOrderID
+	return builder
+}
+
+
+func (builder *OAPIQueryWBSPublishLogDetailReqBuilder) PageNum(pageNum int64) *OAPIQueryWBSPublishLogDetailReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryWBSPublishLogDetailReqBody).PageNum = &pageNum
+	return builder
+}
+
+
+func (builder *OAPIQueryWBSPublishLogDetailReqBuilder) PageSize(pageSize int64) *OAPIQueryWBSPublishLogDetailReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryWBSPublishLogDetailReqBody).PageSize = &pageSize
+	return builder
+}
+
+func (builder *OAPIQueryWBSPublishLogDetailReqBuilder) Build() *OAPIQueryWBSPublishLogDetailReq {
+	req := &OAPIQueryWBSPublishLogDetailReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type OAPIQueryWBSPublishRecordsReq struct {
+	apiReq *core.APIReq
+}
+type OAPIQueryWBSPublishRecordsReqBody struct {
+    ProjectKey  *string `json:"project_key,omitempty"`
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+    PageNum  *int64 `json:"page_num,omitempty"`
+    PageSize  *int64 `json:"page_size,omitempty"`
+}
+type OAPIQueryWBSPublishRecordsResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data      *OAPIQueryWBSPublishRecordsRespData        `json:"data,omitempty"`
+}
+
+type OAPIQueryWBSPublishRecordsRespData struct {
+	Total       *int64         `json:"total,omitempty"`
+	PublishRecordDetails       []PublishRecordDetail         `json:"publish_record_details,omitempty"`
+}
+
+type OAPIQueryWBSPublishRecordsReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewOAPIQueryWBSPublishRecordsReqBuilder() *OAPIQueryWBSPublishRecordsReqBuilder {
+	builder := &OAPIQueryWBSPublishRecordsReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &OAPIQueryWBSPublishRecordsReqBody{},
+	}
+	return builder
+}
+
+func (builder *OAPIQueryWBSPublishRecordsReqBuilder) ProjectKey(projectKey string) *OAPIQueryWBSPublishRecordsReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryWBSPublishRecordsReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *OAPIQueryWBSPublishRecordsReqBuilder) WorkItemID(workItemID int64) *OAPIQueryWBSPublishRecordsReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryWBSPublishRecordsReqBody).WorkItemID = &workItemID
+	return builder
+}
+
+
+func (builder *OAPIQueryWBSPublishRecordsReqBuilder) PageNum(pageNum int64) *OAPIQueryWBSPublishRecordsReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryWBSPublishRecordsReqBody).PageNum = &pageNum
+	return builder
+}
+
+
+func (builder *OAPIQueryWBSPublishRecordsReqBuilder) PageSize(pageSize int64) *OAPIQueryWBSPublishRecordsReqBuilder {
+	builder.apiReq.Body.(*OAPIQueryWBSPublishRecordsReqBody).PageSize = &pageSize
+	return builder
+}
+
+func (builder *OAPIQueryWBSPublishRecordsReqBuilder) Build() *OAPIQueryWBSPublishRecordsReq {
+	req := &OAPIQueryWBSPublishRecordsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type OAPIUpdateWorkItemAIFieldReq struct {
 	apiReq *core.APIReq
 }
@@ -3175,6 +3367,7 @@ type QueryAINodeRespData struct {
 	ConformFields       []CommonField         `json:"conform_fields,omitempty"`
 	SubTasks       []AINodeSubTask         `json:"sub_tasks,omitempty"`
 	SubWorkitems       []AINodeSubWorkItem         `json:"sub_workitems,omitempty"`
+	EntityID       *string         `json:"entity_id,omitempty"`
 }
 
 type QueryAINodeReqBuilder struct {

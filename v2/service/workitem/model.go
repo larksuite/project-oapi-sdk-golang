@@ -57,6 +57,20 @@ type ActualTimeInfo struct {
 
 }
 
+type ActualWorkEffort struct {
+
+    ActualWorkEffortValue  *ScheduleDuration `json:"actual_work_effort_value,omitempty"`
+
+}
+
+type ActualWorkEffortValue struct {
+
+    Before  *ActualWorkEffort `json:"before,omitempty"`
+
+    After  *ActualWorkEffort `json:"after,omitempty"`
+
+}
+
 type AppIdentity struct {
 
     AppKey  *string `json:"app_key,omitempty"`
@@ -102,6 +116,62 @@ type Business struct {
     Children  []Business `json:"children,omitempty"`
 
     TemplateType  *string `json:"template_type,omitempty"`
+
+}
+
+type ChangeDetail struct {
+
+    ChangeType  *string `json:"change_type,omitempty"`
+
+    UpdateColumn  *string `json:"update_column,omitempty"`
+
+    Operator  *string `json:"operator,omitempty"`
+
+    ChangeValue  *ChangeValue `json:"change_value,omitempty"`
+
+    OperateTime  *int64 `json:"operate_time,omitempty"`
+
+}
+
+type ChangeSummary struct {
+
+    ChangeCountMap  map[string]int64 `json:"change_count_map,omitempty"`
+
+}
+
+type ChangeValue struct {
+
+    CreateValue  *CreateValue `json:"create_value,omitempty"`
+
+    DeleteValue  *DeleteValue `json:"delete_value,omitempty"`
+
+    RemoveValue  *RemoveValue `json:"remove_value,omitempty"`
+
+    OwnersValue  *OwnersValue `json:"owners_value,omitempty"`
+
+    DeliveryValue  *DeliveryValue `json:"delivery_value,omitempty"`
+
+    PlannedScheduleValue  *PlannedScheduleValue `json:"planned_schedule_value,omitempty"`
+
+    ScheduleDependenciesValue  *ScheduleDependenciesValue `json:"schedule_dependencies_value,omitempty"`
+
+    ScheduleAggValue  *ScheduleAggValue `json:"schedule_agg_value,omitempty"`
+
+    EstimatedEffortValue  *EstimatedEffortValue `json:"estimated_effort_value,omitempty"`
+
+    ActualWorkEffortValue  *ActualWorkEffortValue `json:"actual_work_effort_value,omitempty"`
+
+    PlanedDurationValue  *PlanedDurationValue `json:"planed_duration_value,omitempty"`
+
+    StartFinishDependenciesValue  *StartFinishDependenciesValue `json:"start_finish_dependencies_value,omitempty"`
+
+    OrderIndexValue  *OrderIndexValue `json:"order_index_value,omitempty"`
+
+    DismantleModelValue  *DismantleModelValue `json:"dismantle_model_value,omitempty"`
+
+    ReferenceItemsValue  *ReferenceItemsValue `json:"reference_items_value,omitempty"`
+
+    NameValue  *NameValue `json:"name_value,omitempty"`
 
 }
 
@@ -205,6 +275,12 @@ type Connection struct {
 
 }
 
+type CreateValue struct {
+
+    Name  *string `json:"name,omitempty"`
+
+}
+
 type CreateWorkItemRelationData struct {
 
     RelationID  *string `json:"relation_id,omitempty"`
@@ -239,11 +315,23 @@ type DataSource struct {
 
 }
 
+type DayOffset struct {
+
+    Value  *int64 `json:"value,omitempty"`
+
+}
+
 type DefaultValue struct {
 
     DefaultAppear  *int32 `json:"default_appear,omitempty"`
 
     Value  interface{} `json:"value,omitempty"`
+
+}
+
+type DeleteValue struct {
+
+    Name  *string `json:"name,omitempty"`
 
 }
 
@@ -267,6 +355,14 @@ type DeliveryRelatedInfoItem struct {
 
 }
 
+type DeliveryValue struct {
+
+    Before  []WorkItem_wbs_view_v2_UnionDelivery `json:"before,omitempty"`
+
+    After  []WorkItem_wbs_view_v2_UnionDelivery `json:"after,omitempty"`
+
+}
+
 type Department struct {
 
     ID  *string `json:"id,omitempty"`
@@ -286,6 +382,20 @@ type DependencyInfo struct {
     Name  *string `json:"name,omitempty"`
 
     Type  *string `json:"type,omitempty"`
+
+}
+
+type DismantleModel struct {
+
+    Type  *string `json:"type,omitempty"`
+
+}
+
+type DismantleModelValue struct {
+
+    Before  *DismantleModel `json:"before,omitempty"`
+
+    After  *DismantleModel `json:"after,omitempty"`
 
 }
 
@@ -332,6 +442,28 @@ type EditablePersonnelScope struct {
     EditablePersonnelRangeType  *string `json:"editable_personnel_range_type,omitempty"`
 
     EditableRoles  []string `json:"editable_roles,omitempty"`
+
+}
+
+type ErrorDetail struct {
+
+    Code  *int32 `json:"code,omitempty"`
+
+    Msg  *string `json:"msg,omitempty"`
+
+}
+
+type EstimatedEffort struct {
+
+    EstimatedEffortValue  *ScheduleDuration `json:"estimated_effort_value,omitempty"`
+
+}
+
+type EstimatedEffortValue struct {
+
+    Before  *EstimatedEffort `json:"before,omitempty"`
+
+    After  *EstimatedEffort `json:"after,omitempty"`
 
 }
 
@@ -541,6 +673,8 @@ type InstanceDeliveryData struct {
 
     ResourceID  *int64 `json:"resource_id,omitempty"`
 
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
 }
 
 type Leader struct {
@@ -638,6 +772,20 @@ type MultiTextDetail struct {
     NotifyUserType  *string `json:"notify_user_type,omitempty"`
 
     DocHTML  *string `json:"doc_html,omitempty"`
+
+}
+
+type Name struct {
+
+    Name  *string `json:"name,omitempty"`
+
+}
+
+type NameValue struct {
+
+    Before  *Name `json:"before,omitempty"`
+
+    After  *Name `json:"after,omitempty"`
 
 }
 
@@ -1095,6 +1243,10 @@ type OptionConf struct {
 
 }
 
+type OrderIndexValue struct {
+
+}
+
 type OrderInfo struct {
 
     ValueType  *string `json:"value_type,omitempty"`
@@ -1143,6 +1295,14 @@ type OwnerConf struct {
 
 }
 
+type OwnersValue struct {
+
+    Before  *WorkItem_wbs_view_v2_Owner `json:"before,omitempty"`
+
+    After  *WorkItem_wbs_view_v2_Owner `json:"after,omitempty"`
+
+}
+
 type Pagination struct {
 
     PageNum  *int64 `json:"page_num,omitempty"`
@@ -1163,6 +1323,36 @@ type ParentWorkItem struct {
 
 }
 
+type PlanedDurationValue struct {
+
+    Before  *PlannedDuration `json:"before,omitempty"`
+
+    After  *PlannedDuration `json:"after,omitempty"`
+
+}
+
+type PlannedDuration struct {
+
+    PlannedDurationValue  *ScheduleDuration `json:"planned_duration_value,omitempty"`
+
+}
+
+type PlannedSchedule struct {
+
+    EstimateStartTime  *int64 `json:"estimate_start_time,omitempty"`
+
+    EstimateFinishTime  *int64 `json:"estimate_finish_time,omitempty"`
+
+}
+
+type PlannedScheduleValue struct {
+
+    Before  *PlannedSchedule `json:"before,omitempty"`
+
+    After  *PlannedSchedule `json:"after,omitempty"`
+
+}
+
 type ProjectRelationRule struct {
 
     RemoteProjectKey  *string `json:"remote_project_key,omitempty"`
@@ -1170,6 +1360,52 @@ type ProjectRelationRule struct {
     RemoteProjectName  *string `json:"remote_project_name,omitempty"`
 
     Rules  []RelationRule `json:"rules,omitempty"`
+
+}
+
+type PublishLogTaskDetail struct {
+
+    PublishOrderID  *string `json:"publish_order_id,omitempty"`
+
+    Meta  *PublishLogTaskMeta `json:"meta,omitempty"`
+
+    NoPermission  *bool `json:"no_permission,omitempty"`
+
+    ChangeDetails  []ChangeDetail `json:"change_details,omitempty"`
+
+}
+
+type PublishLogTaskMeta struct {
+
+    UUID  *string `json:"uuid,omitempty"`
+
+    Type  *string `json:"type,omitempty"`
+
+    ParentUUID  *string `json:"parent_uuid,omitempty"`
+
+    BelongWorkItemInfo  *WorkItem_wbs_view_v2_WorkItemInfo `json:"belong_work_item_info,omitempty"`
+
+}
+
+type PublishRecordDetail struct {
+
+    PublishOrderID  *string `json:"publish_order_id,omitempty"`
+
+    RootWorkItemID  *int64 `json:"root_work_item_id,omitempty"`
+
+    CurrentWorkItemID  *int64 `json:"current_work_item_id,omitempty"`
+
+    PublishStartTime  *int64 `json:"publish_start_time,omitempty"`
+
+    Publisher  *string `json:"publisher,omitempty"`
+
+    Status  *string `json:"status,omitempty"`
+
+    ErrorDetails  []ErrorDetail `json:"error_details,omitempty"`
+
+    PublishLogStatus  *string `json:"publish_log_status,omitempty"`
+
+    ChangeSummary  *ChangeSummary `json:"change_summary,omitempty"`
 
 }
 
@@ -1222,6 +1458,28 @@ type QueryStoryRelationData struct {
     WorkItemProjectMap  map[int64]string `json:"work_item_project_map,omitempty"`
 
     Value  map[int64][]int64 `json:"value,omitempty"`
+
+}
+
+type ReferenceItem struct {
+
+    FromProjectKey  *string `json:"from_project_key,omitempty"`
+
+    FromType  *string `json:"from_type,omitempty"`
+
+    FromUUID  *string `json:"from_uuid,omitempty"`
+
+    FromUUIDBelongedWid  *int64 `json:"from_uuid_belonged_wid,omitempty"`
+
+    FromName  *string `json:"from_name,omitempty"`
+
+}
+
+type ReferenceItemsValue struct {
+
+    Before  []ReferenceItem `json:"before,omitempty"`
+
+    After  []ReferenceItem `json:"after,omitempty"`
 
 }
 
@@ -1324,6 +1582,12 @@ type RelationRule struct {
     RemoteWorkItemTypeName  *string `json:"remote_work_item_type_name,omitempty"`
 
     ChatGroupMerge  *int64 `json:"chat_group_merge,omitempty"`
+
+}
+
+type RemoveValue struct {
+
+    Name  *string `json:"name,omitempty"`
 
 }
 
@@ -1539,6 +1803,20 @@ type Schedule struct {
 
 }
 
+type ScheduleAgg struct {
+
+    IsScheduleAgg  *bool `json:"is_schedule_agg,omitempty"`
+
+}
+
+type ScheduleAggValue struct {
+
+    Before  *ScheduleAgg `json:"before,omitempty"`
+
+    After  *ScheduleAgg `json:"after,omitempty"`
+
+}
+
 type ScheduleConstraintRule struct {
 
     SubTask  *bool `json:"sub_task,omitempty"`
@@ -1548,6 +1826,36 @@ type ScheduleConstraintRule struct {
     SubProcessNode  *bool `json:"sub_process_node,omitempty"`
 
     WbsSubInstanceType  map[string]bool `json:"wbs_sub_instance_type,omitempty"`
+
+}
+
+type ScheduleDependenciesValue struct {
+
+    Before  []ScheduleDependencyItem `json:"before,omitempty"`
+
+    After  []ScheduleDependencyItem `json:"after,omitempty"`
+
+}
+
+type ScheduleDependencyItem struct {
+
+    DayOffset  *DayOffset `json:"day_offset,omitempty"`
+
+    Type  *string `json:"type,omitempty"`
+
+    FromUUID  *string `json:"from_uuid,omitempty"`
+
+    ToUUID  *string `json:"to_uuid,omitempty"`
+
+    FromName  *string `json:"from_name,omitempty"`
+
+}
+
+type ScheduleDuration struct {
+
+    Value  *float64 `json:"value,omitempty"`
+
+    Unit  *int32 `json:"unit,omitempty"`
 
 }
 
@@ -1721,6 +2029,28 @@ type Search_concisesearch_WorkItemInfo struct {
 
 }
 
+type SelectField struct {
+
+    FieldKey  *string `json:"field_key,omitempty"`
+
+    FieldType  *string `json:"field_type,omitempty"`
+
+    FieldAlias  *string `json:"field_alias,omitempty"`
+
+    FieldName  *string `json:"field_name,omitempty"`
+
+    Options  []Option `json:"options,omitempty"`
+
+    FreeAdd  *bool `json:"free_add,omitempty"`
+
+    LevelMode  *string `json:"level_mode,omitempty"`
+
+    LevelClass  *string `json:"level_class,omitempty"`
+
+    HasMore  *bool `json:"has_more,omitempty"`
+
+}
+
 type SeqOrderInfo struct {
 
     Pre  []OrderInfo `json:"pre,omitempty"`
@@ -1776,6 +2106,28 @@ type Sort struct {
     FieldItem  *FieldItem `json:"field_item,omitempty"`
 
     Order  *string `json:"order,omitempty"`
+
+}
+
+type StartFinishDependenciesValue struct {
+
+    Before  []StartFinishDependency `json:"before,omitempty"`
+
+    After  []StartFinishDependency `json:"after,omitempty"`
+
+}
+
+type StartFinishDependency struct {
+
+    Type  *string `json:"type,omitempty"`
+
+    FromType  *string `json:"from_type,omitempty"`
+
+    FromUUID  *string `json:"from_uuid,omitempty"`
+
+    FromUUIDBelongedWid  *int64 `json:"from_uuid_belonged_wid,omitempty"`
+
+    FromName  *string `json:"from_name,omitempty"`
 
 }
 
@@ -2498,6 +2850,26 @@ type WorkItem_common_Pagination struct {
     PageSize  *int64 `json:"page_size,omitempty"`
 
     Total  *int64 `json:"total,omitempty"`
+
+}
+
+type WorkItem_wbs_view_v2_Owner struct {
+
+    Owners  []string `json:"owners,omitempty"`
+
+}
+
+type WorkItem_wbs_view_v2_UnionDelivery struct {
+
+    Name  *string `json:"name,omitempty"`
+
+}
+
+type WorkItem_wbs_view_v2_WorkItemInfo struct {
+
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
 
 }
 

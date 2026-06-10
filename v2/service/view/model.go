@@ -257,6 +257,8 @@ type ResourceItem struct {
 
     RoleKey  *string `json:"role_key,omitempty"`
 
+    FieldClass  *string `json:"field_class,omitempty"`
+
 }
 
 type RoleOwner struct {

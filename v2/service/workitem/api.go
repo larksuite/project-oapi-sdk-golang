@@ -70,6 +70,8 @@ const APIPath_Filter = "/open_api/:project_key/work_item/filter"
 
 const APIPath_FilterAcrossProject = "/open_api/work_items/filter_across_project"
 
+const APIPath_FindFieldsOptions = "/open_api/work_item/field/options"
+
 const APIPath_FreezeWorkItem = "/open_api/work_item/freeze"
 
 const APIPath_GetResourceWorkItemsByIds = "/open_api/work_item/resource/query"
@@ -937,6 +939,30 @@ func (a *WorkItemService) FilterAcrossProject(ctx context.Context, req *FilterAc
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[FilterAcrossProject] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIFindFieldsOptions
+ * @desc: 查询指定实例选项配置
+ */
+func (a *WorkItemService) FindFieldsOptions(ctx context.Context, req *FindFieldsOptionsReq, options ...core.RequestOptionFunc) (*FindFieldsOptionsResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_FindFieldsOptions
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[FindFieldsOptions] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &FindFieldsOptionsResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[FindFieldsOptions] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

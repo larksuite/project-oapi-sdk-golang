@@ -293,6 +293,8 @@ type BatchUpdateBasicWorkItemReqBody struct {
     FieldKey  *string `json:"field_key,omitempty"`
     BeforeFieldValue  interface{} `json:"before_field_value,omitempty"`
     AfterFieldValue  interface{} `json:"after_field_value,omitempty"`
+    BeforeFieldValueMarkdown  *WorkItem_work_item_RichTextMarkDown `json:"before_field_value_markdown,omitempty"`
+    AfterFieldValueMarkdown  *WorkItem_work_item_RichTextMarkDown `json:"after_field_value_markdown,omitempty"`
 }
 type BatchUpdateBasicWorkItemResp struct {
 	*core.APIResp `json:"-"`
@@ -354,6 +356,16 @@ func (builder *BatchUpdateBasicWorkItemReqBuilder) BeforeFieldValue(beforeFieldV
 
 func (builder *BatchUpdateBasicWorkItemReqBuilder) AfterFieldValue(afterFieldValue interface{}) *BatchUpdateBasicWorkItemReqBuilder {
 	builder.apiReq.Body.(*BatchUpdateBasicWorkItemReqBody).AfterFieldValue = afterFieldValue
+	return builder
+}
+
+func (builder *BatchUpdateBasicWorkItemReqBuilder) BeforeFieldValueMarkdown(beforeFieldValueMarkdown *WorkItem_work_item_RichTextMarkDown) *BatchUpdateBasicWorkItemReqBuilder {
+	builder.apiReq.Body.(*BatchUpdateBasicWorkItemReqBody).BeforeFieldValueMarkdown = beforeFieldValueMarkdown
+	return builder
+}
+
+func (builder *BatchUpdateBasicWorkItemReqBuilder) AfterFieldValueMarkdown(afterFieldValueMarkdown *WorkItem_work_item_RichTextMarkDown) *BatchUpdateBasicWorkItemReqBuilder {
+	builder.apiReq.Body.(*BatchUpdateBasicWorkItemReqBody).AfterFieldValueMarkdown = afterFieldValueMarkdown
 	return builder
 }
 func (builder *BatchUpdateBasicWorkItemReqBuilder) Build() *BatchUpdateBasicWorkItemReq {
@@ -1667,6 +1679,7 @@ type EditAINodeReqBody struct {
     Status  *string `json:"status,omitempty"`
     NodeFields  []EditNodeField `json:"node_fields,omitempty"`
     ConformFields  []EditConformField `json:"conform_fields,omitempty"`
+    BillingReport  *AINodeBillingReport `json:"billing_report,omitempty"`
 }
 type EditAINodeResp struct {
 	*core.APIResp `json:"-"`
@@ -1724,6 +1737,11 @@ func (builder *EditAINodeReqBuilder) NodeFields(nodeFields []EditNodeField) *Edi
 
 func (builder *EditAINodeReqBuilder) ConformFields(conformFields []EditConformField) *EditAINodeReqBuilder {
 	builder.apiReq.Body.(*EditAINodeReqBody).ConformFields = conformFields
+	return builder
+}
+
+func (builder *EditAINodeReqBuilder) BillingReport(billingReport *AINodeBillingReport) *EditAINodeReqBuilder {
+	builder.apiReq.Body.(*EditAINodeReqBody).BillingReport = billingReport
 	return builder
 }
 func (builder *EditAINodeReqBuilder) Build() *EditAINodeReq {
@@ -2871,6 +2889,7 @@ type IntegrateSearchReqBody struct {
     FieldSelected  []string `json:"field_selected,omitempty"`
     Features  map[string]string `json:"features,omitempty"`
     DataSources  []DataSource `json:"data_sources,omitempty"`
+    NeedRichTextMarkDown  *bool `json:"need_rich_text_mark_down,omitempty"`
 }
 type IntegrateSearchResp struct {
 	*core.APIResp `json:"-"`
@@ -2928,6 +2947,12 @@ func (builder *IntegrateSearchReqBuilder) DataSources(dataSources []DataSource) 
 	builder.apiReq.Body.(*IntegrateSearchReqBody).DataSources = dataSources
 	return builder
 }
+
+func (builder *IntegrateSearchReqBuilder) NeedRichTextMarkDown(needRichTextMarkDown bool) *IntegrateSearchReqBuilder {
+	builder.apiReq.Body.(*IntegrateSearchReqBody).NeedRichTextMarkDown = &needRichTextMarkDown
+	return builder
+}
+
 func (builder *IntegrateSearchReqBuilder) Build() *IntegrateSearchReq {
 	req := &IntegrateSearchReq{}
 	req.apiReq = builder.apiReq
@@ -3036,6 +3061,7 @@ type OAPIDeleteFileForAIFieldReq struct {
 type OAPIDeleteFileForAIFieldReqBody struct {
     AiTaskID  *string `json:"ai_task_id,omitempty"`
     Uuids  []string `json:"uuids,omitempty"`
+    BillingCount  *float64 `json:"billing_count,omitempty"`
 }
 type OAPIDeleteFileForAIFieldResp struct {
 	*core.APIResp `json:"-"`
@@ -3066,6 +3092,11 @@ func (builder *OAPIDeleteFileForAIFieldReqBuilder) Uuids(uuids []string) *OAPIDe
 	builder.apiReq.Body.(*OAPIDeleteFileForAIFieldReqBody).Uuids = uuids
 	return builder
 }
+
+func (builder *OAPIDeleteFileForAIFieldReqBuilder) BillingCount(billingCount *float64) *OAPIDeleteFileForAIFieldReqBuilder {
+	builder.apiReq.Body.(*OAPIDeleteFileForAIFieldReqBody).BillingCount = billingCount
+	return builder
+}
 func (builder *OAPIDeleteFileForAIFieldReqBuilder) Build() *OAPIDeleteFileForAIFieldReq {
 	req := &OAPIDeleteFileForAIFieldReq{}
 	req.apiReq = builder.apiReq
@@ -3078,6 +3109,7 @@ type OAPIUpdateWorkItemAIFieldReq struct {
 type OAPIUpdateWorkItemAIFieldReqBody struct {
     AiTaskID  *string `json:"ai_task_id,omitempty"`
     FieldValue  interface{} `json:"field_value,omitempty"`
+    BillingCount  *float64 `json:"billing_count,omitempty"`
 }
 type OAPIUpdateWorkItemAIFieldResp struct {
 	*core.APIResp `json:"-"`
@@ -3106,6 +3138,11 @@ func (builder *OAPIUpdateWorkItemAIFieldReqBuilder) AiTaskID(aiTaskID string) *O
 
 func (builder *OAPIUpdateWorkItemAIFieldReqBuilder) FieldValue(fieldValue interface{}) *OAPIUpdateWorkItemAIFieldReqBuilder {
 	builder.apiReq.Body.(*OAPIUpdateWorkItemAIFieldReqBody).FieldValue = fieldValue
+	return builder
+}
+
+func (builder *OAPIUpdateWorkItemAIFieldReqBuilder) BillingCount(billingCount *float64) *OAPIUpdateWorkItemAIFieldReqBuilder {
+	builder.apiReq.Body.(*OAPIUpdateWorkItemAIFieldReqBody).BillingCount = billingCount
 	return builder
 }
 func (builder *OAPIUpdateWorkItemAIFieldReqBuilder) Build() *OAPIUpdateWorkItemAIFieldReq {
@@ -3912,6 +3949,12 @@ func (builder *QueryWorkItemSubTaskReqBuilder) NodeID(nodeID string) *QueryWorkI
 	return builder
 }
 
+
+func (builder *QueryWorkItemSubTaskReqBuilder) NeedRichTextMarkDown(needRichTextMarkDown bool) *QueryWorkItemSubTaskReqBuilder {
+	builder.apiReq.QueryParams.Set("need_rich_text_mark_down", fmt.Sprint(needRichTextMarkDown))
+	return builder
+}
+
 func (builder *QueryWorkItemSubTaskReqBuilder) Build() *QueryWorkItemSubTaskReq {
 	req := &QueryWorkItemSubTaskReq{}
 	req.apiReq = builder.apiReq
@@ -4590,6 +4633,7 @@ type UniversalSearchReqBody struct {
     Features  map[string]string `json:"features,omitempty"`
     ProjectKey  *string `json:"project_key,omitempty"`
     WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+    NeedRichTextMarkDown  *bool `json:"need_rich_text_mark_down,omitempty"`
 }
 type UniversalSearchResp struct {
 	*core.APIResp `json:"-"`
@@ -4657,6 +4701,12 @@ func (builder *UniversalSearchReqBuilder) ProjectKey(projectKey string) *Univers
 
 func (builder *UniversalSearchReqBuilder) WorkItemTypeKey(workItemTypeKey string) *UniversalSearchReqBuilder {
 	builder.apiReq.Body.(*UniversalSearchReqBody).WorkItemTypeKey = &workItemTypeKey
+	return builder
+}
+
+
+func (builder *UniversalSearchReqBuilder) NeedRichTextMarkDown(needRichTextMarkDown bool) *UniversalSearchReqBuilder {
+	builder.apiReq.Body.(*UniversalSearchReqBody).NeedRichTextMarkDown = &needRichTextMarkDown
 	return builder
 }
 
@@ -5702,6 +5752,7 @@ type UpdateWorkflowNodeReqBody struct {
     RoleAssignee  []WorkItem_work_item_RoleOwner `json:"role_assignee,omitempty"`
     ScheduleConstraintRule  *ScheduleConstraintRule `json:"schedule_constraint_rule,omitempty"`
     NodeCustomFields  []WorkItem_work_item_FieldValuePair `json:"node_custom_fields,omitempty"`
+    AddSubWorkitems  *NodeSubWorkItems `json:"add_sub_workitems,omitempty"`
 }
 type UpdateWorkflowNodeResp struct {
 	*core.APIResp `json:"-"`
@@ -5778,6 +5829,11 @@ func (builder *UpdateWorkflowNodeReqBuilder) ScheduleConstraintRule(scheduleCons
 
 func (builder *UpdateWorkflowNodeReqBuilder) NodeCustomFields(nodeCustomFields []WorkItem_work_item_FieldValuePair) *UpdateWorkflowNodeReqBuilder {
 	builder.apiReq.Body.(*UpdateWorkflowNodeReqBody).NodeCustomFields = nodeCustomFields
+	return builder
+}
+
+func (builder *UpdateWorkflowNodeReqBuilder) AddSubWorkitems(addSubWorkitems *NodeSubWorkItems) *UpdateWorkflowNodeReqBuilder {
+	builder.apiReq.Body.(*UpdateWorkflowNodeReqBody).AddSubWorkitems = addSubWorkitems
 	return builder
 }
 func (builder *UpdateWorkflowNodeReqBuilder) Build() *UpdateWorkflowNodeReq {

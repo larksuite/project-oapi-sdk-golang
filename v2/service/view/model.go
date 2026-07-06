@@ -41,6 +41,8 @@ type Expand struct {
 
     NeedSubTaskParent  *bool `json:"need_sub_task_parent,omitempty"`
 
+    NeedRichTextMarkDown  *bool `json:"need_rich_text_mark_down,omitempty"`
+
 }
 
 type FieldDetail struct {
@@ -66,6 +68,8 @@ type FieldValuePair struct {
     FieldAlias  *string `json:"field_alias,omitempty"`
 
     HelpDescription  *string `json:"help_description,omitempty"`
+
+    FieldValueMarkDown  *RichTextMarkDown `json:"field_value_mark_down,omitempty"`
 
 }
 
@@ -120,6 +124,8 @@ type MultiTextDetail struct {
     NotifyUserType  *string `json:"notify_user_type,omitempty"`
 
     DocHTML  *string `json:"doc_html,omitempty"`
+
+    RichTextMarkDown  *RichTextMarkDown `json:"rich_text_mark_down,omitempty"`
 
 }
 
@@ -258,6 +264,14 @@ type ResourceItem struct {
     RoleKey  *string `json:"role_key,omitempty"`
 
     FieldClass  *string `json:"field_class,omitempty"`
+
+}
+
+type RichTextMarkDown struct {
+
+    Markdown  *string `json:"markdown,omitempty"`
+
+    MentionUserKeys  []UserKeys `json:"mention_user_keys,omitempty"`
 
 }
 
@@ -458,6 +472,14 @@ type UserDetail struct {
     NameCn  *string `json:"name_cn,omitempty"`
 
     NameEn  *string `json:"name_en,omitempty"`
+
+}
+
+type UserKeys struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    UserKey  *string `json:"user_key,omitempty"`
 
 }
 

@@ -9,6 +9,16 @@ type AIInfo struct {
 
     Props  []AIProp `json:"props,omitempty"`
 
+    CurrentFlowID  *string `json:"current_flow_id,omitempty"`
+
+}
+
+type AINodeBillingReport struct {
+
+    FlowID  *string `json:"flow_id,omitempty"`
+
+    BillingCount  *float64 `json:"billing_count,omitempty"`
+
 }
 
 type AINodeSubTask struct {
@@ -347,6 +357,8 @@ type Expand struct {
 
     NeedSubTaskParent  *bool `json:"need_sub_task_parent,omitempty"`
 
+    NeedRichTextMarkDown  *bool `json:"need_rich_text_mark_down,omitempty"`
+
 }
 
 type FailedTasks struct {
@@ -480,6 +492,8 @@ type FieldValuePair struct {
     FieldAlias  *string `json:"field_alias,omitempty"`
 
     HelpDescription  *string `json:"help_description,omitempty"`
+
+    FieldValueMarkDown  *RichTextMarkDown `json:"field_value_mark_down,omitempty"`
 
 }
 
@@ -641,6 +655,8 @@ type MultiTextDetail struct {
 
     DocHTML  *string `json:"doc_html,omitempty"`
 
+    RichTextMarkDown  *RichTextMarkDown `json:"rich_text_mark_down,omitempty"`
+
 }
 
 type NodeBasicInfo struct {
@@ -696,6 +712,8 @@ type NodeField struct {
     FieldAlias  *string `json:"field_alias,omitempty"`
 
     FieldTypeKey  *string `json:"field_type_key,omitempty"`
+
+    FieldValueMarkdown  *WorkItem_work_item_RichTextMarkDown `json:"field_value_markdown,omitempty"`
 
 }
 
@@ -754,6 +772,24 @@ type NodeRequiredItemRes struct {
     Deliverables  []RequiredDeliverable `json:"deliverables,omitempty"`
 
     NodeFields  []RequiredField `json:"node_fields,omitempty"`
+
+}
+
+type NodeSubWorkItemDetail struct {
+
+    SubWorkItemGroupName  *string `json:"sub_workitem_group_name,omitempty"`
+
+    RelationID  *string `json:"relation_id,omitempty"`
+
+    Workitems  []int64 `json:"workitems,omitempty"`
+
+}
+
+type NodeSubWorkItems struct {
+
+    RelationID  *string `json:"relation_id,omitempty"`
+
+    Workitems  []int64 `json:"workitems,omitempty"`
 
 }
 
@@ -1423,6 +1459,14 @@ type ResourceWorkItemInfo struct {
 
 }
 
+type RichTextMarkDown struct {
+
+    Markdown  *string `json:"markdown,omitempty"`
+
+    MentionUserKeys  []UserKeys `json:"mention_user_keys,omitempty"`
+
+}
+
 type RoleAssign struct {
 
     Role  *string `json:"role,omitempty"`
@@ -1653,6 +1697,8 @@ type Search_concisesearch_FieldValuePair struct {
 
     FieldAlias  *string `json:"field_alias,omitempty"`
 
+    FieldValueMarkdown  *Search_concisesearch_RichTextMarkDown `json:"field_value_markdown,omitempty"`
+
 }
 
 type Search_concisesearch_Pagination struct {
@@ -1667,6 +1713,14 @@ type Search_concisesearch_Pagination struct {
 
 }
 
+type Search_concisesearch_RichTextMarkDown struct {
+
+    Markdown  *string `json:"markdown,omitempty"`
+
+    MentionUserKeys  []Search_concisesearch_UserKeys `json:"mention_user_keys,omitempty"`
+
+}
+
 type Search_concisesearch_Sort struct {
 
     FieldKey  *string `json:"field_key,omitempty"`
@@ -1678,6 +1732,14 @@ type Search_concisesearch_Sort struct {
     Order  *string `json:"order,omitempty"`
 
     Params  map[string]string `json:"params,omitempty"`
+
+}
+
+type Search_concisesearch_UserKeys struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    UserKey  *string `json:"user_key,omitempty"`
 
 }
 
@@ -2143,6 +2205,14 @@ type UserDetail struct {
 
 }
 
+type UserKeys struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    UserKey  *string `json:"user_key,omitempty"`
+
+}
+
 type WBSInfo struct {
 
     TemplateKey  *string `json:"template_key,omitempty"`
@@ -2569,6 +2639,10 @@ type WorkItem_work_item_Expand struct {
 
     NeedParentWorkItem  *bool `json:"need_parent_workitem,omitempty"`
 
+    NeedSubWorkItemDetail  *bool `json:"need_sub_workitem_detail,omitempty"`
+
+    NeedRichTextMarkDown  *bool `json:"need_rich_text_mark_down,omitempty"`
+
 }
 
 type WorkItem_work_item_FieldDetail struct {
@@ -2599,6 +2673,8 @@ type WorkItem_work_item_FieldValuePair struct {
 
     FieldName  *string `json:"field_name,omitempty"`
 
+    FieldValueMarkdown  *WorkItem_work_item_RichTextMarkDown `json:"field_value_markdown,omitempty"`
+
 }
 
 type WorkItem_work_item_MultiText struct {
@@ -2606,6 +2682,8 @@ type WorkItem_work_item_MultiText struct {
     FieldKey  *string `json:"field_key,omitempty"`
 
     FieldValue  *WorkItem_work_item_MultiTextDetail `json:"field_value,omitempty"`
+
+    FieldValueMarkdown  *WorkItem_work_item_RichTextMarkDown `json:"field_value_markdown,omitempty"`
 
 }
 
@@ -2694,6 +2772,14 @@ type WorkItem_work_item_ResourceWorkItemInfo struct {
     UserDetails  []WorkItem_work_item_UserDetail `json:"user_details,omitempty"`
 
     ParentWorkItem  []ParentWorkItem `json:"parent_work_item,omitempty"`
+
+}
+
+type WorkItem_work_item_RichTextMarkDown struct {
+
+    Markdown  *string `json:"markdown,omitempty"`
+
+    MentionUserKeys  []WorkItem_work_item_UserKeys `json:"mention_user_keys,omitempty"`
 
 }
 
@@ -2829,6 +2915,14 @@ type WorkItem_work_item_UserDetail struct {
 
 }
 
+type WorkItem_work_item_UserKeys struct {
+
+    ID  *string `json:"id,omitempty"`
+
+    UserKey  *string `json:"user_key,omitempty"`
+
+}
+
 type WorkItem_work_item_WorkItemInfo struct {
 
     ID  *int64 `json:"id,omitempty"`
@@ -2944,6 +3038,8 @@ type WorkItem_work_item_WorkflowNode struct {
     FinishedInfos  *FinishedInfo `json:"finished_infos,omitempty"`
 
     Checker  []WorkItem_work_item_Checker `json:"checker,omitempty"`
+
+    NodeSubWorkItemDetail  []NodeSubWorkItemDetail `json:"node_sub_workitem_detail,omitempty"`
 
 }
 

@@ -156,6 +156,8 @@ const APIPath_SwitchBackToWbsViewDraft = "/open_api/:project_key/wbs_view_draft/
 
 const APIPath_UniversalSearch = "/open_api/view_search/universal_search"
 
+const APIPath_UpdateAiEntity = "/open_api/ai_entity/update"
+
 const APIPath_UpdateCompoundFieldValue = "/open_api/work_item/field_value/update_compound_field"
 
 const APIPath_UpdateField = "/open_api/:project_key/field/:work_item_type_key"
@@ -1971,6 +1973,30 @@ func (a *WorkItemService) UniversalSearch(ctx context.Context, req *UniversalSea
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UniversalSearch] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name: OAPIUpdateAiEntity
+ * @desc: 【AI草组】更新AI实体
+ */
+func (a *WorkItemService) UpdateAiEntity(ctx context.Context, req *UpdateAiEntityReq, options ...core.RequestOptionFunc) (*UpdateAiEntityResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_UpdateAiEntity
+	apiReq.HttpMethod = "PUT"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateAiEntity] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateAiEntityResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[UpdateAiEntity] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

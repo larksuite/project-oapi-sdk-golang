@@ -2181,6 +2181,14 @@ type UnionDelivery struct {
 
 }
 
+type UpdateAiEntityParam struct {
+
+    EntityID  *string `json:"entity_id,omitempty"`
+
+    Status  *string `json:"status,omitempty"`
+
+}
+
 type UpdateWorkingHourRecord struct {
 
     ID  *int64 `json:"id,omitempty"`

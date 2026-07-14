@@ -4716,6 +4716,55 @@ func (builder *UniversalSearchReqBuilder) Build() *UniversalSearchReq {
 	return req
 }
 
+type UpdateAiEntityReq struct {
+	apiReq *core.APIReq
+}
+type UpdateAiEntityReqBody struct {
+    UpdateAiEntityParam  []UpdateAiEntityParam `json:"update_ai_entity_param,omitempty"`
+    ProjectKey  *string `json:"project_key,omitempty"`
+    UserKey  *string `json:"user_key,omitempty"`
+}
+type UpdateAiEntityResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateAiEntityReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUpdateAiEntityReqBuilder() *UpdateAiEntityReqBuilder {
+	builder := &UpdateAiEntityReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UpdateAiEntityReqBody{},
+	}
+	return builder
+}
+
+func (builder *UpdateAiEntityReqBuilder) UpdateAiEntityParam(updateAiEntityParam []UpdateAiEntityParam) *UpdateAiEntityReqBuilder {
+	builder.apiReq.Body.(*UpdateAiEntityReqBody).UpdateAiEntityParam = updateAiEntityParam
+	return builder
+}
+
+func (builder *UpdateAiEntityReqBuilder) ProjectKey(projectKey string) *UpdateAiEntityReqBuilder {
+	builder.apiReq.Body.(*UpdateAiEntityReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *UpdateAiEntityReqBuilder) UserKey(userKey string) *UpdateAiEntityReqBuilder {
+	builder.apiReq.Body.(*UpdateAiEntityReqBody).UserKey = &userKey
+	return builder
+}
+
+func (builder *UpdateAiEntityReqBuilder) Build() *UpdateAiEntityReq {
+	req := &UpdateAiEntityReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type UpdateCompoundFieldValueReq struct {
 	apiReq *core.APIReq
 }

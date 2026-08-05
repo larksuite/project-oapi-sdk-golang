@@ -122,12 +122,29 @@ func (translator *ReqTranslator) payload(body interface{}) (string, []byte, erro
 	if fd, ok := body.(*FormData); ok {
 		return fd.content()
 	}
+	if rd, ok := body.(*RawData); ok {
+		return rd.contentType, rd.content, nil
+	}
 	contentType := defaultContentType
 	if body == nil {
 		return contentType, nil, nil
 	}
 	bs, err := json.Marshal(body)
 	return contentType, bs, err
+}
+
+// RawData 用于以原始二进制流作为请求体（例如分片上传），
+// body 中不再包裹其余参数。
+type RawData struct {
+	contentType string
+	content     []byte
+}
+
+func NewRawData(content []byte, contentType string) *RawData {
+	if contentType == "" {
+		contentType = "application/octet-stream"
+	}
+	return &RawData{content: content, contentType: contentType}
 }
 
 func NewFormdata() *FormData {

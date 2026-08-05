@@ -34,6 +34,30 @@ func (resp APIResp) JSONUnmarshalBody(val interface{}, config *Config) error {
 	return json.Unmarshal(resp.RawBody, val)
 }
 
+func (resp APIResp) JSONUnmarshalFileBody(val interface{}, config *Config) error {
+	if !strings.Contains(resp.Header.Get(contentTypeHeader), contentTypeJson) {
+		return fmt.Errorf("response content-type not json, response: %v", resp)
+	}
+	// 先解析业务数据（data 等字段）
+	if err := json.Unmarshal(resp.RawBody, val); err != nil {
+		return err
+	}
+	// file 接口错误结构为 {code, message, data}，需映射到 CodeError
+	var fileResp struct {
+		Code    int    `json:"code"`
+		Message string `json:"message"`
+	}
+	if err := json.Unmarshal(resp.RawBody, &fileResp); err != nil {
+		return err
+	}
+	if setter, ok := val.(interface {
+		setFileCodeError(code int, message string)
+	}); ok {
+		setter.setFileCodeError(fileResp.Code, fileResp.Message)
+	}
+	return nil
+}
+
 func (resp APIResp) RequestId() string {
 	logID := resp.Header.Get(HTTPHeaderKeyLogID)
 	if logID != "" {
@@ -54,6 +78,15 @@ type CodeError struct {
 
 func (ce CodeError) Success() bool {
 	return ce.ErrCode == 0
+}
+
+// setFileCodeError 将 file 接口的 code/message 映射到 CodeError
+func (ce *CodeError) setFileCodeError(code int, message string) {
+	ce.ErrCode = code
+	ce.ErrMsg = message
+
+	ce.Err.Code = code
+	ce.Err.Msg = message
 }
 
 func (ce CodeError) Code() int {
@@ -106,4 +139,9 @@ func FileNameByHeader(header http.Header) string {
 		filename = media["filename"]
 	}
 	return filename
+}
+
+func MimeTypeByHeader(header http.Header) string {
+	mimeType, _, _ := mime.ParseMediaType(header.Get(contentTypeHeader))
+	return mimeType
 }

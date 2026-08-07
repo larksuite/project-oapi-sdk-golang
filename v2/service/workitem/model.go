@@ -715,6 +715,8 @@ type NodeField struct {
 
     FieldValueMarkdown  *WorkItem_work_item_RichTextMarkDown `json:"field_value_markdown,omitempty"`
 
+    FieldName  *string `json:"field_name,omitempty"`
+
 }
 
 type NodeFinishedConclusion struct {
@@ -947,54 +949,6 @@ type OAPIFinishedOpinionOwnersResultItem struct {
 
 }
 
-type OAPIOperationRecord struct {
-
-    ProjectKey  *string `json:"project_key,omitempty"`
-
-    OperationType  *string `json:"operation_type,omitempty"`
-
-    OperationTime  *int64 `json:"operation_time,omitempty"`
-
-    WorkItemID  *int64 `json:"work_item_id,omitempty"`
-
-    OperatorType  *string `json:"operator_type,omitempty"`
-
-    Operator  *string `json:"operator,omitempty"`
-
-    OpRecordModule  *string `json:"op_record_module,omitempty"`
-
-    SourceType  *string `json:"source_type,omitempty"`
-
-    Source  *string `json:"source,omitempty"`
-
-    RecordContents  []OAPIRecordContent `json:"record_contents,omitempty"`
-
-    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
-
-}
-
-type OAPIRecordContent struct {
-
-    Object  *OpRecordObject `json:"object,omitempty"`
-
-    ObjectProperty  *string `json:"object_property,omitempty"`
-
-    Old  []string `json:"old,omitempty"`
-
-    New  []string `json:"new,omitempty"`
-
-    Add  []string `json:"add,omitempty"`
-
-    Delete  []string `json:"delete,omitempty"`
-
-    StatusValues  []ObjectStatusValue `json:"status_values,omitempty"`
-
-    BelongObject  []OpRecordObject `json:"belong_object,omitempty"`
-
-    Extra  map[string][]string `json:"extra,omitempty"`
-
-}
-
 type OAPIResourceCreateInstanceResponseData struct {
 
     WorkItemID  *int64 `json:"work_item_id,omitempty"`
@@ -1008,24 +962,6 @@ type OAPIResourceCreateInstanceResponseDataIgnoreCreateInfo struct {
     FieldKeys  []string `json:"field_keys,omitempty"`
 
     RoleIDs  []string `json:"role_ids,omitempty"`
-
-}
-
-type ObjectStatusValue struct {
-
-    ObjectType  *string `json:"object_type,omitempty"`
-
-    ObjectProperty  *string `json:"object_property,omitempty"`
-
-    Values  []string `json:"values,omitempty"`
-
-}
-
-type OpRecordObject struct {
-
-    ObjectType  *string `json:"object_type,omitempty"`
-
-    ObjectValue  *string `json:"object_value,omitempty"`
 
 }
 

@@ -27,12 +27,13 @@ import (
 // 上传文件（表单）接口参数构造器
 type UploadFileByFormReqBuilder struct {
 	apiReq *core.APIReq
-	body   *core.FormData
+	body   *formPayload
 }
 
 // 上传文件（表单）接口参数
 type UploadFileByFormReq struct {
 	apiReq *core.APIReq
+	form   *formPayload
 }
 
 // 上传文件（表单）接口响应
@@ -47,7 +48,7 @@ func NewUploadFileByFormReqBuilder() *UploadFileByFormReqBuilder {
 	builder.apiReq = &core.APIReq{
 		PathParams: core.PathParams{},
 	}
-	builder.body = core.NewFormdata()
+	builder.body = newFormPayload()
 	return builder
 }
 
@@ -61,31 +62,39 @@ func (builder *UploadFileByFormReqBuilder) ResourceType(resourceType string) *Up
 	return builder
 }
 
+// File 设置上传文件流（文件名默认 unknown-file）。需另调 FileSize 设置字节数。
 func (builder *UploadFileByFormReqBuilder) File(file io.Reader) *UploadFileByFormReqBuilder {
-	builder.body.AddFile("unknown-file", file)
+	builder.body.setFile("unknown-file", file)
 	return builder
 }
 
+// FileWithFileName 设置带文件名的上传文件流。需另调 FileSize 设置字节数。
 func (builder *UploadFileByFormReqBuilder) FileWithFileName(fileName string, file io.Reader) *UploadFileByFormReqBuilder {
-	builder.body.AddFile(fileName, file)
+	builder.body.setFile(fileName, file)
+	return builder
+}
+
+// FileSize 设置文件字节数，必须等于 File/FileWithFileName 传入流的可读字节数（用于预算 Content-Length）。
+func (builder *UploadFileByFormReqBuilder) FileSize(size int64) *UploadFileByFormReqBuilder {
+	builder.body.setFileSize(size)
 	return builder
 }
 
 func (builder *UploadFileByFormReqBuilder) FileMimeType(mimeType string) *UploadFileByFormReqBuilder {
-	builder.body.SetMimeType(mimeType)
+	builder.body.mimeType = mimeType
 	return builder
 }
 
 func (builder *UploadFileByFormReqBuilder) FieldMap(fieldMap map[string]string) *UploadFileByFormReqBuilder {
 	bs, _ := json.Marshal(fieldMap)
-	builder.body.AddField("field_map", string(bs))
+	builder.body.addField("field_map", string(bs))
 	return builder
 }
 
 func (builder *UploadFileByFormReqBuilder) Build() *UploadFileByFormReq {
 	req := &UploadFileByFormReq{}
 	req.apiReq = builder.apiReq
-	req.apiReq.Body = builder.body
+	req.form = builder.body
 	return req
 }
 
@@ -262,9 +271,14 @@ func (builder *UploadPartReqBuilder) Md5(md5 string) *UploadPartReqBuilder {
 	return builder
 }
 
-// 分片二进制内容（流式）：file 为该分片的可读流，size 为该分片字节数
-func (builder *UploadPartReqBuilder) File(file io.Reader, size int64) *UploadPartReqBuilder {
+// File 设置分片二进制流。需另调 FileSize 设置该分片字节数。
+func (builder *UploadPartReqBuilder) File(file io.Reader) *UploadPartReqBuilder {
 	builder.body = file
+	return builder
+}
+
+// FileSize 设置分片字节数，必须等于 File 传入流的可读字节数。
+func (builder *UploadPartReqBuilder) FileSize(size int64) *UploadPartReqBuilder {
 	builder.bodyLen = size
 	return builder
 }
@@ -419,9 +433,14 @@ func (builder *MultipartUploadReqBuilder) ResourceID(resourceID string) *Multipa
 	return builder
 }
 
-// 完整文件内容（流式）：file 为支持随机读的源（*os.File / bytes.NewReader 均可），size 为文件总字节数
-func (builder *MultipartUploadReqBuilder) File(file io.ReaderAt, size int64) *MultipartUploadReqBuilder {
+// File 设置完整文件内容源（支持随机读：*os.File / bytes.NewReader）。需另调 FileSize 设置总字节数。
+func (builder *MultipartUploadReqBuilder) File(file io.ReaderAt) *MultipartUploadReqBuilder {
 	builder.content = file
+	return builder
+}
+
+// FileSize 设置文件总字节数，必须等于 File 传入源的字节数。
+func (builder *MultipartUploadReqBuilder) FileSize(size int64) *MultipartUploadReqBuilder {
 	builder.size = size
 	return builder
 }

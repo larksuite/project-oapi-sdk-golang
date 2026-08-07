@@ -68,7 +68,10 @@ func (a *FileService) UploadFileByForm(ctx context.Context, req *UploadFileByFor
 	apiReq := req.apiReq
 	apiReq.ApiPath = ApiPathUploadFileByForm
 	apiReq.HttpMethod = http.MethodPost
-	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	// 流式编码 multipart body（io.Pipe），Content-Length 预算已知，走自建链路避免全量缓冲
+	contentType, body, bodyLen := req.form.streamBody()
+	apiResp, err := a.doStreamRequest(ctx, apiReq.HttpMethod, apiReq.ApiPath,
+		apiReq.PathParams, apiReq.QueryParams, contentType, body, bodyLen, options...)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[UploadFileByForm] fail to invoke api, error: %v", err.Error()))
 		return nil, err
@@ -202,9 +205,9 @@ func (a *FileService) MultipartUpload(ctx context.Context, req *MultipartUploadR
 			ProjectKey(req.projectKey).
 			ResourceType(req.resourceType)
 		if req.fileName != "" {
-			formBuilder.FileWithFileName(req.fileName, io.NewSectionReader(req.content, 0, req.size))
+			formBuilder.FileWithFileName(req.fileName, io.NewSectionReader(req.content, 0, req.size)).FileSize(req.size)
 		} else {
-			formBuilder.File(io.NewSectionReader(req.content, 0, req.size))
+			formBuilder.File(io.NewSectionReader(req.content, 0, req.size)).FileSize(req.size)
 		}
 		if req.mimeType != "" {
 			formBuilder.FileMimeType(req.mimeType)
@@ -366,7 +369,8 @@ func (a *FileService) uploadParts(ctx context.Context, projectKey, resourceID st
 					ResourceID(resourceID).
 					PartNumber(pn).
 					Md5(hex.EncodeToString(h.Sum(nil))).
-					File(io.NewSectionReader(file, start, length), length).
+					File(io.NewSectionReader(file, start, length)).
+					FileSize(length).
 					Build(),
 				options...)
 			if err != nil {

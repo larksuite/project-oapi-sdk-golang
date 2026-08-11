@@ -84,6 +84,8 @@ const APIPath_GetWorkFlow = "/open_api/:project_key/work_item/:work_item_type_ke
 
 const APIPath_GetWorkItemManHourRecords = "/open_api/work_item/man_hour/records"
 
+const APIPath_GetWorkItemOpRecord = "/open_api/op_record/work_item/list"
+
 const APIPath_GetWorkItemTransRequiredItem = "/open_api/work_item/transition_required_info/get"
 
 const APIPath_GetWorkItemTypeInfoByKey = "/open_api/:project_key/work_item/type/:work_item_type_key"
@@ -1107,6 +1109,30 @@ func (a *WorkItemService) GetWorkItemManHourRecords(ctx context.Context, req *Ge
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
 	if err != nil {
 		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemManHourRecords] fail to unmarshal response body, error: %v", err.Error()))
+		return nil, err
+	}
+	return resp, err
+}
+
+/*
+ * @name:OAPIPageGetWorkItemOpRecord
+ * @desc:OpenAPI，查询操作记录详情
+ */
+func (a *WorkItemService) GetWorkItemOpRecord(ctx context.Context, req *GetWorkItemOpRecordReq, options ...core.RequestOptionFunc) (*GetWorkItemOpRecordResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = APIPath_GetWorkItemOpRecord
+	apiReq.HttpMethod = "POST"
+	apiResp, err := core.Request(ctx, apiReq, a.config, options...)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemOpRecord] fail to invoke api, error: %v", err.Error()))
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &GetWorkItemOpRecordResp{APIResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		a.config.Logger.Error(ctx, fmt.Sprintf("[GetWorkItemOpRecord] fail to unmarshal response body, error: %v", err.Error()))
 		return nil, err
 	}
 	return resp, err

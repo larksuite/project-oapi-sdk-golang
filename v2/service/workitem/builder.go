@@ -2605,6 +2605,120 @@ func (builder *GetWorkItemManHourRecordsReqBuilder) Build() *GetWorkItemManHourR
 	return req
 }
 
+type GetWorkItemOpRecordReq struct {
+	apiReq *core.APIReq
+}
+type GetWorkItemOpRecordReqBody struct {
+    ProjectKey  *string `json:"project_key,omitempty"`
+    WorkItemIDs  []int64 `json:"work_item_ids,omitempty"`
+    StartFrom  *string `json:"start_from,omitempty"`
+    Operator  []string `json:"operator,omitempty"`
+    OperatorType  []string `json:"operator_type,omitempty"`
+    SourceType  []string `json:"source_type,omitempty"`
+    Source  []string `json:"source,omitempty"`
+    OperationType  []string `json:"operation_type,omitempty"`
+    Start  *int64 `json:"start,omitempty"`
+    End  *int64 `json:"end,omitempty"`
+    OpRecordModule  []string `json:"op_record_module,omitempty"`
+    PageSize  *int64 `json:"page_size,omitempty"`
+}
+type GetWorkItemOpRecordResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data      *GetWorkItemOpRecordRespData        `json:"data,omitempty"`
+}
+
+type GetWorkItemOpRecordRespData struct {
+	HasMore       *bool         `json:"has_more,omitempty"`
+	StartFrom       *string         `json:"start_from,omitempty"`
+	OpRecords       []OAPIOperationRecord         `json:"op_records,omitempty"`
+	Total       *int64         `json:"total,omitempty"`
+}
+
+type GetWorkItemOpRecordReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewGetWorkItemOpRecordReqBuilder() *GetWorkItemOpRecordReqBuilder {
+	builder := &GetWorkItemOpRecordReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &GetWorkItemOpRecordReqBody{},
+	}
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) ProjectKey(projectKey string) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *GetWorkItemOpRecordReqBuilder) WorkItemIDs(workItemIDs []int64) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).WorkItemIDs = workItemIDs
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) StartFrom(startFrom string) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).StartFrom = &startFrom
+	return builder
+}
+
+
+func (builder *GetWorkItemOpRecordReqBuilder) Operator(operator []string) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).Operator = operator
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) OperatorType(operatorType []string) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).OperatorType = operatorType
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) SourceType(sourceType []string) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).SourceType = sourceType
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) Source(source []string) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).Source = source
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) OperationType(operationType []string) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).OperationType = operationType
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) Start(start int64) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).Start = &start
+	return builder
+}
+
+
+func (builder *GetWorkItemOpRecordReqBuilder) End(end int64) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).End = &end
+	return builder
+}
+
+
+func (builder *GetWorkItemOpRecordReqBuilder) OpRecordModule(opRecordModule []string) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).OpRecordModule = opRecordModule
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) PageSize(pageSize int64) *GetWorkItemOpRecordReqBuilder {
+	builder.apiReq.Body.(*GetWorkItemOpRecordReqBody).PageSize = &pageSize
+	return builder
+}
+
+func (builder *GetWorkItemOpRecordReqBuilder) Build() *GetWorkItemOpRecordReq {
+	req := &GetWorkItemOpRecordReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type GetWorkItemTransRequiredItemReq struct {
 	apiReq *core.APIReq
 }

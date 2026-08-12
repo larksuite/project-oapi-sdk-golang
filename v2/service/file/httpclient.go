@@ -113,13 +113,15 @@ func (a *FileService) doStreamRequest(ctx context.Context, method, apiPath strin
 	body io.Reader, bodyLen int64, options ...core.RequestOptionFunc) (*core.APIResp, error) {
 	rawURL, err := a.buildURL(apiPath, pathParams, query)
 	if err != nil {
+		closeBody(body)
 		return nil, err
 	}
 	req, err := a.newRequest(ctx, method, rawURL, contentType, body, bodyLen, options...)
 	if err != nil {
+		closeBody(body)
 		return nil, err
 	}
-	resp, err := a.httpClient().Do(req)
+	resp, err := a.httpClient().Do(req) // Do 之后 req.Body 由 net/http 负责关闭
 	if err != nil {
 		return nil, err
 	}
@@ -129,6 +131,14 @@ func (a *FileService) doStreamRequest(ctx context.Context, method, apiPath strin
 		return nil, err
 	}
 	return &core.APIResp{StatusCode: resp.StatusCode, Header: resp.Header, RawBody: raw}, nil
+}
+
+// closeBody 在请求未进入 Do() 便提前返回时关闭 body，避免 streamBody 的 pipe 写端 goroutine 永久阻塞。
+// 对未实现 io.Closer 的 body（如 *io.SectionReader）为无操作。
+func closeBody(body io.Reader) {
+	if c, ok := body.(io.Closer); ok {
+		_ = c.Close()
+	}
 }
 
 // doStreamDownload 下载方向：不读 body，直接把 *http.Response 交回调用方（由其决定读/Close）。

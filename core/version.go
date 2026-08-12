@@ -16,4 +16,4 @@
 
 package core
 
-const version = "v1.0.23"
+const version = "v1.0.24"

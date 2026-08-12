@@ -715,6 +715,8 @@ type NodeField struct {
 
     FieldValueMarkdown  *WorkItem_work_item_RichTextMarkDown `json:"field_value_markdown,omitempty"`
 
+    FieldName  *string `json:"field_name,omitempty"`
+
 }
 
 type NodeFinishedConclusion struct {

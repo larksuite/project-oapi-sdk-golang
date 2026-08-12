@@ -69,6 +69,59 @@ func (builder *CreateCommentReqBuilder) Build() *CreateCommentReq {
 	return req
 }
 
+type CreateCommentNewReq struct {
+	apiReq *core.APIReq
+}
+type CreateCommentNewReqBody struct {
+    Object  *BizObject `json:"object,omitempty"`
+    ProjectKey  *string `json:"project_key,omitempty"`
+    Content  *MutateCreateContent `json:"content,omitempty"`
+}
+type CreateCommentNewResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data      *CreateCommentNewRespData        `json:"data,omitempty"`
+}
+
+type CreateCommentNewRespData struct {
+	CommentID       *string         `json:"comment_id,omitempty"`
+}
+
+type CreateCommentNewReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewCreateCommentNewReqBuilder() *CreateCommentNewReqBuilder {
+	builder := &CreateCommentNewReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &CreateCommentNewReqBody{},
+	}
+	return builder
+}
+
+func (builder *CreateCommentNewReqBuilder) Object(object *BizObject) *CreateCommentNewReqBuilder {
+	builder.apiReq.Body.(*CreateCommentNewReqBody).Object = object
+	return builder
+}
+
+func (builder *CreateCommentNewReqBuilder) ProjectKey(projectKey string) *CreateCommentNewReqBuilder {
+	builder.apiReq.Body.(*CreateCommentNewReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *CreateCommentNewReqBuilder) Content(content *MutateCreateContent) *CreateCommentNewReqBuilder {
+	builder.apiReq.Body.(*CreateCommentNewReqBody).Content = content
+	return builder
+}
+func (builder *CreateCommentNewReqBuilder) Build() *CreateCommentNewReq {
+	req := &CreateCommentNewReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
 type DeleteCommentReq struct {
 	apiReq *core.APIReq
 }
@@ -115,6 +168,49 @@ func (builder *DeleteCommentReqBuilder) CommentID(commentID int64) *DeleteCommen
 
 func (builder *DeleteCommentReqBuilder) Build() *DeleteCommentReq {
 	req := &DeleteCommentReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type DeleteCommentNewReq struct {
+	apiReq *core.APIReq
+}
+type DeleteCommentNewReqBody struct {
+    CommentID  *string `json:"comment_id,omitempty"`
+    ProjectKey  *string `json:"project_key,omitempty"`
+}
+type DeleteCommentNewResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type DeleteCommentNewReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewDeleteCommentNewReqBuilder() *DeleteCommentNewReqBuilder {
+	builder := &DeleteCommentNewReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &DeleteCommentNewReqBody{},
+	}
+	return builder
+}
+
+func (builder *DeleteCommentNewReqBuilder) CommentID(commentID string) *DeleteCommentNewReqBuilder {
+	builder.apiReq.Body.(*DeleteCommentNewReqBody).CommentID = &commentID
+	return builder
+}
+
+
+func (builder *DeleteCommentNewReqBuilder) ProjectKey(projectKey string) *DeleteCommentNewReqBuilder {
+	builder.apiReq.Body.(*DeleteCommentNewReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+func (builder *DeleteCommentNewReqBuilder) Build() *DeleteCommentNewReq {
+	req := &DeleteCommentNewReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
@@ -175,6 +271,67 @@ func (builder *ListCommentsReqBuilder) PageNum(pageNum int64) *ListCommentsReqBu
 
 func (builder *ListCommentsReqBuilder) Build() *ListCommentsReq {
 	req := &ListCommentsReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type QueryCommentNewReq struct {
+	apiReq *core.APIReq
+}
+type QueryCommentNewReqBody struct {
+    Object  *BizObject `json:"object,omitempty"`
+    ProjectKey  *string `json:"project_key,omitempty"`
+    NeedRichTextMarkDown  *bool `json:"need_rich_text_mark_down,omitempty"`
+    Paginator  *Paginator `json:"paginator,omitempty"`
+}
+type QueryCommentNewResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+	Data      *QueryCommentNewRespData        `json:"data,omitempty"`
+}
+
+type QueryCommentNewRespData struct {
+	Comments       []Comment         `json:"comments,omitempty"`
+	NextCursor       *string         `json:"next_cursor,omitempty"`
+}
+
+type QueryCommentNewReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewQueryCommentNewReqBuilder() *QueryCommentNewReqBuilder {
+	builder := &QueryCommentNewReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &QueryCommentNewReqBody{},
+	}
+	return builder
+}
+
+func (builder *QueryCommentNewReqBuilder) Object(object *BizObject) *QueryCommentNewReqBuilder {
+	builder.apiReq.Body.(*QueryCommentNewReqBody).Object = object
+	return builder
+}
+
+func (builder *QueryCommentNewReqBuilder) ProjectKey(projectKey string) *QueryCommentNewReqBuilder {
+	builder.apiReq.Body.(*QueryCommentNewReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *QueryCommentNewReqBuilder) NeedRichTextMarkDown(needRichTextMarkDown bool) *QueryCommentNewReqBuilder {
+	builder.apiReq.Body.(*QueryCommentNewReqBody).NeedRichTextMarkDown = &needRichTextMarkDown
+	return builder
+}
+
+
+func (builder *QueryCommentNewReqBuilder) Paginator(paginator *Paginator) *QueryCommentNewReqBuilder {
+	builder.apiReq.Body.(*QueryCommentNewReqBody).Paginator = paginator
+	return builder
+}
+func (builder *QueryCommentNewReqBuilder) Build() *QueryCommentNewReq {
+	req := &QueryCommentNewReq{}
 	req.apiReq = builder.apiReq
 	return req
 }
@@ -241,6 +398,55 @@ func (builder *UpdateCommentReqBuilder) RichText(richText interface{}) *UpdateCo
 }
 func (builder *UpdateCommentReqBuilder) Build() *UpdateCommentReq {
 	req := &UpdateCommentReq{}
+	req.apiReq = builder.apiReq
+	return req
+}
+
+type UpdateCommentNewReq struct {
+	apiReq *core.APIReq
+}
+type UpdateCommentNewReqBody struct {
+    CommentID  *string `json:"comment_id,omitempty"`
+    ProjectKey  *string `json:"project_key,omitempty"`
+    Content  *MutateUpdateContent `json:"content,omitempty"`
+}
+type UpdateCommentNewResp struct {
+	*core.APIResp `json:"-"`
+	core.CodeError
+}
+
+type UpdateCommentNewReqBuilder struct {
+	apiReq *core.APIReq
+}
+
+func NewUpdateCommentNewReqBuilder() *UpdateCommentNewReqBuilder {
+	builder := &UpdateCommentNewReqBuilder{}
+	builder.apiReq = &core.APIReq{
+		PathParams:  core.PathParams{},
+		QueryParams: core.QueryParams{},
+		Body:        &UpdateCommentNewReqBody{},
+	}
+	return builder
+}
+
+func (builder *UpdateCommentNewReqBuilder) CommentID(commentID string) *UpdateCommentNewReqBuilder {
+	builder.apiReq.Body.(*UpdateCommentNewReqBody).CommentID = &commentID
+	return builder
+}
+
+
+func (builder *UpdateCommentNewReqBuilder) ProjectKey(projectKey string) *UpdateCommentNewReqBuilder {
+	builder.apiReq.Body.(*UpdateCommentNewReqBody).ProjectKey = &projectKey
+	return builder
+}
+
+
+func (builder *UpdateCommentNewReqBuilder) Content(content *MutateUpdateContent) *UpdateCommentNewReqBuilder {
+	builder.apiReq.Body.(*UpdateCommentNewReqBody).Content = content
+	return builder
+}
+func (builder *UpdateCommentNewReqBuilder) Build() *UpdateCommentNewReq {
+	req := &UpdateCommentNewReq{}
 	req.apiReq = builder.apiReq
 	return req
 }

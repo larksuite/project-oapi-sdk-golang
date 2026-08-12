@@ -46,6 +46,12 @@ func (m *TokenManager) getAccessToken(ctx context.Context, config *Config) (stri
 	return token, nil
 }
 
+// GetAccessToken 供包外（如 file 服务自建 HTTP 链路）复用「自动 token 缓存」。
+// 语义与内部 translate 使用的 tokenManager.getAccessToken 完全一致。
+func GetAccessToken(ctx context.Context, config *Config) (string, error) {
+	return tokenManager.getAccessToken(ctx, config)
+}
+
 func (m *TokenManager) set(ctx context.Context, key, value string, ttl time.Duration) error {
 	return m.cache.Set(ctx, key, value, ttl)
 }

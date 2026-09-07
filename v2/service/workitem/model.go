@@ -215,6 +215,18 @@ type Connection struct {
 
 }
 
+type ContainedWorkItemsInfo struct {
+
+    WorkItems  []WorkItemRef `json:"work_items,omitempty"`
+
+}
+
+type ContainedWorkItemsParam struct {
+
+    WorkItems  []WorkItemRef `json:"work_items,omitempty"`
+
+}
+
 type CreateWorkItemRelationData struct {
 
     RelationID  *string `json:"relation_id,omitempty"`
@@ -1190,6 +1202,18 @@ type Pagination struct {
     PageSize  *int64 `json:"page_size,omitempty"`
 
     Total  *int64 `json:"total,omitempty"`
+
+}
+
+type ParentProductInfo struct {
+
+    WorkItem  *WorkItemRef `json:"work_item,omitempty"`
+
+}
+
+type ParentProductParam struct {
+
+    WorkItem  *WorkItemRef `json:"work_item,omitempty"`
 
 }
 
@@ -2521,6 +2545,16 @@ type WorkItemKeyType struct {
 
 }
 
+type WorkItemRef struct {
+
+    ProjectKey  *string `json:"project_key,omitempty"`
+
+    WorkItemTypeKey  *string `json:"work_item_type_key,omitempty"`
+
+    WorkItemID  *int64 `json:"work_item_id,omitempty"`
+
+}
+
 type WorkItemRelation struct {
 
     ID  *string `json:"id,omitempty"`
@@ -2987,6 +3021,10 @@ type WorkItem_work_item_WorkItemInfo struct {
 
     ParentWorkItem  []ParentWorkItem `json:"parent_work_item,omitempty"`
 
+    ParentProduct  *ParentProductInfo `json:"parent_product,omitempty"`
+
+    ContainedWorkItems  *ContainedWorkItemsInfo `json:"contained_work_items,omitempty"`
+
 }
 
 type WorkItem_work_item_WorkItemStatus struct {
@@ -3047,7 +3085,7 @@ type WorkItem_work_item_WorkflowNode struct {
 
     FinishedInfos  *FinishedInfo `json:"finished_infos,omitempty"`
 
-    Checker  []WorkItem_work_item_Checker `json:"checker,omitempty"`
+    Checkers  []WorkItem_work_item_Checker `json:"checkers,omitempty"`
 
     NodeSubWorkItemDetail  []NodeSubWorkItemDetail `json:"node_sub_workitem_detail,omitempty"`
 
